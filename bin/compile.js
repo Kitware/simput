@@ -1,6 +1,6 @@
 var webpack = require('webpack'),
-    path = require("path"),
-    fs = require("fs");
+    path = require('path'),
+    fs = require('fs');
  
 require('shelljs/global');
 
@@ -94,9 +94,9 @@ module.exports = function (directory, modelType, output) {
             console.warn('built with warnings.');
             console.warn(jsonStats.warnings);
         } else {
-            console.log('built.');
+            console.log('built ' + path.join(output,modelType) + '.js, cleaning up');
+            cleanup(directory);
         }
-        //rm(path.join(directory, 'index.js'));
     });
 }
 
@@ -117,4 +117,9 @@ function writeIndexList(directory) {
     
     list += '}\n';
     fs.writeFileSync(path.join(directory, 'index.js'), list);
+}
+
+function cleanup(directory) {
+    cd(directory);
+    exec('find . -name index.js -exec rm {} \\;');
 }
