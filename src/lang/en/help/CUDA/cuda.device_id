@@ -1,0 +1,1 @@
+<p>method for selecting which device(s) to run on - <em>int | round-robin | local-rank</em></p>
