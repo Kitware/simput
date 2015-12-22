@@ -1,6 +1,6 @@
 {
   "name": "simput",
-  "description": "Provide a simple way to write input simpulation files.",
+  "description": "Provide a simple way to write input simulation files.",
   "license": "BSD-3-Clause",
   "version": "0.0.0-semantically-release",
   "main": "./lib/simput.js",
@@ -9,10 +9,20 @@
     "url": "https://github.com/Kitware/simput.git"
   },
   "dependencies": {
+    "babel-core": "5.8.22",
+    "babel-loader": "5.3.2",
     "commander": "2.8.1",
+    "expose-loader": "0.7.0",
     "express": "^4.13.3",
+    "file-loader": "0.8.4",
+    "html-loader": "^0.4.0",
+    "jade-loader": "^0.8.0",
+    "json-loader": "^0.5.2",
+    "node-libs-browser": "0.5.2",
     "open": "0.0.5",
-    "shelljs": "0.5.3"
+    "shelljs": "0.5.3",
+    "url-loader": "0.5.6",
+    "webpack": "1.11.0"
   },
   "devDependencies": {
     "tonic-io": "1.1.5",

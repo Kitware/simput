@@ -1,7 +1,8 @@
 var fs = require('fs'),
     path = require('path'),
     home = process.env.HOME,
-    simputFolder = path.join(home, '.Simput/');
+    simputFolder = path.join(home, '.Simput/'),
+    Simput = null;
 
 require('shelljs/global');
 
