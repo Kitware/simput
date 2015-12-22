@@ -1,11 +1,11 @@
-var template = require('./templates/output.jade');
-
-module.exports = function (model) {
+function(defs, model) {
     var templateDataModel = { data: {}, valid: true , errors: []},
         viewInstance = null,
         count = 0,
         list = null;
 
+    console.log(defs, model);
+    
     //BACKEND
     templateDataModel.data.backend = {}
     try {
@@ -97,21 +97,6 @@ module.exports = function (model) {
         templateDataModel.valid = false;
     }
 
-    // SOLVER SOURCE
-    templateDataModel.data.solver.source = {};
-    try {
-        var solver = model.data.solver[0]['Source'];
-        templateDataModel.data.solver.source.rho = solver['solver.source.rho'];
-        templateDataModel.data.solver.source.rhou = solver['solver.source.rhou'];
-        templateDataModel.data.solver.source.rhov = solver['solver.source.rhov'];
-        templateDataModel.data.solver.source.rhow = solver['solver.source.rhow'];
-        templateDataModel.data.solver.source.E = solver['solver.source.E'];
-    } catch(error) {
-        templateDataModel.errors.push('Solver source not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-
     // SOLVER INTERFACE
     templateDataModel.data.solver.interfaces = {};
     try {
@@ -144,21 +129,26 @@ module.exports = function (model) {
     }
 
     // SOLVER ELEMENTS
-    templateDataModel.data.solver_elements = {};
+    templateDataModel.data.solver_elements = [];
     try {
-        var elements = model.data['solver-elements'][0],
-            active = elements.or[0].active,
-            types = {'triangular': 'tri', 'quadrilateral': 'quad', 
-                'hexahedral': 'hex', 'tetrihedral': 'tet', 
-                'prismatic': 'pri', 'pyramidal': 'pyr'},
-            valuesKey = active + '-el';
-            
-        templateDataModel.data.solver_elements.type = 'solver-elements-' + types[active.toLowerCase()];
-        templateDataModel.data.solver_elements.soln_pts = elements[valuesKey]['solver.elements.soln_pts'];
-        templateDataModel.data.solver_elements.quad_deg = elements[valuesKey]['solver.elements.quad_deg'];
-        templateDataModel.data.solver_elements.quad_pts = elements[valuesKey]['solver.elements.quad_pts'];
+        var elements = model.data['solver-elements'];
+        if (elements && elements.length > 0) {
+            for (var i=0; i < elements.length; i++) {
+                var active = elements[i].or[0].active,
+                    types = {'triangular': 'tri', 'quadrilateral': 'quad', 
+                        'hexahedral': 'hex', 'tetrihedral': 'tet', 
+                        'prismatic': 'pri', 'pyramidal': 'pyr'},
+                    valuesKey = active + '-el',
+                    current = {};
+                current.type = 'solver-elements-' + types[active.toLowerCase()];
+                current.soln_pts = elements[valuesKey]['solver.elements.soln_pts'];
+                current.quad_deg = elements[valuesKey]['solver.elements.quad_deg'];
+                current.quad_pts = elements[valuesKey]['solver.elements.quad_pts'];
+                templateDataModel.data.solver_elements.push(current);
+            }
+        }      
     } catch(error) {
-        templateDataModel.errors.push('Solver interface type not valid');
+        templateDataModel.errors.push('Solver element not valid');
         templateDataModel.errors.push('=> ' + error.message);
         templateDataModel.valid = false;
     }
@@ -178,9 +168,27 @@ module.exports = function (model) {
         templateDataModel.valid = false;
     }
     
-    templateDataModel.data.solution = {};
+    // SOLN PLUGIN FLUIDFORCE
+    if (model.data['solution-ff']) {
+        templateDataModel.data.solution_ff = [];
+        model.data['solution-ff'].forEach(function(el) {
+            try {
+                var output = {name: el.name},
+                    current = el['Plugin Fluidforce Name'];
+                output.file = current['solution.plugin_fluidforce.file'];
+                output.nsteps = current['solution.plugin_fluidforce.nsteps'];
+                output.header = current['solution.plugin_fluidforce.header'];
+                templateDataModel.data.solution_ff.push(output);
+            } catch(error) {
+                templateDataModel.errors.push('Fluidforce for' + name + ' not valid');
+                templateDataModel.errors.push('=> ' + error.message);
+                templateDataModel.valid = false;
+            }
+        });
+    }
     
     //SOLUTIONS
+    templateDataModel.data.solution = {};
     model.data.solution.forEach(function(el) {
         var active = el.or[0].active,
             lowerActive = active.toLowerCase().replace(/ /g, '_'),
@@ -221,11 +229,6 @@ module.exports = function (model) {
         templateDataModel.data.bcs.push(output);
     });
     
-    console.log(templateDataModel);
-    return {
-        errors: templateDataModel.errors,
-        results: {
-            'pyfr.ini': template(templateDataModel)
-        }
-    };
+    console.log(templateDataModel.data);
+    return templateDataModel;
 }

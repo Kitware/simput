@@ -6,6 +6,7 @@
       "solver-interfaces",
       "solver-elements",
       "solution-bcs",
+      "solution-ff",
       "solution"
    ],
    "views" : {
@@ -13,9 +14,10 @@
       "constants"   : { "id": "constants","label" : "Constants", "attributes": [ "Constants" ] },
       "solver"      : { "id": "solver",   "label" : "Solver",    "attributes": [ "Solver-settings", "Time Integrator", "Artificial Viscosity", "Solver-source-terms", "Interfaces"] },
       "solver-interfaces": { "id": "solver-interfaces","label": "Solver Interfaces", "attributes": [["Linear-int", "Triangular-int", "Quadrilateral-int"]]},
-      "solver-elements":   { "id": "solver-elements",  "label": "Solver Elements",   "attributes": [["Triangular-el", "Quadrilateral-el", "Hexahedral-el", "Tetrahedral-el", "Prismatic-el", "Pyramidal-el"]]},
+      "solver-elements":   { "id": "solver-elements",  "label": "Solver Elements",   "attributes": [["Triangular-el", "Quadrilateral-el", "Hexahedral-el", "Tetrahedral-el", "Prismatic-el", "Pyramidal-el"]], "size": -1},
       "solution-bcs":      { "id": "solution-bcs", "label": "Boundary Conditions",   "attributes": [["char-riem-inv", "no-slp-adia-wall", "no-slp-isot-wall", "slp-adia-wall", "sub-in-frv", "sub-in-ftpttang", "sub-out-fp", "sup-in-fa", "sup-out-fn"]], "size": -1},
-      "solution":          { "id": "solution",         "label": "Solution",          "attributes": [["Filter", "Plugin Writer", "Plugin Fluidforce Name", "Plugin NaN check", "Plugin residual", "Plugin sampler", "Plugin Time average", "ics"]], "size": -1}
+      "solution-ff":       { "id": "solution-ff", "label": "Solution Fluidforce",    "attributes": ["Plugin Fluidforce Name"], "size": -1},
+      "solution":          { "id": "solution",         "label": "Solution",          "attributes": [["Filter", "Plugin Writer", "Plugin NaN check", "Plugin residual", "Plugin sampler", "Plugin Time average", "ics"]], "size": -1}
    },
    "definitions": {
       "Backend-settings": {
@@ -640,6 +642,14 @@
          "label": "Plugin Fluidforce Name",
          "parameters":[
             {
+               "id": "solution.plugin_fluidforce.name",
+               "label": "Name",
+               "type": "enum",
+               "size": 1,
+               "enum": {
+                  "external": "boundary-names"
+               }
+            }, {
                "id": "solution.plugin_fluidforce.nsteps",
                "label": "Integration interval",
                "type": "integer",
@@ -652,7 +662,8 @@
             },{
                "id": "solution.plugin_fluidforce.header",
                "label": "Output header row",
-               "type": "bool"
+               "type": "integer",
+               "size": 1
             }
          ]   
       },

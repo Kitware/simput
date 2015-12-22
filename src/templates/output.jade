@@ -55,7 +55,7 @@ if constants.cpTs
 | shock-capturing = #{solver.shock_capturing}
 | 
 
-if Object.keys(solver.ti).length > 0
+if solver.ti && Object.keys(solver.ti).length > 0
     | 
     | [solver-time-integrator]
     | scheme = #{solver.ti.scheme}
@@ -72,7 +72,7 @@ if Object.keys(solver.ti).length > 0
         | max-fact = #{solver.ti.max_fact}
         | 
 
-if Object.keys(solver.av).length > 0 
+if solver.av && Object.keys(solver.av).length > 0 
     | 
     | [solver-artificial-viscosity]
     | max_amu = #{solver.av.max_amu}
@@ -80,28 +80,17 @@ if Object.keys(solver.av).length > 0
     | kappa = #{solver.av.kappa}
     | 
 
-if Object.keys(solver.source).length > 0
-    | 
-    | [solver-source]
-    | rho = #{solver.source.rho}
-    | rhou = #{solver.source.rhou}
-    | rhov = #{solver.source.rhov}
-    | rhow = #{solver.source.rhow}
-    | E = #{solver.source.E}
-    | 
-
-
-if Object.keys(solver.source_terms).length > 0 
+if solver.source_terms && Object.keys(solver.source_terms).length > 0 
     | 
     | [solver-source-terms]
     | rho = #{solver.source_terms.rho}
     | rhou = #{solver.source_terms.rhou}
     | rhov = #{solver.source_terms.rhov}
-    | rhw = #{solver.source_terms.rhw}
+    | rhw = #{solver.source_terms.rhow}
     | E = #{solver.source_terms.E}
     | 
 
-if Object.keys(solver.interfaces).length > 0
+if solver.interfaces && Object.keys(solver.interfaces).length > 0
     | 
     | [solver-interfaces] 
     | riemann-solver = #{solver.interfaces.riemann}
@@ -109,7 +98,7 @@ if Object.keys(solver.interfaces).length > 0
     | ldg-tau = #{solver.interfaces.ldg_tau}
     | 
 
-if Object.keys(solver_interfaces).length > 0 
+if solver_interfaces && Object.keys(solver_interfaces).length > 0 
     | 
     | [#{solver_interfaces.type}]
     | flux-pts = #{solver_interfaces.flux_pts}
@@ -117,15 +106,16 @@ if Object.keys(solver_interfaces).length > 0
     | quad-pts = #{solver_interfaces.quad_pts}
     | 
     
-if Object.keys(solver_elements).length > 0 
-    | 
-    | [#{solver_elements.type}]
-    | soln-pts = #{solver_elements.soln_pts}
-    | quad-deg = #{solver_elements.quad_deg}
-    | quad-pts = #{solver_elements.quad_pts}
-    | 
+if solver_elements
+    each el in solver_elements
+        | 
+        | [#{el.type}]
+        | soln-pts = #{el.soln_pts}
+        | quad-deg = #{el.quad_deg}
+        | quad-pts = #{el.quad_pts}
+        | 
 
-if Object.keys(solution.filter).length > 0 
+if solution.filter && Object.keys(solution.filter).length > 0 
     | 
     | [soln-filter]
     | nsteps = #{solution.filter.nsteps}
@@ -140,14 +130,6 @@ if solution.plugin_writer
     | dt-out = #{solution.plugin_writer.dt_out}
     | basedir = #{solution.plugin_writer.basedir}
     | basename = #{solution.plugin_writer.basename}
-    | 
-
-if solution.plugin_fluidforce_name
-    | 
-    | [soln-plugin-fluidforce-name]
-    | nsteps = #{solution.plugin_fluidforce_name.nsteps}
-    | file = #{solution.plugin_fluidforce_name.file}
-    | header = #{solution.plugin_fluidforce_name.header}
     | 
     
 if solution.plugin_nan_check 
@@ -185,11 +167,21 @@ if solution.ics
     | w = #{solution.ics.w}
     | p = #{solution.ics.p}
     | 
-    
-each el in bcs 
-    | 
-    | [soln-bcs-#{el.name}]
-    | 
-    each item in el.items 
-        | #{item.name} = #{item.value}
+  
+if solution_ff  
+    each el in solution_ff
         | 
+        | [soln-plugin-fluidforce-#{el.name}]
+        | nsteps = #{el.nsteps}
+        | file = #{el.file}
+        | header = #{el.header}
+        |  
+    
+if bcs 
+    each el in bcs 
+        | 
+        | [soln-bcs-#{el.name}]
+        | 
+        each item in el.items 
+            | #{item.name} = #{item.value}
+            | 
