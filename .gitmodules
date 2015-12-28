@@ -1,0 +1,4 @@
+[submodule "types/pyfr"]
+	path = types/pyfr
+	url = https://github.com/Kitware/simput.git
+	branch = type-pyfr
