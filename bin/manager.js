@@ -58,6 +58,7 @@ function populateSimput() {
     ls(simputFolder).forEach(function(file) {
         require(path.join(simputFolder, file));
     });
+    Simput = GLOBAL.Simput;
 }
 
 function folderCheck() {

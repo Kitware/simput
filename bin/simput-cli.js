@@ -46,7 +46,8 @@ program
   .parse(process.argv);
   
 if (!process.argv.slice(2).length) {
-    return program.outputHelp();
+    program.outputHelp();
+    process.exit(0);
 }
 
 // inout

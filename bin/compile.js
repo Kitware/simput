@@ -1,6 +1,7 @@
 var webpack = require('webpack'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    fileToDelete = [];
  
 require('shelljs/global');
 
@@ -82,6 +83,7 @@ module.exports = function (directory, modelType, output) {
     schema = schema.replace('LANG', lang);
 
     fs.writeFileSync(path.join(directory, 'index.js'), 'module.exports = ' + schema);
+    fileToDelete.push(path.join(directory, 'index.js'));
     webpack(buildWebpackConfiguration(modelType, directory, output), function(err, stats){
         if (err) {
             throw err;
@@ -95,7 +97,7 @@ module.exports = function (directory, modelType, output) {
             console.warn(jsonStats.warnings);
         } else {
             console.log('built ' + path.join(output,modelType) + '.js, cleaning up');
-            cleanup(directory);
+            cleanup();
         }
     });
 }
@@ -117,9 +119,11 @@ function writeIndexList(directory) {
     
     list += '}\n';
     fs.writeFileSync(path.join(directory, 'index.js'), list);
+    fileToDelete.push(path.join(directory, 'index.js'));
 }
 
-function cleanup(directory) {
-    cd(directory);
-    exec('find . -name index.js -exec rm {} \\;');
+function cleanup() {
+    while(fileToDelete.length) {
+        rm(fileToDelete.pop());
+    }
 }
