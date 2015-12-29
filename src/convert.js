@@ -6,7 +6,7 @@ export default function(dataModel) {
 
     dataModel.data.AddressBook.forEach( person => {
         const key = [ person.firstName, person.lastName ].join(' ');
-        results[key] = vCardTemplate(person);
+        results[key+'.vcf'] = vCardTemplate(person);
     });
 
     return { results, error };
