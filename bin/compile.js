@@ -4,44 +4,44 @@ var webpack = require('webpack'),
  
 require('shelljs/global');
 
-function buildWebpackConfiguration(name, basepath, output, compress) {
+function buildWebpackConfiguration(name, basepath, outputPath, compress) {
     var plugins = [];
     if (compress) {
         plugins.push(
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
-                    warnings: false
-                }
+                    warnings: false,
+                },
             })
         );
     }
     return {
-            plugins: [],
             entry: basepath + '/index.js',
-        output: {
-          path: output,
-          filename: name + '.js',
-        },
-        plugins: plugins,
-        module: {
-          loaders: [
-            // { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },
-            // { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000" },
-            {
-              test: require.resolve(basepath + '/index.js'),
-              loader: 'expose?Simput.types.' + name
+            output : {
+                path: outputPath,
+                filename: name + '.js',
             },
-            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
-            { test: /\.css$/, loader: "style!css!autoprefixer?browsers=last 2 version" },
-            { test: /\.js$/i, exclude: /node_modules/, loader: "babel" },
-            { test: /\.json$/i, loader: 'json'},
-            { test: /\.jade$/i, loader: 'jade'}
-            // { test: /\.js$/i, include: /node_modules\/tonic-/, loader: "babel" },
-            // { test: /\.c$/i, include: /node_modules\/tonic-/, loader: "shader" },
-            // { test: /\.js$/, include: /node_modules\/react-contenteditable/, loader: "babel" }
-          ]
-        }
-    };
+            plugins,
+            module: {
+                loaders: [
+                    // { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },
+                    // { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000" },
+                    {
+                      test: require.resolve(basepath + '/index.js'),
+                      loader: 'expose?Simput.types.' + name,
+                    },
+                    { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
+                    { test: /\.css$/, loader: "style!css!autoprefixer?browsers=last 2 version" },
+                    { test: /\.js$/i, exclude: /node_modules/, loader: "babel" },
+                    { test: /\.json$/i, loader: 'json'},
+                    { test: /\.jade$/i, loader: 'jade'},
+                    { test: /\.hbs$/i, loader: 'handlebars'},
+                    // { test: /\.js$/i, include: /node_modules\/tonic-/, loader: "babel" },
+                    // { test: /\.c$/i, include: /node_modules\/tonic-/, loader: "shader" },
+                    // { test: /\.js$/, include: /node_modules\/react-contenteditable/, loader: "babel" }
+                ],
+            },
+        };
 }
 
 module.exports = function (directory, modelType, output) {

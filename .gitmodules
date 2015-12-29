@@ -2,3 +2,7 @@
 	path = types/pyfr
 	url = https://github.com/Kitware/simput.git
 	branch = type-pyfr
+[submodule "types/vcard"]
+	path = types/vcard
+	url = https://github.com/Kitware/simput.git
+	branch = type-vcard
