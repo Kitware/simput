@@ -1,5 +1,3 @@
-var webpack = require('webpack');
-
 module.exports = {
   plugins: [],
   entry: './lib/index.js',
@@ -12,8 +10,8 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "eslint-loader",
-        exclude: /node_modules/
-      }
+        exclude: /node_modules/,
+      },
     ],
     loaders: [
       { test: require.resolve("./lib/index.js"), loader: "expose?Simput" },
@@ -23,13 +21,10 @@ module.exports = {
       { test: /\.css$/, loader: "style-loader!css-loader!autoprefixer-loader?browsers=last 2 version" },
       { test: /\.c$/i, loader: "shader" },
       { test: /\.js$/, include: /node_modules\/tonic-/, loader: "babel?presets[]=react,presets[]=es2015" },
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015" }
-    ]
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015" },
+    ],
   },
   eslint: {
-    configFile: '.eslintrc'
+    configFile: '.eslintrc',
   },
-  externals: {
-    "three": "THREE"
-  }
 };

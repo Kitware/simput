@@ -2,17 +2,16 @@
 
 require('shelljs/global');
 
-var fs = require('fs'),
-    path = require('path'),
-    program = require('commander'),
-    express = require('express'),
-    
-    home = process.env.HOME,
-    simputFolder = path.join(home, '.Simput/'),
-    
-    simputCompiler = require('./compile'),
-    simputManager  = require('./manager'),
-    simputConverter= require('./converter');
+const path = require('path'),
+      program = require('commander'),
+      express = require('express');
+      
+const simputCompiler  = require('./compile'),
+      simputManager   = require('./manager'),
+      simputConverter = require('./converter');
+
+const home = process.env.HOME,
+      simputFolder = path.join(home, '.Simput/');
 
 function toAbsolutePath(relPath) {
   var ret;
@@ -56,36 +55,46 @@ if (program.input && program.output && !program.gui) {
 } else if (program.compile) {
   simputCompiler(toAbsolutePath(program.compile), program.type, program.output);
 } else if (program.output) {
-  var app = express();
+  const app = express();
   app.use(express.static(__dirname + "/../dist"));
     
   ls(simputFolder).forEach(function(file) {
-      require(path.join(simputFolder, file.split('.').shift()));
+      require(path.join(simputFolder, file));
   });
   
   var inputFile = null;
   if (program.input) {
     //load input
-    //inputFile = input
+    if(path.isAbsolute(program.input)) {
+      inputFile = require(program.input);
+    } else {
+      inputFile = require(path.join(process.env.PWD, program.input));
+    }
   }
   
   if (inputFile === null) {
     console.log('No valid json found in ' + program.output);
   }
   
-  app.route('/')
+  // app.route('/')
+  //   .get(function(req, res) {
+  //     res.send('index.html');
+  //   });
+
+  app.route('/type/*')
     .get(function(req, res) {
-      req.send('index.html');
-    });
+      var fileToServe = path.join(simputFolder, req.url.split('/').pop());
+      res.sendFile(fileToServe);
+    })
   
   app.route('/data')
     .get(function(req, res) {
       if (program.input) { 
         // send input file
-        res.send({input: true, data: file});
+        res.send({input: true, data: inputFile});
       } else {
         // send options for input
-        res.send({input: false, data: Object.keys(Simput.types)});
+        res.send({input: false, data: Object.keys(GLOBAL.Simput.types)});
       }
     })
     .post(function(req, res) {
