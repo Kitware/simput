@@ -1,0 +1,56 @@
+{
+   "order": [
+      "AddressBook"
+   ],
+   "views" : {
+      "AddressBook" : { 
+         "id": "AdressBook",  
+         "label" : "Address Book",   
+         "attributes": [ "person" ],
+         "size": -1
+      }
+   },
+   "definitions": {
+      "person": {
+         "label": "Person", 
+         "parameters": [
+            {
+               "id"     : "firstName",
+               "label"  : "First Name",
+               "type"   : "string",
+               "size"   : 1
+            },{
+               "id"     : "lastName",
+               "label"  : "Last Name",
+               "type"   : "string",
+               "size"   : 1
+            },{
+               "id"     : "street",
+               "label"  : "Street",
+               "type"   : "string",
+               "size"   : 1
+            },{
+               "id"     : "city",
+               "label"  : "City",
+               "type"   : "string",
+               "size"   : 1
+            },{
+               "id"     : "state",
+               "label"  : "State",
+               "type"   : "string",
+               "size"   : 1
+            },{
+               "id"     : "zip",
+               "label"  : "ZIP",
+               "type"   : "string",
+               "size"   : 1
+            },{
+               "id"     : "country",
+               "label"  : "Country",
+               "type"   : "string",
+               "size"   : 1
+            }
+         ]
+      }
+   }
+}

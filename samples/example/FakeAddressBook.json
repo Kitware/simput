@@ -1,0 +1,32 @@
+{
+    "type": "vcard",
+    "data": {
+        "AddressBook": [
+            {
+                "firstName": "Sebastien",
+                "lastName": "Jourdain",
+                "street": "Somewhere",
+                "city": "Santa Fe",
+                "state": "NM",
+                "zip": "87507",
+                "country": "USA"
+            },{
+                "firstName": "Tristan",
+                "lastName": "Wright",
+                "street": "Somewhere else",
+                "city": "Santa Fe",
+                "state": "NM",
+                "zip": "87505",
+                "country": "USA"
+            },{
+                "firstName": "Scott",
+                "lastName": "Wittenburg",
+                "street": "Some place else",
+                "city": "Santa Fe",
+                "state": "NM",
+                "zip": "87500",
+                "country": "USA"
+            }
+        ]
+    }
+}
