@@ -18,37 +18,44 @@
                "id"     : "firstName",
                "label"  : "First Name",
                "type"   : "string",
-               "size"   : 1
+               "size"   : 1,
+               "default": "John"
             },{
                "id"     : "lastName",
                "label"  : "Last Name",
                "type"   : "string",
-               "size"   : 1
+               "size"   : 1,
+               "default": "Doe"
             },{
                "id"     : "street",
                "label"  : "Street",
                "type"   : "string",
-               "size"   : 1
+               "size"   : 1,
+               "default": "No where to be found"
             },{
                "id"     : "city",
                "label"  : "City",
                "type"   : "string",
-               "size"   : 1
+               "size"   : 1,
+               "default": "No Where"
             },{
                "id"     : "state",
                "label"  : "State",
                "type"   : "string",
-               "size"   : 1
+               "size"   : 1,
+               "default": "ZZ"
             },{
                "id"     : "zip",
                "label"  : "ZIP",
                "type"   : "string",
-               "size"   : 1
+               "size"   : 1,
+               "default": "12345"
             },{
                "id"     : "country",
                "label"  : "Country",
                "type"   : "string",
-               "size"   : 1
+               "size"   : 1,
+               "default": "Heaven"
             }
          ]
       }

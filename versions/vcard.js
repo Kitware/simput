@@ -53,8 +53,6 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	module.exports = {
 	  type: 'vcard',
 	  model: __webpack_require__(2),
@@ -88,43 +86,50 @@
 						"id": "firstName",
 						"label": "First Name",
 						"type": "string",
-						"size": 1
+						"size": 1,
+						"default": "John"
 					},
 					{
 						"id": "lastName",
 						"label": "Last Name",
 						"type": "string",
-						"size": 1
+						"size": 1,
+						"default": "Doe"
 					},
 					{
 						"id": "street",
 						"label": "Street",
 						"type": "string",
-						"size": 1
+						"size": 1,
+						"default": "No where to be found"
 					},
 					{
 						"id": "city",
 						"label": "City",
 						"type": "string",
-						"size": 1
+						"size": 1,
+						"default": "No Where"
 					},
 					{
 						"id": "state",
 						"label": "State",
 						"type": "string",
-						"size": 1
+						"size": 1,
+						"default": "ZZ"
 					},
 					{
 						"id": "zip",
 						"label": "ZIP",
 						"type": "string",
-						"size": 1
+						"size": 1,
+						"default": "12345"
 					},
 					{
 						"id": "country",
 						"label": "Country",
 						"type": "string",
-						"size": 1
+						"size": 1,
+						"default": "Heaven"
 					}
 				]
 			}
@@ -135,36 +140,46 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(module) {var vCardTemplate = __webpack_require__(5);
 
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-	var vCardTemplate = __webpack_require__(4);
-
-	exports['default'] = function (dataModel) {
+	module.export = function (dataModel) {
 	    var results = {},
 	        error = null;
 
-	    dataModel.data.AddressBook.forEach(function (person) {
-	        var key = [person.firstName, person.lastName].join(' ');
-	        results[key] = vCardTemplate(person);
+	    dataModel.data.AddressBook.forEach(person => {
+	        const key = [person.firstName, person.lastName].join(' ');
+	        results[key + '.vcf'] = vCardTemplate(person);
 	    });
 
-	    return { results: results, error: error };
+	    return { results, error };
 	};
-
-	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(5);
+	var Handlebars = __webpack_require__(6);
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function";
 
-	  return "BEGIN:VCARD\nVERSION:3.0\nPRODID:-//Apple Inc.//Mac OS X 10.11.2//EN\nN:"
+	  return "BEGIN:VCARD\nVERSION:3.0\nN:"
 	    + ((stack1 = ((helper = (helper = helpers.lastName || (depth0 != null ? depth0.lastName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"lastName","hash":{},"data":data}) : helper))) != null ? stack1 : "")
 	    + ";"
 	    + ((stack1 = ((helper = (helper = helpers.firstName || (depth0 != null ? depth0.firstName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"firstName","hash":{},"data":data}) : helper))) != null ? stack1 : "")
@@ -182,20 +197,20 @@
 	    + ((stack1 = ((helper = (helper = helpers.zip || (depth0 != null ? depth0.zip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"zip","hash":{},"data":data}) : helper))) != null ? stack1 : "")
 	    + ";"
 	    + ((stack1 = ((helper = (helper = helpers.country || (depth0 != null ? depth0.country : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"country","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-	    + "\nUID:306b4823-46ab-48e2-ae08-08d2ce74d477\nX-ABUID:306B4823-46AB-48E2-AE08-08D2CE74D477:ABPerson\nEND:VCARD\n";
+	    + "\nEND:VCARD\n";
 	},"useData":true});
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Create a simple path alias to allow browserify to resolve
 	// the runtime on a supported path.
-	module.exports = __webpack_require__(6)['default'];
+	module.exports = __webpack_require__(7)['default'];
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -209,30 +224,30 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _handlebarsBase = __webpack_require__(7);
+	var _handlebarsBase = __webpack_require__(8);
 
 	var base = _interopRequireWildcard(_handlebarsBase);
 
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
 
-	var _handlebarsSafeString = __webpack_require__(21);
+	var _handlebarsSafeString = __webpack_require__(22);
 
 	var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 
-	var _handlebarsException = __webpack_require__(9);
+	var _handlebarsException = __webpack_require__(10);
 
 	var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
 
-	var _handlebarsUtils = __webpack_require__(8);
+	var _handlebarsUtils = __webpack_require__(9);
 
 	var Utils = _interopRequireWildcard(_handlebarsUtils);
 
-	var _handlebarsRuntime = __webpack_require__(22);
+	var _handlebarsRuntime = __webpack_require__(23);
 
 	var runtime = _interopRequireWildcard(_handlebarsRuntime);
 
-	var _handlebarsNoConflict = __webpack_require__(23);
+	var _handlebarsNoConflict = __webpack_require__(24);
 
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -267,7 +282,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -278,17 +293,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
-	var _exception = __webpack_require__(9);
+	var _exception = __webpack_require__(10);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _helpers = __webpack_require__(10);
+	var _helpers = __webpack_require__(11);
 
-	var _decorators = __webpack_require__(18);
+	var _decorators = __webpack_require__(19);
 
-	var _logger = __webpack_require__(20);
+	var _logger = __webpack_require__(21);
 
 	var _logger2 = _interopRequireDefault(_logger);
 
@@ -377,7 +392,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -507,7 +522,7 @@
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -553,7 +568,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -564,31 +579,31 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _helpersBlockHelperMissing = __webpack_require__(11);
+	var _helpersBlockHelperMissing = __webpack_require__(12);
 
 	var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 
-	var _helpersEach = __webpack_require__(12);
+	var _helpersEach = __webpack_require__(13);
 
 	var _helpersEach2 = _interopRequireDefault(_helpersEach);
 
-	var _helpersHelperMissing = __webpack_require__(13);
+	var _helpersHelperMissing = __webpack_require__(14);
 
 	var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 
-	var _helpersIf = __webpack_require__(14);
+	var _helpersIf = __webpack_require__(15);
 
 	var _helpersIf2 = _interopRequireDefault(_helpersIf);
 
-	var _helpersLog = __webpack_require__(15);
+	var _helpersLog = __webpack_require__(16);
 
 	var _helpersLog2 = _interopRequireDefault(_helpersLog);
 
-	var _helpersLookup = __webpack_require__(16);
+	var _helpersLookup = __webpack_require__(17);
 
 	var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 
-	var _helpersWith = __webpack_require__(17);
+	var _helpersWith = __webpack_require__(18);
 
 	var _helpersWith2 = _interopRequireDefault(_helpersWith);
 
@@ -605,14 +620,14 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('blockHelperMissing', function (context, options) {
@@ -650,7 +665,7 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -660,9 +675,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
-	var _exception = __webpack_require__(9);
+	var _exception = __webpack_require__(10);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -750,7 +765,7 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -760,7 +775,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(9);
+	var _exception = __webpack_require__(10);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -781,14 +796,14 @@
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('if', function (conditional, options) {
@@ -816,7 +831,7 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -848,7 +863,7 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -866,14 +881,14 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('with', function (context, options) {
@@ -905,7 +920,7 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -916,7 +931,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _decoratorsInline = __webpack_require__(19);
+	var _decoratorsInline = __webpack_require__(20);
 
 	var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 
@@ -927,14 +942,14 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
 	exports['default'] = function (instance) {
 	  instance.registerDecorator('inline', function (fn, props, container, options) {
@@ -962,14 +977,14 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
 	var logger = {
 	  methodMap: ['debug', 'info', 'warn', 'error'],
@@ -1015,7 +1030,7 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	// Build out our basic SafeString type
@@ -1036,7 +1051,7 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1056,15 +1071,15 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _utils = __webpack_require__(8);
+	var _utils = __webpack_require__(9);
 
 	var Utils = _interopRequireWildcard(_utils);
 
-	var _exception = __webpack_require__(9);
+	var _exception = __webpack_require__(10);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _base = __webpack_require__(7);
+	var _base = __webpack_require__(8);
 
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -1334,7 +1349,7 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
