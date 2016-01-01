@@ -1,0 +1,197 @@
+{
+   "order": [
+      "SingleView",
+      "ViewWithChildren",
+      "MultiView",
+      "ViewWithOr",
+      "AllTypes"
+   ],
+   "views" : {
+      "SingleView": {
+         "attributes": [ "attr1" ]
+      },
+      "ViewWithChildren": {
+         "children": [ "SubView1", "SubView2", "SubView3" ]
+      },
+      "MultiView": {
+         "size": -1,
+         "attributes": [ "attr1" ]
+      },
+      "ViewWithOr": {
+         "attributes": [ "attr1", [ "attr2", "attr3"], "attr4" ]
+      },
+      "AllTypes": {
+         "attributes": [ "strings", "integers", "double" ]
+      },
+      "SubView1": {
+         "attributes": [ "attr1" ]
+      },
+      "SubView2": {
+         "attributes": [ "attr2" ],
+         "size": -1
+      },
+      "SubView3": {
+         "attributes": [ "attr3" ]
+      }
+   },
+   "definitions": {
+      "attr1": {
+         "parameters": [
+            {
+               "id": "a",
+               "type": "string",
+               "size": 1,
+               "default": ""
+            },{
+               "id": "b",
+               "type": "string",
+               "size": 2,
+               "layout": "2",
+               "default": ["x", "y"]
+            },{
+               "id": "c",
+               "type": "string",
+               "size": 3,
+               "layout": "3",
+               "default": ["x", "y", "z"]
+            },{
+               "id": "d",
+               "type": "string",
+               "size": 4,
+               "default": [ "1", "2", "3", "4" ]
+            },{
+               "id": "e",
+               "type": "string",
+               "size": 5,
+               "default": [ "1", "2", "3", "4", "5" ]
+            },{
+               "id": "f",
+               "type": "string",
+               "size": 6,
+               "layout": "m6",
+               "default": [ "1", "2", "3", "4", "5", "6" ]
+            },{
+               "id": "g",
+               "type": "string",
+               "size": 6,
+               "layout": "2x3",
+               "default": [ "1", "2", "3", "4", "5", "6" ]
+            },{
+               "id": "h",
+               "type": "string",
+               "size": 6,
+               "layout": "3x2",
+               "default": [ "1", "2", "3", "4", "5", "6" ]
+            }
+         ]
+      },
+      "attr2": {
+         "parameters": [
+            {
+               "id": "a",
+               "type": "int",
+               "size": 1,
+               "ui": "enum",
+               "default": [3],
+               "domain": {
+                  "Choice 1": 0,
+                  "Choice 2": 1,
+                  "Choice 3": 2,
+                  "Choice 4": 3,
+                  "Choice 5": 4
+               }
+            },{
+               "id": "b",
+               "type": "int",
+               "size": -1,
+               "ui": "enum",
+               "default": [0,3,4],
+               "domain": {
+                  "Choice 1": 0,
+                  "Choice 2": 1,
+                  "Choice 3": 2,
+                  "Choice 4": 3,
+                  "Choice 5": 4
+               }
+            }
+         ]
+      },
+      "attr3": {
+         "parameters": [
+            {
+               "id": "a",
+               "type": "bool",
+               "size": 2,
+               "ui": "checkbox",
+               "default": [ true, false ]
+            },{
+               "id": "b",
+               "type": "string",
+               "size": 2,
+               "default": ["x", "y"]
+            },{
+               "id": "c",
+               "type": "string",
+               "size": 3,
+               "default": ["x", "y", "z"]
+            }
+         ]
+      },
+      "attr4": {
+         "parameters": [
+            {
+               "id": "f",
+               "type": "string",
+               "size": 6,
+               "layout": "m6",
+               "default": [ "1", "2", "3", "4", "5", "6" ]
+            },{
+               "id": "g",
+               "type": "string",
+               "size": 6,
+               "layout": "2x3",
+               "default": [ "1", "2", "3", "4", "5", "6" ]
+            },{
+               "id": "h",
+               "type": "string",
+               "size": 6,
+               "layout": "3x2",
+               "default": [ "1", "2", "3", "4", "5", "6" ]
+            }
+         ]
+      },
+      "strings": {
+         "parameters": [
+            {
+               "id": "a",
+               "type": "string",
+               "size": 6,
+               "layout": "m6",
+               "default": [ "1", "2", "3", "4", "5", "6" ]
+            }
+         ]
+      }, 
+      "integers": {
+         "parameters": [
+            {
+               "id": "h",
+               "type": "int",
+               "size": 6,
+               "layout": "3x2",
+               "default": [ 1, 2, 3, 4, 5, 6 ]
+            }
+         ]
+      }, 
+      "double": {
+         "parameters": [
+            {
+               "id": "h",
+               "type": "float",
+               "size": 6,
+               "layout": "3x2",
+               "default": [ 1, 2, 3, 4, 5, 6 ]
+            }
+         ]
+      }
+   }
+}
