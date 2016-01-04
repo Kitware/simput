@@ -1,11 +1,11 @@
-function(defs, model) {
+var template = require('./templates/output.jade');
+
+module.exports = function (model) {
     var templateDataModel = { data: {}, valid: true , errors: []},
         viewInstance = null,
         count = 0,
         list = null;
-
-    console.log(defs, model);
-    
+        
     //BACKEND
     templateDataModel.data.backend = {}
     try {
@@ -229,6 +229,11 @@ function(defs, model) {
         templateDataModel.data.bcs.push(output);
     });
     
-    console.log(templateDataModel.data);
-    return templateDataModel;
+    console.log(templateDataModel);
+    return {
+        errors: templateDataModel.errors,
+        results: {
+            'pyfr.ini': template(templateDataModel)
+        }
+    };
 }
