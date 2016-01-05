@@ -81,11 +81,11 @@ if (program.input && program.output && !program.gui) {
   //     res.send('index.html');
   //   });
 
-  app.route('/type/*')
+  app.route('/type/:type')
     .get(function(req, res) {
-      var fileToServe = path.join(simputFolder, req.url.split('/').pop());
+      var fileToServe = path.join(simputFolder, req.params.type);
       res.sendFile(fileToServe);
-    })
+    });
   
   app.route('/data')
     .get(function(req, res) {
@@ -98,7 +98,7 @@ if (program.input && program.output && !program.gui) {
       }
     })
     .post(function(req, res) {
-      //receive new file content and update
+      //receive new file content and update the file at program.input
       console.log('POST');
     });
     

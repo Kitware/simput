@@ -33,10 +33,10 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
                     },
                     { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
                     { test: /\.css$/, loader: "style!css!autoprefixer?browsers=last 2 version" },
-                    { test: /\.js$/i, exclude: /node_modules/, loader: "babel" },
                     { test: /\.json$/i, loader: 'json'},
                     { test: /\.jade$/i, loader: 'jade'},
-                    { test: /\.hbs$/i, loader: 'handlebars'},
+                    { test: /\.hbs$/i, loader: 'handlebars-loader'},
+                    { test: /\.js$/i, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015" },
                     // { test: /\.js$/i, include: /node_modules\/tonic-/, loader: "babel" },
                     // { test: /\.c$/i, include: /node_modules\/tonic-/, loader: "shader" },
                     // { test: /\.js$/, include: /node_modules\/react-contenteditable/, loader: "babel" }
@@ -50,7 +50,7 @@ module.exports = function (directory, modelType, output) {
         modelType = path.basename(directory);
     }
     // ensure modelType has no . in it, it will create keypaths in the webpack expose loader
-    modelType = modelType.replace(/\./, '-'); 
+    modelType = modelType.replace(/\./, '-').toLowerCase();
     
     
     if (!output) {
@@ -61,7 +61,7 @@ module.exports = function (directory, modelType, output) {
         'type: \'TYPE\',\n' +
         'model: require(\'./model.json\'),\n' +
         'lang: LANG,\n' +
-        'convert: require(\'./convert.js\'),\n' +
+        'convert: require(\'./convert.js\').default,\n' +
     '}\n';
     
     var lang = '{}';

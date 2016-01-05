@@ -36,11 +36,17 @@ module.exports = function (input, outputDirectory) {
     require(path.join(simputFolder, type + '.js'));
     
     // write output
-    var output = Simput.types[type].convert(inputContents);
-    outputDirectory = toAbsolutePath(outputDirectory); 
-    Object.keys(output.results).forEach(function(el) {
-        fs.writeFileSync(path.join(outputDirectory, el), output.results[el]);
-        var size = fs.statSync(path.join(outputDirectory, el)).size;
-        console.log(' → ' + el + '  ' + unitSuffix(size));
-    });
+    try {
+        var output = GLOBAL.Simput.types[type].convert(inputContents);
+        outputDirectory = toAbsolutePath(outputDirectory); 
+        Object.keys(output.results).forEach(function(el) {
+            fs.writeFileSync(path.join(outputDirectory, el), output.results[el]);
+            var size = fs.statSync(path.join(outputDirectory, el)).size;
+            console.log(' → ' + el + '  ' + unitSuffix(size));
+        });
+    } catch (error) {
+        console.log('There is a problem with the `' + type + '` converter:');
+        console.log(error.message);
+        return;
+    }
 };
