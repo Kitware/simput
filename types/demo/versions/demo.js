@@ -59,7 +59,7 @@
 	  type: 'demo',
 	  model: __webpack_require__(2),
 	  lang: __webpack_require__(3),
-	  convert: __webpack_require__(6).default
+	  convert: __webpack_require__(35).default
 	};
 
 /***/ },
@@ -446,11 +446,241 @@
 	"use strict";
 
 	module.exports = {
-	  "label.json": __webpack_require__(5)
+	  "help": __webpack_require__(5),
+	  "label.json": __webpack_require__(34)
 	};
 
 /***/ },
 /* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "attr1": __webpack_require__(6),
+	  "attr2": __webpack_require__(15),
+	  "attr3": __webpack_require__(18),
+	  "attr4": __webpack_require__(22),
+	  "attrOr": __webpack_require__(26),
+	  "double": __webpack_require__(28),
+	  "integers": __webpack_require__(30),
+	  "strings": __webpack_require__(32)
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "a": __webpack_require__(7),
+	  "b": __webpack_require__(8),
+	  "c": __webpack_require__(9),
+	  "d": __webpack_require__(10),
+	  "e": __webpack_require__(11),
+	  "f": __webpack_require__(12),
+	  "g": __webpack_require__(13),
+	  "h": __webpack_require__(14)
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter A</p>\n";
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter B</p>\n";
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter Charlie</p>\n";
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter Delta (∆)</p>\n";
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter Echo</p>\n";
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter Foxtrot</p>\n";
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter <a href=\"http://www.vw.com/models/golf/\" target=\"_blank\">Golf</a></p>\n";
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter H</p>\n";
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "a": __webpack_require__(16),
+	  "b": __webpack_require__(17)
+	};
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter A</p>\n";
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter B</p>\n";
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "a": __webpack_require__(19),
+	  "b": __webpack_require__(20),
+	  "c": __webpack_require__(21)
+	};
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter A</p>\n";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter B</p>\n";
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter Charlie</p>\n";
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "f": __webpack_require__(23),
+	  "g": __webpack_require__(24),
+	  "h": __webpack_require__(25)
+	};
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter Foxtrot</p>\n";
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter <a href=\"http://www.vw.com/models/golf/\" target=\"_blank\">Golf</a></p>\n";
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter H</p>\n";
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "a": __webpack_require__(27)
+	};
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is an Or parameter. The choices you make here will determine what inputs appear below. It will also determine the course of the <em>rest of your life</em>, choose wisely.</p>\n";
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "h": __webpack_require__(29)
+	};
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter H, it is a double</p>\n";
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "h": __webpack_require__(31)
+	};
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter H it is an integer</p>\n";
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "a": __webpack_require__(33)
+	};
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>This is parameter Alpha (α) it is a string</p>\n";
+
+/***/ },
+/* 34 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -529,12 +759,12 @@
 	};
 
 /***/ },
-/* 6 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
 
-	var template = __webpack_require__(8);
+	var template = __webpack_require__(37);
 
 	module.export = function (dataModel) {
 	    var results = {},
@@ -544,10 +774,10 @@
 
 	    return { results: results, error: error };
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36)(module)))
 
 /***/ },
-/* 7 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -563,25 +793,25 @@
 
 
 /***/ },
-/* 8 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(9);
+	var Handlebars = __webpack_require__(38);
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    return "Just need to fill with some data...";
 	},"useData":true});
 
 /***/ },
-/* 9 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Create a simple path alias to allow browserify to resolve
 	// the runtime on a supported path.
-	module.exports = __webpack_require__(10)['default'];
+	module.exports = __webpack_require__(39)['default'];
 
 
 /***/ },
-/* 10 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -595,30 +825,30 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _handlebarsBase = __webpack_require__(11);
+	var _handlebarsBase = __webpack_require__(40);
 
 	var base = _interopRequireWildcard(_handlebarsBase);
 
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
 
-	var _handlebarsSafeString = __webpack_require__(25);
+	var _handlebarsSafeString = __webpack_require__(54);
 
 	var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 
-	var _handlebarsException = __webpack_require__(13);
+	var _handlebarsException = __webpack_require__(42);
 
 	var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
 
-	var _handlebarsUtils = __webpack_require__(12);
+	var _handlebarsUtils = __webpack_require__(41);
 
 	var Utils = _interopRequireWildcard(_handlebarsUtils);
 
-	var _handlebarsRuntime = __webpack_require__(26);
+	var _handlebarsRuntime = __webpack_require__(55);
 
 	var runtime = _interopRequireWildcard(_handlebarsRuntime);
 
-	var _handlebarsNoConflict = __webpack_require__(27);
+	var _handlebarsNoConflict = __webpack_require__(56);
 
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -653,7 +883,7 @@
 
 
 /***/ },
-/* 11 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -664,17 +894,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
-	var _exception = __webpack_require__(13);
+	var _exception = __webpack_require__(42);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _helpers = __webpack_require__(14);
+	var _helpers = __webpack_require__(43);
 
-	var _decorators = __webpack_require__(22);
+	var _decorators = __webpack_require__(51);
 
-	var _logger = __webpack_require__(24);
+	var _logger = __webpack_require__(53);
 
 	var _logger2 = _interopRequireDefault(_logger);
 
@@ -763,7 +993,7 @@
 
 
 /***/ },
-/* 12 */
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -893,7 +1123,7 @@
 
 
 /***/ },
-/* 13 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -939,7 +1169,7 @@
 
 
 /***/ },
-/* 14 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -950,31 +1180,31 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _helpersBlockHelperMissing = __webpack_require__(15);
+	var _helpersBlockHelperMissing = __webpack_require__(44);
 
 	var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 
-	var _helpersEach = __webpack_require__(16);
+	var _helpersEach = __webpack_require__(45);
 
 	var _helpersEach2 = _interopRequireDefault(_helpersEach);
 
-	var _helpersHelperMissing = __webpack_require__(17);
+	var _helpersHelperMissing = __webpack_require__(46);
 
 	var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 
-	var _helpersIf = __webpack_require__(18);
+	var _helpersIf = __webpack_require__(47);
 
 	var _helpersIf2 = _interopRequireDefault(_helpersIf);
 
-	var _helpersLog = __webpack_require__(19);
+	var _helpersLog = __webpack_require__(48);
 
 	var _helpersLog2 = _interopRequireDefault(_helpersLog);
 
-	var _helpersLookup = __webpack_require__(20);
+	var _helpersLookup = __webpack_require__(49);
 
 	var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 
-	var _helpersWith = __webpack_require__(21);
+	var _helpersWith = __webpack_require__(50);
 
 	var _helpersWith2 = _interopRequireDefault(_helpersWith);
 
@@ -991,14 +1221,14 @@
 
 
 /***/ },
-/* 15 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('blockHelperMissing', function (context, options) {
@@ -1036,7 +1266,7 @@
 
 
 /***/ },
-/* 16 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1046,9 +1276,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
-	var _exception = __webpack_require__(13);
+	var _exception = __webpack_require__(42);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -1136,7 +1366,7 @@
 
 
 /***/ },
-/* 17 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1146,7 +1376,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(13);
+	var _exception = __webpack_require__(42);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -1167,14 +1397,14 @@
 
 
 /***/ },
-/* 18 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('if', function (conditional, options) {
@@ -1202,7 +1432,7 @@
 
 
 /***/ },
-/* 19 */
+/* 48 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1234,7 +1464,7 @@
 
 
 /***/ },
-/* 20 */
+/* 49 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1252,14 +1482,14 @@
 
 
 /***/ },
-/* 21 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('with', function (context, options) {
@@ -1291,7 +1521,7 @@
 
 
 /***/ },
-/* 22 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1302,7 +1532,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _decoratorsInline = __webpack_require__(23);
+	var _decoratorsInline = __webpack_require__(52);
 
 	var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 
@@ -1313,14 +1543,14 @@
 
 
 /***/ },
-/* 23 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
 	exports['default'] = function (instance) {
 	  instance.registerDecorator('inline', function (fn, props, container, options) {
@@ -1348,14 +1578,14 @@
 
 
 /***/ },
-/* 24 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
 	var logger = {
 	  methodMap: ['debug', 'info', 'warn', 'error'],
@@ -1401,7 +1631,7 @@
 
 
 /***/ },
-/* 25 */
+/* 54 */
 /***/ function(module, exports) {
 
 	// Build out our basic SafeString type
@@ -1422,7 +1652,7 @@
 
 
 /***/ },
-/* 26 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1442,15 +1672,15 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _utils = __webpack_require__(12);
+	var _utils = __webpack_require__(41);
 
 	var Utils = _interopRequireWildcard(_utils);
 
-	var _exception = __webpack_require__(13);
+	var _exception = __webpack_require__(42);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _base = __webpack_require__(11);
+	var _base = __webpack_require__(40);
 
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -1720,7 +1950,7 @@
 
 
 /***/ },
-/* 27 */
+/* 56 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
