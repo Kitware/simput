@@ -18,7 +18,7 @@
          "attributes": [ "attr1" ]
       },
       "ViewWithOr": {
-         "attributes": [ "attr1", [ "attr2", "attr3"], "attr4" ]
+         "attributes": [ "attrOr" ]
       },
       "AllTypes": {
          "attributes": [ "strings", "integers", "double" ]
@@ -39,15 +39,16 @@
          "parameters": [
             {
                "id": "a",
-               "type": "string",
+               "type": "int",
                "size": 1,
-               "default": ""
+               "default": 0
             },{
                "id": "b",
                "type": "string",
                "size": 2,
                "layout": "2",
-               "default": ["x", "y"]
+               "default": ["x", "y"],
+               "show": "a[0] > 5"
             },{
                "id": "c",
                "type": "string",
@@ -159,6 +160,31 @@
                "default": [ "1", "2", "3", "4", "5", "6" ]
             }
          ]
+      },
+      "attrOr": {
+         "parameters": [
+            {
+               "id": "a",
+               "type": "int",
+               "size": 1,
+               "ui": "enum",
+               "default": [3],
+               "domain": {
+                  "Choice 1": 1,
+                  "Choice 2": 2,
+                  "Choice 3": 3,
+                  "Choice 4": 4,
+                  "Choice 5": 5
+               },
+               "help": ["_self", "attr1", "attr2"]
+            },
+            [ "attr1", "attr2", "attr3"]
+         ],
+         "children": {
+            "attr1": "attrOr.a[0] >= 1",
+            "attr2": "attrOr.a[0] === 2",
+            "attr3": "attrOr.a[0] === 3"
+         }
       },
       "strings": {
          "parameters": [

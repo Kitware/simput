@@ -1,3 +1,13 @@
-.ViewMenu {
-    width: 50%;
+.Outline {
+    width: 33%;
+    float: left;
+}
+
+.Outline + .property-panel {
+    width: 66%;
+    float: left;
+}
+
+ul {
+    list-style: none;
 }

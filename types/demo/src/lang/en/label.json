@@ -10,307 +10,64 @@
         "SubView3": "Sub-view c"
     },
     "attributes": {
-        "Backend-settings": {
-            "title": "Settings",
+        "attr1": {
+            "title": "Attribute 1",
             "parameters": {
-                "backend.precision": "Precision",
-                "backend.rank_allocator": "Rank Allocator"
+                "a": "a",
+                "b": "b",
+                "c": "c",
+                "d": "d",
+                "e": "e",
+                "f": "f",
+                "g": "g",
+                "h": "h"
             }
         },
-        "CUDA": {
-            "title": "CUDA",
+        "attr2": {
+            "title": "Attribute 2",
             "parameters": {
-                "cuda.device_id": "Precision"
+                "a": "a",
+                "b": "b"
             }
         },
-        "Open-MP": {
-            "title": "Open-MP",
+        "attr3": {
+            "title": "Attribute 3",
             "parameters": {
-                "open-mp.cc": "C Compiler",
-                "open-mp.cflags": "Compiler Flags",
-                "open-mp.cblas": "Path to shared C BLAS library",
-                "open-mp.cblas_type": "Type of BLAS library"
+                "a": "a",
+                "b": "b",
+                "c": "c"
             }
         },
-        "Open-CL": {
-            "title": "Open-CL",
+        "attr4": {
+            "title": "Attribute 4",
             "parameters": {
-                "open-cl.platform_id": "Platform ID",
-                "open-cl.device_type": "Device Type",
-                "open-cl.device_id": "Device ID"
+                "f": "f",
+                "g": "g",
+                "h": "h"
             }
         },
-        "Constants": {
-            "title": "Constants",
+        "attrOr": {
+            "title": "Or Attribute",
             "parameters": {
-                "constants.gamma": "Gamma",
-                "constants.mu": "Mu",
-                "constants.pr": "Pr",
-                "constants.cpTref": "cpTref",
-                "constants.cpTs": "cpTS"
+                "a": "a"
             }
         },
-        "Solver-settings": {
-            "title": "Settings",
+        "strings": {
+            "title": "Strings",
             "parameters": {
-                "solver.system": "System",
-                "solver.order": "Order",
-                "solver.anti_alias": "Anti-alias",
-                "solver.viscosity_correction": "Viscosity correction",
-                "solver.shock_capturing": "Shock capturing"
+                "a": "a"
+            }        
+        },
+        "integers": {
+            "title": "Integers",
+            "parameters": {
+                "h":"h"
             }
         },
-        "Time Integrator": {
-            "title": "Time Integrator",
+        "double": {
+            "title": "Double",
             "parameters": {
-                "solver.scheme": "Scheme",
-                "solver.tstart": "Initial time",
-                "solver.tend": "Final time",
-                "solver.dt": "Time step",
-                "solver.controller": "Time step",
-                "solver.atol": "atol",
-                "solver.rtol": "rtol",
-                "solver.safety_fact": "safety-fact",
-                "solver.min_fact": "min-fact",
-                "solver.max_fact": "max-fact"
-            }
-        },
-        "Artificial Viscosity": {
-            "title": "Artificial Viscosity",
-            "parameters": {
-                "solver.max_amu": "Maximum artificial viscosity",
-                "solver.s0": "Sensor cut-off",
-                "solver.kappa": "Sensor range"
-            }
-        },
-        "Interfaces": {
-            "title": "Interfaces",
-            "parameters": {
-                "solver.riemann": "Riemann Solver",
-                "solver.ldg_beta": "LDG Beta",
-                "solver.ldg_tau": "LDG Tau"
-            }
-        },
-        "Linear-int": {
-            "title": "Linear",
-            "parameters": {
-                "solver.interfaces.flux_pts": "Flux points",
-                "solver.interfaces.quad_deg": "Degree of quadratur",
-                "solver.interfaces.quad_pts": "Name of quadratur"
-            }
-        },
-        "Triangular-int": {
-            "title": "Triangular",
-            "parameters": {
-                "solver.interfaces.flux_pts": "Flux points",
-                "solver.interfaces.quad_deg": "Degree of quadratur",
-                "solver.interfaces.quad_pts": "Name of quadratur"
-            }
-        },
-        "Quadrilateral-int": {
-            "title": "Quadrilateral",
-            "parameters": {
-                "solver.interfaces.flux_pts": "Flux points",
-                "solver.interfaces.quad_deg": "Degree of quadratur",
-                "solver.interfaces.quad_pts": "Name of quadratur"
-            }
-        },
-        "Triangular-el": {
-            "title": "Triangular",
-            "parameters": {
-                "solver.elements.soln_pts": "Solution points",
-                "solver.elements.quad_deg": "Degree of quadratur",
-                "solver.elements.quad_pts": "Name of quadratur"
-            }
-        },
-        "Quadrilateral-el": {
-            "title": "Quadrilateral",
-            "parameters": {
-                "solver.elements.soln_pts": "Solution points",
-                "solver.elements.quad_deg": "Degree of quadratur",
-                "solver.elements.quad_pts": "Name of quadratur"
-            }
-        },
-        "Hexahedral-el": {
-            "title": "Hexahedral",
-            "parameters": {
-                "solver.elements.soln_pts": "Solution points",
-                "solver.elements.quad_deg": "Degree of quadratur",
-                "solver.elements.quad_pts": "Name of quadratur"
-            }
-        },
-        "Tetrahedral-el": {
-            "title": "Tetrahedral",
-            "parameters": {
-                "solver.elements.soln_pts": "Solution points",
-                "solver.elements.quad_deg": "Degree of quadratur",
-                "solver.elements.quad_pts": "Name of quadratur"
-            }
-        },
-        "Prismatic-el": {
-            "title": "Prismatic",
-            "parameters": {
-                "solver.elements.soln_pts": "Solution points",
-                "solver.elements.quad_deg": "Degree of quadratur",
-                "solver.elements.quad_pts": "Name of quadratur"
-            }
-        },
-        "Pyramidal-el": {
-            "title": "Pyramidal",
-            "parameters": {
-                "solver.elements.soln_pts": "Solution points",
-                "solver.elements.quad_deg": "Degree of quadratur",
-                "solver.elements.quad_pts": "Name of quadratur"
-            }
-        },
-        "Solver-source-terms": {
-            "title": "Solver Source Terms",
-            "parameters": {
-                "solver.source-terms.rho": "Density source term",
-                "solver.source-terms.rhou": "X-momentum source term",
-                "solver.source-terms.rhov": "Y-momentum source term",
-                "solver.source-terms.rhow": "Z-momentum source term",
-                "solver.source-terms.E": "Energy source term"
-            }
-        },
-        "Filter": {
-            "title": "Filter",
-            "parameters": {
-                "solution.filter.nsteps": "Filter apply interval (in steps)",
-                "solution.filter.alpha": "Strength of filter",
-                "solution.filter.order": "Order of filter",
-                "solution.filter.cutoff": "Cutoff frequency"
-            }
-        },
-        "Plugin Writer": {
-            "title": "Plugin Writer",
-            "parameters": {
-                "solution.plugin_writer.dt_out": "Disk write time interval",
-                "solution.plugin_writer.basedir": "Disk write time interval",
-                "solution.plugin_writer.basename": "Output name pattern"
-            }
-        },
-        "Plugin Fluidforce Name": {
-            "title": "Plugin Fluidforce Name",
-            "parameters": {
-                "solution.plugin_fluidforce.nsteps": "Integration interval",
-                "solution.plugin_fluidforce.file": "Output file path",
-                "solution.plugin_fluidforce.header": "Output header row"
-            }
-        },
-        "Plugin NaN check": {
-            "title": "Plugin NaN check",
-            "parameters": {
-                "solution.plugin_nancheck.nsteps": "nsteps"
-            }
-        },
-        "Plugin residual": {
-            "title": "Plugin residual",
-            "parameters": {
-                "solution.plugin_residual.nsteps": "Calculation interval",
-                "solution.plugin_residual.file": "Output file path",
-                "solution.plugin_residual.header": "Output header row"
-            }
-        },
-        "Plugin sampler": {
-            "title": "Plugin sampler",
-            "parameters": {
-                "solution.plugin_sampler.nsteps": "nSteps",
-                "solution.plugin_sampler.samp_pts": "Sample points",
-                "solution.plugin_sampler.format": "Format",
-                "solution.plugin_sampler.file": "File",
-                "solution.plugin_sampler.header": "Header"
-            }
-        },
-        "Plugin Time average": {
-            "title": "Plugin Time average",
-            "parameters": {
-                "solution.plugin_tavg.nsteps": "nSteps average",
-                "solution.plugin_tavg.dt_out": "DT Out",
-                "solution.plugin_tavg.basedir": "Basedir",
-                "solution.plugin_tavg.basename": "Basename",
-                "solution.plugin_tavg.avg_name": "Average Name"
-            }
-        },
-        "char-riem-inv": {
-            "title": "char-riem-inv",
-            "parameters": {
-                "name": "Name",
-                "rho": "density",
-                "u": "x-velocity",
-                "v": "y-velocity",
-                "w": "z-velocity",
-                "p": "static pressure"
-            }
-        },
-        "no-slp-isot-wall": {
-            "title": "no-slp-isot-wall",
-            "parameters": {
-                "name": "Name",
-                "u": "x-velocity of wall",
-                "v": "y-velocity of wall",
-                "w": "z-velocity of wall",
-                "cpTw": "Product of specific heat capacity"
-            }
-        },
-        "no-slp-adia-wall": {
-            "title": "no-slp-adia-wall",
-            "parameters": {}
-        },
-        "slp-adia-wall": {
-            "title": "slp-adia-wall",
-            "parameters": {}
-        },
-        "sup-out-fn": {
-            "title": "sup-out-fn",
-            "parameters": {}
-        },
-        "sub-in-frv": {
-            "title": "sub-in-frv",
-            "parameters": {
-                "name": "Name",
-                "rho": "density",
-                "u": "x-velocity",
-                "v": "y-velocity",
-                "w": "z-velocit"
-            }
-        },
-        "sub-in-ftpttang": {
-            "title": "sub-in-ftpttang",
-            "parameters": {
-                "name": "Name",
-                "pt": "Total pressire",
-                "cpTt": "Product of specific heat capcacity",
-                "theta": "Azimuth angle of inflow",
-                "phi": "Inclination of angle of inflow"
-            }
-        },
-        "sub-out-fp": {
-            "title": "sub-out-fp",
-            "parameters": {
-                "name": "Name",
-                "p": "Static pressure"
-            }
-        },
-        "sup-in-fa": {
-            "title": "sup-in-fa",
-            "parameters": {
-                "name": "Name",
-                "rho": "density",
-                "u": "x-velocity",
-                "v": "y-velocity",
-                "w": "z-velocity",
-                "p": "static pressure"
-            }
-        },
-        "ics": {
-            "title": "ics",
-            "parameters": {
-                "ics.rho": "Initial Density",
-                "ics.u": "Initial X velocity",
-                "ics.v": "Initial Y velocity",
-                "ics.w": "Initial Z velocity",
-                "ics.p": "Initial static pressure distribution"
+                "h": "H"
             }
         }
     }

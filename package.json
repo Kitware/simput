@@ -50,7 +50,7 @@
     "build:debug": "webpack --display-modules",
     "build:release": "webpack -p",
 
-    "test": "./bin/run-dev.js",
+    "test": "echo WARNING: Simput process.env.PWD is $(pwd) && ./bin/run-dev.js",
     
     "commit": "git cz",
     

@@ -53,11 +53,13 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
 	module.exports = {
 	  type: 'demo',
 	  model: __webpack_require__(2),
 	  lang: __webpack_require__(3),
-	  convert: __webpack_require__(9)
+	  convert: __webpack_require__(6).default
 	};
 
 /***/ },
@@ -93,12 +95,7 @@
 			},
 			"ViewWithOr": {
 				"attributes": [
-					"attr1",
-					[
-						"attr2",
-						"attr3"
-					],
-					"attr4"
+					"attrOr"
 				]
 			},
 			"AllTypes": {
@@ -130,9 +127,9 @@
 				"parameters": [
 					{
 						"id": "a",
-						"type": "string",
+						"type": "int",
 						"size": 1,
-						"default": ""
+						"default": 0
 					},
 					{
 						"id": "b",
@@ -142,7 +139,8 @@
 						"default": [
 							"x",
 							"y"
-						]
+						],
+						"show": "a[0] > 5"
 					},
 					{
 						"id": "c",
@@ -339,6 +337,41 @@
 					}
 				]
 			},
+			"attrOr": {
+				"parameters": [
+					{
+						"id": "a",
+						"type": "int",
+						"size": 1,
+						"ui": "enum",
+						"default": [
+							3
+						],
+						"domain": {
+							"Choice 1": 1,
+							"Choice 2": 2,
+							"Choice 3": 3,
+							"Choice 4": 4,
+							"Choice 5": 5
+						},
+						"help": [
+							"_self",
+							"attr1",
+							"attr2"
+						]
+					},
+					[
+						"attr1",
+						"attr2",
+						"attr3"
+					]
+				],
+				"children": {
+					"attr1": "attrOr.a[0] >= 1",
+					"attr2": "attrOr.a[0] === 2",
+					"attr3": "attrOr.a[0] === 3"
+				}
+			},
 			"strings": {
 				"parameters": [
 					{
@@ -400,29 +433,24 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
 	module.exports = {
-	  "en": __webpack_require__(4),
-	  "fr": __webpack_require__(7),
-	  "sp": __webpack_require__(8)
+	  "en": __webpack_require__(4)
 	};
 
 /***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
 	module.exports = {
-	  "help": __webpack_require__(5),
-	  "label.json": __webpack_require__(6)
+	  "label.json": __webpack_require__(5)
 	};
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
-
-	module.exports = {};
-
-/***/ },
-/* 6 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -437,329 +465,76 @@
 			"SubView3": "Sub-view c"
 		},
 		"attributes": {
-			"Backend-settings": {
-				"title": "Settings",
+			"attr1": {
+				"title": "Attribute 1",
 				"parameters": {
-					"backend.precision": "Precision",
-					"backend.rank_allocator": "Rank Allocator"
+					"a": "a",
+					"b": "b",
+					"c": "c",
+					"d": "d",
+					"e": "e",
+					"f": "f",
+					"g": "g",
+					"h": "h"
 				}
 			},
-			"CUDA": {
-				"title": "CUDA",
+			"attr2": {
+				"title": "Attribute 2",
 				"parameters": {
-					"cuda.device_id": "Precision"
+					"a": "a",
+					"b": "b"
 				}
 			},
-			"Open-MP": {
-				"title": "Open-MP",
+			"attr3": {
+				"title": "Attribute 3",
 				"parameters": {
-					"open-mp.cc": "C Compiler",
-					"open-mp.cflags": "Compiler Flags",
-					"open-mp.cblas": "Path to shared C BLAS library",
-					"open-mp.cblas_type": "Type of BLAS library"
+					"a": "a",
+					"b": "b",
+					"c": "c"
 				}
 			},
-			"Open-CL": {
-				"title": "Open-CL",
+			"attr4": {
+				"title": "Attribute 4",
 				"parameters": {
-					"open-cl.platform_id": "Platform ID",
-					"open-cl.device_type": "Device Type",
-					"open-cl.device_id": "Device ID"
+					"f": "f",
+					"g": "g",
+					"h": "h"
 				}
 			},
-			"Constants": {
-				"title": "Constants",
+			"attrOr": {
+				"title": "Or Attribute",
 				"parameters": {
-					"constants.gamma": "Gamma",
-					"constants.mu": "Mu",
-					"constants.pr": "Pr",
-					"constants.cpTref": "cpTref",
-					"constants.cpTs": "cpTS"
+					"a": "a"
 				}
 			},
-			"Solver-settings": {
-				"title": "Settings",
+			"strings": {
+				"title": "Strings",
 				"parameters": {
-					"solver.system": "System",
-					"solver.order": "Order",
-					"solver.anti_alias": "Anti-alias",
-					"solver.viscosity_correction": "Viscosity correction",
-					"solver.shock_capturing": "Shock capturing"
+					"a": "a"
 				}
 			},
-			"Time Integrator": {
-				"title": "Time Integrator",
+			"integers": {
+				"title": "Integers",
 				"parameters": {
-					"solver.scheme": "Scheme",
-					"solver.tstart": "Initial time",
-					"solver.tend": "Final time",
-					"solver.dt": "Time step",
-					"solver.controller": "Time step",
-					"solver.atol": "atol",
-					"solver.rtol": "rtol",
-					"solver.safety_fact": "safety-fact",
-					"solver.min_fact": "min-fact",
-					"solver.max_fact": "max-fact"
+					"h": "h"
 				}
 			},
-			"Artificial Viscosity": {
-				"title": "Artificial Viscosity",
+			"double": {
+				"title": "Double",
 				"parameters": {
-					"solver.max_amu": "Maximum artificial viscosity",
-					"solver.s0": "Sensor cut-off",
-					"solver.kappa": "Sensor range"
-				}
-			},
-			"Interfaces": {
-				"title": "Interfaces",
-				"parameters": {
-					"solver.riemann": "Riemann Solver",
-					"solver.ldg_beta": "LDG Beta",
-					"solver.ldg_tau": "LDG Tau"
-				}
-			},
-			"Linear-int": {
-				"title": "Linear",
-				"parameters": {
-					"solver.interfaces.flux_pts": "Flux points",
-					"solver.interfaces.quad_deg": "Degree of quadratur",
-					"solver.interfaces.quad_pts": "Name of quadratur"
-				}
-			},
-			"Triangular-int": {
-				"title": "Triangular",
-				"parameters": {
-					"solver.interfaces.flux_pts": "Flux points",
-					"solver.interfaces.quad_deg": "Degree of quadratur",
-					"solver.interfaces.quad_pts": "Name of quadratur"
-				}
-			},
-			"Quadrilateral-int": {
-				"title": "Quadrilateral",
-				"parameters": {
-					"solver.interfaces.flux_pts": "Flux points",
-					"solver.interfaces.quad_deg": "Degree of quadratur",
-					"solver.interfaces.quad_pts": "Name of quadratur"
-				}
-			},
-			"Triangular-el": {
-				"title": "Triangular",
-				"parameters": {
-					"solver.elements.soln_pts": "Solution points",
-					"solver.elements.quad_deg": "Degree of quadratur",
-					"solver.elements.quad_pts": "Name of quadratur"
-				}
-			},
-			"Quadrilateral-el": {
-				"title": "Quadrilateral",
-				"parameters": {
-					"solver.elements.soln_pts": "Solution points",
-					"solver.elements.quad_deg": "Degree of quadratur",
-					"solver.elements.quad_pts": "Name of quadratur"
-				}
-			},
-			"Hexahedral-el": {
-				"title": "Hexahedral",
-				"parameters": {
-					"solver.elements.soln_pts": "Solution points",
-					"solver.elements.quad_deg": "Degree of quadratur",
-					"solver.elements.quad_pts": "Name of quadratur"
-				}
-			},
-			"Tetrahedral-el": {
-				"title": "Tetrahedral",
-				"parameters": {
-					"solver.elements.soln_pts": "Solution points",
-					"solver.elements.quad_deg": "Degree of quadratur",
-					"solver.elements.quad_pts": "Name of quadratur"
-				}
-			},
-			"Prismatic-el": {
-				"title": "Prismatic",
-				"parameters": {
-					"solver.elements.soln_pts": "Solution points",
-					"solver.elements.quad_deg": "Degree of quadratur",
-					"solver.elements.quad_pts": "Name of quadratur"
-				}
-			},
-			"Pyramidal-el": {
-				"title": "Pyramidal",
-				"parameters": {
-					"solver.elements.soln_pts": "Solution points",
-					"solver.elements.quad_deg": "Degree of quadratur",
-					"solver.elements.quad_pts": "Name of quadratur"
-				}
-			},
-			"Solver-source-terms": {
-				"title": "Solver Source Terms",
-				"parameters": {
-					"solver.source-terms.rho": "Density source term",
-					"solver.source-terms.rhou": "X-momentum source term",
-					"solver.source-terms.rhov": "Y-momentum source term",
-					"solver.source-terms.rhow": "Z-momentum source term",
-					"solver.source-terms.E": "Energy source term"
-				}
-			},
-			"Filter": {
-				"title": "Filter",
-				"parameters": {
-					"solution.filter.nsteps": "Filter apply interval (in steps)",
-					"solution.filter.alpha": "Strength of filter",
-					"solution.filter.order": "Order of filter",
-					"solution.filter.cutoff": "Cutoff frequency"
-				}
-			},
-			"Plugin Writer": {
-				"title": "Plugin Writer",
-				"parameters": {
-					"solution.plugin_writer.dt_out": "Disk write time interval",
-					"solution.plugin_writer.basedir": "Disk write time interval",
-					"solution.plugin_writer.basename": "Output name pattern"
-				}
-			},
-			"Plugin Fluidforce Name": {
-				"title": "Plugin Fluidforce Name",
-				"parameters": {
-					"solution.plugin_fluidforce.nsteps": "Integration interval",
-					"solution.plugin_fluidforce.file": "Output file path",
-					"solution.plugin_fluidforce.header": "Output header row"
-				}
-			},
-			"Plugin NaN check": {
-				"title": "Plugin NaN check",
-				"parameters": {
-					"solution.plugin_nancheck.nsteps": "nsteps"
-				}
-			},
-			"Plugin residual": {
-				"title": "Plugin residual",
-				"parameters": {
-					"solution.plugin_residual.nsteps": "Calculation interval",
-					"solution.plugin_residual.file": "Output file path",
-					"solution.plugin_residual.header": "Output header row"
-				}
-			},
-			"Plugin sampler": {
-				"title": "Plugin sampler",
-				"parameters": {
-					"solution.plugin_sampler.nsteps": "nSteps",
-					"solution.plugin_sampler.samp_pts": "Sample points",
-					"solution.plugin_sampler.format": "Format",
-					"solution.plugin_sampler.file": "File",
-					"solution.plugin_sampler.header": "Header"
-				}
-			},
-			"Plugin Time average": {
-				"title": "Plugin Time average",
-				"parameters": {
-					"solution.plugin_tavg.nsteps": "nSteps average",
-					"solution.plugin_tavg.dt_out": "DT Out",
-					"solution.plugin_tavg.basedir": "Basedir",
-					"solution.plugin_tavg.basename": "Basename",
-					"solution.plugin_tavg.avg_name": "Average Name"
-				}
-			},
-			"char-riem-inv": {
-				"title": "char-riem-inv",
-				"parameters": {
-					"name": "Name",
-					"rho": "density",
-					"u": "x-velocity",
-					"v": "y-velocity",
-					"w": "z-velocity",
-					"p": "static pressure"
-				}
-			},
-			"no-slp-isot-wall": {
-				"title": "no-slp-isot-wall",
-				"parameters": {
-					"name": "Name",
-					"u": "x-velocity of wall",
-					"v": "y-velocity of wall",
-					"w": "z-velocity of wall",
-					"cpTw": "Product of specific heat capacity"
-				}
-			},
-			"no-slp-adia-wall": {
-				"title": "no-slp-adia-wall",
-				"parameters": {}
-			},
-			"slp-adia-wall": {
-				"title": "slp-adia-wall",
-				"parameters": {}
-			},
-			"sup-out-fn": {
-				"title": "sup-out-fn",
-				"parameters": {}
-			},
-			"sub-in-frv": {
-				"title": "sub-in-frv",
-				"parameters": {
-					"name": "Name",
-					"rho": "density",
-					"u": "x-velocity",
-					"v": "y-velocity",
-					"w": "z-velocit"
-				}
-			},
-			"sub-in-ftpttang": {
-				"title": "sub-in-ftpttang",
-				"parameters": {
-					"name": "Name",
-					"pt": "Total pressire",
-					"cpTt": "Product of specific heat capcacity",
-					"theta": "Azimuth angle of inflow",
-					"phi": "Inclination of angle of inflow"
-				}
-			},
-			"sub-out-fp": {
-				"title": "sub-out-fp",
-				"parameters": {
-					"name": "Name",
-					"p": "Static pressure"
-				}
-			},
-			"sup-in-fa": {
-				"title": "sup-in-fa",
-				"parameters": {
-					"name": "Name",
-					"rho": "density",
-					"u": "x-velocity",
-					"v": "y-velocity",
-					"w": "z-velocity",
-					"p": "static pressure"
-				}
-			},
-			"ics": {
-				"title": "ics",
-				"parameters": {
-					"ics.rho": "Initial Density",
-					"ics.u": "Initial X velocity",
-					"ics.v": "Initial Y velocity",
-					"ics.w": "Initial Z velocity",
-					"ics.p": "Initial static pressure distribution"
+					"h": "H"
 				}
 			}
 		}
 	};
 
 /***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = {};
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	module.exports = {};
-
-/***/ },
-/* 9 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var template = __webpack_require__(11);
+	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+
+	var template = __webpack_require__(8);
 
 	module.export = function (dataModel) {
 	    var results = {},
@@ -767,12 +542,12 @@
 
 	    // FIXME
 
-	    return { results, error };
+	    return { results: results, error: error };
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ },
-/* 10 */
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -788,25 +563,25 @@
 
 
 /***/ },
-/* 11 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(12);
+	var Handlebars = __webpack_require__(9);
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    return "Just need to fill with some data...";
 	},"useData":true});
 
 /***/ },
-/* 12 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Create a simple path alias to allow browserify to resolve
 	// the runtime on a supported path.
-	module.exports = __webpack_require__(13)['default'];
+	module.exports = __webpack_require__(10)['default'];
 
 
 /***/ },
-/* 13 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -820,30 +595,30 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _handlebarsBase = __webpack_require__(14);
+	var _handlebarsBase = __webpack_require__(11);
 
 	var base = _interopRequireWildcard(_handlebarsBase);
 
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
 
-	var _handlebarsSafeString = __webpack_require__(28);
+	var _handlebarsSafeString = __webpack_require__(25);
 
 	var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 
-	var _handlebarsException = __webpack_require__(16);
+	var _handlebarsException = __webpack_require__(13);
 
 	var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
 
-	var _handlebarsUtils = __webpack_require__(15);
+	var _handlebarsUtils = __webpack_require__(12);
 
 	var Utils = _interopRequireWildcard(_handlebarsUtils);
 
-	var _handlebarsRuntime = __webpack_require__(29);
+	var _handlebarsRuntime = __webpack_require__(26);
 
 	var runtime = _interopRequireWildcard(_handlebarsRuntime);
 
-	var _handlebarsNoConflict = __webpack_require__(30);
+	var _handlebarsNoConflict = __webpack_require__(27);
 
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -878,7 +653,7 @@
 
 
 /***/ },
-/* 14 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -889,17 +664,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
-	var _exception = __webpack_require__(16);
+	var _exception = __webpack_require__(13);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _helpers = __webpack_require__(17);
+	var _helpers = __webpack_require__(14);
 
-	var _decorators = __webpack_require__(25);
+	var _decorators = __webpack_require__(22);
 
-	var _logger = __webpack_require__(27);
+	var _logger = __webpack_require__(24);
 
 	var _logger2 = _interopRequireDefault(_logger);
 
@@ -988,7 +763,7 @@
 
 
 /***/ },
-/* 15 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1118,7 +893,7 @@
 
 
 /***/ },
-/* 16 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1164,7 +939,7 @@
 
 
 /***/ },
-/* 17 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1175,31 +950,31 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _helpersBlockHelperMissing = __webpack_require__(18);
+	var _helpersBlockHelperMissing = __webpack_require__(15);
 
 	var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 
-	var _helpersEach = __webpack_require__(19);
+	var _helpersEach = __webpack_require__(16);
 
 	var _helpersEach2 = _interopRequireDefault(_helpersEach);
 
-	var _helpersHelperMissing = __webpack_require__(20);
+	var _helpersHelperMissing = __webpack_require__(17);
 
 	var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 
-	var _helpersIf = __webpack_require__(21);
+	var _helpersIf = __webpack_require__(18);
 
 	var _helpersIf2 = _interopRequireDefault(_helpersIf);
 
-	var _helpersLog = __webpack_require__(22);
+	var _helpersLog = __webpack_require__(19);
 
 	var _helpersLog2 = _interopRequireDefault(_helpersLog);
 
-	var _helpersLookup = __webpack_require__(23);
+	var _helpersLookup = __webpack_require__(20);
 
 	var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 
-	var _helpersWith = __webpack_require__(24);
+	var _helpersWith = __webpack_require__(21);
 
 	var _helpersWith2 = _interopRequireDefault(_helpersWith);
 
@@ -1216,14 +991,14 @@
 
 
 /***/ },
-/* 18 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('blockHelperMissing', function (context, options) {
@@ -1261,7 +1036,7 @@
 
 
 /***/ },
-/* 19 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1271,9 +1046,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
-	var _exception = __webpack_require__(16);
+	var _exception = __webpack_require__(13);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -1361,7 +1136,7 @@
 
 
 /***/ },
-/* 20 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1371,7 +1146,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(16);
+	var _exception = __webpack_require__(13);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -1392,14 +1167,14 @@
 
 
 /***/ },
-/* 21 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('if', function (conditional, options) {
@@ -1427,7 +1202,7 @@
 
 
 /***/ },
-/* 22 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1459,7 +1234,7 @@
 
 
 /***/ },
-/* 23 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1477,14 +1252,14 @@
 
 
 /***/ },
-/* 24 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('with', function (context, options) {
@@ -1516,7 +1291,7 @@
 
 
 /***/ },
-/* 25 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1527,7 +1302,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _decoratorsInline = __webpack_require__(26);
+	var _decoratorsInline = __webpack_require__(23);
 
 	var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 
@@ -1538,14 +1313,14 @@
 
 
 /***/ },
-/* 26 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
 	exports['default'] = function (instance) {
 	  instance.registerDecorator('inline', function (fn, props, container, options) {
@@ -1573,14 +1348,14 @@
 
 
 /***/ },
-/* 27 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
 	var logger = {
 	  methodMap: ['debug', 'info', 'warn', 'error'],
@@ -1626,7 +1401,7 @@
 
 
 /***/ },
-/* 28 */
+/* 25 */
 /***/ function(module, exports) {
 
 	// Build out our basic SafeString type
@@ -1647,7 +1422,7 @@
 
 
 /***/ },
-/* 29 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1667,15 +1442,15 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _utils = __webpack_require__(15);
+	var _utils = __webpack_require__(12);
 
 	var Utils = _interopRequireWildcard(_utils);
 
-	var _exception = __webpack_require__(16);
+	var _exception = __webpack_require__(13);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _base = __webpack_require__(14);
+	var _base = __webpack_require__(11);
 
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -1945,7 +1720,7 @@
 
 
 /***/ },
-/* 30 */
+/* 27 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
