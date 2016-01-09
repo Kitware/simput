@@ -61,7 +61,7 @@ module.exports = function (directory, modelType, output) {
         'type: \'TYPE\',\n' +
         'model: require(\'./model.json\'),\n' +
         'lang: LANG,\n' +
-        'convert: require(\'./convert.js\').default,\n' +
+        'convert: require(\'./convert.js\'),\n' +
     '}\n';
     
     var lang = '{}';
