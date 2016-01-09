@@ -4,7 +4,8 @@ require('shelljs/global');
 
 const path = require('path'),
       program = require('commander'),
-      express = require('express');
+      express = require('express'),
+      bodyParser = require('body-parser');
       
 const simputCompiler  = require('./compile'),
       simputManager   = require('./manager'),
@@ -56,6 +57,7 @@ if (program.input && program.output && !program.gui) {
   simputCompiler(toAbsolutePath(program.compile), program.type, program.output);
 } else if (program.output) {
   const app = express();
+  app.use(bodyParser.json({limit: 10000000}));
   app.use(express.static(__dirname + "/../dist"));
     
   ls(simputFolder).forEach(function(file) {
@@ -75,11 +77,6 @@ if (program.input && program.output && !program.gui) {
   if (inputFile === null) {
     console.log('No valid json found in ' + program.output);
   }
-  
-  // app.route('/')
-  //   .get(function(req, res) {
-  //     res.send('index.html');
-  //   });
 
   app.route('/type/:type')
     .get(function(req, res) {
@@ -99,7 +96,8 @@ if (program.input && program.output && !program.gui) {
     })
     .post(function(req, res) {
       //receive new file content and update the file at program.input
-      console.log('POST');
+      console.log('POST', req.body);
+      res.send(req.body);
     });
     
   app.listen(program.port);
