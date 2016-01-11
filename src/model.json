@@ -10,22 +10,20 @@
       "solution"
    ],
    "views" : {
-      "backend"     : { "id": "backend",  "label" : "Backend",   "attributes": [ "Backend-settings", ["Open-MP", "Open-CL", "CUDA"]], "names": ["Backend"]},
-      "constants"   : { "id": "constants","label" : "Constants", "attributes": [ "Constants" ] },
-      "solver"      : { "id": "solver",   "label" : "Solver",    "attributes": [ "Solver-settings", "Time Integrator", "Artificial Viscosity", "Solver-source-terms", "Interfaces"] },
-      "solver-interfaces": { "id": "solver-interfaces","label": "Solver Interfaces", "attributes": [["Linear-int", "Triangular-int", "Quadrilateral-int"]]},
-      "solver-elements":   { "id": "solver-elements",  "label": "Solver Elements",   "attributes": [["Triangular-el", "Quadrilateral-el", "Hexahedral-el", "Tetrahedral-el", "Prismatic-el", "Pyramidal-el"]], "size": -1},
-      "solution-bcs":      { "id": "solution-bcs", "label": "Boundary Conditions",   "attributes": [["char-riem-inv", "no-slp-adia-wall", "no-slp-isot-wall", "slp-adia-wall", "sub-in-frv", "sub-in-ftpttang", "sub-out-fp", "sup-in-fa", "sup-out-fn"]], "size": -1},
-      "solution-ff":       { "id": "solution-ff", "label": "Solution Fluidforce",    "attributes": ["Plugin Fluidforce Name"], "size": -1},
-      "solution":          { "id": "solution",         "label": "Solution",          "attributes": [["Filter", "Plugin Writer", "Plugin NaN check", "Plugin residual", "Plugin sampler", "Plugin Time average", "ics"]], "size": -1}
+      "backend"     : { "attributes": [ "Backend-settings", "BackendOr"]},
+      "constants"   : { "attributes": [ "Constants" ] },
+      "solver"      : { "attributes": [ "Solver-settings", "TimeIntegrator", "ArtificialViscosity", "Solver-source-terms", "Interfaces"] },
+      "solver-interfaces": { "attributes": [ "InterfacesOr" ]},
+      "solver-elements":   { "attributes": [ "ElementsOr" ], "size": -1},
+      "solution-bcs":      { "attributes": [ "bcsOr" ], "size": -1},
+      "solution-ff":       { "attributes": [ "PluginFluidforceName" ], "size": -1},
+      "solution":          { "attributes": [ "SolutionOr" ], "size": -1}
    },
    "definitions": {
       "Backend-settings": {
-         "label": "Settings", 
          "parameters": [
             {
                "id"     : "backend.precision",
-               "label"  : "Precision",
                "type"   : "enum",
                "size"   : 1,
                "enum"   : {
@@ -34,7 +32,6 @@
                }
             },{
                "id"     : "backend.rank_allocator",
-               "label"  : "Rank Allocator",
                "type"   : "enum",
                "size"   : 1,
                "enum"   : {
@@ -44,38 +41,53 @@
             }
          ]
       },
+      "BackendOr" : {
+         "parameters": [
+            {
+               "id": "or",
+               "type": "int",
+               "size": 1,
+               "ui": "enum",
+               "default": [0],
+               "domain": {
+                  "Open-MP": 0,
+                  "Open-CL": 1,
+                  "CUDA": 2
+               }
+            },
+            ["Open-MP", "Open-CL", "CUDA"]
+         ],
+         "children": {
+            "Open-MP": "BackendOr.or[0] === 0",
+            "Open-CL": "BackendOr.or[0] === 1",
+            "CUDA": "BackendOr.or[0] === 2"
+         }  
+      },
       "CUDA": {
-         "label": "CUDA", 
          "parameters": [
             {
                "id"     : "cuda.device_id",
-               "label"  : "Precision",
                "type"   : "string",
                "size"   : 1
             }
          ]
       },
       "Open-MP": {
-         "label": "Open-MP", 
          "parameters": [
             {
                "id"     : "open-mp.cc",
-               "label"  : "C Compiler",
                "type"   : "string",
                "size"   : 1
             },{
                "id"     : "open-mp.cflags",
-               "label"  : "Compiler Flags",
                "type"   : "string",
                "size"   : 1
             },{
                "id"     : "open-mp.cblas",
-               "label"  : "Path to shared C BLAS library",
                "type"   : "string",
                "size"   : 1
             },{
                "id"     : "open-mp.cblas_type",
-               "label"  : "Type of BLAS library",
                "type"   : "enum",
                "size"   : 1,
                "enum"   : {
@@ -86,16 +98,13 @@
          ]
       },
       "Open-CL": {
-         "label": "Open-CL", 
          "parameters": [
             {
                "id"     : "open-cl.platform_id",
-               "label"  : "Platform ID",
                "type"   : "integer",
                "size"   : 1
             },{
                "id"     : "open-cl.device_type",
-               "label"  : "Device Type",
                "type"   : "enum",
                "size"   : 1,
                "enum"   : {
@@ -104,49 +113,40 @@
                }
             },{
                "id"     : "open-cl.device_id",
-               "label"  : "Device ID",
                "type"   : "string",
                "size"   : 1
             }
          ]
       },
       "Constants": {
-         "label": "Constants", 
          "parameters": [
             {
                "id"     : "constants.gamma",
-               "label"  : "Gamma",
                "type"   : "double",
                "size"   : 1
             },{
                "id"     : "constants.mu",
-               "label"  : "Mu",
                "type"   : "double",
                "size"   : 1
             },{
                "id"     : "constants.pr",
-               "label"  : "Pr",
                "type"   : "double",
                "size"   : 1
             },{
                "id"     : "constants.cpTref",
-               "label"  : "cpTref",
                "type"   : "double",
                "size"   : 1
             },{
                "id"     : "constants.cpTs",
-               "label"  : "cpTS",
                "type"   : "double",
                "size"   : 1
             }
          ]
       },
       "Solver-settings": {
-         "label": "Settings",
          "parameters": [
             {
                "id": "solver.system", 
-               "label": "System",
                "type": "enum",
                "size"   : 1,
                "enum"   : {
@@ -155,12 +155,10 @@
                }
             },{
                "id": "solver.order",
-               "label": "Order",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.anti_alias", 
-               "label": "Anti-alias",
                "type": "enum",
                "size"   : 1,
                "enum"   : {
@@ -169,7 +167,6 @@
                }
             },{
                "id": "solver.viscosity_correction", 
-               "label": "Viscosity correction",
                "type": "enum",
                "size"   : 1,
                "enum"   : {
@@ -178,7 +175,6 @@
                }
             },{
                "id": "solver.shock_capturing", 
-               "label": "Shock capturing",
                "type": "enum",
                "size"   : 1,
                "enum"   : {
@@ -188,12 +184,10 @@
             }
          ]   
       },
-      "Time Integrator": {
-         "label": "Time Integrator",
+      "TimeIntegrator": {
          "parameters": [
             {
                "id"     : "solver.scheme",
-               "label"  : "Scheme",
                "type"   : "enum",
                "size"   : 1,
                "enum"   : {
@@ -202,22 +196,18 @@
                }
             },{
                "id"     : "solver.tstart",
-               "label"  : "Initial time",
                "type"   : "double",
                "size"   : 1
             },{
                "id"     : "solver.tend",
-               "label"  : "Final time",
                "type"   : "double",
                "size"   : 1
             },{
                "id"     : "solver.dt",
-               "label"  : "Time step",
                "type"   : "double",
                "size"   : 1
             },{
                "id"     : "solver.controller",
-               "label"  : "Time step",
                "type"   : "enum",
                "size"   : 1,
                "enum"   : {
@@ -226,59 +216,48 @@
                }
             },{
                 "id": "solver.atol",
-                "label": "atol",
                 "type": "double",
                 "size": 1
             },{
                 "id": "solver.rtol",
-                "label": "rtol",
                 "type": "double",
                 "size": 1
             },{
                 "id": "solver.safety_fact",
-                "label": "safety-fact",
                 "type": "double",
                 "size": 1
             },{
                 "id": "solver.min_fact",
-                "label": "min-fact",
                 "type": "double",
                 "size": 1
             },{
                 "id": "solver.max_fact",
-                "label": "max-fact",
                 "type": "double",
                 "size": 1
             }
          ]
       },
-      "Artificial Viscosity": {
-         "label": "Artificial Viscosity",
+      "ArtificialViscosity": {
          "parameters": [
             {
                "id": "solver.max_amu",
-               "label": "Maximum artificial viscosity",
                "type": "double",
                "size": 1
             },{
                "id": "solver.s0",
-               "label": "Sensor cut-off",
                "type": "double",
                "size": 1
             },{
                "id": "solver.kappa",
-               "label": "Sensor range",
                "type": "double",
                "size": 1
             }
          ]   
       },
       "Interfaces": {
-         "label": "Interfaces", 
          "parameters": [
             {
                "id": "solver.riemann",
-               "label": "Riemann Solver",
                "type": "enum",
                "size": 1,
                "enum"   : {
@@ -287,23 +266,42 @@
                }
             },{
                "id": "solver.ldg_beta",
-               "label": "LDG Beta",
                "type": "double",
                "size": 1
             },{
                "id": "solver.ldg_tau",
-               "label": "LDG Tau",
                "type": "double",
                "size": 1
             }
          ]   
       },
+      
+      "InterfacesOr": {
+         "parameters": [
+            {
+               "id": "or",
+               "type": "int",
+               "size": 1,
+               "ui": "enum",
+               "default": [0],
+               "domain": {
+                  "Linear": 0,
+                  "Triangular": 1,
+                  "Quadrilateral": 2
+               }
+            },
+            ["Linear-int", "Triangular-int", "Quadrilateral-int"]
+         ],
+         "children": {
+            "Linear-int": "InterfacesOr.or[0] === 0",
+            "Triangular-int": "InterfacesOr.or[0] === 1",
+            "Quadrilateral-int": "InterfacesOr.or[0] === 2"
+         }
+      },
       "Linear-int": {
-         "label": "Linear",
          "parameters": [
             {
                "id": "solver.interfaces.flux_pts",
-               "label": "Flux points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -312,12 +310,10 @@
                }
             },{
                "id": "solver.interfaces.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.interfaces.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -328,11 +324,9 @@
          ]   
       }, 
       "Triangular-int": {
-         "label": "Triangular",
          "parameters": [
             {
                "id": "solver.interfaces.flux_pts",
-               "label": "Flux points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -341,12 +335,10 @@
                }
             },{
                "id": "solver.interfaces.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.interfaces.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -357,11 +349,9 @@
          ]   
       }, 
       "Quadrilateral-int": {
-         "label": "Quadrilateral",
          "parameters": [
             {
                "id": "solver.interfaces.flux_pts",
-               "label": "Flux points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -370,12 +360,10 @@
                }
             },{
                "id": "solver.interfaces.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.interfaces.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -386,12 +374,39 @@
          ]   
       },
       
+      "ElementsOr": {
+         "parameters": [
+            {
+               "id": "or",
+               "type": "int",
+               "size": 1,
+               "ui": "enum",
+               "default": [0],
+               "domain": {
+                  "Triangular": 0,
+                  "Quadrilateral": 1,
+                  "Hexahedral": 2,
+                  "Tetrahedral": 3,
+                  "Prismatic": 4,
+                  "Pyramidal": 5
+               }
+            },
+            ["Triangular-el", "Quadrilateral-el", "Hexahedral-el", "Tetrahedral-el", "Prismatic-el", "Pyramidal-el"]
+         ],
+         "children": {
+            "Triangular-el":    "ElementsOr.or[0] === 0",
+            "Quadrilateral-el": "ElementsOr.or[0] === 1",
+            "Hexahedral-el":    "ElementsOr.or[0] === 2",
+            "Tetrahedral-el":   "ElementsOr.or[0] === 3",
+            "Prismatic-el":     "ElementsOr.or[0] === 4",
+            "Pyramidal-el":     "ElementsOr.or[0] === 5"
+         }
+      },
+      
       "Triangular-el": {
-         "label": "Triangular",
          "parameters": [
             {
                "id": "solver.elements.soln_pts",
-               "label": "Solution points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -400,12 +415,10 @@
                }
             },{
                "id": "solver.elements.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.elements.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -416,11 +429,9 @@
          ]   
       }, 
       "Quadrilateral-el": {
-         "label": "Quadrilateral",
          "parameters": [
             {
                "id": "solver.elements.soln_pts",
-               "label": "Solution points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -429,12 +440,10 @@
                }
             },{
                "id": "solver.elements.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.elements.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -445,11 +454,9 @@
          ]   
       }, 
       "Hexahedral-el": {
-         "label": "Hexahedral",
          "parameters": [
             {
                "id": "solver.elements.soln_pts",
-               "label": "Solution points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -458,12 +465,10 @@
                }
             },{
                "id": "solver.elements.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.elements.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -474,11 +479,9 @@
          ]   
       }, 
       "Tetrahedral-el": {
-         "label": "Tetrahedral",
          "parameters": [
             {
                "id": "solver.elements.soln_pts",
-               "label": "Solution points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -487,12 +490,10 @@
                }
             },{
                "id": "solver.elements.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.elements.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -503,11 +504,9 @@
          ]   
       }, 
       "Prismatic-el": {
-         "label": "Prismatic",
          "parameters": [
             {
                "id": "solver.elements.soln_pts",
-               "label": "Solution points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -516,12 +515,10 @@
                }
             },{
                "id": "solver.elements.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.elements.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -532,11 +529,9 @@
          ]   
       }, 
       "Pyramidal-el": {
-         "label": "Pyramidal",
          "parameters": [
             {
                "id": "solver.elements.soln_pts",
-               "label": "Solution points",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -545,12 +540,10 @@
                }
             },{
                "id": "solver.elements.quad_deg",
-               "label": "Degree of quadratur",
                "type": "integer",
                "size": 1
             },{
                "id": "solver.elements.quad_pts",
-               "label": "Name of quadratur",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -561,89 +554,110 @@
          ]   
       },
       "Solver-source-terms": {
-         "label": "Solver Source Terms",
          "parameters": [
             {
                "id": "solver.source-terms.rho",
-               "label": "Density source term",
                "type": "string",
                "size": 1
             },{
                "id": "solver.source-terms.rhou",
-               "label": "X-momentum source term",
                "type": "string",
                "size": 1
             },{
                "id": "solver.source-terms.rhov",
-               "label": "Y-momentum source term",
                "type": "string",
                "size": 1
             },{
                "id": "solver.source-terms.rhow",
-               "label": "Z-momentum source term",
                "type": "string",
                "size": 1
             },{
                "id": "solver.source-terms.E",
-               "label": "Energy source term",
                "type": "string",
                "size": 1
             }
          ]   
       },
+      
+      "SolutionOr": {
+         "parameters": [
+            {
+               "id": "or",
+               "type": "int",
+               "size": 1,
+               "ui": "enum",
+               "default": [0],
+               "domain": {
+                  "Filter": 0,
+                  "Plugin Writer": 1,
+                  "Plugin NaN check": 2,
+                  "Plugin residual": 3,
+                  "Plugin sampler": 4,
+                  "Plugin Time average": 5,
+                  "ics": 6
+               }
+            },
+            ["Filter",
+             "PluginWriter",
+             "PluginNaNcheck",
+             "Pluginresidual",
+             "Pluginsampler",
+             "PluginTimeaverage",
+             "ics"
+            ]
+         ],
+         "children": {
+            "Filter":              "SolutionOr.or[0] === 0",
+            "PluginWriter":       "SolutionOr.or[0] === 1",
+            "PluginNaNcheck":    "SolutionOr.or[0] === 2",
+            "Pluginresidual":     "SolutionOr.or[0] === 3",
+            "Pluginsampler":      "SolutionOr.or[0] === 4",
+            "PluginTimeaverage": "SolutionOr.or[0] === 5",
+            "ics":                 "SolutionOr.or[0] === 6"
+         }
+      },
       "Filter": {
-         "label": "Filter",
          "parameters":[
             {
                "id": "solution.filter.nsteps",
-               "label": "Filter apply interval (in steps)",
                "type": "integer",
                "size": 1
             },{
                "id": "solution.filter.alpha",
-               "label": "Strength of filter",
                "type": "double",
                "size": 1
             },{
                "id": "solution.filter.order",
-               "label": "Order of filter",
                "type": "integer",
                "size": 1
             },{
                "id": "solution.filter.cutoff",
-               "label": "Cutoff frequency",
                "type": "integer",
                "size": 1
             }
          ]   
       },
-      "Plugin Writer": {
-         "label": "Plugin Writer",
+      "PluginWriter": {
          "parameters":[
             {
                "id": "solution.plugin_writer.dt_out",
-               "label": "Disk write time interval",
                "type": "double",
                "size": 1
             },{
                "id": "solution.plugin_writer.basedir",
-               "label": "Disk write time interval",
                "type": "double",
                "size": 1
             },{
                "id": "solution.plugin_writer.basename",
-               "label": "Output name pattern",
                "type": "string",
                "size": 1
             }
          ]   
       },
-      "Plugin Fluidforce Name": {
-         "label": "Plugin Fluidforce Name",
+      "PluginFluidforceName": {
          "parameters":[
             {
                "id": "solution.plugin_fluidforce.name",
-               "label": "Name",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -651,70 +665,57 @@
                }
             }, {
                "id": "solution.plugin_fluidforce.nsteps",
-               "label": "Integration interval",
                "type": "integer",
                "size": 1
             },{
                "id": "solution.plugin_fluidforce.file",
-               "label": "Output file path",
                "type": "string",
                "size": 1
             },{
                "id": "solution.plugin_fluidforce.header",
-               "label": "Output header row",
                "type": "integer",
                "size": 1
             }
          ]   
       },
-      "Plugin NaN check": {
-         "label": "Plugin NaN check",
+      "PluginNaNcheck": {
          "parameters":[
             {
                "id": "solution.plugin_nancheck.nsteps",
-               "label": "nsteps",
                "type": "integer",
                "size": 1
             }
          ]   
       },
-      "Plugin residual": {
-         "label": "Plugin residual",
+      "Pluginresidual": {
          "parameters": [
             {
                "id": "solution.plugin_residual.nsteps",
-               "label": "Calculation interval",
                "type": "integer",
                "size": 1
             },{
                "id": "solution.plugin_residual.file",
-               "label": "Output file path",
                "type": "string",
                "size": 1
             },{
                "id": "solution.plugin_residual.header",
-               "label": "Output header row",
                "type": "integer",
                "size": 1
             }
          ] 
       },
-      "Plugin sampler": {
-         "label": "Plugin sampler",
+      "Pluginsampler": {
          "parameters":[
             {  
                "id": "solution.plugin_sampler.nsteps", 
-               "label": "nSteps",
                "type": "integer",
                "size": 1
             }, {  
                "id": "solution.plugin_sampler.samp_pts", 
-               "label": "Sample points",
                "type": "string",
                "size": 1
             }, {  
                "id": "solution.plugin_sampler.format", 
-               "label": "Format",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -723,54 +724,87 @@
                }
             }, {  
                "id": "solution.plugin_sampler.file", 
-               "label": "File",
                "type": "string",
                "size": 1
             }, {  
                "id": "solution.plugin_sampler.header", 
-               "label": "Header",
                "type": "integer",
                "size": 1
             }
          ]   
       },
-      "Plugin Time average": {
-         "label": "Plugin Time average",
+      "PluginTimeaverage": {
          "parameters":[
             {
                "id": "solution.plugin_tavg.nsteps", 
-               "label": "nSteps average",
                "type": "integer",
                "size": 1
             },{
                "id": "solution.plugin_tavg.dt_out",
-               "label": "DT Out",
                "type": "double",
                "size": 1
             },{
                "id": "solution.plugin_tavg.basedir",
-               "label": "Basedir",
                "type": "string",
                "size": 1
             },{
                "id": "solution.plugin_tavg.basename",
-               "label": "Basename",
                "type": "string",
                "size": 1
             },{
                "id": "solution.plugin_tavg.avg_name",
-               "label": "Average Name",
                "type": "string",
                "size": 1
             }
          ]   
       },
+      "bcsOr": {
+         "parameters": [
+            {
+               "id": "or",
+               "type": "int",
+               "size": 1,
+               "ui": "enum",
+               "default": [0],
+               "domain": {
+                  "char-riem-inv": 0,
+                  "no-slp-adia-wall": 1,
+                  "no-slp-isot-wall": 2,
+                  "slp-adia-wall": 3,
+                  "sub-in-frv": 4,
+                  "sub-in-ftpttang": 5,
+                  "sub-out-fp": 6,
+                  "sup-in-fa": 7,
+                  "sup-out-fn": 8
+               }
+            },
+            ["char-riem-inv",
+             "no-slp-adia-wall",
+             "no-slp-isot-wall",
+             "slp-adia-wall",
+             "sub-in-frv",
+             "sub-in-ftpttang",
+             "sub-out-fp",
+             "sup-in-fa",
+             "sup-out-fn"]
+         ],
+         "children": {
+            "char-riem-inv":    "bcsOr.or[0] === 0",
+            "no-slp-adia-wall": "bcsOr.or[0] === 1",
+            "no-slp-isot-wall": "bcsOr.or[0] === 2",
+            "slp-adia-wall":    "bcsOr.or[0] === 3",
+            "sub-in-frv":       "bcsOr.or[0] === 4",
+            "sub-in-ftpttang":  "bcsOr.or[0] === 5",
+            "sub-out-fp":       "bcsOr.or[0] === 6",
+            "sup-in-fa":        "bcsOr.or[0] === 7",
+            "sup-out-fn":       "bcsOr.or[0] === 8"
+         }
+      },
+      
       "char-riem-inv": {
-         "label": "char-riem-inv",
          "parameters": [
             {
                "id":"name",
-               "label": "Name",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -778,44 +812,34 @@
                }
             },{
                "id": "rho",
-               "label": "density",
                "type": "string",
                "size": 1
             }, {
                "id": "u",
-               "label": "x-velocity",
                "type": "string",
                "size": 1
             }, {
                "id": "v",
-               "label": "y-velocity",
                "type": "string",
                "size": 1
             }, {
                "id": "w",
-               "label": "z-velocity",
                "type": "string",
                "size": 1
             }, {
                "id": "p",
-               "label": "static pressure",
                "type": "string",
                "size": 1
             }
          ]   
       },
       "no-slp-adia-wall": {
-         "label": "no-slp-adia-wall",
-         "parameters": [
-            "no documentation"
-         ]   
+         "parameters": []   
       },
       "no-slp-isot-wall": {
-         "label": "no-slp-isot-wall",
          "parameters": [
             {
                "id":"name",
-               "label": "Name",
                "type": "enum",
                "size": 1 ,
                "enum": {
@@ -823,39 +847,30 @@
                }
             },{ 
                "id": "u",
-               "label": "x-velocity of wall",
                "type": "double",
                "size": 1
             },{ 
                "id": "v",
-               "label": "y-velocity of wall",
                "type": "double",
                "size": 1
             },{ 
                "id": "w",
-               "label": "z-velocity of wall",
                "type": "double",
                "size": 1
             },{ 
                "id": "cpTw",
-               "label": "Product of specific heat capacity",
                "type": "double",
                "size": 1
             }
          ]   
       },
       "slp-adia-wall": {
-         "label": "slp-adia-wall",
-         "parameters": [
-            "no documentation"
-         ]   
+         "parameters": []   
       },
       "sub-in-frv": {
-         "label": "sub-in-frv",
          "parameters": [
             {
                "id":"name",
-               "label": "Name",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -863,33 +878,27 @@
                }
             },{
                "id": "rho",
-               "label": "density",
                "type": "double",
                "size": 1
             }, {
                "id": "u",
-               "label": "x-velocity",
                "type": "double",
                "size": 1
             }, {
                "id": "v",
-               "label": "y-velocity",
                "type": "double",
                "size": 1
             }, {
                "id": "w",
-               "label": "z-velocit",
                "type": "double",
                "size": 1
             }
          ]   
       },
       "sub-in-ftpttang": {
-         "label": "sub-in-ftpttang",
          "parameters": [
             {
                "id":"name",
-               "label": "Name",
                "type": "enum",
                "size": 1 ,
                "enum": {
@@ -897,33 +906,27 @@
                }
             },{
                "id": "pt",
-               "label": "Total pressire",
                "type": "double",
                "size": 1
             },{
                "id": "cpTt",
-               "label": "Product of specific heat capcacity",
                "type": "double",
                "size": 1
             },{
                "id": "theta",
-               "label": "Azimuth angle of inflow",
                "type": "double",
                "size": 1
             },{
                "id": "phi",
-               "label": "Inclination of angle of inflow",
                "type": "double",
                "size": 1
             }
          ]   
       },
       "sub-out-fp": {
-         "label": "sub-out-fp",
          "parameters": [
             {
                "id":"name",
-               "label": "Name",
                "type": "enum",
                "size": 1,
                "enum": {
@@ -931,18 +934,15 @@
                }
             },{
                "id": "p",
-               "label": "Static pressure",
                "type": "double",
                "size": 1
             }
          ]   
       },
       "sup-in-fa": {
-         "label": "sup-in-fa",
          "parameters": [
             {
                "id":"name",
-               "label": "Name",
                "type": "enum",
                "size": 1 ,
                "enum": {
@@ -950,64 +950,50 @@
                }
             },{
                "id": "rho", 
-               "label": "density",
                "type": "double",
                "size": 1
             }, {
                "id": "u", 
-               "label": "x-velocity",
                "type": "double",
                "size": 1
             }, {
                "id": "v", 
-               "label": "y-velocity",
                "type": "double",
                "size": 1
             }, {
                "id": "w", 
-               "label": "z-velocity",
                "type": "double",
                "size": 1
             }, {
                "id": "p", 
-               "label": "static pressure",
                "type": "double",
                "size": 1
             }
          ]   
       },
       "sup-out-fn": {
-         "label": "sup-out-fn",
-         "parameters": [
-            "no documentation"
-         ]   
+         "parameters": []   
       },
       "ics": {
-         "label": "ics",
          "parameters":[
             {  
                "id": "ics.rho",
-               "label": "Initial Density",
                "type": "string",
                "size": 1
             }, {  
                "id": "ics.u",
-               "label": "Initial X velocity",
                "type": "string",
                "size": 1
             }, {  
                "id": "ics.v",
-               "label": "Initial Y velocity",
                "type": "string",
                "size": 1
             }, {  
                "id": "ics.w",
-               "label": "Initial Z velocity",
                "type": "string",
                "size": 1
             }, {  
                "id": "ics.p",
-               "label": "Initial static pressure distribution",
                "type": "string",
                "size": 1
             }

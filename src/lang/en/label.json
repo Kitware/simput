@@ -1,11 +1,12 @@
 {
     "views": {
         "backend": "Backend",
-        "contstants": "Contstants",
+        "constants": "Contstants",
         "solver": "Solver",
         "solver-interfaces": "Solver Interfaces",
         "solver-elements": "Solver Elements",
         "solution-bcs": "Boundary Conditions",
+        "solution-ff": "Solution Fluidforce",
         "solution": "Solution"
     },
     "attributes": {
@@ -16,6 +17,11 @@
                 "backend.rank_allocator": "Rank Allocator"
             }
         },
+        "BackendOr" : {
+            "title": "Backend Runner",
+            "parameters": {}
+        },
+        
         "CUDA": {
             "title": "CUDA",
             "parameters": {
@@ -59,7 +65,7 @@
                 "solver.shock_capturing": "Shock capturing"
             }
         },
-        "Time Integrator": {
+        "TimeIntegrator": {
             "title": "Time Integrator",
             "parameters": {
                 "solver.scheme": "Scheme",
@@ -74,13 +80,18 @@
                 "solver.max_fact": "max-fact"
             }
         },
-        "Artificial Viscosity": {
+        "ArtificialViscosity": {
             "title": "Artificial Viscosity",
             "parameters": {
                 "solver.max_amu": "Maximum artificial viscosity",
                 "solver.s0": "Sensor cut-off",
                 "solver.kappa": "Sensor range"
             }
+        },
+        
+        "InterfacesOr": {
+            "Title": "Interfaces",
+            "parameters": {} 
         },
         "Interfaces": {
             "title": "Interfaces",
@@ -113,6 +124,10 @@
                 "solver.interfaces.quad_deg": "Degree of quadratur",
                 "solver.interfaces.quad_pts": "Name of quadratur"
             }
+        },
+        "ElementsOr": {
+            "title": "Elements",
+            "parameters": {}  
         },
         "Triangular-el": {
             "title": "Triangular",
@@ -172,6 +187,9 @@
                 "solver.source-terms.E": "Energy source term"
             }
         },
+        "SolutionOr": {
+            "title": "Solution"  
+        },
         "Filter": {
             "title": "Filter",
             "parameters": {
@@ -181,7 +199,7 @@
                 "solution.filter.cutoff": "Cutoff frequency"
             }
         },
-        "Plugin Writer": {
+        "PluginWriter": {
             "title": "Plugin Writer",
             "parameters": {
                 "solution.plugin_writer.dt_out": "Disk write time interval",
@@ -189,7 +207,7 @@
                 "solution.plugin_writer.basename": "Output name pattern"
             }
         },
-        "Plugin Fluidforce Name": {
+        "PluginFluidforceName": {
             "title": "Plugin Fluidforce Name",
             "parameters": {
                 "solution.plugin_fluidforce.nsteps": "Integration interval",
@@ -197,13 +215,13 @@
                 "solution.plugin_fluidforce.header": "Output header row"
             }
         },
-        "Plugin NaN check": {
+        "PluginNaNcheck": {
             "title": "Plugin NaN check",
             "parameters": {
                 "solution.plugin_nancheck.nsteps": "nsteps"
             }
         },
-        "Plugin residual": {
+        "Pluginresidual": {
             "title": "Plugin residual",
             "parameters": {
                 "solution.plugin_residual.nsteps": "Calculation interval",
@@ -211,7 +229,7 @@
                 "solution.plugin_residual.header": "Output header row"
             }
         },
-        "Plugin sampler": {
+        "Pluginsampler": {
             "title": "Plugin sampler",
             "parameters": {
                 "solution.plugin_sampler.nsteps": "nSteps",
@@ -221,7 +239,7 @@
                 "solution.plugin_sampler.header": "Header"
             }
         },
-        "Plugin Time average": {
+        "PluginTimeaverage": {
             "title": "Plugin Time average",
             "parameters": {
                 "solution.plugin_tavg.nsteps": "nSteps average",
@@ -230,6 +248,9 @@
                 "solution.plugin_tavg.basename": "Basename",
                 "solution.plugin_tavg.avg_name": "Average Name"
             }
+        },
+        "bcsOr": {
+            "title": "BCS"  
         },
         "char-riem-inv": {
             "title": "char-riem-inv",
