@@ -21775,20 +21775,47 @@
 	        ui.propType = uiPropTypeMapping[parameter.ui];
 	    }
 
-	    ui.label = label;
-	    ui.help = help;
+	    if (label) {
+	        ui.label = label;
+	    }
+
+	    if (help) {
+	        ui.help = help;
+	    }
 
 	    return ui;
 	}
 
 	function getUI(model, attrName, paramId, labels, help) {
 	    if (!uiCache[attrName]) {
+	        var uiLabels = null,
+	            uiHelp = null;
 	        uiCache[attrName] = {};
-	        return generateUI(getParameter(model, attrName, paramId), labels[attrName].parameters[paramId], help[attrName][paramId]);
+
+	        if (labels[attrName] && labels[attrName].parameters && labels[attrName].parameters[paramId]) {
+	            uiLabels = labels[attrName].parameters[paramId];
+	        }
+
+	        if (help[attrName] && help[attrName][paramId]) {
+	            uiHelp = help[attrName][paramId];
+	        }
+
+	        return generateUI(getParameter(model, attrName, paramId), uiLabels, uiHelp);
 	    }
 
 	    if (!uiCache[attrName][paramId]) {
-	        var newUI = generateUI(getParameter(model, attrName, paramId), labels[attrName].parameters[paramId], help[attrName][paramId]);
+	        var uiLabels = null,
+	            uiHelp = null;
+
+	        if (labels[attrName] && labels[attrName].parameters && labels[attrName].parameters[paramId]) {
+	            uiLabels = labels[attrName].parameters[paramId];
+	        }
+
+	        if (help[attrName] && help[attrName][paramId]) {
+	            uiHelp = help[attrName][paramId];
+	        }
+
+	        var newUI = generateUI(getParameter(model, attrName, paramId), uiLabels, uiHelp);
 	        uiCache[attrName][paramId] = newUI;
 	        return newUI;
 	    }
@@ -21844,9 +21871,9 @@
 	                funcTemplate = ['var global = {}; \n            for (var attr in viewData) {\n                global[attr] = {};\n                for (var key in viewData[attr]) {\n                    global[attr][key] = viewData[attr][key].value;\n                }\n            }'];
 
 	            attrList.forEach(function (attr) {
-	                funcTemplate.push('var ' + attr + ' = global.' + attr + ';'); // `attr1 = global.attr1,`
+	                funcTemplate.push('var ' + attr.replace(/-|\./g, '') + ' = global[\'' + attr + '\'];'); // `attr1 = global.attr1,`
 	            });
-	            funcTemplate.push('return ' + boolExpr + ';');
+	            funcTemplate.push('return ' + boolExpr.replace(/ /g, '') + ';');
 	            showCache[attrName][orAttr] = new Function('viewData', funcTemplate.join('\n'));
 	        })();
 	    }
@@ -21857,7 +21884,7 @@
 	function getShowParamFunction(model, attrName, boolExpr) {
 	    var funcTemplate = [];
 	    model.definitions[attrName].parameters.map(function (param) {
-	        funcTemplate.push('var ' + param.id + ' = viewData.' + attrName + '.' + param.id + '.value');
+	        funcTemplate.push('var ' + param.id.replace(/-|\./g, '') + ' = viewData[\'' + attrName + '\'][\'' + param.id + '\'].value');
 	    });
 
 	    funcTemplate.push('return ' + boolExpr + ';');

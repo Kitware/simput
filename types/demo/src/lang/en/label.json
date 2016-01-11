@@ -24,11 +24,7 @@
             }
         },
         "attr2": {
-            "title": "Attribute 2",
-            "parameters": {
-                "a": "a",
-                "b": "b"
-            }
+            "title": "Attribute 2"
         },
         "attr3": {
             "title": "Attribute 3",
