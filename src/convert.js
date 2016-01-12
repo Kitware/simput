@@ -1,239 +1,255 @@
-var template = require('./templates/output.jade');
+var template = require('./templates/output.hbs');
 
 module.exports = function (model) {
-    var templateDataModel = { data: {}, valid: true , errors: []},
+    var templateData = { data: {}, valid: true , errors: []},
         viewInstance = null,
         count = 0,
         list = null;
+    
+    console.log('model: ', model);
+    
+    //last in array shortcut, used with arr.split below
+    function last(arr) {
+        return arr[arr.length-1];
+    }
+    
+    //assigns item to dest[key]
+    function tryAssign(dest, key, item) {
+        try {
+            dest[key] = item;
+        } catch (e) {
+            console.log(`problem assigning ${item} to templateData`);
+        }
+    }
+    
+    //backend settings
+    if (model.data.backend && model.data.backend[0]) {
+        var dest = {},
+            backend = model.data.backend[0]['Backend-settings'];
+        tryAssign(dest, 'precision', backend['backend.precision'].value[0]);
+        tryAssign(dest, 'rank-allocator', backend['backend.rank_allocator'].value[0]);
+        templateData.data.backend = dest;
+    }
+    
+    //backend model "Open-MP", "Open-CL", "CUDA"
+    if (model.data.backend && model.data.backend[0].BackendOr.or.value) {
+        var dest = {},
+            enumVal = model.data.backend[0].BackendOr.or.value[0],
+            orVal = ["Open-MP", "Open-CL", "CUDA"][enumVal],
+            orObj = model.data.backend[0][orVal];
         
-    //BACKEND
-    templateDataModel.data.backend = {}
-    try {
-        var backend = model.data.backend[0]['Backend-settings'];
-        templateDataModel.data.backend.precision = backend['backend.precision'];
-        templateDataModel.data.backend.rank_allocator = backend['backend.rank_allocator'];
-    } catch(error) {
-        templateDataModel.errors.push("Backend Settings not valid");
-        templateDataModel.errors.push("=> " + error.message);
-        templateDataModel.valid = false;
-    }
-
-    try {
-        var backend = model.data.backend[0],
-            active = backend.or[1].active,
-            prefixToDrop = active.toLowerCase() + '.';
-        templateDataModel.data.backend[active] = {};
-        
-        for (var key in backend[active]) {
-            var newKey = key.replace(prefixToDrop, '');
-            templateDataModel.data.backend[active][newKey] = backend[active][key];
-        }
-    } catch(error) {
-        templateDataModel.errors.push("Backend multiprocessing method not valid");
-        templateDataModel.errors.push("=> " + error.message);
-        templateDataModel.valid = false;
-    }
-    
-    // CONSTANTS
-    var constants = model.data.constants[0];
-    templateDataModel.data.constants = {};
-    ['gamma', 'mu', 'pr', 'cpTref', 'cpTs'].forEach(function(el) {
-        if (constants.Constants['constants.' + el]) {
-            templateDataModel.data.constants[el] = constants.Constants['constants.' + el];
-        }
-    });
-
-    //SOLVER
-    templateDataModel.data.solver = {};
-    try {
-        var solver = model.data.solver[0]['Solver-settings'];
-        templateDataModel.data.solver.system = solver['solver.system'];
-        templateDataModel.data.solver.order = solver['solver.order'];
-        templateDataModel.data.solver.anti_alias = solver['solver.anti_alias'];
-        templateDataModel.data.solver.viscosity_correction = solver['solver.viscosity_correction'];
-        templateDataModel.data.solver.shock_capturing = solver['solver.shock_capturing'];
-    } catch(error) {
-        templateDataModel.errors.push('Solver settings not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-
-    // SOLVER TIME-INTEGRATOR
-    templateDataModel.data.solver.ti = {};
-    try {
-        var solver = model.data.solver[0]['Time Integrator'];
-        templateDataModel.data.solver.ti.scheme = solver['solver.scheme'];
-        templateDataModel.data.solver.ti.tstart = solver['solver.tstart'];
-        templateDataModel.data.solver.ti.tend = solver['solver.tend'];
-        templateDataModel.data.solver.ti.dt = solver['solver.dt'];
-        templateDataModel.data.solver.ti.controller = solver['solver.controller'];
-        if (solver['solver.controller'] === 'pi' && 
-                (solver['solver.scheme'] === 'rk34' || solver['solver.scheme'] === 'rk35')) {
-            templateDataModel.data.solver.ti.atol = solver['solver.atol'];
-            templateDataModel.data.solver.ti.rtol = solver['solver.rtol'];
-            templateDataModel.data.solver.ti.safety_fact = solver['solver.safety_fact'];
-            templateDataModel.data.solver.ti.min_fact = solver['solver.min_fact'];
-            templateDataModel.data.solver.ti.max_fact = solver['solver.max_fact'];
-        } else if (solver['solver.controller'] === 'pi' && 
-                (solver['solver.scheme'] !== 'rk34' && solver['solver.scheme'] !== 'rk35')) {
-            throw Error('pi only works with rk34 and rk35');            
-        }
-    } catch (error) {
-        templateDataModel.errors.push('Solver Time-integrator not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-
-    // SOLVER ARTIFICIAL VISCOSITY
-    templateDataModel.data.solver.av = {};
-    try {
-        var solver = model.data.solver[0]['Artificial Viscosity'];
-        templateDataModel.data.solver.av.max_amu = solver['solver.max_amu'];
-        templateDataModel.data.solver.av.s0 = solver['solver.s0'];
-        templateDataModel.data.solver.av.kappa = solver['solver.kappa'];
-    } catch (error) {
-        templateDataModel.errors.push('Solver Artificial Viscosity not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-
-    // SOLVER INTERFACE
-    templateDataModel.data.solver.interfaces = {};
-    try {
-        var interfaces = model.data.solver[0]['Interfaces'];
-        templateDataModel.data.solver.interfaces.riemann = interfaces['solver.riemann'];
-        templateDataModel.data.solver.interfaces.ldg_beta = interfaces['solver.ldg_beta'];
-        templateDataModel.data.solver.interfaces.ldg_tau = interfaces['solver.ldg_tau'];
-    } catch (error) {
-        templateDataModel.errors.push('Solver interfaces not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-    
-    //SOLVER INTERFACE TYPE
-    templateDataModel.data.solver_interfaces = {};
-    try {
-        var interfaces = model.data['solver-interfaces'][0],
-            active = interfaces.or[0].active,
-            types = {'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad'},
-            valuesKey = active + '-int';
-            
-        templateDataModel.data.solver_interfaces.type = 'solver-interfaces-' + types[active.toLowerCase()];
-        templateDataModel.data.solver_interfaces.flux_pts = interfaces[valuesKey]['solver.interfaces.flux_pts'];
-        templateDataModel.data.solver_interfaces.quad_deg = interfaces[valuesKey]['solver.interfaces.quad_deg'];
-        templateDataModel.data.solver_interfaces.quad_pts = interfaces[valuesKey]['solver.interfaces.quad_pts'];
-    } catch(error) {
-        templateDataModel.errors.push('Solver interface type not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-
-    // SOLVER ELEMENTS
-    templateDataModel.data.solver_elements = [];
-    try {
-        var elements = model.data['solver-elements'];
-        if (elements && elements.length > 0) {
-            for (var i=0; i < elements.length; i++) {
-                var active = elements[i].or[0].active,
-                    types = {'triangular': 'tri', 'quadrilateral': 'quad', 
-                        'hexahedral': 'hex', 'tetrihedral': 'tet', 
-                        'prismatic': 'pri', 'pyramidal': 'pyr'},
-                    valuesKey = active + '-el',
-                    current = {};
-                current.type = 'solver-elements-' + types[active.toLowerCase()];
-                current.soln_pts = elements[valuesKey]['solver.elements.soln_pts'];
-                current.quad_deg = elements[valuesKey]['solver.elements.quad_deg'];
-                current.quad_pts = elements[valuesKey]['solver.elements.quad_pts'];
-                templateDataModel.data.solver_elements.push(current);
-            }
-        }      
-    } catch(error) {
-        templateDataModel.errors.push('Solver element not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-    
-    // SOLVER SOURCE TERMS
-    templateDataModel.data.solver.source_terms = {};
-    try {
-        var solver = model.data.solver[0]['Solver-source-terms'];
-        templateDataModel.data.solver.source_terms.rho = solver['solver.source-terms.rho'];
-        templateDataModel.data.solver.source_terms.rhou = solver['solver.source-terms.rhou'];
-        templateDataModel.data.solver.source_terms.rhov = solver['solver.source-terms.rhov'];
-        templateDataModel.data.solver.source_terms.rhw = solver['solver.source-terms.rhw'];
-        templateDataModel.data.solver.source_terms.E = solver['solver.source-terms.E'];
-    } catch(error) {
-        templateDataModel.errors.push('Solver source terms not valid');
-        templateDataModel.errors.push('=> ' + error.message);
-        templateDataModel.valid = false;
-    }
-    
-    // SOLN PLUGIN FLUIDFORCE
-    if (model.data['solution-ff']) {
-        templateDataModel.data.solution_ff = [];
-        model.data['solution-ff'].forEach(function(el) {
-            try {
-                var output = {name: el.name},
-                    current = el['Plugin Fluidforce Name'];
-                output.file = current['solution.plugin_fluidforce.file'];
-                output.nsteps = current['solution.plugin_fluidforce.nsteps'];
-                output.header = current['solution.plugin_fluidforce.header'];
-                templateDataModel.data.solution_ff.push(output);
-            } catch(error) {
-                templateDataModel.errors.push('Fluidforce for' + name + ' not valid');
-                templateDataModel.errors.push('=> ' + error.message);
-                templateDataModel.valid = false;
-            }
+        Object.keys(orObj).forEach( (key) => {
+            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
         });
+            
+        templateData.data[orVal] = dest;
     }
     
-    //SOLUTIONS
-    templateDataModel.data.solution = {};
-    model.data.solution.forEach(function(el) {
-        var active = el.or[0].active,
-            lowerActive = active.toLowerCase().replace(/ /g, '_'),
-            current = el[active];
+    //constants
+    if (model.data.constants && model.data.constants[0]) {
+        var dest = {},
+            constants = model.data.constants[0].Constants;
             
-        try {
-            templateDataModel.data.solution[lowerActive] = {};
-            for (var item in current) {
-                var shortItem = item.substr(item.lastIndexOf('.') + 1);
-                templateDataModel.data.solution[lowerActive][shortItem] = el[active][item];
-            }
-        } catch(error) {
-            templateDataModel.errors.push('Solution ' + active + ' not valid');
-            templateDataModel.errors.push('=> ' + error.message);
-            templateDataModel.valid = false;
-        }
-    });
+        Object.keys(constants).forEach( (el) => {
+            tryAssign(dest, last(el.split('.')), constants[el].value[0]); 
+        });
+            
+        templateData.data.constants = dest;
+    }
     
-    templateDataModel.data.bcs = [];
-    model.data['solution-bcs'].forEach(function(el) {
-        var active = el.or[0].active,
-            current = el[active],
-            output = {name: current['name'], items: []};
-            
-            delete current['name']
-        try {
-            var items = [];
-            for (var item in current) {
-                items.push({name: item, value: current[item]});
-            }
-            output.items = items;
-        } catch(error) {
-            templateDataModel.errors.push('BCS ' + active + ' not valid');
-            templateDataModel.errors.push('=> ' + error.message);
-            templateDataModel.valid = false;
-        }
+    //solver - settings
+    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['Solver-settings']) {
+        var dest = {},
+            ss = model.data.solver[0]['Solver-settings'];
         
-        templateDataModel.data.bcs.push(output);
-    });
+        Object.keys(ss).forEach( (el) => {
+            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), ss[el].value[0]); 
+        });
+        
+        templateData.data.solver_settings = dest;
+    }
     
-    console.log(templateDataModel);
+    //solver - time integrator
+    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['TimeIntegrator']) {
+        var dest = {},
+            ti = model.data.solver[0]['TimeIntegrator'];
+        
+        Object.keys(ti).forEach( (el) => {
+            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), ti[el].value[0]); 
+        });
+        
+        templateData.data.solver_ti = dest;
+    }
+    
+    //solver - artificail visc
+    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['ArtificialViscosity']) {
+        var dest = {},
+            av = model.data.solver[0]['ArtificialViscosity'];
+        
+        Object.keys(av).forEach( (el) => {
+            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), av[el].value[0]);
+        });
+        
+        templateData.data.solver_av = dest;
+    }
+    
+    //solver - source terms
+    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['Solver-source-terms']) {
+        var dest = {},
+            sst = model.data.solver[0]['Solver-source-terms'];
+        
+        Object.keys(sst).forEach( (el) => {
+            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), sst[el].value[0]); 
+        });
+        
+        templateData.data.solver_source_terms = dest;
+    }
+    
+    //solver - interfaces
+    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['Interfaces']) {
+        var dest = {},
+            interfaces = model.data.solver[0]['Interfaces'];
+        
+        Object.keys(interfaces).forEach( (el) => {
+            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), interfaces[el].value[0]); 
+        });
+        
+        templateData.data.solver_interfaces = dest;
+    }
+    
+    //solver line, tri, quad interfaces 
+    if (model.data['solver-interfaces'] && model.data['solver-interfaces'][0]) {
+        var dest = {},
+            enumVal = model.data['solver-elemets'].InterfacesOr.or.value[0],
+            orVal = ["Linear-int", "Triangular-int", "Quadrilateral-int"][enumVal],
+            types = {'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad'},
+            orObj = model.data.backend[0][orVal];
+        
+        Object.keys(orObj).forEach( (key) => {
+            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
+        });
+        
+        dest.type = types[orVal.split('-')[0].toLowerCase()];
+        templateData.data.solver_interfaces_type = dest;
+    }
+    
+    //solver elements
+    if (model.data['solver-elements'] && model.data['solver-elements'].length) {
+        var dest = [],
+            vals = model.data['solver-elements'],
+            enumVals = ["Triangular-el", "Quadrilateral-el", "Hexahedral-el", 
+                "Tetrahedral-el", "Prismatic-el", "Pyramidal-el"],
+            types = {'triangular': 'tri', 'quadrilateral': 'quad', 
+                    'hexahedral': 'hex', 'tetrahedral': 'tet', 
+                    'prismatic': 'pri', 'pyramidal': 'pyr'};
+        
+        vals.forEach( (el) => {
+            const orVal = enumVals[el['ElementsOr'].or.value[0]],
+                orSrc  = el[orVal],
+                orDest = {};
+                
+            orDest.type = types[orVal.split('-')[0].toLowerCase()];
+            Object.keys(orSrc).forEach( (key) => {
+                tryAssign(orDest, last(key.split('.')).replace(/_/g, '-'), orSrc[key].value[0]);
+            });
+            
+            dest.push(orDest);
+        });
+        
+        
+        templateData.data.solver_elements = dest;
+    }
+    
+    // fluidforce
+    if (model.data['solution-ff'] && model.data['solution-ff'].length) {
+        var dest = [];
+        
+        model.data['solution-ff'].forEach((el) => {
+            const fluidforce = {},
+                params = el['PluginFluidforceName'];
+            Object.keys(params).forEach((param) => {
+                tryAssign(fluidforce, last(param.split('.')).replace(/_/g, '-'), params[param].value[0]);
+            });
+            fluidforce.type = fluidforce.name;
+            delete fluidforce.name;
+            dest.push(fluidforce);
+        });
+        
+        templateData.data.soln_ff = dest;
+    }
+    
+    //solution
+    if (model.data.solution && model.data.solution.length) {
+        var dest = [],
+            vals = model.data.solution,
+            types = {'Filter': 'soln-filter',
+                 'PluginWriter': 'soln-plugin-writer',
+                 'PluginNaNcheck': 'soln-plugin-nancheck',
+                 'Pluginresidual': 'soln-plugin-residual',
+                 'Pluginsampler': 'soln-plugin-sampler',
+                 'PluginTimeaverage': 'soln-plugin-tavg',
+                 'ics': 'soln-ics'
+            },
+            enumVals = ["Filter",
+             "PluginWriter",
+             "PluginNaNcheck",
+             "Pluginresidual",
+             "Pluginsampler",
+             "PluginTimeaverage",
+             "ics"
+            ]; //order matters, cannot Object.keys(types);
+        
+        vals.forEach( (el) => {
+            const orVal = enumVals[el['SolutionOr'].or.value[0]],
+                orSrc  = el[orVal],
+                orDest = {};
+                
+            orDest.type = types[orVal];
+            Object.keys(orSrc).forEach( (key) => {
+                tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+            });
+            
+            dest.push(orDest);
+        });
+        
+        templateData.data.solution = dest;
+    }
+    
+    //bcs
+    if (model.data['solution-bcs'] && model.data['solution-bcs'].length) {
+        var dest = [],
+            vals = model.data['solution-bcs'],
+            enumVals = ['char-riem-inv',
+             'no-slp-adia-wall',
+             'no-slp-isot-wall',
+             'slp-adia-wall',
+             'sub-in-frv',
+             'sub-in-ftpttang',
+             'sub-out-fp',
+             'sup-in-fa',
+             'sup-out-fn'];
+        
+        vals.forEach( (el) => {
+            const orVal = enumVals[el['bcsOr'].or.value[0]],
+                orSrc  = el[orVal],
+                orDest = {};
+                
+            Object.keys(orSrc).forEach( (key) => {
+                tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+            });
+            orDest.type = orDest.name;
+            delete orDest.name;
+            dest.push(orDest);
+        });
+        
+        templateData.data.bcs = dest;
+    }
+    
+    console.log('template:', templateData);
     return {
-        errors: templateDataModel.errors,
+        errors: templateData.errors,
         results: {
-            'pyfr.ini': template(templateDataModel)
+            'pyfr.ini': template(templateData.data)
         }
     };
 }

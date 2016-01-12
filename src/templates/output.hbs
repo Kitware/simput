@@ -1,0 +1,70 @@
+{{#if backend}}
+[backend]
+{{{ini backend}}}
+{{/if}}
+{{! }}
+{{#if Open-MP}}
+[backend-openmp]
+{{{ini Open-MP}}}
+{{/if}}
+{{! }}
+{{#if Open-CL}}
+[backend-opencl]
+{{{ini Open-CL}}}
+{{/if}}
+{{! }}
+{{#if CUDA}}
+[backend-cuda]
+{{{ini CUDA}}}
+{{/if}}
+{{! }}
+{{#if constants}}
+[constants]
+{{{ini constants}}}
+{{/if}}
+{{! }}
+{{#if solver_settings}}
+[solver]
+{{{ini solver_settings}}}
+{{/if}}
+{{! }}
+{{#if solver_ti}}
+[solver-time-integrator]
+{{{ini solver_ti}}}
+{{/if}}
+{{! }}
+{{#if solver_av}}
+[solver-artificial-viscosity]
+{{{ini solver_av}}}
+{{/if}}
+{{! }}
+{{#if solver_source_terms}}
+[solver-source-terms]
+{{{ini solver_source_terms}}}
+{{/if}}
+{{! }}
+{{#if solver_interfaces}}
+[solver-interfaces]
+{{{ini solver_interfaces}}}
+{{/if}}
+{{! }}
+{{#if solver_interfaces_type}}
+[solver-interfaces-{{{solver_interfaces_type.type}}}]
+{{{ini solver_interfaces_type}}}
+{{/if}}
+{{! }}
+{{#each solver_elements}}
+{{{prependTitle 'solver-elements-'}}}
+{{/each}}
+{{! }}
+{{#each soln_ff}}
+{{{prependTitle 'soln-plugin-fluidforce-'}}}
+{{/each}}
+{{! }}
+{{#each solution}}
+{{{typeTitle}}}
+{{/each}}
+{{! }}
+{{#each bcs}}
+{{{prependTitle 'soln-bcs-'}}}
+{{/each}}
