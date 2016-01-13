@@ -1,0 +1,12 @@
+{
+    "type": "pyfr",
+    "external": {
+        "boundary-names":{
+            "wall A": "wall_a",
+            "wall B": "wall_b",
+            "wall C": "wall_c",
+            "wall D North": "wall_d_north"
+        }
+    },
+    "data": {}
+}
