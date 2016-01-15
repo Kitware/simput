@@ -24,7 +24,6 @@
     "html-loader": "0.4.0",
     "jade": "1.11.0",
     "jade-loader": "0.8.0",
-    "json-loader": "0.5.4",
     "node-libs-browser": "0.5.3",
     "open": "0.0.5",
     "shelljs": "0.5.3",
