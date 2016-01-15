@@ -1,17 +1,7 @@
-.Outline {
-    width: 33%;
-    float: left;
-}
-
-.Outline + .property-panel {
-    width: 66%;
-    float: left;
-}
-
-ul {
+.Outline ul {
     list-style: none;
 }
 
-li {
+.Outline li {
     cursor: pointer;
 }

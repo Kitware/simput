@@ -15,3 +15,13 @@
 .Simput-header button span {
     margin-right: 8px;
 }
+
+.Outline {
+    width: 33%;
+    float: left;
+}
+
+.Outline + .property-panel {
+    width: 66%;
+    float: left;
+}
