@@ -1,6 +1,15 @@
 .Simput-header {
     padding: 8px;
     border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Simput-header > span {
+    font-weight: bold;
+    font-size: 25px;
+    padding-left: 10px;
 }
 
 .Simput-header button {
@@ -16,12 +25,16 @@
     margin-right: 8px;
 }
 
+.Simput__Content {
+    display: flex;
+    flex-order: row;
+    justify-content: flex-start;
+}
+
 .Outline {
-    width: 33%;
-    float: left;
+    flex: none;
 }
 
 .Outline + .property-panel {
-    width: 66%;
-    float: left;
+    flex: 1;
 }

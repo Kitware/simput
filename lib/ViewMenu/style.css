@@ -1,7 +1,18 @@
+.Outline {
+    padding-left: 18px;
+    padding-right: 15px;
+    margin-right: 12px;
+}
+
 .Outline ul {
     list-style: none;
 }
 
+.Outline > ul {
+	padding-left: 0px;
+}
+
 .Outline li {
     cursor: pointer;
+    max-width: 30vw;
 }
