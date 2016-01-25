@@ -53,8 +53,10 @@ if (!process.argv.slice(2).length) {
 
 // inout
 if (program.input && program.output && !program.gui) {
+  mkdir('-p', toAbsolutePath(program.output));
   simputConverter(program.input, program.output);
 } else if (program.compile) {
+  mkdir('-p', toAbsolutePath(program.output));
   simputCompiler(toAbsolutePath(program.compile), program.type, program.output);
 } else if (program.output) {
   const app = express();
@@ -106,7 +108,7 @@ if (program.input && program.output && !program.gui) {
     })
     .post(function(req, res) {
       //receive new file content and update the file at program.input
-      console.log('POST', req.body);
+      mkdir('-p', toAbsolutePath(program.output));
       for (var key in req.body) {
         fs.writeFileSync(path.join(program.output, key), req.body[key]);
       }

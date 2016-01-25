@@ -1,3 +1,5 @@
+require('shelljs/global');
+
 var fs = require('fs'),
     path = require('path'),
     home = process.env.HOME,
@@ -20,7 +22,7 @@ function unitSuffix(size) {
         if (size < keys[i]) {
             return size / Math.pow(10, Math.log10(keys[i])-3) + suffixes[keys[i]];
         }
-    } 
+    }
     return size;
 }
 
@@ -30,15 +32,15 @@ module.exports = function (input, outputDirectory) {
     var inputContents = JSON.parse(
         fs.readFileSync(input, {encoding: 'utf8'})
     );
-    
+
     // import corresponding input type
     var type = inputContents.type;
     require(path.join(simputFolder, type + '.js'));
-    
+
     // write output
     try {
         var output = GLOBAL.Simput.types[type].convert(inputContents);
-        outputDirectory = toAbsolutePath(outputDirectory); 
+        outputDirectory = toAbsolutePath(outputDirectory);
         Object.keys(output.results).forEach(function(el) {
             fs.writeFileSync(path.join(outputDirectory, el), output.results[el]);
             var size = fs.statSync(path.join(outputDirectory, el)).size;
