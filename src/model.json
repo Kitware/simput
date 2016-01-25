@@ -28,7 +28,7 @@
                "ui"     : "enum",
                "size"   : 1,
                "domain"   : {
-                  "single": "single", 
+                  "single": "single",
                   "double": "double"
                }
             },{
@@ -61,7 +61,7 @@
             "Open-MP": "BackendOr.or[0] === 0",
             "Open-CL": "BackendOr.or[0] === 1",
             "CUDA": "BackendOr.or[0] === 2"
-         }  
+         }
       },
       "CUDA": {
          "parameters": [
@@ -94,7 +94,7 @@
                "size"   : 1,
                "default": [0],
                "domain"   : {
-                  "serial": "serial", 
+                  "serial": "serial",
                   "parallel": "parallel"
                }
             }
@@ -153,13 +153,13 @@
       "Solver-settings": {
          "parameters": [
             {
-               "id": "solver.system", 
+               "id": "solver.system",
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
                "default": [0],
                "domain" : {
-                  "euler": "euler", 
+                  "euler": "euler",
                   "navier-stokes": "navier-stokes"
                }
             },{
@@ -167,7 +167,7 @@
                "type": "integer",
                "size": 1
             },{
-               "id": "solver.anti_alias", 
+               "id": "solver.anti_alias",
                "type": "string",
                "ui": "enum",
                "size"   : 1,
@@ -181,26 +181,27 @@
                   "flux, surf-flux, div-flux": "flux, surf-flux, div-flux"
                }
             },{
-               "id": "solver.viscosity_correction", 
+               "id": "solver.viscosity_correction",
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
                "default": [0],
                "domain" : {
-                  "none": "none", 
+                  "none": "none",
                   "sutherland": "sutherland"
                }
             },{
-               "id": "solver.shock_capturing", 
-               "type": "string",
-               "ui"     :"enum",
+               "id": "solver.shock_capturing",
+               "type"   : "string",
+               "ui"     : "enum",
                "size"   : 1,
-               "enum"   : {
-                  "none": "none", 
+               "default": [0],
+               "domain" : {
+                  "none": "none",
                   "aritificial-viscosity": "aritificial-viscosity"
                }
             }
-         ]   
+         ]
       },
       "TimeIntegrator": {
          "parameters": [
@@ -235,7 +236,7 @@
                "size"   : 1,
                "default": [0],
                "domain"   : {
-                  "none": "none", 
+                  "none": "none",
                   "pi": "pi"
                }
             },{
@@ -276,7 +277,7 @@
                "type": "double",
                "size": 1
             }
-         ]   
+         ]
       },
       "Interfaces": {
          "parameters": [
@@ -301,9 +302,9 @@
                "type": "double",
                "size": 1
             }
-         ]   
+         ]
       },
-      
+
       "InterfacesOr": {
          "parameters": [
             {
@@ -351,8 +352,8 @@
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
                }
             }
-         ]   
-      }, 
+         ]
+      },
       "Triangular-int": {
          "parameters": [
             {
@@ -373,12 +374,12 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "williams-shunn": "williams-shunn", 
+                  "williams-shunn": "williams-shunn",
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
-      }, 
+         ]
+      },
       "Quadrilateral-int": {
          "parameters": [
             {
@@ -387,7 +388,7 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "gauss-legendre": "gauss-legendre", 
+                  "gauss-legendre": "gauss-legendre",
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
                }
             },{
@@ -405,9 +406,9 @@
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
+         ]
       },
-      
+
       "ElementsOr": {
          "parameters": [
             {
@@ -436,7 +437,7 @@
             "Pyramidal-el":     "ElementsOr.or[0] === 5"
          }
       },
-      
+
       "Triangular-el": {
          "parameters": [
             {
@@ -457,12 +458,12 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "williams-shunn": "williams-shunn", 
+                  "williams-shunn": "williams-shunn",
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
-      }, 
+         ]
+      },
       "Quadrilateral-el": {
          "parameters": [
             {
@@ -471,7 +472,7 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "gauss-legendre": "gauss-legendre", 
+                  "gauss-legendre": "gauss-legendre",
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
                }
             },{
@@ -489,8 +490,8 @@
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
-      }, 
+         ]
+      },
       "Hexahedral-el": {
          "parameters": [
             {
@@ -499,7 +500,7 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "gauss-legendre": "gauss-legendre", 
+                  "gauss-legendre": "gauss-legendre",
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
                }
             },{
@@ -517,8 +518,8 @@
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
-      }, 
+         ]
+      },
       "Tetrahedral-el": {
          "parameters": [
             {
@@ -539,12 +540,12 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "shunn-ham": "shunn-ham", 
+                  "shunn-ham": "shunn-ham",
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
-      }, 
+         ]
+      },
       "Prismatic-el": {
          "parameters": [
             {
@@ -553,7 +554,7 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "williams-shunn~gauss-legendre": "williams-shunn~gauss-legendre", 
+                  "williams-shunn~gauss-legendre": "williams-shunn~gauss-legendre",
                   "williams-shunn~gauss-legendre-lobatto": "williams-shunn~gauss-legendre-lobatto"
                }
             },{
@@ -571,8 +572,8 @@
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
-      }, 
+         ]
+      },
       "Pyramidal-el": {
          "parameters": [
             {
@@ -581,7 +582,7 @@
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "gauss-legendre":"gauss-legendre", 
+                  "gauss-legendre":"gauss-legendre",
                   "gauss-legendre-lobatto":"gauss-legendre-lobatto"
                }
             },{
@@ -597,7 +598,7 @@
                   "witherden-vincent": "witherden-vincent"
                }
             }
-         ]   
+         ]
       },
       "Solver-source-terms": {
          "parameters": [
@@ -622,9 +623,9 @@
                "type": "string",
                "size": 1
             }
-         ]   
+         ]
       },
-      
+
       "SolutionOr": {
          "parameters": [
             {
@@ -681,7 +682,7 @@
                "type": "integer",
                "size": 1
             }
-         ]   
+         ]
       },
       "PluginWriter": {
          "parameters":[
@@ -698,7 +699,7 @@
                "type": "string",
                "size": 1
             }
-         ]   
+         ]
       },
       "PluginFluidforceName": {
          "parameters":[
@@ -723,7 +724,7 @@
                "type": "integer",
                "size": 1
             }
-         ]   
+         ]
       },
       "PluginNaNcheck": {
          "parameters":[
@@ -732,7 +733,7 @@
                "type": "integer",
                "size": 1
             }
-         ]   
+         ]
       },
       "Pluginresidual": {
          "parameters": [
@@ -749,42 +750,42 @@
                "type": "integer",
                "size": 1
             }
-         ] 
+         ]
       },
       "Pluginsampler": {
          "parameters":[
-            {  
-               "id": "solution.plugin_sampler.nsteps", 
+            {
+               "id": "solution.plugin_sampler.nsteps",
                "type": "integer",
                "size": 1
-            }, {  
-               "id": "solution.plugin_sampler.samp_pts", 
+            }, {
+               "id": "solution.plugin_sampler.samp_pts",
                "type": "string",
                "size": 1
-            }, {  
-               "id": "solution.plugin_sampler.format", 
+            }, {
+               "id": "solution.plugin_sampler.format",
                "type": "string",
                "ui"  : "enum",
                "size": 1,
                "domain": {
-                  "primitive": "primitive", 
+                  "primitive": "primitive",
                   "conservative": "conservative"
                }
-            }, {  
-               "id": "solution.plugin_sampler.file", 
+            }, {
+               "id": "solution.plugin_sampler.file",
                "type": "string",
                "size": 1
-            }, {  
-               "id": "solution.plugin_sampler.header", 
+            }, {
+               "id": "solution.plugin_sampler.header",
                "type": "integer",
                "size": 1
             }
-         ]   
+         ]
       },
       "PluginTimeaverage": {
          "parameters":[
             {
-               "id": "solution.plugin_tavg.nsteps", 
+               "id": "solution.plugin_tavg.nsteps",
                "type": "integer",
                "size": 1
             },{
@@ -804,7 +805,7 @@
                "type": "string",
                "size": 1
             }
-         ]   
+         ]
       },
       "bcsOr": {
          "parameters": [
@@ -848,7 +849,7 @@
             "sup-out-fn":       "bcsOr.or[0] === 8"
          }
       },
-      
+
       "char-riem-inv": {
          "parameters": [
             {
@@ -880,10 +881,10 @@
                "type": "string",
                "size": 1
             }
-         ]   
+         ]
       },
       "no-slp-adia-wall": {
-         "parameters": []   
+         "parameters": []
       },
       "no-slp-isot-wall": {
          "parameters": [
@@ -895,27 +896,27 @@
                "domain": {
                   "external": "boundary-names"
                }
-            },{ 
+            },{
                "id": "u",
                "type": "double",
                "size": 1
-            },{ 
+            },{
                "id": "v",
                "type": "double",
                "size": 1
-            },{ 
+            },{
                "id": "w",
                "type": "double",
                "size": 1
-            },{ 
+            },{
                "id": "cpTw",
                "type": "double",
                "size": 1
             }
-         ]   
+         ]
       },
       "slp-adia-wall": {
-         "parameters": []   
+         "parameters": []
       },
       "sub-in-frv": {
          "parameters": [
@@ -944,7 +945,7 @@
                "type": "double",
                "size": 1
             }
-         ]   
+         ]
       },
       "sub-in-ftpttang": {
          "parameters": [
@@ -973,7 +974,7 @@
                "type": "double",
                "size": 1
             }
-         ]   
+         ]
       },
       "sub-out-fp": {
          "parameters": [
@@ -990,7 +991,7 @@
                "type": "double",
                "size": 1
             }
-         ]   
+         ]
       },
       "sup-in-fa": {
          "parameters": [
@@ -1003,50 +1004,50 @@
                   "external": "boundary-names"
                }
             },{
-               "id": "rho", 
+               "id": "rho",
                "type": "double",
                "size": 1
             }, {
-               "id": "u", 
+               "id": "u",
                "type": "double",
                "size": 1
             }, {
-               "id": "v", 
+               "id": "v",
                "type": "double",
                "size": 1
             }, {
-               "id": "w", 
+               "id": "w",
                "type": "double",
                "size": 1
             }, {
-               "id": "p", 
+               "id": "p",
                "type": "double",
                "size": 1
             }
-         ]   
+         ]
       },
       "sup-out-fn": {
-         "parameters": []   
+         "parameters": []
       },
       "ics": {
          "parameters":[
-            {  
+            {
                "id": "ics.rho",
                "type": "string",
                "size": 1
-            }, {  
+            }, {
                "id": "ics.u",
                "type": "string",
                "size": 1
-            }, {  
+            }, {
                "id": "ics.v",
                "type": "string",
                "size": 1
-            }, {  
+            }, {
                "id": "ics.w",
                "type": "string",
                "size": 1
-            }, {  
+            }, {
                "id": "ics.p",
                "type": "string",
                "size": 1
