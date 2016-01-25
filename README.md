@@ -22,19 +22,19 @@ $ Simput
 
     -h, --help                    output usage information
     -V, --version                 output the version number
-    
+
     -i, --input [file|directory]  Input file or directory
     -o, --output [directory]      Output directory to output to
     -t, --type [type]             Type of input
-    
+
     --no-gui                      Just generate output
     -s, --silent                  Do not open the browser
-    
+
     -c, --compile [directory]     Directory to compile files
     -a, --add [file]              Add model to list of available inputs
     -l, --list                    List model types of available as inputs
     -r, --remove [type]           Remove model to list of available inputs
-    
+
 ```
 
 ## Development
@@ -47,10 +47,26 @@ $ npm install
 $ cd tonic-applications/simput
 ```
 
-## Documentation
+## Production
 
-See the [documentation](https://kitware.github.io/simput) for a
-getting started guide, advanced documentation, and API descriptions.
+```
+$ git clone https://github.com/Kitware/simput.git
+$ cd simput
+$ git submodule update --init
+$ npm install
+$ npm link
+```
+
+### Uninstall
+In the folder you ran npm link from:
+```
+$ npm unlink
+```
+N.B: npm version >=2.4.1 is recommended for this or else you'll get an error and a warning.
+
+## Demos
+
+There are a few supplied demos in the folder `types`, each have their own README.
 
 #### Licensing
 
