@@ -2920,7 +2920,7 @@
 				}
 			},
 			"InterfacesOr": {
-				"Title": "Interfaces",
+				"title": "Interfaces",
 				"parameters": {}
 			},
 			"Interfaces": {
