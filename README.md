@@ -19,13 +19,13 @@ PyFR is an open-source Python based framework for solving advection-diffusion ty
 Simput provides a simple way to write input simulation files. This project is meant to manage PyFR simulation code. Simput requires a javascript description of an input deck. To build a Simput package use;
 
 ```sh
-$ Simput -c src/ -o versions/ -t PyFR-1-2-0
+$ Simput -c src/ -o versions/ -t pyfr
 ```
 
 Add the compiled package to Simput:
 
 ```sh
-$ Simput -a versions/PyFR-1-2-0.js
+$ Simput -a versions/pyfr.js
 ```
 
 ## Running Simput

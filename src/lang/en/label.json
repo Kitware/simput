@@ -21,7 +21,7 @@
             "title": "Backend Runner",
             "parameters": {}
         },
-        
+
         "CUDA": {
             "title": "CUDA",
             "parameters": {
@@ -88,10 +88,10 @@
                 "solver.kappa": "Sensor range"
             }
         },
-        
+
         "InterfacesOr": {
-            "Title": "Interfaces",
-            "parameters": {} 
+            "title": "Interfaces",
+            "parameters": {}
         },
         "Interfaces": {
             "title": "Interfaces",
@@ -127,7 +127,7 @@
         },
         "ElementsOr": {
             "title": "Elements",
-            "parameters": {}  
+            "parameters": {}
         },
         "Triangular-el": {
             "title": "Triangular",
@@ -188,7 +188,7 @@
             }
         },
         "SolutionOr": {
-            "title": "Solution"  
+            "title": "Solution"
         },
         "Filter": {
             "title": "Filter",
@@ -250,7 +250,7 @@
             }
         },
         "bcsOr": {
-            "title": "BCS"  
+            "title": "BCS"
         },
         "char-riem-inv": {
             "title": "char-riem-inv",
