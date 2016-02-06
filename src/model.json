@@ -107,7 +107,6 @@
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
-               "default": [0],
                "domain"   : {
                   "serial": "serial",
                   "parallel": "parallel"
@@ -174,7 +173,7 @@
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
-               "default": [0],
+               "default": ["euler"],
                "domain" : {
                   "euler": "euler",
                   "navier-stokes": "navier-stokes"
@@ -202,7 +201,7 @@
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
-               "default": [0],
+               "default": ["none"],
                "domain" : {
                   "none": "none",
                   "sutherland": "sutherland"
@@ -212,7 +211,7 @@
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
-               "default": [0],
+               "default": ["aritificial-viscosity"],
                "domain" : {
                   "none": "none",
                   "aritificial-viscosity": "aritificial-viscosity"
@@ -252,7 +251,7 @@
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
-               "default": [0],
+               "default": ["none"],
                "domain"   : {
                   "none": "none",
                   "pi": "pi"
@@ -853,7 +852,6 @@
                "type": "integer",
                "size": 1,
                "ui": "enum",
-               "default": [0],
                "domain": {
                   "char-riem-inv": 0,
                   "no-slp-adia-wall": 1,

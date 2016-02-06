@@ -232,9 +232,6 @@
 						"type": "string",
 						"ui": "enum",
 						"size": 1,
-						"default": [
-							0
-						],
 						"domain": {
 							"serial": "serial",
 							"parallel": "parallel"
@@ -314,7 +311,7 @@
 						"ui": "enum",
 						"size": 1,
 						"default": [
-							0
+							"euler"
 						],
 						"domain": {
 							"euler": "euler",
@@ -347,7 +344,7 @@
 						"ui": "enum",
 						"size": 1,
 						"default": [
-							0
+							"none"
 						],
 						"domain": {
 							"none": "none",
@@ -360,7 +357,7 @@
 						"ui": "enum",
 						"size": 1,
 						"default": [
-							0
+							"aritificial-viscosity"
 						],
 						"domain": {
 							"none": "none",
@@ -408,7 +405,7 @@
 						"ui": "enum",
 						"size": 1,
 						"default": [
-							0
+							"none"
 						],
 						"domain": {
 							"none": "none",
@@ -1098,9 +1095,6 @@
 						"type": "integer",
 						"size": 1,
 						"ui": "enum",
-						"default": [
-							0
-						],
 						"domain": {
 							"char-riem-inv": 0,
 							"no-slp-adia-wall": 1,
@@ -3373,16 +3367,17 @@
 	    //solver line, tri, quad interfaces
 	    if (model.data['solver-interfaces'] && model.data['solver-interfaces'][0]) {
 	        var dest = {},
-	            enumVal = model.data['solver-elemets'].InterfacesOr.or.value[0],
+	            enumVal = model.data['solver-interfaces'][0].InterfacesOr.or.value[0],
 	            orVal = ["Linear-int", "Triangular-int", "Quadrilateral-int"][enumVal],
 	            types = { 'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad' },
-	            orObj = model.data.backend[0][orVal];
+	            orObj = model.data['solver-interfaces'][0][orVal];
 
 	        Object.keys(orObj).forEach(function (key) {
 	            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
 	        });
 
 	        dest.type = types[orVal.split('-')[0].toLowerCase()];
+	        console.log(dest);
 	        templateData.data.solver_interfaces_type = dest;
 	    }
 
@@ -3470,6 +3465,10 @@
 	                orSrc = el[orVal],
 	                orDest = {};
 
+	            if (!orVal) {
+	                return;
+	            }
+
 	            Object.keys(orSrc).forEach(function (key) {
 	                tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
 	            });
@@ -3498,70 +3497,57 @@
 	module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[backend]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.backend : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend",(depth0 != null ? depth0.backend : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"3":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[backend-openmp]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0["Open-MP"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend-openmp",(depth0 != null ? depth0["Open-MP"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"5":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[backend-opencl]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0["Open-CL"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend-opencl",(depth0 != null ? depth0["Open-CL"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"7":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[backend-cuda]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.CUDA : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend-cuda",(depth0 != null ? depth0.CUDA : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"9":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[constants]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.constants : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"constants",(depth0 != null ? depth0.constants : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"11":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[solver]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.solver_settings : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver",(depth0 != null ? depth0.solver_settings : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"13":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[solver-time-integrator]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.solver_ti : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-time-integrator",(depth0 != null ? depth0.solver_ti : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"15":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[solver-artificial-viscosity]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.solver_av : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-artificial-viscosity",(depth0 != null ? depth0.solver_av : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"17":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[solver-source-terms]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.solver_source_terms : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-source-terms",(depth0 != null ? depth0.solver_source_terms : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"19":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[solver-interfaces]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.solver_interfaces : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-interfaces",(depth0 != null ? depth0.solver_interfaces : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"21":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return "[solver-interfaces-"
-	    + ((stack1 = container.lambda(((stack1 = (depth0 != null ? depth0.solver_interfaces_type : depth0)) != null ? stack1.type : stack1), depth0)) != null ? stack1 : "")
-	    + "]\n"
-	    + ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.solver_interfaces_type : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-interfaces-",(depth0 != null ? depth0.solver_interfaces_type : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"23":function(container,depth0,helpers,partials,data) {
 	    var stack1;
@@ -4784,8 +4770,15 @@
 
 	'use strict';
 
-	module.exports = function (items, options) {
+	module.exports = function (title, items, options) {
 	    var out = '';
+
+	    if (items.type) {
+	        out = '[' + title + items.type + ']\n';
+	        delete items.type;
+	    } else {
+	        out = '[' + title + ']\n';
+	    }
 
 	    for (var i in items) {
 	        if (items[i] === null || items[i] === undefined) {
@@ -4793,6 +4786,10 @@
 	        }
 
 	        out += i + ' = ' + items[i] + '\n';
+	    }
+
+	    if (out.match(/\n/g).length === 1) {
+	        return '';
 	    }
 
 	    return out;
@@ -4815,6 +4812,10 @@
 	        out += i + ' = ' + this[i] + '\n';
 	    }
 
+	    if (out.match(/\n/g).length === 1) {
+	        return '';
+	    }
+
 	    return out;
 	};
 
@@ -4833,6 +4834,10 @@
 	        }
 
 	        out += i + ' = ' + this[i] + '\n';
+	    }
+
+	    if (out.match(/\n/g).length === 1) {
+	        return '';
 	    }
 
 	    return out;

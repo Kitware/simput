@@ -1,56 +1,45 @@
 {{#if backend}}
-[backend]
-{{{ini backend}}}
+{{{ini 'backend' backend}}}
 {{/if}}
 {{! }}
 {{#if Open-MP}}
-[backend-openmp]
-{{{ini Open-MP}}}
+{{{ini 'backend-openmp' Open-MP}}}
 {{/if}}
 {{! }}
 {{#if Open-CL}}
-[backend-opencl]
-{{{ini Open-CL}}}
+{{{ini 'backend-opencl' Open-CL}}}
 {{/if}}
 {{! }}
 {{#if CUDA}}
-[backend-cuda]
-{{{ini CUDA}}}
+{{{ini 'backend-cuda' CUDA}}}
 {{/if}}
 {{! }}
 {{#if constants}}
-[constants]
-{{{ini constants}}}
+{{{ini 'constants' constants}}}
 {{/if}}
 {{! }}
 {{#if solver_settings}}
-[solver]
-{{{ini solver_settings}}}
+{{{ini 'solver' solver_settings}}}
 {{/if}}
 {{! }}
 {{#if solver_ti}}
-[solver-time-integrator]
-{{{ini solver_ti}}}
+{{{ini 'solver-time-integrator' solver_ti}}}
 {{/if}}
 {{! }}
 {{#if solver_av}}
-[solver-artificial-viscosity]
-{{{ini solver_av}}}
+{{{ini 'solver-artificial-viscosity' solver_av}}}
 {{/if}}
 {{! }}
 {{#if solver_source_terms}}
-[solver-source-terms]
-{{{ini solver_source_terms}}}
+{{{ini 'solver-source-terms' solver_source_terms}}}
 {{/if}}
 {{! }}
 {{#if solver_interfaces}}
-[solver-interfaces]
-{{{ini solver_interfaces}}}
+{{{ini 'solver-interfaces' solver_interfaces}}}
 {{/if}}
 {{! }}
 {{#if solver_interfaces_type}}
-[solver-interfaces-{{{solver_interfaces_type.type}}}]
-{{{ini solver_interfaces_type}}}
+{{{ini 'solver-interfaces-' solver_interfaces_type}}}
 {{/if}}
 {{! }}
 {{#each solver_elements}}
