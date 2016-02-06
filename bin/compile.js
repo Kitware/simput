@@ -2,7 +2,7 @@ var webpack = require('webpack'),
     path = require('path'),
     fs = require('fs'),
     fileToDelete = [];
- 
+
 require('shelljs/global');
 
 function buildWebpackConfiguration(name, basepath, outputPath, compress) {
@@ -35,11 +35,9 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
                     { test: /\.css$/, loader: "style!css!autoprefixer?browsers=last 2 version" },
                     { test: /\.json$/i, loader: 'json'},
                     { test: /\.jade$/i, loader: 'jade'},
+                    { test: /\.html$/, loader: 'html-loader' },
                     { test: /\.hbs$/i, loader: 'handlebars-loader'},
                     { test: /\.js$/i, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015" },
-                    // { test: /\.js$/i, include: /node_modules\/tonic-/, loader: "babel" },
-                    // { test: /\.c$/i, include: /node_modules\/tonic-/, loader: "shader" },
-                    // { test: /\.js$/, include: /node_modules\/react-contenteditable/, loader: "babel" }
                 ],
             },
         };
@@ -51,34 +49,34 @@ module.exports = function (directory, modelType, output) {
     }
     // ensure modelType has no . in it, it will create keypaths in the webpack expose loader
     modelType = modelType.replace(/\./, '-').toLowerCase();
-    
-    
+
+
     if (!output) {
         output = directory;
     }
-    
+
     var schema = '{\n' +
         'type: \'TYPE\',\n' +
         'model: require(\'./model.json\'),\n' +
         'lang: LANG,\n' +
         'convert: require(\'./convert.js\'),\n' +
     '}\n';
-    
+
     var lang = '{}';
     ['model.json', 'convert.js'].forEach(function(file) {
         if ( !test('-f', path.join(directory, file)) ) {
             console.log('Missing `' + file + '`!');
         }
     });
-    
+
     if ( test('-d', path.join(directory, 'lang')) ) {
         lang = 'require(\'./lang\')';
     }
-    
+
     if (lang !== '{}') {
        writeIndexList(path.join(directory, 'lang'));
     }
-    
+
     schema = schema.replace('TYPE', modelType);
     schema = schema.replace('LANG', lang);
 
@@ -116,7 +114,7 @@ function writeIndexList(directory) {
             }
         }
     });
-    
+
     list += '}\n';
     fs.writeFileSync(path.join(directory, 'index.js'), list);
     fileToDelete.push(path.join(directory, 'index.js'));
