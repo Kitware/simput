@@ -39,6 +39,7 @@
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
+               "default": ["single"],
                "domain"   : {
                   "single": "single",
                   "double": "double"
@@ -48,6 +49,7 @@
                "type"   : "string",
                "ui"     : "enum",
                "size"   : 1,
+               "default": ["linear"],
                "domain"   : {
                   "linear": "linear"
                }
@@ -61,6 +63,7 @@
                "type": "integer",
                "size": 1,
                "ui": "enum",
+               "default": [0],
                "domain": {
                   "Open-MP": 0,
                   "Open-CL": 1,
@@ -142,6 +145,7 @@
             {
                "id"     : "constants.gamma",
                "type"   : "double",
+               "default": [1.4],
                "size"   : 1
             },{
                "id"     : "constants.mu",
@@ -150,6 +154,7 @@
             },{
                "id"     : "constants.pr",
                "type"   : "double",
+               "default": [0.72],
                "size"   : 1
             },{
                "id"     : "constants.cpTref",
@@ -222,13 +227,14 @@
                "type"   : "string",
                "ui"     :"enum",
                "size"   : 1,
+               "default": ["rk4"],
                "domain"   : {
                   "euler": "euler",
                   "rk34": "rk34",
                   "rk4": "rk4",
                   "rk45": "rk45",
                   "tvd-rk3": "tvd-rk3"
-               }
+                }
             },{
                "id"     : "solver.tstart",
                "type"   : "double",
@@ -251,7 +257,16 @@
                   "none": "none",
                   "pi": "pi"
                }
-            },{
+            },
+            ["rkScheme"]
+         ],
+         "children": {
+            "rkScheme": "TimeIntegrator['solver.scheme'][0] === 'rk34' || TimeIntegrator['solver.scheme'][0] === 'rk45'"
+         }
+      },
+      "rkScheme": {
+        "parameters": [
+            {
                 "id": "solver.atol",
                 "type": "double",
                 "size": 1
@@ -272,7 +287,7 @@
                 "type": "double",
                 "size": 1
             }
-         ]
+        ]
       },
       "ArtificialViscosity": {
          "parameters": [
@@ -298,6 +313,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["rusanov"],
                "domain": {
                   "rusanov": "rusanov",
                   "hll": "hll",
@@ -308,10 +324,12 @@
             },{
                "id": "solver.ldg_beta",
                "type": "double",
+               "default": [0.5],
                "size": 1
             },{
                "id": "solver.ldg_tau",
                "type": "double",
+               "default": [0.1],
                "size": 1
             }
          ]
@@ -324,7 +342,7 @@
                "type": "integer",
                "size": 1,
                "ui": "enum",
-               "default": [0],
+               "default": [2],
                "domain": {
                   "Linear": 0,
                   "Triangular": 1,
@@ -346,6 +364,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["gauss-legendre"],
                "domain": {
                   "gauss-legendre": "gauss-legendre",
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
@@ -373,6 +392,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["williams-shunn"],
                "domain": {
                   "williams-shunn": "williams-shunn"
                }
@@ -399,6 +419,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["gauss-legendre"],
                "domain": {
                   "gauss-legendre": "gauss-legendre",
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
@@ -428,7 +449,7 @@
                "type": "integer",
                "size": 1,
                "ui": "enum",
-               "default": [0],
+               "default": [1],
                "domain": {
                   "Triangular": 0,
                   "Quadrilateral": 1,
@@ -457,6 +478,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["williams-shunn"],
                "domain": {
                   "williams-shunn": "williams-shunn"
                }
@@ -483,6 +505,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["gauss-legendre"],
                "domain": {
                   "gauss-legendre": "gauss-legendre",
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
@@ -511,6 +534,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["gauss-legendre"],
                "domain": {
                   "gauss-legendre": "gauss-legendre",
                   "gauss-legendre-lobatto": "gauss-legendre-lobatto"
@@ -539,6 +563,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["shunn-ham"],
                "domain": {
                   "shunn-ham": "shunn-ham"
                }
@@ -565,6 +590,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["williams-shunn~gauss-legendre"],
                "domain": {
                   "williams-shunn~gauss-legendre": "williams-shunn~gauss-legendre",
                   "williams-shunn~gauss-legendre-lobatto": "williams-shunn~gauss-legendre-lobatto"
@@ -593,6 +619,7 @@
                "type": "string",
                "ui"  : "enum",
                "size": 1,
+               "default": ["gauss-legendre"],
                "domain": {
                   "gauss-legendre":"gauss-legendre",
                   "gauss-legendre-lobatto":"gauss-legendre-lobatto"
@@ -666,13 +693,13 @@
             ]
          ],
          "children": {
-            "Filter":              "SolutionOr.or[0] === 0",
-            "PluginWriter":       "SolutionOr.or[0] === 1",
+            "Filter":            "SolutionOr.or[0] === 0",
+            "PluginWriter":      "SolutionOr.or[0] === 1",
             "PluginNaNcheck":    "SolutionOr.or[0] === 2",
-            "Pluginresidual":     "SolutionOr.or[0] === 3",
-            "Pluginsampler":      "SolutionOr.or[0] === 4",
+            "Pluginresidual":    "SolutionOr.or[0] === 3",
+            "Pluginsampler":     "SolutionOr.or[0] === 4",
             "PluginTimeaverage": "SolutionOr.or[0] === 5",
-            "ics":                 "SolutionOr.or[0] === 6"
+            "ics":               "SolutionOr.or[0] === 6"
          }
       },
       "Filter": {

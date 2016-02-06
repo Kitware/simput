@@ -72,7 +72,12 @@
                 "solver.tstart": "Initial time",
                 "solver.tend": "Final time",
                 "solver.dt": "Time step",
-                "solver.controller": "Time step",
+                "solver.controller": "Time step"
+            }
+        },
+        "rkScheme": {
+            "title": "rk34/45 Scheme",
+            "parameters": {
                 "solver.atol": "atol",
                 "solver.rtol": "rtol",
                 "solver.safety_fact": "safety-fact",
