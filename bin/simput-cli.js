@@ -10,10 +10,12 @@ const path = require('path'),
 
 const simputCompiler  = require('./compile'),
       simputManager   = require('./manager'),
-      simputConverter = require('./converter');
+      simputConverter = require('./converter'),
+      pkg = require('../package.json');
 
 const home = process.env.HOME,
-      simputFolder = path.join(home, '.Simput/');
+      simputFolder = path.join(home, '.Simput/'),
+      version = /semantically-release/.test(pkg.version) ? 'development version' : pkg.version;
 
 function toAbsolutePath(relPath) {
   var ret;
@@ -26,7 +28,7 @@ function toAbsolutePath(relPath) {
 }
 
 program
-  .version('0.0.1')
+  .version(version)
 
   // inout
   .option('-i, --input [file|directory]',  'Input file or directory')
