@@ -45,7 +45,7 @@ $ Simput
 $ Simput -t pyfr -o ~/pyfr/example
 ```
 
-Starts a server and opens your Web browser, an empty PyFR model is loaded which you can modify.
+Starts a server and opens your web browser, an empty PyFR model is loaded which you can modify.
 The _Save_ button will export a pyfr.json file (model) which you can then be loaded later on.
 The _Convert_ button will export a `pyfr.ini` file for PyFR execution.
 
@@ -90,6 +90,9 @@ $ npm install
 $ cd tonic-applications/simput
 $ npm link
 ```
+
+### Degbugging
+A recent version Firefox is preferred for debugging. Errors in Chrome do not always point to [the exact line](https://github.com/altano/handlebars-loader/issues/67#issuecomment-171128403) where the error is happening.
 
 #### Licensing
 
