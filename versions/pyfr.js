@@ -3372,6 +3372,10 @@
 	            types = { 'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad' },
 	            orObj = model.data['solver-interfaces'][0][orVal];
 
+	        if (!orVal) {
+	            return;
+	        }
+
 	        Object.keys(orObj).forEach(function (key) {
 	            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
 	        });
@@ -3394,6 +3398,10 @@
 	            var orVal = enumVals[el['ElementsOr'].or.value[0]],
 	                orSrc = el[orVal],
 	                orDest = {};
+
+	            if (!orVal) {
+	                return;
+	            }
 
 	            orDest.type = types[orVal.split('-')[0].toLowerCase()];
 	            Object.keys(orSrc).forEach(function (key) {
@@ -3438,10 +3446,18 @@
 	        },
 	            enumVals = ["Filter", "PluginWriter", "PluginNaNcheck", "Pluginresidual", "Pluginsampler", "PluginTimeaverage", "ics"]; //order matters, cannot Object.keys(types);
 
+	        if (!orVal) {
+	            return;
+	        }
+
 	        vals.forEach(function (el) {
 	            var orVal = enumVals[el['SolutionOr'].or.value[0]],
 	                orSrc = el[orVal],
 	                orDest = {};
+
+	            if (!orVal) {
+	                return;
+	            }
 
 	            orDest.type = types[orVal];
 	            Object.keys(orSrc).forEach(function (key) {
@@ -3484,7 +3500,7 @@
 	    return {
 	        errors: templateData.errors,
 	        results: {
-	            'pyfr.ini': template(templateData.data)
+	            'pyfr.ini': template(templateData.data).replace(/\n{3,}/g, '\n\n')
 	        }
 	    };
 	};
@@ -4775,17 +4791,16 @@
 
 	    if (items.type) {
 	        out = '[' + title + items.type + ']\n';
-	        delete items.type;
 	    } else {
 	        out = '[' + title + ']\n';
 	    }
 
-	    for (var i in items) {
-	        if (items[i] === null || items[i] === undefined) {
+	    for (var key in items) {
+	        if (!items[key] || key === 'type') {
 	            continue;
 	        }
 
-	        out += i + ' = ' + items[i] + '\n';
+	        out += key + ' = ' + items[key] + '\n';
 	    }
 
 	    if (out.match(/\n/g).length === 1) {
@@ -4804,12 +4819,12 @@
 	module.exports = function (title) {
 	    var out = '[' + title + this.type + ']\n';
 
-	    for (var i in this) {
-	        if (this[i] === null || this[i] === undefined || i === 'type') {
+	    for (var key in this) {
+	        if (!this[key] || key === 'type') {
 	            continue;
 	        }
-
-	        out += i + ' = ' + this[i] + '\n';
+	        console.log(this[key]);
+	        out += key + ' = ' + this[key] + '\n';
 	    }
 
 	    if (out.match(/\n/g).length === 1) {
@@ -4828,12 +4843,12 @@
 	module.exports = function (items, options) {
 	    var out = '[' + this.type + ']\n';
 
-	    for (var i in this) {
-	        if (this[i] === null || this[i] === undefined || i === 'type') {
+	    for (var key in this) {
+	        if (!this[key] || key === 'type') {
 	            continue;
 	        }
 
-	        out += i + ' = ' + this[i] + '\n';
+	        out += key + ' = ' + this[key] + '\n';
 	    }
 
 	    if (out.match(/\n/g).length === 1) {

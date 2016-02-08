@@ -38,6 +38,8 @@ module.exports = function (model) {
             orVal = ["Open-MP", "Open-CL", "CUDA"][enumVal],
             orObj = model.data.backend[0][orVal];
 
+        if (!orVal) { return; }
+
         Object.keys(orObj).forEach( (key) => {
             tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
         });
@@ -125,6 +127,8 @@ module.exports = function (model) {
             types = {'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad'},
             orObj = model.data['solver-interfaces'][0][orVal];
 
+        if (!orVal) { return; }
+
         Object.keys(orObj).forEach( (key) => {
             tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
         });
@@ -148,6 +152,8 @@ module.exports = function (model) {
             const orVal = enumVals[el['ElementsOr'].or.value[0]],
                 orSrc  = el[orVal],
                 orDest = {};
+
+            if (!orVal) {return; }
 
             orDest.type = types[orVal.split('-')[0].toLowerCase()];
             Object.keys(orSrc).forEach( (key) => {
@@ -200,10 +206,16 @@ module.exports = function (model) {
              "ics"
             ]; //order matters, cannot Object.keys(types);
 
+        if (!orVal) {
+            return;
+        }
+
         vals.forEach( (el) => {
             const orVal = enumVals[el['SolutionOr'].or.value[0]],
                 orSrc  = el[orVal],
                 orDest = {};
+
+            if (!orVal) { return; }
 
             orDest.type = types[orVal];
             Object.keys(orSrc).forEach( (key) => {
@@ -252,7 +264,7 @@ module.exports = function (model) {
     return {
         errors: templateData.errors,
         results: {
-            'pyfr.ini': template(templateData.data)
+            'pyfr.ini': template(templateData.data).replace(/\n{3,}/g, '\n\n')
         }
     };
 }
