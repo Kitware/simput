@@ -16,3 +16,7 @@
     cursor: pointer;
     max-width: 30vw;
 }
+
+.ContentEditable {
+    display: inline-block;
+}
