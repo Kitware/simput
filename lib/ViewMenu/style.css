@@ -15,8 +15,26 @@
 .Outline li {
     cursor: pointer;
     max-width: 30vw;
+    padding: 2px 0;
+}
+
+.Outline__Property i.fa {
+    float: right;
+}
+
+.Outline__Editable {
+    margin-right: 4px;
 }
 
 .ContentEditable {
     display: inline-block;
+}
+
+.prop-header {
+    border-bottom: 4px solid #555;
+    color: #111;
+}
+
+.InputBlock_header {
+  color: #404040;
 }
