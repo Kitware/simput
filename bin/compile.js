@@ -22,7 +22,7 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
                 path: outputPath,
                 filename: name + '.js',
             },
-            plugins,
+            plugins: plugins,
             module: {
                 loaders: [
                     // { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },

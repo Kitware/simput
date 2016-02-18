@@ -37,7 +37,7 @@ program
 
     .option('-n, --no-gui', 'Just generate output')
     .option('-s, --silent', 'Do not open the browser')
-    .option('-p, --port [8080]', 'Server port\n', (n) => Number(n), 8080)
+    .option('-p, --port [8080]', 'Server port\n', function(n) { return Number(n); }, 8080)
 
     //management
     .option('-c, --compile [directory]','Directory to compile files')
