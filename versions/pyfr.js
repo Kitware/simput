@@ -3285,6 +3285,10 @@
 	            orVal = ["Open-MP", "Open-CL", "CUDA"][enumVal],
 	            orObj = model.data.backend[0][orVal];
 
+	        if (!orVal) {
+	            return;
+	        }
+
 	        Object.keys(orObj).forEach(function (key) {
 	            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
 	        });
@@ -3499,6 +3503,7 @@
 	    console.log('template:', templateData);
 	    return {
 	        errors: templateData.errors,
+	        model: model,
 	        results: {
 	            'pyfr.ini': template(templateData.data).replace(/\n{3,}/g, '\n\n')
 	        }

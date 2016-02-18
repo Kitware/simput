@@ -263,6 +263,7 @@ module.exports = function (model) {
     console.log('template:', templateData);
     return {
         errors: templateData.errors,
+        model: model,
         results: {
             'pyfr.ini': template(templateData.data).replace(/\n{3,}/g, '\n\n')
         }
