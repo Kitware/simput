@@ -1,9 +1,9 @@
+require('shelljs/global');
+
 var webpack = require('webpack'),
     path = require('path'),
     fs = require('fs'),
     fileToDelete = [];
-
-require('shelljs/global');
 
 function buildWebpackConfiguration(name, basepath, outputPath, compress) {
     var plugins = [];

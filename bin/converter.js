@@ -6,13 +6,13 @@ var fs = require('fs'),
     simputFolder = path.join(home, '.Simput/');
 
 function toAbsolutePath(relPath) {
-  var ret;
-  if (!path.isAbsolute(relPath)) {
-    ret = path.join(process.env.PWD, relPath);
-  } else {
-    ret = relPath;
-  }
-  return path.normalize(ret);
+    var ret;
+    if (!path.isAbsolute(relPath)) {
+        ret = path.join(process.env.PWD, relPath);
+    } else {
+        ret = relPath;
+    }
+    return path.normalize(ret);
 }
 
 function unitSuffix(size) {

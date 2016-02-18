@@ -14,11 +14,21 @@
 
 .Simput-header button {
     margin: 0 5px;
-    width: 100px;
-    padding: 9px 0 7px;
+    //width: 100px;
+    padding: 6px 12px;
     background-color: white;
     border: 1px solid lightgrey;
     border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.Simput-header button:hover {
+    background-color: #ddd;
+}
+
+.Simput-header button[disabled], .Simput-header button[disabled]:hover {
+    background-color: #eee;
+    color: #999;
 }
 
 .Simput-header button span {
