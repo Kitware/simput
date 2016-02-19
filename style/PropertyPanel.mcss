@@ -1,0 +1,10 @@
+.propertyHeader {
+    padding: 10px 8px 3px;
+    font-size: 1.1em;
+    border-bottom: 4px solid #555;
+    color: #111;
+}
+
+.propertyPanel {
+
+}

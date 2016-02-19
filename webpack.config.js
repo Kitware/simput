@@ -1,6 +1,9 @@
+var path = require('path'),
+    loaders = require('./node_modules/paraviewweb/config/webpack.loaders.js');
+
 module.exports = {
   plugins: [],
-  entry: './lib/index.js',
+  entry: './src/index.js',
   output: {
     path: './dist',
     filename: 'Simput.js',
@@ -14,16 +17,16 @@ module.exports = {
       },
     ],
     loaders: [
-      { test: require.resolve("./lib/index.js"), loader: "expose?Simput" },
-      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000" },
-      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
-      { test: /\.css$/, loader: "style-loader!css-loader!postcss-loader" },
-      { test: /\.c$/i, loader: "shader" },
-      { test: /\.js$/, include: /node_modules\/tonic-/, loader: "babel?presets[]=react,presets[]=es2015" },
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015" },
-    ],
+        { test: require.resolve("./src/index.js"), loader: "expose?Simput" },
+    ].concat(loaders),
   },
+  resolve: {
+        alias: {
+            'PVWStyle/ReactProperties/PropertyPanel.mcss': path.resolve('./style/PropertyPanel.mcss'),
+            PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
+            SimputStyle: path.resolve('./style'),
+        },
+    },
   postcss: [
         require('autoprefixer')({ browsers: ['last 2 versions'] }),
   ],

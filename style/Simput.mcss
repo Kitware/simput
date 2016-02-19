@@ -1,0 +1,86 @@
+.container {
+
+}
+
+.header {
+    padding: 8px;
+    border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 25px;
+    padding-left: 10px;
+}
+
+.button {
+    margin: 0 5px;
+    //width: 100px;
+    padding: 6px 12px;
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #ddd;
+}
+
+.button[disabled], .button[disabled]:hover {
+    background-color: #eee;
+    color: #999;
+}
+
+.buttonLabel {
+    margin-right: 8px;
+}
+
+.saveIcon {
+    composes: fa      from 'font-awesome/css/font-awesome.css';
+    composes: fa-save from 'font-awesome/css/font-awesome.css';
+}
+
+.content {
+    display: flex;
+    flex-order: row;
+    justify-content: flex-start;
+}
+
+.block {
+    flex: 1;
+    width: auto;
+}
+
+.panel {
+    flex: 1;
+}
+
+.stateIcon {
+    composes: fa            from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw         from 'font-awesome/css/font-awesome.css';
+}
+
+.normalStateIcon {
+    composes: stateIcon;
+    composes: fa-download   from 'font-awesome/css/font-awesome.css';
+}
+
+.busyStateIcon {
+    composes: stateIcon;
+    composes: fa-spinner    from 'font-awesome/css/font-awesome.css';
+    composes: fa-spin       from 'font-awesome/css/font-awesome.css';
+ }
+
+.errorStateIcon {
+    composes: stateIcon;
+    composes: fa-warn       from 'font-awesome/css/font-awesome.css';
+}
+
+.successStateIcon {
+    composes: stateIcon;
+    composes: fa-check      from 'font-awesome/css/font-awesome.css';
+}

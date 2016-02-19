@@ -1,16 +1,15 @@
-require('./styles.css');
-
-import PropertyPanelBlock   from 'tonic-ui/lib/react/properties';
+import PropertyPanelBlock   from 'paraviewweb/src/React/Properties/PropertyPanel';
 import React                from 'react';
 import ViewMenu             from '../ViewMenu';
 import modelGenerator       from '../modelGenerator';
-import {postJSON}             from '../network';
+import {postJSON}           from '../network';
+import style                from 'SimputStyle/Simput.mcss';
 
 const buttonStates = {
-    normal: 'fa fw fa-download',
-    busy: 'fa fw fa-spinner fa-spin',
-    error: 'fa fw fa-warn',
-    success: 'fa fw fa-check',
+    normal: style.normalStateIcon,
+    busy: style.busyStateIcon,
+    error: style.errorStateIcon,
+    success: style.successStateIcon,
 };
 
 export default React.createClass({
@@ -98,30 +97,33 @@ export default React.createClass({
     },
 
     render() {
-        return (<div className='Simput'>
-                    <div className="Simput-header">
-                        <span>Simput</span>
+        return (<div className={ style.container }>
+                    <div className={ style.header }>
+                        <span className={ style.title }>Simput</span>
                         <div>
-                            <button onClick={ this.saveModel }>
-                                <span>Download Model</span>
-                                <i className="fa fa-save"></i>
+                            <button className={ style.button } onClick={ this.saveModel }>
+                                <span className={ style.buttonLabel }>Download Model</span>
+                                <i className={ style.saveIcon }></i>
                             </button>
-                            <button onClick={ this.convertModel } disabled={this.state.downloadButtonState !== 'normal'}>
-                                <span>Save & Convert</span>
+                            <button className={ style.button } onClick={ this.convertModel } disabled={this.state.downloadButtonState !== 'normal'}>
+                                <span className={ style.buttonLabel }>Save & Convert</span>
                                 <i className={buttonStates[this.state.downloadButtonState]}></i>
                             </button>
                         </div>
                     </div>
-                    <div className="Simput__Content">
+                    <div className={ style.content }>
                         <ViewMenu data={ this.props.data }
                             model={ this.props.model }
                             labels={this.props.labels}
                             onChange={ this.updateActive }/>
-                        <PropertyPanelBlock
-                            input={this.state.data}
-                            labels={this.props.labels}
-                            viewData={this.state.viewData}
-                            onChange={ this.updateViewData } />
+                        <div className={ style.block }>
+                            <PropertyPanelBlock
+                                className={ style.panel }
+                                input={this.state.data}
+                                labels={this.props.labels}
+                                viewData={this.state.viewData}
+                                onChange={ this.updateViewData } />
+                        </div>
                     </div>
                 </div>);
     },

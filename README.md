@@ -83,15 +83,36 @@ There are a few supplied demos in the folder `types`, each have their own README
 ## Development
 
 ```sh
-$ git clone https://github.com/Kitware/tonic.git
-$ cd tonic
-$ npm run global
+$ git clone --recursive https://github.com/Kitware/simput.git
+$ cd simput
 $ npm install
-$ cd tonic-applications/simput
+$ npm run build
 $ npm link
+$ Simput
+
+  Usage: Simput [options]
+
+  Options:
+
+    -h, --help                    output usage information
+    -V, --version                 output the version number
+
+    -i, --input [file|directory]  Input file or directory
+    -o, --output [directory]      Output directory to output to
+    -t, --type [type]             Type of input
+
+    --no-gui                      Just generate output
+    -s, --silent                  Do not open the browser
+
+    -c, --compile [directory]     Directory to compile files
+    -a, --add [file]              Add model to list of available inputs
+    -l, --list                    List model types of available as inputs
+    -r, --remove [type]           Remove model to list of available inputs
+
 ```
 
 ### Degbugging
+
 A recent version Firefox is preferred for debugging. Errors in Chrome do not always point to [the exact line](https://github.com/altano/handlebars-loader/issues/67#issuecomment-171128403) where the error is happening.
 
 #### Licensing
