@@ -116,12 +116,14 @@ export default React.createClass({
                             model={ this.props.model }
                             labels={this.props.labels}
                             onChange={ this.updateActive }/>
-                        <PropertyPanelBlock
-                            className={ style.panel }
-                            input={this.state.data}
-                            labels={this.props.labels}
-                            viewData={this.state.viewData}
-                            onChange={ this.updateViewData } />
+                        <div className={ style.block }>
+                            <PropertyPanelBlock
+                                className={ style.panel }
+                                input={this.state.data}
+                                labels={this.props.labels}
+                                viewData={this.state.viewData}
+                                onChange={ this.updateViewData } />
+                        </div>
                     </div>
                 </div>);
     },

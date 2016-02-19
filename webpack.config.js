@@ -22,6 +22,7 @@ module.exports = {
   },
   resolve: {
         alias: {
+            'PVWStyle/ReactProperties/PropertyPanel.mcss': path.resolve('./style/PropertyPanel.mcss'),
             PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
             SimputStyle: path.resolve('./style'),
         },
