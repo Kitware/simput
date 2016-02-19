@@ -1,0 +1,80 @@
+.container {
+    flex: none;
+    padding-left: 18px;
+    padding-right: 15px;
+    margin-right: 12px;
+    min-width: 250px;
+    max-width: 400px;
+    width: 20%;
+}
+
+.hidden {
+    display: none;
+}
+
+.list {
+    list-style: none;
+}
+
+.rootList {
+    composes: list;
+	padding-left: 0px;
+}
+
+.listItem {
+    cursor: pointer;
+    max-width: 30vw;
+    padding: 2px 0;
+}
+
+.activeListItem {
+    font-weight: bold;
+}
+
+.button {
+    display: inline-block;
+    float: right;
+    composes: fa      from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw   from 'font-awesome/css/font-awesome.css';
+}
+
+.addButton {
+    composes: button;
+    composes: fa-plus from 'font-awesome/css/font-awesome.css';
+}
+
+.deleteButton {
+    composes: button;
+    composes: fa-trash from 'font-awesome/css/font-awesome.css';
+}
+
+.editButton {
+    composes: button;
+    composes: fa-pencil from 'font-awesome/css/font-awesome.css';
+}
+
+.validIcon {
+    composes: fa        from 'font-awesome/css/font-awesome.css';
+    composes: fa-fw     from 'font-awesome/css/font-awesome.css';
+    composes: fa-check  from 'font-awesome/css/font-awesome.css';
+}
+
+.editable {
+    margin-right: 4px;
+}
+
+.inLineBlock {
+    display: inline-block;
+}
+
+/* FIXME ------------- */
+
+.prop-header {
+    border-bottom: 4px solid #555;
+    color: #111;
+}
+
+.InputBlock_header {
+  color: #404040;
+}
+
