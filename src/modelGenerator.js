@@ -72,19 +72,7 @@ function generateUI(parameter, label, help, external, modelExternal) {
 
 function getUI(model, attrName, paramId, labels, help, external) {
   if (!uiCache[attrName]) {
-    let uiLabels = null,
-      uiHelp = null;
     uiCache[attrName] = {};
-
-    if (labels[attrName] && labels[attrName].parameters && labels[attrName].parameters[paramId]) {
-      uiLabels = labels[attrName].parameters[paramId];
-    }
-
-    if (help[attrName] && help[attrName][paramId]) {
-      uiHelp = help[attrName][paramId];
-    }
-
-    return generateUI(getParameter(model, attrName, paramId), uiLabels, uiHelp, external, model.external);
   }
 
   if (!uiCache[attrName][paramId]) {
@@ -100,8 +88,9 @@ function getUI(model, attrName, paramId, labels, help, external) {
     }
 
     const newUI = generateUI(getParameter(model, attrName, paramId, external, model.external),
-      uiLabels, uiHelp);
+      uiLabels, uiHelp, external, model.external);
     uiCache[attrName][paramId] = newUI;
+
     return newUI;
   }
 
