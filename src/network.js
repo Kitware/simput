@@ -1,41 +1,43 @@
 export function getJSON(url, callback) {
-    var xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
 
-    xhr.open('GET', url, true);
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.responseType = 'text';
+  xhr.open('GET', url, true);
+  xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+  xhr.responseType = 'text';
 
-    xhr.onload = function(e) {
-        if(this.status === 200) {
-            return callback(null, JSON.parse(xhr.response));
-        }
-        callback(new Error(e), xhr);
-    };
+  xhr.onload = function onLoad(e) {
+    if (this.status === 200) {
+      callback(null, JSON.parse(xhr.response));
+      return;
+    }
+    callback(new Error(e), xhr);
+  };
 
-    xhr.onerror = function(e) {
-        callback(e, xhr);
-    };
+  xhr.onerror = function onError(e) {
+    callback(e, xhr);
+  };
 
-    xhr.send();
+  xhr.send();
 }
 
 export function postJSON(url, content, callback) {
-    var xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
 
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.responseType = 'text';
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.responseType = 'text';
 
-    xhr.onload = function(e) {
-        if(this.status === 200) {
-            return callback(null, xhr.response);
-        }
-        callback(new Error(e), xhr);
-    };
+  xhr.onload = function onLoad(e) {
+    if (this.status === 200) {
+      callback(null, xhr.response);
+      return;
+    }
+    callback(new Error(e), xhr);
+  };
 
-    xhr.onerror = function(e) {
-        callback(e, xhr);
-    };
+  xhr.onerror = function onError(e) {
+    callback(e, xhr);
+  };
 
-    xhr.send(JSON.stringify(content));
+  xhr.send(JSON.stringify(content));
 }

@@ -21,16 +21,16 @@ module.exports = {
     ].concat(loaders),
   },
   resolve: {
-        alias: {
-            'PVWStyle/ReactProperties/PropertyPanel.mcss': path.resolve('./style/PropertyPanel.mcss'),
-            PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
-            SimputStyle: path.resolve('./style'),
-        },
+    alias: {
+      'PVWStyle/ReactProperties/PropertyPanel.mcss': path.resolve('./style/PropertyPanel.mcss'),
+      PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
+      SimputStyle: path.resolve('./style'),
     },
+  },
   postcss: [
-        require('autoprefixer')({ browsers: ['last 2 versions'] }),
+    require('autoprefixer')({ browsers: ['last 2 versions'] }),
   ],
   eslint: {
-    configFile: '.eslintrc',
+    configFile: '.eslintrc.js',
   },
 };
