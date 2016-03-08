@@ -43,7 +43,7 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
         };
 }
 
-module.exports = function (directory, modelType, output) {
+module.exports = function (directory, modelType, output, compress) {
     if (!modelType) {
         modelType = path.basename(directory);
     }
@@ -82,7 +82,7 @@ module.exports = function (directory, modelType, output) {
 
     fs.writeFileSync(path.join(directory, 'index.js'), 'module.exports = ' + schema);
     fileToDelete.push(path.join(directory, 'index.js'));
-    webpack(buildWebpackConfiguration(modelType, directory, output), function(err, stats){
+    webpack(buildWebpackConfiguration(modelType, directory, output, compress), function(err, stats){
         if (err) {
             throw err;
         }

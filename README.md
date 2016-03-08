@@ -33,6 +33,7 @@ $ Simput
     -s, --silent                  Do not open the browser
 
     -c, --compile [directory]     Directory to compile files
+    -m, --minify                  Minify compiled file
     -a, --add [file]              Add model to list of available inputs
     -l, --list                    List model types of available as inputs
     -r, --remove [type]           Remove model to list of available inputs
@@ -105,10 +106,17 @@ $ Simput
     -s, --silent                  Do not open the browser
 
     -c, --compile [directory]     Directory to compile files
+    -m, --minify                  Minify compiled file
     -a, --add [file]              Add model to list of available inputs
     -l, --list                    List model types of available as inputs
     -r, --remove [type]           Remove model to list of available inputs
 
+```
+
+Then to compile pyfr and publish it:
+
+```sh
+$ Simput -mc types/pyfr/src/ -t pyfr -o dist/types/
 ```
 
 ### Degbugging

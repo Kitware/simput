@@ -40,7 +40,8 @@ program
     .option('-p, --port [8080]', 'Server port\n', function(n) { return Number(n); }, 8080)
 
     //management
-    .option('-c, --compile [directory]','Directory to compile files')
+    .option('-c, --compile [directory]', 'Directory to compile files')
+    .option('-m, --minify', 'Minify compiled file')
     .option('-a, --add [file]',    'Add model to list of available inputs')
     .option('-l, --list',          'List model types of available as inputs')
     .option('-r, --remove [type]', 'Remove model from list of available inputs')
@@ -59,7 +60,7 @@ if (program.input && program.output && !program.gui) {
     simputConverter(program.input, program.output);
 } else if (program.compile) {
     mkdir('-p', toAbsolutePath(program.output));
-    simputCompiler(toAbsolutePath(program.compile), program.type, program.output);
+    simputCompiler(toAbsolutePath(program.compile), program.type, program.output, program.minify);
 } else if (program.output) {
     const app = express();
     app.use(bodyParser.json({limit: 10000000}));
