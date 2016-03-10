@@ -120,7 +120,7 @@ export default React.createClass({
             <ViewMenu
               data={ this.props.data }
               model={ this.props.model }
-              labels={this.props.labels}
+              labels={ this.props.labels }
               onChange={ this.updateActive }
             />
             <div className={ style.block }>

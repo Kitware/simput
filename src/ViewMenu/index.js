@@ -84,6 +84,10 @@ export default React.createClass({
             viewSize = this.props.model.views[viewId].size,
             children = this.props.model.views[viewId].children || [];
 
+          if (this.props.data.hideViews && this.props.data.hideViews.indexOf(viewId) !== -1) {
+            return null;
+          }
+
           return (
             <li
               key={ `view-list-${viewId}` }
