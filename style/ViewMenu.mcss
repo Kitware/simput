@@ -14,10 +14,11 @@
 
 .list {
     list-style: none;
+    padding-left: 20px;
 }
 
 .rootList {
-    composes: list;
+  composes: list;
 	padding-left: 0px;
 }
 
