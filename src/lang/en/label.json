@@ -208,7 +208,7 @@
             "title": "Plugin Writer",
             "parameters": {
                 "solution.plugin_writer.dt_out": "Disk write time interval",
-                "solution.plugin_writer.basedir": "Disk write time interval",
+                "solution.plugin_writer.basedir": "Basedir",
                 "solution.plugin_writer.basename": "Output name pattern"
             }
         },
