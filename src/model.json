@@ -730,7 +730,7 @@
                "size": 1
             },{
                "id": "solution.plugin_writer.basedir",
-               "type": "double",
+               "type": "string",
                "size": 1
             },{
                "id": "solution.plugin_writer.basename",
