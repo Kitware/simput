@@ -9,6 +9,7 @@ const alwaysShow = () => true;
 const uiPropTypeMapping = {
   checkbox: 'Checkbox',
   enum: 'Enum',
+  map: 'Map',
 };
 
 // --- Helpers ---
