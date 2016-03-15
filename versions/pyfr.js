@@ -59,7 +59,7 @@
 	  type: 'pyfr',
 	  model: __webpack_require__(2),
 	  lang: __webpack_require__(3),
-	  convert: __webpack_require__(204)
+	  convert: __webpack_require__(206)
 	};
 
 /***/ },
@@ -300,6 +300,10 @@
 						"id": "constants.cpTs",
 						"type": "double",
 						"size": 1
+					},
+					{
+						"id": "constants.custom",
+						"ui": "map"
 					}
 				]
 			},
@@ -471,7 +475,7 @@
 			"Interfaces": {
 				"parameters": [
 					{
-						"id": "solver.riemann",
+						"id": "solver.riemann_solver",
 						"type": "string",
 						"ui": "enum",
 						"size": 1,
@@ -959,7 +963,7 @@
 					},
 					{
 						"id": "solution.plugin_writer.basedir",
-						"type": "double",
+						"type": "string",
 						"size": 1
 					},
 					{
@@ -1377,6 +1381,10 @@
 						"id": "ics.p",
 						"type": "string",
 						"size": 1
+					},
+					{
+						"id": "ics.custom",
+						"ui": "map"
 					}
 				]
 			}
@@ -1401,7 +1409,7 @@
 
 	module.exports = {
 	  "help": __webpack_require__(5),
-	  "label.json": __webpack_require__(203)
+	  "label.json": __webpack_require__(205)
 	};
 
 /***/ },
@@ -1415,36 +1423,36 @@
 	  "Backend-settings": __webpack_require__(10),
 	  "CUDA": __webpack_require__(13),
 	  "Constants": __webpack_require__(15),
-	  "Filter": __webpack_require__(21),
-	  "Hexahedral-el": __webpack_require__(26),
-	  "Interfaces": __webpack_require__(30),
-	  "Linear-int": __webpack_require__(34),
-	  "Open-CL": __webpack_require__(38),
-	  "Open-MP": __webpack_require__(42),
-	  "Plugin Fluidforce Name": __webpack_require__(47),
-	  "Plugin NaN check": __webpack_require__(51),
-	  "Plugin Time average": __webpack_require__(53),
-	  "Plugin Writer": __webpack_require__(59),
-	  "Plugin residual": __webpack_require__(63),
-	  "Plugin sampler": __webpack_require__(67),
-	  "Prismatic-el": __webpack_require__(73),
-	  "Pyramidal-el": __webpack_require__(77),
-	  "Quadrilateral-el": __webpack_require__(81),
-	  "Quadrilateral-int": __webpack_require__(85),
-	  "Solver-settings": __webpack_require__(89),
-	  "Solver-source-terms": __webpack_require__(95),
-	  "Tetrahedral-el": __webpack_require__(101),
-	  "TimeIntegrator": __webpack_require__(105),
-	  "Triangular-el": __webpack_require__(111),
-	  "Triangular-int": __webpack_require__(115),
-	  "char-riem-inv": __webpack_require__(119),
-	  "ics": __webpack_require__(131),
-	  "no-slp-isot-wall": __webpack_require__(137),
-	  "rkScheme": __webpack_require__(149),
-	  "sub-in-frv": __webpack_require__(155),
-	  "sub-in-ftpttang": __webpack_require__(167),
-	  "sub-out-fp": __webpack_require__(179),
-	  "sup-in-fa": __webpack_require__(191)
+	  "Filter": __webpack_require__(22),
+	  "Hexahedral-el": __webpack_require__(27),
+	  "Interfaces": __webpack_require__(31),
+	  "Linear-int": __webpack_require__(35),
+	  "Open-CL": __webpack_require__(39),
+	  "Open-MP": __webpack_require__(43),
+	  "Plugin Fluidforce Name": __webpack_require__(48),
+	  "Plugin NaN check": __webpack_require__(52),
+	  "Plugin Time average": __webpack_require__(54),
+	  "Plugin Writer": __webpack_require__(60),
+	  "Plugin residual": __webpack_require__(64),
+	  "Plugin sampler": __webpack_require__(68),
+	  "Prismatic-el": __webpack_require__(74),
+	  "Pyramidal-el": __webpack_require__(78),
+	  "Quadrilateral-el": __webpack_require__(82),
+	  "Quadrilateral-int": __webpack_require__(86),
+	  "Solver-settings": __webpack_require__(90),
+	  "Solver-source-terms": __webpack_require__(96),
+	  "Tetrahedral-el": __webpack_require__(102),
+	  "TimeIntegrator": __webpack_require__(106),
+	  "Triangular-el": __webpack_require__(112),
+	  "Triangular-int": __webpack_require__(116),
+	  "char-riem-inv": __webpack_require__(120),
+	  "ics": __webpack_require__(132),
+	  "no-slp-isot-wall": __webpack_require__(139),
+	  "rkScheme": __webpack_require__(151),
+	  "sub-in-frv": __webpack_require__(157),
+	  "sub-in-ftpttang": __webpack_require__(169),
+	  "sub-out-fp": __webpack_require__(181),
+	  "sup-in-fa": __webpack_require__(193)
 	};
 
 /***/ },
@@ -1525,9 +1533,10 @@
 	module.exports = {
 	  "constants.cpTref": __webpack_require__(16),
 	  "constants.cpTs": __webpack_require__(17),
-	  "constants.gamma": __webpack_require__(18),
-	  "constants.mu": __webpack_require__(19),
-	  "constants.pr": __webpack_require__(20)
+	  "constants.custom": __webpack_require__(18),
+	  "constants.gamma": __webpack_require__(19),
+	  "constants.mu": __webpack_require__(20),
+	  "constants.pr": __webpack_require__(21)
 	};
 
 /***/ },
@@ -1546,1003 +1555,1004 @@
 /* 18 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Ratio of specific heats  - <em>float</em></p>";
+	module.exports = "<p>Custom constants: key value pairs (<em>string, double</em>) to be used in properties that take functions</p>\n";
 
 /***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Dynamic viscosity  - <em>float</em></p>";
+	module.exports = "<p>Ratio of specific heats  - <em>float</em></p>";
 
 /***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Prandtl number  - <em>float</em></p>";
+	module.exports = "<p>Dynamic viscosity  - <em>float</em></p>";
 
 /***/ },
 /* 21 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>Prandtl number  - <em>float</em></p>";
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solution.filter.alpha": __webpack_require__(22),
-	  "solution.filter.cutoff": __webpack_require__(23),
-	  "solution.filter.nsteps": __webpack_require__(24),
-	  "solution.filter.order": __webpack_require__(25)
+	  "solution.filter.alpha": __webpack_require__(23),
+	  "solution.filter.cutoff": __webpack_require__(24),
+	  "solution.filter.nsteps": __webpack_require__(25),
+	  "solution.filter.order": __webpack_require__(26)
 	};
-
-/***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>strength of filter - <em>float</em></p>";
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>cutoff frequency below which no filtering is applied - <em>int</em></p>";
+	module.exports = "<p>strength of filter - <em>float</em></p>";
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>apply filter every nsteps - <em>int</em></p>";
+	module.exports = "<p>cutoff frequency below which no filtering is applied - <em>int</em></p>";
 
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>order of filter - <em>int</em></p>";
+	module.exports = "<p>apply filter every nsteps - <em>int</em></p>";
 
 /***/ },
 /* 26 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>order of filter - <em>int</em></p>";
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.elements.quad_deg": __webpack_require__(27),
-	  "solver.elements.quad_pts": __webpack_require__(28),
-	  "solver.elements.soln_pts": __webpack_require__(29)
+	  "solver.elements.quad_deg": __webpack_require__(28),
+	  "solver.elements.quad_pts": __webpack_require__(29),
+	  "solver.elements.soln_pts": __webpack_require__(30)
 	};
-
-/***/ },
-/* 27 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
 
 /***/ },
 /* 30 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+
+/***/ },
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.ldg_beta": __webpack_require__(31),
-	  "solver.ldg_tau": __webpack_require__(32),
-	  "solver.riemann": __webpack_require__(33)
+	  "solver.ldg_beta": __webpack_require__(32),
+	  "solver.ldg_tau": __webpack_require__(33),
+	  "solver.riemann_solver": __webpack_require__(34)
 	};
-
-/***/ },
-/* 31 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>tau parameter used for LDG - <em>float</em></p>";
 
 /***/ },
 /* 32 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>beta parameter used for LDG - <em>float</em></p>";
+	module.exports = "<p>tau parameter used for LDG - <em>float</em></p>";
 
 /***/ },
 /* 33 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>type of Riemann solver - <em>rusanov | hll | hllc | roe | roem</em></p>";
+	module.exports = "<p>beta parameter used for LDG - <em>float</em></p>";
 
 /***/ },
 /* 34 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>type of Riemann solver - <em>rusanov | hll | hllc | roe | roem</em></p>";
+
+/***/ },
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.interfaces.flux_pts": __webpack_require__(35),
-	  "solver.interfaces.quad_deg": __webpack_require__(36),
-	  "solver.interfaces.quad_pts": __webpack_require__(37)
+	  "solver.interfaces.flux_pts": __webpack_require__(36),
+	  "solver.interfaces.quad_deg": __webpack_require__(37),
+	  "solver.interfaces.quad_pts": __webpack_require__(38)
 	};
-
-/***/ },
-/* 35 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>location of the flux points on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
 
 /***/ },
 /* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>degree of quadrature rule for anti-aliasing on a line interface - <em>int</em></p>";
+	module.exports = "<p>location of the flux points on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
 
 /***/ },
 /* 37 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing on a line interface - <em>int</em></p>";
 
 /***/ },
 /* 38 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>name of quadrature rule for anti-aliasing on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
+
+/***/ },
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "open-cl.device_id": __webpack_require__(39),
-	  "open-cl.device_type": __webpack_require__(40),
-	  "open-cl.platform_id": __webpack_require__(41)
+	  "open-cl.device_id": __webpack_require__(40),
+	  "open-cl.device_type": __webpack_require__(41),
+	  "open-cl.platform_id": __webpack_require__(42)
 	};
-
-/***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>For selecting which device(s) to run on - <em>int | string | local-rank</em></p>";
 
 /***/ },
 /* 40 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>For selecting what type of device(s) to run on - <em>all | cpu | gpu | accelerator</em></p>";
+	module.exports = "<p>For selecting which device(s) to run on - <em>int | string | local-rank</em></p>";
 
 /***/ },
 /* 41 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>for selecting platform id - <em>int | string</em></p>";
+	module.exports = "<p>For selecting what type of device(s) to run on - <em>all | cpu | gpu | accelerator</em></p>";
 
 /***/ },
 /* 42 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>for selecting platform id - <em>int | string</em></p>";
+
+/***/ },
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "open-mp.cblas": __webpack_require__(43),
-	  "open-mp.cblas_type": __webpack_require__(44),
-	  "open-mp.cc": __webpack_require__(45),
-	  "open-mp.cflags": __webpack_require__(46)
+	  "open-mp.cblas": __webpack_require__(44),
+	  "open-mp.cblas_type": __webpack_require__(45),
+	  "open-mp.cc": __webpack_require__(46),
+	  "open-mp.cflags": __webpack_require__(47)
 	};
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>path to shared C BLAS library - <em>string</em></p>";
 
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Type of BLAS library - <em>serial | parallel</em></p>";
+	module.exports = "<p>path to shared C BLAS library - <em>string</em></p>";
 
 /***/ },
 /* 45 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>C compiler - <em>string</em></p>";
+	module.exports = "<p>Type of BLAS library - <em>serial | parallel</em></p>";
 
 /***/ },
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Additional C compiler flags - <em>string</em></p>";
+	module.exports = "<p>C compiler - <em>string</em></p>";
 
 /***/ },
 /* 47 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>Additional C compiler flags - <em>string</em></p>";
+
+/***/ },
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solution.plugin_fluidforce.file": __webpack_require__(48),
-	  "solution.plugin_fluidforce.header": __webpack_require__(49),
-	  "solution.plugin_fluidforce.nsteps": __webpack_require__(50)
+	  "solution.plugin_fluidforce.file": __webpack_require__(49),
+	  "solution.plugin_fluidforce.header": __webpack_require__(50),
+	  "solution.plugin_fluidforce.nsteps": __webpack_require__(51)
 	};
-
-/***/ },
-/* 48 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>output file path; should the file already exist it will be appended to - <em>string</em></p>";
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>if to output a header row or not - <em>boolean, 0 or 1</em></p>";
+	module.exports = "<p>output file path; should the file already exist it will be appended to - <em>string</em></p>";
 
 /***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>integrate every nsteps - <em>int</em></p>";
+	module.exports = "<p>if to output a header row or not - <em>boolean, 0 or 1</em></p>";
 
 /***/ },
 /* 51 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>integrate every nsteps - <em>int</em></p>";
+
+/***/ },
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solution.plugin_nancheck.nsteps": __webpack_require__(52)
+	  "solution.plugin_nancheck.nsteps": __webpack_require__(53)
 	};
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>check every nsteps - <em>int</em></p>";
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solution.plugin_tavg.avg_name": __webpack_require__(54),
-	  "solution.plugin_tavg.basedir": __webpack_require__(55),
-	  "solution.plugin_tavg.basename": __webpack_require__(56),
-	  "solution.plugin_tavg.dt_out": __webpack_require__(57),
-	  "solution.plugin_tavg.nsteps": __webpack_require__(58)
+	  "solution.plugin_tavg.avg_name": __webpack_require__(55),
+	  "solution.plugin_tavg.basedir": __webpack_require__(56),
+	  "solution.plugin_tavg.basename": __webpack_require__(57),
+	  "solution.plugin_tavg.dt_out": __webpack_require__(58),
+	  "solution.plugin_tavg.nsteps": __webpack_require__(59)
 	};
-
-/***/ },
-/* 54 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>expression as a function of the primitive variables, time (t), and space (x, y, [z]) to time average; multiple expressions, each with their own name, may be specified - <em>string</em></p>";
 
 /***/ },
 /* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>relative path to directory where outputs will be written - <em>string</em></p>";
+	module.exports = "<p>expression as a function of the primitive variables, time (t), and space (x, y, [z]) to time average; multiple expressions, each with their own name, may be specified - <em>string</em></p>";
 
 /***/ },
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>pattern of output names - <em>string</em></p>";
+	module.exports = "<p>relative path to directory where outputs will be written - <em>string</em></p>";
 
 /***/ },
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>write to disk every dt-out time units - <em>float</em></p>";
+	module.exports = "<p>pattern of output names - <em>string</em></p>";
 
 /***/ },
 /* 58 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>accumulate the average every nsteps time steps - <em>int</em></p>";
+	module.exports = "<p>write to disk every dt-out time units - <em>float</em></p>";
 
 /***/ },
 /* 59 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>accumulate the average every nsteps time steps - <em>int</em></p>";
+
+/***/ },
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solution.plugin_writer.basedir": __webpack_require__(60),
-	  "solution.plugin_writer.basename": __webpack_require__(61),
-	  "solution.plugin_writer.dt_out": __webpack_require__(62)
+	  "solution.plugin_writer.basedir": __webpack_require__(61),
+	  "solution.plugin_writer.basename": __webpack_require__(62),
+	  "solution.plugin_writer.dt_out": __webpack_require__(63)
 	};
-
-/***/ },
-/* 60 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>relative path to directory where outputs will be written - <em>string</em></p>";
 
 /***/ },
 /* 61 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>write to disk every dt-out time units - <em>string</em></p>";
+	module.exports = "<p>relative path to directory where outputs will be written - <em>string</em></p>";
 
 /***/ },
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>write to disk every dt-out time units - <em>float</em></p>";
+	module.exports = "<p>write to disk every dt-out time units - <em>string</em></p>";
 
 /***/ },
 /* 63 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>write to disk every dt-out time units - <em>float</em></p>";
+
+/***/ },
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solution.plugin_residual.file": __webpack_require__(64),
-	  "solution.plugin_residual.header": __webpack_require__(65),
-	  "solution.plugin_residual.nsteps": __webpack_require__(66)
+	  "solution.plugin_residual.file": __webpack_require__(65),
+	  "solution.plugin_residual.header": __webpack_require__(66),
+	  "solution.plugin_residual.nsteps": __webpack_require__(67)
 	};
-
-/***/ },
-/* 64 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>output file path; should the file already exist it will be appended to - <em>string</em></p>";
 
 /***/ },
 /* 65 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>if to output a header row or not - <em>boolean, 0 or 1</em></p>";
+	module.exports = "<p>output file path; should the file already exist it will be appended to - <em>string</em></p>";
 
 /***/ },
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>calculate every nsteps - <em>int</em></p>";
+	module.exports = "<p>if to output a header row or not - <em>boolean, 0 or 1</em></p>";
 
 /***/ },
 /* 67 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>calculate every nsteps - <em>int</em></p>";
+
+/***/ },
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solution.plugin_sampler.file": __webpack_require__(68),
-	  "solution.plugin_sampler.format": __webpack_require__(69),
-	  "solution.plugin_sampler.header": __webpack_require__(70),
-	  "solution.plugin_sampler.nsteps": __webpack_require__(71),
-	  "solution.plugin_sampler.samp_pts": __webpack_require__(72)
+	  "solution.plugin_sampler.file": __webpack_require__(69),
+	  "solution.plugin_sampler.format": __webpack_require__(70),
+	  "solution.plugin_sampler.header": __webpack_require__(71),
+	  "solution.plugin_sampler.nsteps": __webpack_require__(72),
+	  "solution.plugin_sampler.samp_pts": __webpack_require__(73)
 	};
-
-/***/ },
-/* 68 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>output file path; should the file already exist it will be appended to - <em>string</em></p>";
 
 /***/ },
 /* 69 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>output variable format - <em>primitive | conservative</em></p>";
+	module.exports = "<p>output file path; should the file already exist it will be appended to - <em>string</em></p>";
 
 /***/ },
 /* 70 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>if to output a header row or not - <em>boolean, 0 or 1</em></p>";
+	module.exports = "<p>output variable format - <em>primitive | conservative</em></p>";
 
 /***/ },
 /* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>sample every nsteps - <em>int</em></p>";
+	module.exports = "<p>if to output a header row or not - <em>boolean, 0 or 1</em></p>";
 
 /***/ },
 /* 72 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>list of points to sample - <em>[(x, y), (x, y), ...] | [(x, y, z), (x, y, z), ...]</em></p>";
+	module.exports = "<p>sample every nsteps - <em>int</em></p>";
 
 /***/ },
 /* 73 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>list of points to sample - <em>[(x, y), (x, y), ...] | [(x, y, z), (x, y, z), ...]</em></p>";
+
+/***/ },
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.elements.quad_deg": __webpack_require__(74),
-	  "solver.elements.quad_pts": __webpack_require__(75),
-	  "solver.elements.soln_pts": __webpack_require__(76)
+	  "solver.elements.quad_deg": __webpack_require__(75),
+	  "solver.elements.quad_pts": __webpack_require__(76),
+	  "solver.elements.soln_pts": __webpack_require__(77)
 	};
-
-/***/ },
-/* 74 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 75 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 76 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
 
 /***/ },
 /* 77 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+
+/***/ },
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.elements.quad_deg": __webpack_require__(78),
-	  "solver.elements.quad_pts": __webpack_require__(79),
-	  "solver.elements.soln_pts": __webpack_require__(80)
+	  "solver.elements.quad_deg": __webpack_require__(79),
+	  "solver.elements.quad_pts": __webpack_require__(80),
+	  "solver.elements.soln_pts": __webpack_require__(81)
 	};
-
-/***/ },
-/* 78 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
 
 /***/ },
 /* 81 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+
+/***/ },
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.elements.quad_deg": __webpack_require__(82),
-	  "solver.elements.quad_pts": __webpack_require__(83),
-	  "solver.elements.soln_pts": __webpack_require__(84)
+	  "solver.elements.quad_deg": __webpack_require__(83),
+	  "solver.elements.quad_pts": __webpack_require__(84),
+	  "solver.elements.soln_pts": __webpack_require__(85)
 	};
-
-/***/ },
-/* 82 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 83 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 84 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
 
 /***/ },
 /* 85 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+
+/***/ },
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.interfaces.flux_pts": __webpack_require__(86),
-	  "solver.interfaces.quad_deg": __webpack_require__(87),
-	  "solver.interfaces.quad_pts": __webpack_require__(88)
+	  "solver.interfaces.flux_pts": __webpack_require__(87),
+	  "solver.interfaces.quad_deg": __webpack_require__(88),
+	  "solver.interfaces.quad_pts": __webpack_require__(89)
 	};
-
-/***/ },
-/* 86 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>location of the flux points on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
 
 /***/ },
 /* 87 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>degree of quadrature rule for anti-aliasing on a line interface - <em>int</em></p>";
+	module.exports = "<p>location of the flux points on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
 
 /***/ },
 /* 88 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing on a line interface - <em>int</em></p>";
 
 /***/ },
 /* 89 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>name of quadrature rule for anti-aliasing on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
+
+/***/ },
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.anti_alias": __webpack_require__(90),
-	  "solver.order": __webpack_require__(91),
-	  "solver.shock_capturing": __webpack_require__(92),
-	  "solver.system": __webpack_require__(93),
-	  "solver.viscosity_correction": __webpack_require__(94)
+	  "solver.anti_alias": __webpack_require__(91),
+	  "solver.order": __webpack_require__(92),
+	  "solver.shock_capturing": __webpack_require__(93),
+	  "solver.system": __webpack_require__(94),
+	  "solver.viscosity_correction": __webpack_require__(95)
 	};
-
-/***/ },
-/* 90 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>type of anti-aliasing - <em>flux | surf-flux | div-flux | flux, surf-flux | flux, div-flux | surf-flux, div-flux | flux, surf-flux, div-flux</em></p>";
 
 /***/ },
 /* 91 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>order of polynomial solution basis - <em>int</em></p>";
+	module.exports = "<p>type of anti-aliasing - <em>flux | surf-flux | div-flux | flux, surf-flux | flux, div-flux | surf-flux, div-flux | flux, surf-flux, div-flux</em></p>";
 
 /***/ },
 /* 92 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>shock capturing scheme - <em>none | artificial-viscosity</em></p>";
+	module.exports = "<p>order of polynomial solution basis - <em>int</em></p>";
 
 /***/ },
 /* 93 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>governing system - <em>euler | navier-stokes</em></p>";
+	module.exports = "<p>shock capturing scheme - <em>none | artificial-viscosity</em></p>";
 
 /***/ },
 /* 94 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>viscosity correction - <em>none | sutherland</em></p>";
+	module.exports = "<p>governing system - <em>euler | navier-stokes</em></p>";
 
 /***/ },
 /* 95 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>viscosity correction - <em>none | sutherland</em></p>";
+
+/***/ },
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.source-terms.E": __webpack_require__(96),
-	  "solver.source-terms.rho": __webpack_require__(97),
-	  "solver.source-terms.rhou": __webpack_require__(98),
-	  "solver.source-terms.rhov": __webpack_require__(99),
-	  "solver.source-terms.rhow": __webpack_require__(100)
+	  "solver.source-terms.E": __webpack_require__(97),
+	  "solver.source-terms.rho": __webpack_require__(98),
+	  "solver.source-terms.rhou": __webpack_require__(99),
+	  "solver.source-terms.rhov": __webpack_require__(100),
+	  "solver.source-terms.rhow": __webpack_require__(101)
 	};
-
-/***/ },
-/* 96 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>energy source term - <em>string</em></p>";
 
 /***/ },
 /* 97 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>density source term - <em>string</em></p>";
+	module.exports = "<p>energy source term - <em>string</em></p>";
 
 /***/ },
 /* 98 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>x-momentum source term - <em>string</em></p>";
+	module.exports = "<p>density source term - <em>string</em></p>";
 
 /***/ },
 /* 99 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>y-momentum source term - <em>string</em></p>";
+	module.exports = "<p>x-momentum source term - <em>string</em></p>";
 
 /***/ },
 /* 100 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>z-momentum source term - <em>string</em></p>";
+	module.exports = "<p>y-momentum source term - <em>string</em></p>";
 
 /***/ },
 /* 101 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>z-momentum source term - <em>string</em></p>";
+
+/***/ },
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.elements.quad_deg": __webpack_require__(102),
-	  "solver.elements.quad_pts": __webpack_require__(103),
-	  "solver.elements.soln_pts": __webpack_require__(104)
+	  "solver.elements.quad_deg": __webpack_require__(103),
+	  "solver.elements.quad_pts": __webpack_require__(104),
+	  "solver.elements.soln_pts": __webpack_require__(105)
 	};
-
-/***/ },
-/* 102 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 103 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 104 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
 
 /***/ },
 /* 105 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+
+/***/ },
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.controller": __webpack_require__(106),
-	  "solver.dt": __webpack_require__(107),
-	  "solver.scheme": __webpack_require__(108),
-	  "solver.tend": __webpack_require__(109),
-	  "solver.tstart": __webpack_require__(110)
+	  "solver.controller": __webpack_require__(107),
+	  "solver.dt": __webpack_require__(108),
+	  "solver.scheme": __webpack_require__(109),
+	  "solver.tend": __webpack_require__(110),
+	  "solver.tstart": __webpack_require__(111)
 	};
-
-/***/ },
-/* 106 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>time-step size controller. <em>pi</em> only works with <em>rk34</em> and <em>rk35</em> and requires - <em>none | pi</em></p>";
 
 /***/ },
 /* 107 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>time-step - <em>float</em></p>";
+	module.exports = "<p>time-step size controller. <em>pi</em> only works with <em>rk34</em> and <em>rk35</em> and requires - <em>none | pi</em></p>";
 
 /***/ },
 /* 108 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>time-integration scheme - <em>euler | rk34 | rk4 | rk45 | tvd-rk3</em></p>";
+	module.exports = "<p>time-step - <em>float</em></p>";
 
 /***/ },
 /* 109 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>final time - <em>float</em></p>";
+	module.exports = "<p>time-integration scheme - <em>euler | rk34 | rk4 | rk45 | tvd-rk3</em></p>";
 
 /***/ },
 /* 110 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>initial time - <em>float</em></p>";
+	module.exports = "<p>final time - <em>float</em></p>";
 
 /***/ },
 /* 111 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>initial time - <em>float</em></p>";
+
+/***/ },
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.elements.quad_deg": __webpack_require__(112),
-	  "solver.elements.quad_pts": __webpack_require__(113),
-	  "solver.elements.soln_pts": __webpack_require__(114)
+	  "solver.elements.quad_deg": __webpack_require__(113),
+	  "solver.elements.quad_pts": __webpack_require__(114),
+	  "solver.elements.soln_pts": __webpack_require__(115)
 	};
-
-/***/ },
-/* 112 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing in a triangular element - <em>int</em></p>";
 
 /***/ },
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+	module.exports = "<p>name of quadrature rule for anti-aliasing in a triangular element - <em>enum varies depending on option</em></p>";
 
 /***/ },
 /* 115 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>location of the solution points in a triangular element - <em>enum dependant on type</em></p>";
+
+/***/ },
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.interfaces.flux_pts": __webpack_require__(116),
-	  "solver.interfaces.quad_deg": __webpack_require__(117),
-	  "solver.interfaces.quad_pts": __webpack_require__(118)
+	  "solver.interfaces.flux_pts": __webpack_require__(117),
+	  "solver.interfaces.quad_deg": __webpack_require__(118),
+	  "solver.interfaces.quad_pts": __webpack_require__(119)
 	};
-
-/***/ },
-/* 116 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>location of the flux points on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
 
 /***/ },
 /* 117 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>degree of quadrature rule for anti-aliasing on a line interface - <em>int</em></p>";
+	module.exports = "<p>location of the flux points on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
 
 /***/ },
 /* 118 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>name of quadrature rule for anti-aliasing on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
+	module.exports = "<p>degree of quadrature rule for anti-aliasing on a line interface - <em>int</em></p>";
 
 /***/ },
 /* 119 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>name of quadrature rule for anti-aliasing on a line interface - <em>gauss-legendre | gauss-legendre-lobatto</em></p>";
+
+/***/ },
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "cpTt": __webpack_require__(120),
-	  "cpTw": __webpack_require__(121),
-	  "name": __webpack_require__(122),
-	  "p": __webpack_require__(123),
-	  "phi": __webpack_require__(124),
-	  "pt": __webpack_require__(125),
-	  "rho": __webpack_require__(126),
-	  "theta": __webpack_require__(127),
-	  "u": __webpack_require__(128),
-	  "v": __webpack_require__(129),
-	  "w": __webpack_require__(130)
+	  "cpTt": __webpack_require__(121),
+	  "cpTw": __webpack_require__(122),
+	  "name": __webpack_require__(123),
+	  "p": __webpack_require__(124),
+	  "phi": __webpack_require__(125),
+	  "pt": __webpack_require__(126),
+	  "rho": __webpack_require__(127),
+	  "theta": __webpack_require__(128),
+	  "u": __webpack_require__(129),
+	  "v": __webpack_require__(130),
+	  "w": __webpack_require__(131)
 	};
-
-/***/ },
-/* 120 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
 
 /***/ },
 /* 121 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
+	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
 
 /***/ },
 /* 122 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Name of boundary - <em>string</em></p>";
+	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
 
 /***/ },
 /* 123 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>static pressure - <em>float | string</em></p>";
+	module.exports = "<p>Name of boundary - <em>string</em></p>";
 
 /***/ },
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
+	module.exports = "<p>static pressure - <em>float | string</em></p>";
 
 /***/ },
 /* 125 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>total pressure - <em>float</em></p>";
+	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
 
 /***/ },
 /* 126 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>density - <em>float | string</em></p>";
+	module.exports = "<p>total pressure - <em>float</em></p>";
 
 /***/ },
 /* 127 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
+	module.exports = "<p>density - <em>float | string</em></p>";
 
 /***/ },
 /* 128 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>x-velocity - <em>float | string</em></p>";
+	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
 
 /***/ },
 /* 129 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>y-velocity - <em>float | string</em></p>";
+	module.exports = "<p>x-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 130 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>z-velocity - <em>float | string</em></p>";
+	module.exports = "<p>y-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 131 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>z-velocity - <em>float | string</em></p>";
+
+/***/ },
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "ics.p": __webpack_require__(132),
-	  "ics.rho": __webpack_require__(133),
-	  "ics.u": __webpack_require__(134),
-	  "ics.v": __webpack_require__(135),
-	  "ics.w": __webpack_require__(136)
+	  "ics.custom": __webpack_require__(133),
+	  "ics.p": __webpack_require__(134),
+	  "ics.rho": __webpack_require__(135),
+	  "ics.u": __webpack_require__(136),
+	  "ics.v": __webpack_require__(137),
+	  "ics.w": __webpack_require__(138)
 	};
-
-/***/ },
-/* 132 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>initial static pressure distribution - <em>srting</em></p>";
 
 /***/ },
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>initial density distribution - <em>string</em></p>";
+	module.exports = "<p>Helper funtions, you can reference these functions in others by wrapping the function name in %(<em>name</em>)</p>\n";
 
 /***/ },
 /* 134 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>initial x-velocity distribution - <em>string</em></p>";
+	module.exports = "<p>initial static pressure distribution - <em>srting</em></p>";
 
 /***/ },
 /* 135 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>initial y-velocity distribution - <em>string</em></p>";
+	module.exports = "<p>initial density distribution - <em>string</em></p>";
 
 /***/ },
 /* 136 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>initial z-velocity distribution - <em>string</em></p>";
+	module.exports = "<p>initial x-velocity distribution - <em>string</em></p>";
 
 /***/ },
 /* 137 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	"use strict";
-
-	module.exports = {
-	  "cpTt": __webpack_require__(138),
-	  "cpTw": __webpack_require__(139),
-	  "name": __webpack_require__(140),
-	  "p": __webpack_require__(141),
-	  "phi": __webpack_require__(142),
-	  "pt": __webpack_require__(143),
-	  "rho": __webpack_require__(144),
-	  "theta": __webpack_require__(145),
-	  "u": __webpack_require__(146),
-	  "v": __webpack_require__(147),
-	  "w": __webpack_require__(148)
-	};
+	module.exports = "<p>initial y-velocity distribution - <em>string</em></p>";
 
 /***/ },
 /* 138 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
+	module.exports = "<p>initial z-velocity distribution - <em>string</em></p>";
 
 /***/ },
 /* 139 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
-
-/***/ },
-/* 140 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>Name of boundary - <em>string</em></p>";
-
-/***/ },
-/* 141 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>static pressure - <em>float | string</em></p>";
-
-/***/ },
-/* 142 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
-
-/***/ },
-/* 143 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>total pressure - <em>float</em></p>";
-
-/***/ },
-/* 144 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>density - <em>float | string</em></p>";
-
-/***/ },
-/* 145 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
-
-/***/ },
-/* 146 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>x-velocity - <em>float | string</em></p>";
-
-/***/ },
-/* 147 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>y-velocity - <em>float | string</em></p>";
-
-/***/ },
-/* 148 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>z-velocity - <em>float | string</em></p>";
-
-/***/ },
-/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "solver.atol": __webpack_require__(150),
-	  "solver.max_fact": __webpack_require__(151),
-	  "solver.min_fact": __webpack_require__(152),
-	  "solver.rtol": __webpack_require__(153),
-	  "solver.safety_fact": __webpack_require__(154)
+	  "cpTt": __webpack_require__(140),
+	  "cpTw": __webpack_require__(141),
+	  "name": __webpack_require__(142),
+	  "p": __webpack_require__(143),
+	  "phi": __webpack_require__(144),
+	  "pt": __webpack_require__(145),
+	  "rho": __webpack_require__(146),
+	  "theta": __webpack_require__(147),
+	  "u": __webpack_require__(148),
+	  "v": __webpack_require__(149),
+	  "w": __webpack_require__(150)
 	};
+
+/***/ },
+/* 140 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
+
+/***/ },
+/* 141 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
+
+/***/ },
+/* 142 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>Name of boundary - <em>string</em></p>";
+
+/***/ },
+/* 143 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>static pressure - <em>float | string</em></p>";
+
+/***/ },
+/* 144 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
+
+/***/ },
+/* 145 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>total pressure - <em>float</em></p>";
+
+/***/ },
+/* 146 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>density - <em>float | string</em></p>";
+
+/***/ },
+/* 147 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
+
+/***/ },
+/* 148 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>x-velocity - <em>float | string</em></p>";
+
+/***/ },
+/* 149 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>y-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 150 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>absolute error tolerance - <em>float</em></p>";
+	module.exports = "<p>z-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 151 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<p>maximum factor that the time-step can change between iterations (suitable range 2.0-6.0) - <em>float</em></p>";
+	"use strict";
+
+	module.exports = {
+	  "solver.atol": __webpack_require__(152),
+	  "solver.max_fact": __webpack_require__(153),
+	  "solver.min_fact": __webpack_require__(154),
+	  "solver.rtol": __webpack_require__(155),
+	  "solver.safety_fact": __webpack_require__(156)
+	};
 
 /***/ },
 /* 152 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>safety factor for step size adjustment (suitable range 0.80-0.95) - <em>float</em></p>";
+	module.exports = "<p>absolute error tolerance - <em>float</em></p>";
 
 /***/ },
 /* 153 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>relative error tolerance - <em>float</em></p>";
+	module.exports = "<p>maximum factor that the time-step can change between iterations (suitable range 2.0-6.0) - <em>float</em></p>";
 
 /***/ },
 /* 154 */
@@ -2552,350 +2562,362 @@
 
 /***/ },
 /* 155 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	"use strict";
-
-	module.exports = {
-	  "cpTt": __webpack_require__(156),
-	  "cpTw": __webpack_require__(157),
-	  "name": __webpack_require__(158),
-	  "p": __webpack_require__(159),
-	  "phi": __webpack_require__(160),
-	  "pt": __webpack_require__(161),
-	  "rho": __webpack_require__(162),
-	  "theta": __webpack_require__(163),
-	  "u": __webpack_require__(164),
-	  "v": __webpack_require__(165),
-	  "w": __webpack_require__(166)
-	};
+	module.exports = "<p>relative error tolerance - <em>float</em></p>";
 
 /***/ },
 /* 156 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
+	module.exports = "<p>safety factor for step size adjustment (suitable range 0.80-0.95) - <em>float</em></p>";
 
 /***/ },
 /* 157 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
+	"use strict";
+
+	module.exports = {
+	  "cpTt": __webpack_require__(158),
+	  "cpTw": __webpack_require__(159),
+	  "name": __webpack_require__(160),
+	  "p": __webpack_require__(161),
+	  "phi": __webpack_require__(162),
+	  "pt": __webpack_require__(163),
+	  "rho": __webpack_require__(164),
+	  "theta": __webpack_require__(165),
+	  "u": __webpack_require__(166),
+	  "v": __webpack_require__(167),
+	  "w": __webpack_require__(168)
+	};
 
 /***/ },
 /* 158 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Name of boundary - <em>string</em></p>";
+	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
 
 /***/ },
 /* 159 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>static pressure - <em>float | string</em></p>";
+	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
 
 /***/ },
 /* 160 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
+	module.exports = "<p>Name of boundary - <em>string</em></p>";
 
 /***/ },
 /* 161 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>total pressure - <em>float</em></p>";
+	module.exports = "<p>static pressure - <em>float | string</em></p>";
 
 /***/ },
 /* 162 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>density - <em>float | string</em></p>";
+	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
 
 /***/ },
 /* 163 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
+	module.exports = "<p>total pressure - <em>float</em></p>";
 
 /***/ },
 /* 164 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>x-velocity - <em>float | string</em></p>";
+	module.exports = "<p>density - <em>float | string</em></p>";
 
 /***/ },
 /* 165 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>y-velocity - <em>float | string</em></p>";
+	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
 
 /***/ },
 /* 166 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>z-velocity - <em>float | string</em></p>";
+	module.exports = "<p>x-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 167 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	"use strict";
-
-	module.exports = {
-	  "cpTt": __webpack_require__(168),
-	  "cpTw": __webpack_require__(169),
-	  "name": __webpack_require__(170),
-	  "p": __webpack_require__(171),
-	  "phi": __webpack_require__(172),
-	  "pt": __webpack_require__(173),
-	  "rho": __webpack_require__(174),
-	  "theta": __webpack_require__(175),
-	  "u": __webpack_require__(176),
-	  "v": __webpack_require__(177),
-	  "w": __webpack_require__(178)
-	};
+	module.exports = "<p>y-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 168 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
+	module.exports = "<p>z-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 169 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
+	"use strict";
+
+	module.exports = {
+	  "cpTt": __webpack_require__(170),
+	  "cpTw": __webpack_require__(171),
+	  "name": __webpack_require__(172),
+	  "p": __webpack_require__(173),
+	  "phi": __webpack_require__(174),
+	  "pt": __webpack_require__(175),
+	  "rho": __webpack_require__(176),
+	  "theta": __webpack_require__(177),
+	  "u": __webpack_require__(178),
+	  "v": __webpack_require__(179),
+	  "w": __webpack_require__(180)
+	};
 
 /***/ },
 /* 170 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Name of boundary - <em>string</em></p>";
+	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
 
 /***/ },
 /* 171 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>static pressure - <em>float | string</em></p>";
+	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
 
 /***/ },
 /* 172 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
+	module.exports = "<p>Name of boundary - <em>string</em></p>";
 
 /***/ },
 /* 173 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>total pressure - <em>float</em></p>";
+	module.exports = "<p>static pressure - <em>float | string</em></p>";
 
 /***/ },
 /* 174 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>density - <em>float | string</em></p>";
+	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
 
 /***/ },
 /* 175 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
+	module.exports = "<p>total pressure - <em>float</em></p>";
 
 /***/ },
 /* 176 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>x-velocity - <em>float | string</em></p>";
+	module.exports = "<p>density - <em>float | string</em></p>";
 
 /***/ },
 /* 177 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>y-velocity - <em>float | string</em></p>";
+	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
 
 /***/ },
 /* 178 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>z-velocity - <em>float | string</em></p>";
+	module.exports = "<p>x-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 179 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	"use strict";
-
-	module.exports = {
-	  "cpTt": __webpack_require__(180),
-	  "cpTw": __webpack_require__(181),
-	  "name": __webpack_require__(182),
-	  "p": __webpack_require__(183),
-	  "phi": __webpack_require__(184),
-	  "pt": __webpack_require__(185),
-	  "rho": __webpack_require__(186),
-	  "theta": __webpack_require__(187),
-	  "u": __webpack_require__(188),
-	  "v": __webpack_require__(189),
-	  "w": __webpack_require__(190)
-	};
+	module.exports = "<p>y-velocity - <em>float | string</em></p>";
 
 /***/ },
 /* 180 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
-
-/***/ },
-/* 181 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
-
-/***/ },
-/* 182 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>Name of boundary - <em>string</em></p>";
-
-/***/ },
-/* 183 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>static pressure - <em>float | string</em></p>";
-
-/***/ },
-/* 184 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
-
-/***/ },
-/* 185 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>total pressure - <em>float</em></p>";
-
-/***/ },
-/* 186 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>density - <em>float | string</em></p>";
-
-/***/ },
-/* 187 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
-
-/***/ },
-/* 188 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>x-velocity - <em>float | string</em></p>";
-
-/***/ },
-/* 189 */
-/***/ function(module, exports) {
-
-	module.exports = "<p>y-velocity - <em>float | string</em></p>";
-
-/***/ },
-/* 190 */
-/***/ function(module, exports) {
-
 	module.exports = "<p>z-velocity - <em>float | string</em></p>";
 
 /***/ },
-/* 191 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = {
-	  "cpTt": __webpack_require__(192),
-	  "cpTw": __webpack_require__(193),
-	  "name": __webpack_require__(194),
-	  "p": __webpack_require__(195),
-	  "phi": __webpack_require__(196),
-	  "pt": __webpack_require__(197),
-	  "rho": __webpack_require__(198),
-	  "theta": __webpack_require__(199),
-	  "u": __webpack_require__(200),
-	  "v": __webpack_require__(201),
-	  "w": __webpack_require__(202)
+	  "cpTt": __webpack_require__(182),
+	  "cpTw": __webpack_require__(183),
+	  "name": __webpack_require__(184),
+	  "p": __webpack_require__(185),
+	  "phi": __webpack_require__(186),
+	  "pt": __webpack_require__(187),
+	  "rho": __webpack_require__(188),
+	  "theta": __webpack_require__(189),
+	  "u": __webpack_require__(190),
+	  "v": __webpack_require__(191),
+	  "w": __webpack_require__(192)
 	};
 
 /***/ },
-/* 192 */
+/* 182 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
 
 /***/ },
-/* 193 */
+/* 183 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
 
 /***/ },
-/* 194 */
+/* 184 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>Name of boundary - <em>string</em></p>";
 
 /***/ },
-/* 195 */
+/* 185 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>static pressure - <em>float | string</em></p>";
 
 /***/ },
-/* 196 */
+/* 186 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
 
 /***/ },
-/* 197 */
+/* 187 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>total pressure - <em>float</em></p>";
 
 /***/ },
-/* 198 */
+/* 188 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>density - <em>float | string</em></p>";
 
 /***/ },
-/* 199 */
+/* 189 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
 
 /***/ },
-/* 200 */
+/* 190 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>x-velocity - <em>float | string</em></p>";
 
 /***/ },
-/* 201 */
+/* 191 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>y-velocity - <em>float | string</em></p>";
 
 /***/ },
-/* 202 */
+/* 192 */
 /***/ function(module, exports) {
 
 	module.exports = "<p>z-velocity - <em>float | string</em></p>";
 
 /***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  "cpTt": __webpack_require__(194),
+	  "cpTw": __webpack_require__(195),
+	  "name": __webpack_require__(196),
+	  "p": __webpack_require__(197),
+	  "phi": __webpack_require__(198),
+	  "pt": __webpack_require__(199),
+	  "rho": __webpack_require__(200),
+	  "theta": __webpack_require__(201),
+	  "u": __webpack_require__(202),
+	  "v": __webpack_require__(203),
+	  "w": __webpack_require__(204)
+	};
+
+/***/ },
+/* 194 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>product of specific heat capacity at constant pressure and total temperature - <em>float</em></p>";
+
+/***/ },
+/* 195 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>product of specific heat capacity at constant pressure and temperature of wall - <em>float</em></p>";
+
+/***/ },
+/* 196 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>Name of boundary - <em>string</em></p>";
+
+/***/ },
+/* 197 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>static pressure - <em>float | string</em></p>";
+
+/***/ },
+/* 198 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>inclination angle of inflow measured relative to the global positive z-axis - <em>float</em></p>";
+
+/***/ },
+/* 199 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>total pressure - <em>float</em></p>";
+
+/***/ },
+/* 200 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>density - <em>float | string</em></p>";
+
+/***/ },
+/* 201 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>azimuth angle of inflow measured in the x-y plane relative to the global positive x-axis - <em>float</em></p>";
+
+/***/ },
+/* 202 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>x-velocity - <em>float | string</em></p>";
+
+/***/ },
 /* 203 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>y-velocity - <em>float | string</em></p>";
+
+/***/ },
+/* 204 */
+/***/ function(module, exports) {
+
+	module.exports = "<p>z-velocity - <em>float | string</em></p>";
+
+/***/ },
+/* 205 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -2951,7 +2973,8 @@
 					"constants.mu": "Mu",
 					"constants.pr": "Pr",
 					"constants.cpTref": "cpTref",
-					"constants.cpTs": "cpTS"
+					"constants.cpTs": "cpTS",
+					"constants.custom": "Custom constants"
 				}
 			},
 			"Solver-settings": {
@@ -2971,7 +2994,7 @@
 					"solver.tstart": "Initial time",
 					"solver.tend": "Final time",
 					"solver.dt": "Time step",
-					"solver.controller": "Time step"
+					"solver.controller": "Controller"
 				}
 			},
 			"rkScheme": {
@@ -2999,7 +3022,7 @@
 			"Interfaces": {
 				"title": "Interfaces",
 				"parameters": {
-					"solver.riemann": "Riemann Solver",
+					"solver.riemann_solver": "Riemann Solver",
 					"solver.ldg_beta": "LDG Beta",
 					"solver.ldg_tau": "LDG Tau"
 				}
@@ -3106,7 +3129,7 @@
 				"title": "Plugin Writer",
 				"parameters": {
 					"solution.plugin_writer.dt_out": "Disk write time interval",
-					"solution.plugin_writer.basedir": "Disk write time interval",
+					"solution.plugin_writer.basedir": "Basedir",
 					"solution.plugin_writer.basename": "Output name pattern"
 				}
 			},
@@ -3233,19 +3256,20 @@
 					"ics.u": "Initial X velocity",
 					"ics.v": "Initial Y velocity",
 					"ics.w": "Initial Z velocity",
-					"ics.p": "Initial static pressure distribution"
+					"ics.p": "Initial static pressure distribution",
+					"ics.custom": "Helper functions"
 				}
 			}
 		}
 	};
 
 /***/ },
-/* 204 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var template = __webpack_require__(205);
+	var template = __webpack_require__(207);
 
 	module.exports = function (model) {
 	    var templateData = { data: {}, valid: true, errors: [] },
@@ -3285,10 +3309,6 @@
 	            orVal = ["Open-MP", "Open-CL", "CUDA"][enumVal],
 	            orObj = model.data.backend[0][orVal];
 
-	        if (!orVal) {
-	            return;
-	        }
-
 	        Object.keys(orObj).forEach(function (key) {
 	            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
 	        });
@@ -3302,8 +3322,17 @@
 	            constants = model.data.constants[0].Constants;
 
 	        Object.keys(constants).forEach(function (el) {
+	            if (el === 'constants.custom') {
+	                return;
+	            }
 	            tryAssign(dest, last(el.split('.')), constants[el].value[0]);
 	        });
+
+	        if (constants['constants.custom'] && constants['constants.custom'].value) {
+	            constants['constants.custom'].value.forEach(function (el) {
+	                dest[el.name] = el.value;
+	            });
+	        }
 
 	        templateData.data.constants = dest;
 	    }
@@ -3376,16 +3405,11 @@
 	            types = { 'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad' },
 	            orObj = model.data['solver-interfaces'][0][orVal];
 
-	        if (!orVal) {
-	            return;
-	        }
-
 	        Object.keys(orObj).forEach(function (key) {
 	            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
 	        });
 
 	        dest.type = types[orVal.split('-')[0].toLowerCase()];
-	        console.log(dest);
 	        templateData.data.solver_interfaces_type = dest;
 	    }
 
@@ -3450,10 +3474,6 @@
 	        },
 	            enumVals = ["Filter", "PluginWriter", "PluginNaNcheck", "Pluginresidual", "Pluginsampler", "PluginTimeaverage", "ics"]; //order matters, cannot Object.keys(types);
 
-	        if (!orVal) {
-	            return;
-	        }
-
 	        vals.forEach(function (el) {
 	            var orVal = enumVals[el['SolutionOr'].or.value[0]],
 	                orSrc = el[orVal],
@@ -3465,7 +3485,13 @@
 
 	            orDest.type = types[orVal];
 	            Object.keys(orSrc).forEach(function (key) {
-	                tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+	                if (key === 'ics.custom') {
+	                    orSrc[key].value.forEach(function (func) {
+	                        orDest[func.name] = func.value;
+	                    });
+	                } else {
+	                    tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+	                }
 	            });
 
 	            dest.push(orDest);
@@ -3511,84 +3537,84 @@
 	};
 
 /***/ },
-/* 205 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(206);
+	var Handlebars = __webpack_require__(208);
 	module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend",(depth0 != null ? depth0.backend : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"backend",(depth0 != null ? depth0.backend : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"3":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend-openmp",(depth0 != null ? depth0["Open-MP"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"backend-openmp",(depth0 != null ? depth0["Open-MP"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"5":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend-opencl",(depth0 != null ? depth0["Open-CL"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"backend-opencl",(depth0 != null ? depth0["Open-CL"] : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"7":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"backend-cuda",(depth0 != null ? depth0.CUDA : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"backend-cuda",(depth0 != null ? depth0.CUDA : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"9":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"constants",(depth0 != null ? depth0.constants : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"constants",(depth0 != null ? depth0.constants : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"11":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver",(depth0 != null ? depth0.solver_settings : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"solver",(depth0 != null ? depth0.solver_settings : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"13":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-time-integrator",(depth0 != null ? depth0.solver_ti : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"solver-time-integrator",(depth0 != null ? depth0.solver_ti : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"15":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-artificial-viscosity",(depth0 != null ? depth0.solver_av : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"solver-artificial-viscosity",(depth0 != null ? depth0.solver_av : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"17":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-source-terms",(depth0 != null ? depth0.solver_source_terms : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"solver-source-terms",(depth0 != null ? depth0.solver_source_terms : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"19":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-interfaces",(depth0 != null ? depth0.solver_interfaces : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"solver-interfaces",(depth0 != null ? depth0.solver_interfaces : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"21":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(225).call(depth0 != null ? depth0 : {},"solver-interfaces-",(depth0 != null ? depth0.solver_interfaces_type : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},"solver-interfaces-",(depth0 != null ? depth0.solver_interfaces_type : depth0),{"name":"ini","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"23":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(226).call(depth0 != null ? depth0 : {},"solver-elements-",{"name":"prependTitle","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(228).call(depth0 != null ? depth0 : {},"solver-elements-",{"name":"prependTitle","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"25":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(226).call(depth0 != null ? depth0 : {},"soln-plugin-fluidforce-",{"name":"prependTitle","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(228).call(depth0 != null ? depth0 : {},"soln-plugin-fluidforce-",{"name":"prependTitle","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"27":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(227).call(depth0 != null ? depth0 : {},{"name":"typeTitle","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(229).call(depth0 != null ? depth0 : {},{"name":"typeTitle","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"29":function(container,depth0,helpers,partials,data) {
 	    var stack1;
 
-	  return ((stack1 = __webpack_require__(226).call(depth0 != null ? depth0 : {},"soln-bcs-",{"name":"prependTitle","hash":{},"data":data})) != null ? stack1 : "")
+	  return ((stack1 = __webpack_require__(228).call(depth0 != null ? depth0 : {},"soln-bcs-",{"name":"prependTitle","hash":{},"data":data})) != null ? stack1 : "")
 	    + "\n";
 	},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    var stack1, alias1=depth0 != null ? depth0 : {};
@@ -3611,16 +3637,16 @@
 	},"useData":true});
 
 /***/ },
-/* 206 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Create a simple path alias to allow browserify to resolve
 	// the runtime on a supported path.
-	module.exports = __webpack_require__(207)['default'];
+	module.exports = __webpack_require__(209)['default'];
 
 
 /***/ },
-/* 207 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3634,30 +3660,30 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _handlebarsBase = __webpack_require__(208);
+	var _handlebarsBase = __webpack_require__(210);
 
 	var base = _interopRequireWildcard(_handlebarsBase);
 
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
 
-	var _handlebarsSafeString = __webpack_require__(222);
+	var _handlebarsSafeString = __webpack_require__(224);
 
 	var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 
-	var _handlebarsException = __webpack_require__(210);
+	var _handlebarsException = __webpack_require__(212);
 
 	var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
 
-	var _handlebarsUtils = __webpack_require__(209);
+	var _handlebarsUtils = __webpack_require__(211);
 
 	var Utils = _interopRequireWildcard(_handlebarsUtils);
 
-	var _handlebarsRuntime = __webpack_require__(223);
+	var _handlebarsRuntime = __webpack_require__(225);
 
 	var runtime = _interopRequireWildcard(_handlebarsRuntime);
 
-	var _handlebarsNoConflict = __webpack_require__(224);
+	var _handlebarsNoConflict = __webpack_require__(226);
 
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -3692,7 +3718,7 @@
 
 
 /***/ },
-/* 208 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3703,17 +3729,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
-	var _exception = __webpack_require__(210);
+	var _exception = __webpack_require__(212);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _helpers = __webpack_require__(211);
+	var _helpers = __webpack_require__(213);
 
-	var _decorators = __webpack_require__(219);
+	var _decorators = __webpack_require__(221);
 
-	var _logger = __webpack_require__(221);
+	var _logger = __webpack_require__(223);
 
 	var _logger2 = _interopRequireDefault(_logger);
 
@@ -3802,7 +3828,7 @@
 
 
 /***/ },
-/* 209 */
+/* 211 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3932,7 +3958,7 @@
 
 
 /***/ },
-/* 210 */
+/* 212 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3978,7 +4004,7 @@
 
 
 /***/ },
-/* 211 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3989,31 +4015,31 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _helpersBlockHelperMissing = __webpack_require__(212);
+	var _helpersBlockHelperMissing = __webpack_require__(214);
 
 	var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 
-	var _helpersEach = __webpack_require__(213);
+	var _helpersEach = __webpack_require__(215);
 
 	var _helpersEach2 = _interopRequireDefault(_helpersEach);
 
-	var _helpersHelperMissing = __webpack_require__(214);
+	var _helpersHelperMissing = __webpack_require__(216);
 
 	var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 
-	var _helpersIf = __webpack_require__(215);
+	var _helpersIf = __webpack_require__(217);
 
 	var _helpersIf2 = _interopRequireDefault(_helpersIf);
 
-	var _helpersLog = __webpack_require__(216);
+	var _helpersLog = __webpack_require__(218);
 
 	var _helpersLog2 = _interopRequireDefault(_helpersLog);
 
-	var _helpersLookup = __webpack_require__(217);
+	var _helpersLookup = __webpack_require__(219);
 
 	var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 
-	var _helpersWith = __webpack_require__(218);
+	var _helpersWith = __webpack_require__(220);
 
 	var _helpersWith2 = _interopRequireDefault(_helpersWith);
 
@@ -4030,14 +4056,14 @@
 
 
 /***/ },
-/* 212 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('blockHelperMissing', function (context, options) {
@@ -4075,7 +4101,7 @@
 
 
 /***/ },
-/* 213 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4085,9 +4111,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
-	var _exception = __webpack_require__(210);
+	var _exception = __webpack_require__(212);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -4175,7 +4201,7 @@
 
 
 /***/ },
-/* 214 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4185,7 +4211,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _exception = __webpack_require__(210);
+	var _exception = __webpack_require__(212);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
@@ -4206,14 +4232,14 @@
 
 
 /***/ },
-/* 215 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('if', function (conditional, options) {
@@ -4241,7 +4267,7 @@
 
 
 /***/ },
-/* 216 */
+/* 218 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4273,7 +4299,7 @@
 
 
 /***/ },
-/* 217 */
+/* 219 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4291,14 +4317,14 @@
 
 
 /***/ },
-/* 218 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('with', function (context, options) {
@@ -4330,7 +4356,7 @@
 
 
 /***/ },
-/* 219 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4341,7 +4367,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _decoratorsInline = __webpack_require__(220);
+	var _decoratorsInline = __webpack_require__(222);
 
 	var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 
@@ -4352,14 +4378,14 @@
 
 
 /***/ },
-/* 220 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
 	exports['default'] = function (instance) {
 	  instance.registerDecorator('inline', function (fn, props, container, options) {
@@ -4387,14 +4413,14 @@
 
 
 /***/ },
-/* 221 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
 	var logger = {
 	  methodMap: ['debug', 'info', 'warn', 'error'],
@@ -4440,7 +4466,7 @@
 
 
 /***/ },
-/* 222 */
+/* 224 */
 /***/ function(module, exports) {
 
 	// Build out our basic SafeString type
@@ -4461,7 +4487,7 @@
 
 
 /***/ },
-/* 223 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4481,15 +4507,15 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-	var _utils = __webpack_require__(209);
+	var _utils = __webpack_require__(211);
 
 	var Utils = _interopRequireWildcard(_utils);
 
-	var _exception = __webpack_require__(210);
+	var _exception = __webpack_require__(212);
 
 	var _exception2 = _interopRequireDefault(_exception);
 
-	var _base = __webpack_require__(208);
+	var _base = __webpack_require__(210);
 
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -4759,7 +4785,7 @@
 
 
 /***/ },
-/* 224 */
+/* 226 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
@@ -4786,10 +4812,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 225 */
+/* 227 */
 /***/ function(module, exports) {
 
 	'use strict';
+
+	function isDefined(val) {
+	    return !(val === undefined || val === null || val === '');
+	}
 
 	module.exports = function (title, items, options) {
 	    var out = '';
@@ -4801,7 +4831,7 @@
 	    }
 
 	    for (var key in items) {
-	        if (!items[key] || key === 'type') {
+	        if (!isDefined(items[key]) || key === 'type') {
 	            continue;
 	        }
 
@@ -4816,7 +4846,7 @@
 	};
 
 /***/ },
-/* 226 */
+/* 228 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4840,7 +4870,7 @@
 	};
 
 /***/ },
-/* 227 */
+/* 229 */
 /***/ function(module, exports) {
 
 	'use strict';
