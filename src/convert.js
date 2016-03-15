@@ -38,8 +38,6 @@ module.exports = function (model) {
             orVal = ["Open-MP", "Open-CL", "CUDA"][enumVal],
             orObj = model.data.backend[0][orVal];
 
-        if (!orVal) { return; }
-
         Object.keys(orObj).forEach( (key) => {
             tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
         });
@@ -53,8 +51,17 @@ module.exports = function (model) {
             constants = model.data.constants[0].Constants;
 
         Object.keys(constants).forEach( (el) => {
+            if (el === 'constants.custom') {
+              return;
+            }
             tryAssign(dest, last(el.split('.')), constants[el].value[0]);
         });
+
+        if (constants['constants.custom'] && constants['constants.custom'].value) {
+          constants['constants.custom'].value.forEach(el => {
+            dest[el.name] = el.value;
+          });
+        }
 
         templateData.data.constants = dest;
     }
@@ -127,14 +134,12 @@ module.exports = function (model) {
             types = {'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad'},
             orObj = model.data['solver-interfaces'][0][orVal];
 
-        if (!orVal) { return; }
 
         Object.keys(orObj).forEach( (key) => {
             tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
         });
 
         dest.type = types[orVal.split('-')[0].toLowerCase()];
-        console.log(dest);
         templateData.data.solver_interfaces_type = dest;
     }
 
@@ -206,9 +211,6 @@ module.exports = function (model) {
              "ics"
             ]; //order matters, cannot Object.keys(types);
 
-        if (!orVal) {
-            return;
-        }
 
         vals.forEach( (el) => {
             const orVal = enumVals[el['SolutionOr'].or.value[0]],
@@ -219,7 +221,13 @@ module.exports = function (model) {
 
             orDest.type = types[orVal];
             Object.keys(orSrc).forEach( (key) => {
-                tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+                if (key === 'ics.custom') {
+                    orSrc[key].value.forEach((func) => {
+                        orDest[func.name] = func.value;
+                    });
+                } else {
+                    tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+                }
             });
 
             dest.push(orDest);

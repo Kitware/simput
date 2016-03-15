@@ -1,3 +1,7 @@
+function isDefined(val) {
+  return !(val === undefined || val === null || val === '');
+}
+
 module.exports = function (title, items, options) {
     var out = '';
 
@@ -8,7 +12,7 @@ module.exports = function (title, items, options) {
     }
 
     for (var key in items) {
-        if (!items[key] || key === 'type') {
+        if (!isDefined(items[key]) || key === 'type') {
             continue;
         }
 

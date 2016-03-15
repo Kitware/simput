@@ -52,7 +52,8 @@
                 "constants.mu": "Mu",
                 "constants.pr": "Pr",
                 "constants.cpTref": "cpTref",
-                "constants.cpTs": "cpTS"
+                "constants.cpTs": "cpTS",
+                "constants.custom": "Custom constants"
             }
         },
         "Solver-settings": {
@@ -101,7 +102,7 @@
         "Interfaces": {
             "title": "Interfaces",
             "parameters": {
-                "solver.riemann": "Riemann Solver",
+                "solver.riemann_solver": "Riemann Solver",
                 "solver.ldg_beta": "LDG Beta",
                 "solver.ldg_tau": "LDG Tau"
             }
@@ -335,7 +336,8 @@
                 "ics.u": "Initial X velocity",
                 "ics.v": "Initial Y velocity",
                 "ics.w": "Initial Z velocity",
-                "ics.p": "Initial static pressure distribution"
+                "ics.p": "Initial static pressure distribution",
+                "ics.custom": "Helper functions"
             }
         }
     }

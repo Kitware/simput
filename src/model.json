@@ -163,6 +163,9 @@
                "id"     : "constants.cpTs",
                "type"   : "double",
                "size"   : 1
+            }, {
+               "id"     : "constants.custom",
+               "ui"     : "map"
             }
          ]
       },
@@ -308,7 +311,7 @@
       "Interfaces": {
          "parameters": [
             {
-               "id": "solver.riemann",
+               "id": "solver.riemann_solver",
                "type": "string",
                "ui"  : "enum",
                "size": 1,
@@ -1094,6 +1097,9 @@
                "id": "ics.p",
                "type": "string",
                "size": 1
+            }, {
+               "id": "ics.custom",
+               "ui": "map"
             }
          ]
       }
