@@ -24,25 +24,25 @@ Inside your browser, perform those edits:
 
 ### Constants
 
-- cpTref : ''
+- cpTref : ``
 - Custom constants: (+3)
-  - S: 13.5 
-  - M: 0.4
-  - R: 1.5 
+  - S: `13.5`
+  - M: `0.4`
+  - R: `1.5`
 
 ### Solver
 
 #### Settings
 
-- Order                 : 3
-- Viscosity correction  : 
-- Shock capturing       : 
+- Order                 : `3`
+- Viscosity correction  : ``
+- Shock capturing       : ``
 
 #### Time Integrator
 
-- Initial time  : 0
-- Final time    : 50
-- Time step     : 0.005
+- Initial time  : `0`
+- Final time    : `50`
+- Time step     : `0.005`
 
 #### Interfaces
 
@@ -61,19 +61,19 @@ Add 3 views
 
 #### NaN
 
-- Type    : Plugin NaN check
-- nsteps  : 50
+- Type    : `Plugin NaN check`
+- nsteps  : `50`
 
 #### Writer
 
-- Type                      : Plugin Writer
-- Disk write time interval  : 10
-- Basedir                   : .
-- Output name pattern       : euler_vortex_2d-{t:.1f}
+- Type                      : `Plugin Writer`
+- Disk write time interval  : `10`
+- Basedir                   : `.`
+- Output name pattern       : `euler_vortex_2d-{t:.1f}`
 
 #### ICS
 
-- Type                                  : ics
+- Type                                  : `ics`
 - Initial Density                       : `pow(1 - S*S*M*M*(gamma - 1)*exp(2*%(f)s)/(8*pi*pi), 1/(gamma - 1))`
 - Initial X velocity                    : `S*y*exp(%(f)s)/(2*pi*R)`
 - Initial Y velocity                    : `1 - S*x*exp(%(f)s)/(2*pi*R)`
