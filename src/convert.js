@@ -33,11 +33,11 @@ module.exports = function (model) {
         templateData.data.backend = dest;
     }
 
-    //backend model "Open-MP", "Open-CL", "CUDA"
+    //backend model 'Open-MP', 'Open-CL', 'CUDA'
     if (model.data.backend && model.data.backend[0].BackendOr.or.value) {
         var dest = {},
             enumVal = model.data.backend[0].BackendOr.or.value[0],
-            orVal = ["Open-MP", "Open-CL", "CUDA"][enumVal],
+            orVal = ['Open-MP', 'Open-CL', 'CUDA'][enumVal],
             orObj = model.data.backend[0][orVal];
 
         Object.keys(orObj).forEach( (key) => {
@@ -56,7 +56,7 @@ module.exports = function (model) {
             if (el === 'constants.custom') {
               return;
             }
-            tryAssign(dest, key, constants[el].value[0]);
+            tryAssign(dest, el, constants[el].value[0]);
         });
 
         if (constants['constants.custom'] && constants['constants.custom'].value) {
@@ -74,7 +74,7 @@ module.exports = function (model) {
             ss = model.data.solver[0]['Solver-settings'];
 
         Object.keys(ss).forEach( (el) => {
-            tryAssign(dest, key, ss[el].value[0]);
+            tryAssign(dest, el, ss[el].value[0]);
         });
 
         templateData.data.solver_settings = dest;
@@ -86,7 +86,7 @@ module.exports = function (model) {
             ti = model.data.solver[0]['TimeIntegrator'];
 
         Object.keys(ti).forEach( (el) => {
-            tryAssign(dest, key, ti[el].value[0]);
+            tryAssign(dest, el, ti[el].value[0]);
         });
 
         templateData.data.solver_ti = dest;
@@ -98,7 +98,7 @@ module.exports = function (model) {
             av = model.data.solver[0]['ArtificialViscosity'];
 
         Object.keys(av).forEach( (el) => {
-            tryAssign(dest, key, av[el].value[0]);
+            tryAssign(dest, el, av[el].value[0]);
         });
 
         templateData.data.solver_av = dest;
@@ -110,7 +110,7 @@ module.exports = function (model) {
             sst = model.data.solver[0]['Solver-source-terms'];
 
         Object.keys(sst).forEach( (el) => {
-            tryAssign(dest, key, sst[el].value[0]);
+            tryAssign(dest, el, sst[el].value[0]);
         });
 
         templateData.data.solver_source_terms = dest;
@@ -122,7 +122,7 @@ module.exports = function (model) {
             interfaces = model.data.solver[0]['Interfaces'];
 
         Object.keys(interfaces).forEach( (el) => {
-            tryAssign(dest, key, interfaces[el].value[0]);
+            tryAssign(dest, el, interfaces[el].value[0]);
         });
 
         templateData.data.solver_interfaces = dest;
@@ -132,7 +132,7 @@ module.exports = function (model) {
     if (model.data['solver-interfaces'] && model.data['solver-interfaces'][0]) {
         var dest = {},
             enumVal = model.data['solver-interfaces'][0].InterfacesOr.or.value[0],
-            orVal = ["Linear-int", "Triangular-int", "Quadrilateral-int"][enumVal],
+            orVal = ['Linear-int', 'Triangular-int', 'Quadrilateral-int'][enumVal],
             types = {'linear': 'line', 'triangular': 'tri', 'quadrilateral': 'quad'},
             orObj = model.data['solver-interfaces'][0][orVal];
 
@@ -149,8 +149,8 @@ module.exports = function (model) {
     if (model.data['solver-elements'] && model.data['solver-elements'].length) {
         var dest = [],
             vals = model.data['solver-elements'],
-            enumVals = ["Triangular-el", "Quadrilateral-el", "Hexahedral-el",
-                "Tetrahedral-el", "Prismatic-el", "Pyramidal-el"],
+            enumVals = ['Triangular-el', 'Quadrilateral-el', 'Hexahedral-el',
+                'Tetrahedral-el', 'Prismatic-el', 'Pyramidal-el'],
             types = {'triangular': 'tri', 'quadrilateral': 'quad',
                     'hexahedral': 'hex', 'tetrahedral': 'tet',
                     'prismatic': 'pri', 'pyramidal': 'pyr'};
@@ -182,7 +182,7 @@ module.exports = function (model) {
             const fluidforce = {},
                 params = el['PluginFluidforceName'];
             Object.keys(params).forEach((param) => {
-                tryAssign(fluidforce, key, params[param].value[0]);
+                tryAssign(fluidforce, param, params[param].value[0]);
             });
             fluidforce.type = fluidforce.name;
             delete fluidforce.name;
@@ -204,13 +204,13 @@ module.exports = function (model) {
                  'PluginTimeaverage': 'soln-plugin-tavg',
                  'ics': 'soln-ics'
             },
-            enumVals = ["Filter",
-             "PluginWriter",
-             "PluginNaNcheck",
-             "Pluginresidual",
-             "Pluginsampler",
-             "PluginTimeaverage",
-             "ics"
+            enumVals = ['Filter',
+             'PluginWriter',
+             'PluginNaNcheck',
+             'Pluginresidual',
+             'Pluginsampler',
+             'PluginTimeaverage',
+             'ics'
             ]; //order matters, cannot Object.keys(types);
 
 
