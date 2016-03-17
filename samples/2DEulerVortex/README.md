@@ -26,9 +26,9 @@ Inside your browser, perform those edits:
 
 - cpTref : ''
 - Custom constants: (+3)
--- S: 13.5 
--- M: 0.4
--- R: 1.5 
+  - S: 13.5 
+  - M: 0.4
+  - R: 1.5 
 
 ### Solver
 
