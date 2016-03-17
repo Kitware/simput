@@ -15,6 +15,8 @@ module.exports = function (model) {
 
     //assigns item to dest[key]
     function tryAssign(dest, key, item) {
+        // convert the key to a valid pyfr name
+        key = last(key.split('.')).replace(/_/g, '-');
         try {
             dest[key] = item;
         } catch (e) {
@@ -39,7 +41,7 @@ module.exports = function (model) {
             orObj = model.data.backend[0][orVal];
 
         Object.keys(orObj).forEach( (key) => {
-            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
+            tryAssign(dest, key, orObj[key].value[0]);
         });
 
         templateData.data[orVal] = dest;
@@ -54,7 +56,7 @@ module.exports = function (model) {
             if (el === 'constants.custom') {
               return;
             }
-            tryAssign(dest, last(el.split('.')), constants[el].value[0]);
+            tryAssign(dest, key, constants[el].value[0]);
         });
 
         if (constants['constants.custom'] && constants['constants.custom'].value) {
@@ -72,7 +74,7 @@ module.exports = function (model) {
             ss = model.data.solver[0]['Solver-settings'];
 
         Object.keys(ss).forEach( (el) => {
-            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), ss[el].value[0]);
+            tryAssign(dest, key, ss[el].value[0]);
         });
 
         templateData.data.solver_settings = dest;
@@ -84,7 +86,7 @@ module.exports = function (model) {
             ti = model.data.solver[0]['TimeIntegrator'];
 
         Object.keys(ti).forEach( (el) => {
-            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), ti[el].value[0]);
+            tryAssign(dest, key, ti[el].value[0]);
         });
 
         templateData.data.solver_ti = dest;
@@ -96,7 +98,7 @@ module.exports = function (model) {
             av = model.data.solver[0]['ArtificialViscosity'];
 
         Object.keys(av).forEach( (el) => {
-            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), av[el].value[0]);
+            tryAssign(dest, key, av[el].value[0]);
         });
 
         templateData.data.solver_av = dest;
@@ -108,7 +110,7 @@ module.exports = function (model) {
             sst = model.data.solver[0]['Solver-source-terms'];
 
         Object.keys(sst).forEach( (el) => {
-            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), sst[el].value[0]);
+            tryAssign(dest, key, sst[el].value[0]);
         });
 
         templateData.data.solver_source_terms = dest;
@@ -120,7 +122,7 @@ module.exports = function (model) {
             interfaces = model.data.solver[0]['Interfaces'];
 
         Object.keys(interfaces).forEach( (el) => {
-            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), interfaces[el].value[0]);
+            tryAssign(dest, key, interfaces[el].value[0]);
         });
 
         templateData.data.solver_interfaces = dest;
@@ -136,7 +138,7 @@ module.exports = function (model) {
 
 
         Object.keys(orObj).forEach( (key) => {
-            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
+            tryAssign(dest, key, orObj[key].value[0]);
         });
 
         dest.type = types[orVal.split('-')[0].toLowerCase()];
@@ -162,7 +164,7 @@ module.exports = function (model) {
 
             orDest.type = types[orVal.split('-')[0].toLowerCase()];
             Object.keys(orSrc).forEach( (key) => {
-                tryAssign(orDest, last(key.split('.')).replace(/_/g, '-'), orSrc[key].value[0]);
+                tryAssign(orDest, key, orSrc[key].value[0]);
             });
 
             dest.push(orDest);
@@ -180,7 +182,7 @@ module.exports = function (model) {
             const fluidforce = {},
                 params = el['PluginFluidforceName'];
             Object.keys(params).forEach((param) => {
-                tryAssign(fluidforce, last(param.split('.')).replace(/_/g, '-'), params[param].value[0]);
+                tryAssign(fluidforce, key, params[param].value[0]);
             });
             fluidforce.type = fluidforce.name;
             delete fluidforce.name;
@@ -226,7 +228,7 @@ module.exports = function (model) {
                         orDest[func.name] = func.value;
                     });
                 } else {
-                    tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+                    tryAssign(orDest, key, orSrc[key].value[0]);
                 }
             });
 
@@ -258,7 +260,7 @@ module.exports = function (model) {
             if (!orVal) { return; }
 
             Object.keys(orSrc).forEach( (key) => {
-                tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+                tryAssign(orDest, key, orSrc[key].value[0]);
             });
             orDest.type = orDest.name;
             delete orDest.name;

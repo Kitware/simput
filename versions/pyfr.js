@@ -2941,7 +2941,9 @@
 			},
 			"BackendOr": {
 				"title": "Backend Runner",
-				"parameters": {}
+				"parameters": {
+					"or": "Type"
+				}
 			},
 			"CUDA": {
 				"title": "CUDA",
@@ -3017,7 +3019,9 @@
 			},
 			"InterfacesOr": {
 				"title": "Interfaces",
-				"parameters": {}
+				"parameters": {
+					"or": "Type"
+				}
 			},
 			"Interfaces": {
 				"title": "Interfaces",
@@ -3053,7 +3057,9 @@
 			},
 			"ElementsOr": {
 				"title": "Elements",
-				"parameters": {}
+				"parameters": {
+					"or": "Type"
+				}
 			},
 			"Triangular-el": {
 				"title": "Triangular",
@@ -3114,7 +3120,10 @@
 				}
 			},
 			"SolutionOr": {
-				"title": "Solution"
+				"title": "Solution",
+				"parameters": {
+					"or": "Type"
+				}
 			},
 			"Filter": {
 				"title": "Filter",
@@ -3136,6 +3145,7 @@
 			"PluginFluidforceName": {
 				"title": "Plugin Fluidforce Name",
 				"parameters": {
+					"solution.plugin_fluidforce.name": "Name",
 					"solution.plugin_fluidforce.nsteps": "Integration interval",
 					"solution.plugin_fluidforce.file": "Output file path",
 					"solution.plugin_fluidforce.header": "Output header row"
@@ -3176,7 +3186,10 @@
 				}
 			},
 			"bcsOr": {
-				"title": "BCS"
+				"title": "BCS",
+				"parameters": {
+					"or": "Type"
+				}
 			},
 			"char-riem-inv": {
 				"title": "char-riem-inv",
@@ -3286,6 +3299,8 @@
 
 	    //assigns item to dest[key]
 	    function tryAssign(dest, key, item) {
+	        // convert the key to a valid pyfr name
+	        key = last(key.split('.')).replace(/_/g, '-');
 	        try {
 	            dest[key] = item;
 	        } catch (e) {
@@ -3310,7 +3325,7 @@
 	            orObj = model.data.backend[0][orVal];
 
 	        Object.keys(orObj).forEach(function (key) {
-	            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
+	            tryAssign(dest, key, orObj[key].value[0]);
 	        });
 
 	        templateData.data[orVal] = dest;
@@ -3325,7 +3340,7 @@
 	            if (el === 'constants.custom') {
 	                return;
 	            }
-	            tryAssign(dest, last(el.split('.')), constants[el].value[0]);
+	            tryAssign(dest, key, constants[el].value[0]);
 	        });
 
 	        if (constants['constants.custom'] && constants['constants.custom'].value) {
@@ -3343,7 +3358,7 @@
 	            ss = model.data.solver[0]['Solver-settings'];
 
 	        Object.keys(ss).forEach(function (el) {
-	            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), ss[el].value[0]);
+	            tryAssign(dest, key, ss[el].value[0]);
 	        });
 
 	        templateData.data.solver_settings = dest;
@@ -3355,7 +3370,7 @@
 	            ti = model.data.solver[0]['TimeIntegrator'];
 
 	        Object.keys(ti).forEach(function (el) {
-	            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), ti[el].value[0]);
+	            tryAssign(dest, key, ti[el].value[0]);
 	        });
 
 	        templateData.data.solver_ti = dest;
@@ -3367,7 +3382,7 @@
 	            av = model.data.solver[0]['ArtificialViscosity'];
 
 	        Object.keys(av).forEach(function (el) {
-	            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), av[el].value[0]);
+	            tryAssign(dest, key, av[el].value[0]);
 	        });
 
 	        templateData.data.solver_av = dest;
@@ -3379,7 +3394,7 @@
 	            sst = model.data.solver[0]['Solver-source-terms'];
 
 	        Object.keys(sst).forEach(function (el) {
-	            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), sst[el].value[0]);
+	            tryAssign(dest, key, sst[el].value[0]);
 	        });
 
 	        templateData.data.solver_source_terms = dest;
@@ -3391,7 +3406,7 @@
 	            interfaces = model.data.solver[0]['Interfaces'];
 
 	        Object.keys(interfaces).forEach(function (el) {
-	            tryAssign(dest, last(el.split('.')).replace(/_/g, '-'), interfaces[el].value[0]);
+	            tryAssign(dest, key, interfaces[el].value[0]);
 	        });
 
 	        templateData.data.solver_interfaces = dest;
@@ -3406,7 +3421,7 @@
 	            orObj = model.data['solver-interfaces'][0][orVal];
 
 	        Object.keys(orObj).forEach(function (key) {
-	            tryAssign(dest, last(key.split('.')).replace(/_/g, '-'), orObj[key].value[0]);
+	            tryAssign(dest, key, orObj[key].value[0]);
 	        });
 
 	        dest.type = types[orVal.split('-')[0].toLowerCase()];
@@ -3433,7 +3448,7 @@
 
 	            orDest.type = types[orVal.split('-')[0].toLowerCase()];
 	            Object.keys(orSrc).forEach(function (key) {
-	                tryAssign(orDest, last(key.split('.')).replace(/_/g, '-'), orSrc[key].value[0]);
+	                tryAssign(orDest, key, orSrc[key].value[0]);
 	            });
 
 	            dest.push(orDest);
@@ -3450,7 +3465,7 @@
 	            var fluidforce = {},
 	                params = el['PluginFluidforceName'];
 	            Object.keys(params).forEach(function (param) {
-	                tryAssign(fluidforce, last(param.split('.')).replace(/_/g, '-'), params[param].value[0]);
+	                tryAssign(fluidforce, key, params[param].value[0]);
 	            });
 	            fluidforce.type = fluidforce.name;
 	            delete fluidforce.name;
@@ -3490,7 +3505,7 @@
 	                        orDest[func.name] = func.value;
 	                    });
 	                } else {
-	                    tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+	                    tryAssign(orDest, key, orSrc[key].value[0]);
 	                }
 	            });
 
@@ -3516,7 +3531,7 @@
 	            }
 
 	            Object.keys(orSrc).forEach(function (key) {
-	                tryAssign(orDest, last(key.split('.')), orSrc[key].value[0]);
+	                tryAssign(orDest, key, orSrc[key].value[0]);
 	            });
 	            orDest.type = orDest.name;
 	            delete orDest.name;

@@ -19,7 +19,9 @@
         },
         "BackendOr" : {
             "title": "Backend Runner",
-            "parameters": {}
+            "parameters": {
+               "or": "Type"
+            }
         },
 
         "CUDA": {
@@ -97,7 +99,9 @@
 
         "InterfacesOr": {
             "title": "Interfaces",
-            "parameters": {}
+            "parameters": {
+               "or": "Type"
+            }
         },
         "Interfaces": {
             "title": "Interfaces",
@@ -133,7 +137,9 @@
         },
         "ElementsOr": {
             "title": "Elements",
-            "parameters": {}
+            "parameters": {
+               "or": "Type"
+            }
         },
         "Triangular-el": {
             "title": "Triangular",
@@ -194,7 +200,10 @@
             }
         },
         "SolutionOr": {
-            "title": "Solution"
+            "title": "Solution",
+            "parameters": {
+               "or": "Type"
+            }
         },
         "Filter": {
             "title": "Filter",
@@ -216,6 +225,7 @@
         "PluginFluidforceName": {
             "title": "Plugin Fluidforce Name",
             "parameters": {
+                "solution.plugin_fluidforce.name": "Name",
                 "solution.plugin_fluidforce.nsteps": "Integration interval",
                 "solution.plugin_fluidforce.file": "Output file path",
                 "solution.plugin_fluidforce.header": "Output header row"
@@ -256,7 +266,10 @@
             }
         },
         "bcsOr": {
-            "title": "BCS"
+            "title": "BCS",
+            "parameters": {
+               "or": "Type"
+            }
         },
         "char-riem-inv": {
             "title": "char-riem-inv",
