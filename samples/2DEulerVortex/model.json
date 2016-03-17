@@ -1,0 +1,693 @@
+{
+    "type": "pyfr",
+    "data": {
+        "constants": [
+            {
+                "name": "Contstants",
+                "Constants": {
+                    "constants.gamma": {
+                        "id": "Constants.constants.gamma",
+                        "value": [
+                            1.4
+                        ]
+                    },
+                    "constants.mu": {
+                        "id": "Constants.constants.mu",
+                        "value": []
+                    },
+                    "constants.pr": {
+                        "id": "Constants.constants.pr",
+                        "value": [
+                            null
+                        ]
+                    },
+                    "constants.cpTref": {
+                        "id": "Constants.constants.cpTref",
+                        "value": []
+                    },
+                    "constants.cpTs": {
+                        "id": "Constants.constants.cpTs",
+                        "value": []
+                    },
+                    "constants.custom": {
+                        "id": "Constants.constants.custom",
+                        "value": [
+                            {
+                                "name": "S",
+                                "value": "13.5"
+                            },
+                            {
+                                "name": "M",
+                                "value": "0.4"
+                            },
+                            {
+                                "name": "R",
+                                "value": "1.5"
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "solver": [
+            {
+                "name": "Solver",
+                "Solver-settings": {
+                    "solver.system": {
+                        "id": "Solver-settings.solver.system",
+                        "value": [
+                            "euler"
+                        ]
+                    },
+                    "solver.order": {
+                        "id": "Solver-settings.solver.order",
+                        "value": []
+                    },
+                    "solver.anti_alias": {
+                        "id": "Solver-settings.solver.anti_alias",
+                        "value": [
+                            null
+                        ]
+                    },
+                    "solver.viscosity_correction": {
+                        "id": "Solver-settings.solver.viscosity_correction",
+                        "value": [
+                            ""
+                        ]
+                    },
+                    "solver.shock_capturing": {
+                        "id": "Solver-settings.solver.shock_capturing",
+                        "value": [
+                            ""
+                        ]
+                    }
+                },
+                "TimeIntegrator": {
+                    "solver.scheme": {
+                        "id": "TimeIntegrator.solver.scheme",
+                        "value": [
+                            "rk4"
+                        ]
+                    },
+                    "solver.tstart": {
+                        "id": "TimeIntegrator.solver.tstart",
+                        "value": [
+                            0
+                        ]
+                    },
+                    "solver.tend": {
+                        "id": "TimeIntegrator.solver.tend",
+                        "value": [
+                            50
+                        ]
+                    },
+                    "solver.dt": {
+                        "id": "TimeIntegrator.solver.dt",
+                        "value": [
+                            0.005
+                        ]
+                    },
+                    "solver.controller": {
+                        "id": "TimeIntegrator.solver.controller",
+                        "value": [
+                            "none"
+                        ]
+                    }
+                },
+                "rkScheme": {
+                    "solver.atol": {
+                        "id": "rkScheme.solver.atol",
+                        "value": []
+                    },
+                    "solver.rtol": {
+                        "id": "rkScheme.solver.rtol",
+                        "value": []
+                    },
+                    "solver.safety_fact": {
+                        "id": "rkScheme.solver.safety_fact",
+                        "value": []
+                    },
+                    "solver.min_fact": {
+                        "id": "rkScheme.solver.min_fact",
+                        "value": []
+                    },
+                    "solver.max_fact": {
+                        "id": "rkScheme.solver.max_fact",
+                        "value": []
+                    }
+                },
+                "ArtificialViscosity": {
+                    "solver.max_amu": {
+                        "id": "ArtificialViscosity.solver.max_amu",
+                        "value": []
+                    },
+                    "solver.s0": {
+                        "id": "ArtificialViscosity.solver.s0",
+                        "value": []
+                    },
+                    "solver.kappa": {
+                        "id": "ArtificialViscosity.solver.kappa",
+                        "value": []
+                    }
+                },
+                "Solver-source-terms": {
+                    "solver.source-terms.rho": {
+                        "id": "Solver-source-terms.solver.source-terms.rho",
+                        "value": []
+                    },
+                    "solver.source-terms.rhou": {
+                        "id": "Solver-source-terms.solver.source-terms.rhou",
+                        "value": []
+                    },
+                    "solver.source-terms.rhov": {
+                        "id": "Solver-source-terms.solver.source-terms.rhov",
+                        "value": []
+                    },
+                    "solver.source-terms.rhow": {
+                        "id": "Solver-source-terms.solver.source-terms.rhow",
+                        "value": []
+                    },
+                    "solver.source-terms.E": {
+                        "id": "Solver-source-terms.solver.source-terms.E",
+                        "value": []
+                    }
+                },
+                "Interfaces": {
+                    "solver.riemann_solver": {
+                        "id": "Interfaces.solver.riemann_solver",
+                        "value": [
+                            "rusanov"
+                        ]
+                    },
+                    "solver.ldg_beta": {
+                        "id": "Interfaces.solver.ldg_beta",
+                        "value": [
+                            null
+                        ]
+                    },
+                    "solver.ldg_tau": {
+                        "id": "Interfaces.solver.ldg_tau",
+                        "value": [
+                            null
+                        ]
+                    }
+                }
+            }
+        ],
+        "solution": [
+            {
+                "name": "NaN",
+                "SolutionOr": {
+                    "or": {
+                        "id": "SolutionOr.or",
+                        "value": [
+                            2
+                        ]
+                    }
+                },
+                "Filter": {
+                    "solution.filter.nsteps": {
+                        "id": "Filter.solution.filter.nsteps",
+                        "value": []
+                    },
+                    "solution.filter.alpha": {
+                        "id": "Filter.solution.filter.alpha",
+                        "value": []
+                    },
+                    "solution.filter.order": {
+                        "id": "Filter.solution.filter.order",
+                        "value": []
+                    },
+                    "solution.filter.cutoff": {
+                        "id": "Filter.solution.filter.cutoff",
+                        "value": []
+                    }
+                },
+                "PluginWriter": {
+                    "solution.plugin_writer.dt_out": {
+                        "id": "PluginWriter.solution.plugin_writer.dt_out",
+                        "value": []
+                    },
+                    "solution.plugin_writer.basedir": {
+                        "id": "PluginWriter.solution.plugin_writer.basedir",
+                        "value": []
+                    },
+                    "solution.plugin_writer.basename": {
+                        "id": "PluginWriter.solution.plugin_writer.basename",
+                        "value": []
+                    }
+                },
+                "PluginNaNcheck": {
+                    "solution.plugin_nancheck.nsteps": {
+                        "id": "PluginNaNcheck.solution.plugin_nancheck.nsteps",
+                        "value": [
+                            50
+                        ]
+                    }
+                },
+                "Pluginresidual": {
+                    "solution.plugin_residual.nsteps": {
+                        "id": "Pluginresidual.solution.plugin_residual.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_residual.file": {
+                        "id": "Pluginresidual.solution.plugin_residual.file",
+                        "value": []
+                    },
+                    "solution.plugin_residual.header": {
+                        "id": "Pluginresidual.solution.plugin_residual.header",
+                        "value": []
+                    }
+                },
+                "Pluginsampler": {
+                    "solution.plugin_sampler.nsteps": {
+                        "id": "Pluginsampler.solution.plugin_sampler.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.samp_pts": {
+                        "id": "Pluginsampler.solution.plugin_sampler.samp_pts",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.format": {
+                        "id": "Pluginsampler.solution.plugin_sampler.format",
+                        "value": [
+                            null
+                        ]
+                    },
+                    "solution.plugin_sampler.file": {
+                        "id": "Pluginsampler.solution.plugin_sampler.file",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.header": {
+                        "id": "Pluginsampler.solution.plugin_sampler.header",
+                        "value": []
+                    }
+                },
+                "PluginTimeaverage": {
+                    "solution.plugin_tavg.nsteps": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.dt_out": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.dt_out",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.basedir": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.basedir",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.basename": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.basename",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.avg_name": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.avg_name",
+                        "value": []
+                    }
+                },
+                "ics": {
+                    "ics.rho": {
+                        "id": "ics.ics.rho",
+                        "value": []
+                    },
+                    "ics.u": {
+                        "id": "ics.ics.u",
+                        "value": []
+                    },
+                    "ics.v": {
+                        "id": "ics.ics.v",
+                        "value": []
+                    },
+                    "ics.w": {
+                        "id": "ics.ics.w",
+                        "value": []
+                    },
+                    "ics.p": {
+                        "id": "ics.ics.p",
+                        "value": []
+                    },
+                    "ics.custom": {
+                        "id": "ics.ics.custom",
+                        "value": []
+                    }
+                }
+            },
+            {
+                "name": "Writer",
+                "SolutionOr": {
+                    "or": {
+                        "id": "SolutionOr.or",
+                        "value": [
+                            1
+                        ]
+                    }
+                },
+                "Filter": {
+                    "solution.filter.nsteps": {
+                        "id": "Filter.solution.filter.nsteps",
+                        "value": []
+                    },
+                    "solution.filter.alpha": {
+                        "id": "Filter.solution.filter.alpha",
+                        "value": []
+                    },
+                    "solution.filter.order": {
+                        "id": "Filter.solution.filter.order",
+                        "value": []
+                    },
+                    "solution.filter.cutoff": {
+                        "id": "Filter.solution.filter.cutoff",
+                        "value": []
+                    }
+                },
+                "PluginWriter": {
+                    "solution.plugin_writer.dt_out": {
+                        "id": "PluginWriter.solution.plugin_writer.dt_out",
+                        "value": [
+                            10
+                        ]
+                    },
+                    "solution.plugin_writer.basedir": {
+                        "id": "PluginWriter.solution.plugin_writer.basedir",
+                        "value": [
+                            "."
+                        ]
+                    },
+                    "solution.plugin_writer.basename": {
+                        "id": "PluginWriter.solution.plugin_writer.basename",
+                        "value": [
+                            "euler_vortex_2d-{t:.1f}"
+                        ]
+                    }
+                },
+                "PluginNaNcheck": {
+                    "solution.plugin_nancheck.nsteps": {
+                        "id": "PluginNaNcheck.solution.plugin_nancheck.nsteps",
+                        "value": []
+                    }
+                },
+                "Pluginresidual": {
+                    "solution.plugin_residual.nsteps": {
+                        "id": "Pluginresidual.solution.plugin_residual.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_residual.file": {
+                        "id": "Pluginresidual.solution.plugin_residual.file",
+                        "value": []
+                    },
+                    "solution.plugin_residual.header": {
+                        "id": "Pluginresidual.solution.plugin_residual.header",
+                        "value": []
+                    }
+                },
+                "Pluginsampler": {
+                    "solution.plugin_sampler.nsteps": {
+                        "id": "Pluginsampler.solution.plugin_sampler.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.samp_pts": {
+                        "id": "Pluginsampler.solution.plugin_sampler.samp_pts",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.format": {
+                        "id": "Pluginsampler.solution.plugin_sampler.format",
+                        "value": [
+                            null
+                        ]
+                    },
+                    "solution.plugin_sampler.file": {
+                        "id": "Pluginsampler.solution.plugin_sampler.file",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.header": {
+                        "id": "Pluginsampler.solution.plugin_sampler.header",
+                        "value": []
+                    }
+                },
+                "PluginTimeaverage": {
+                    "solution.plugin_tavg.nsteps": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.dt_out": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.dt_out",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.basedir": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.basedir",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.basename": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.basename",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.avg_name": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.avg_name",
+                        "value": []
+                    }
+                },
+                "ics": {
+                    "ics.rho": {
+                        "id": "ics.ics.rho",
+                        "value": []
+                    },
+                    "ics.u": {
+                        "id": "ics.ics.u",
+                        "value": []
+                    },
+                    "ics.v": {
+                        "id": "ics.ics.v",
+                        "value": []
+                    },
+                    "ics.w": {
+                        "id": "ics.ics.w",
+                        "value": []
+                    },
+                    "ics.p": {
+                        "id": "ics.ics.p",
+                        "value": []
+                    },
+                    "ics.custom": {
+                        "id": "ics.ics.custom",
+                        "value": []
+                    }
+                }
+            },
+            {
+                "name": "ICS",
+                "SolutionOr": {
+                    "or": {
+                        "id": "SolutionOr.or",
+                        "value": [
+                            6
+                        ]
+                    }
+                },
+                "Filter": {
+                    "solution.filter.nsteps": {
+                        "id": "Filter.solution.filter.nsteps",
+                        "value": []
+                    },
+                    "solution.filter.alpha": {
+                        "id": "Filter.solution.filter.alpha",
+                        "value": []
+                    },
+                    "solution.filter.order": {
+                        "id": "Filter.solution.filter.order",
+                        "value": []
+                    },
+                    "solution.filter.cutoff": {
+                        "id": "Filter.solution.filter.cutoff",
+                        "value": []
+                    }
+                },
+                "PluginWriter": {
+                    "solution.plugin_writer.dt_out": {
+                        "id": "PluginWriter.solution.plugin_writer.dt_out",
+                        "value": []
+                    },
+                    "solution.plugin_writer.basedir": {
+                        "id": "PluginWriter.solution.plugin_writer.basedir",
+                        "value": []
+                    },
+                    "solution.plugin_writer.basename": {
+                        "id": "PluginWriter.solution.plugin_writer.basename",
+                        "value": []
+                    }
+                },
+                "PluginNaNcheck": {
+                    "solution.plugin_nancheck.nsteps": {
+                        "id": "PluginNaNcheck.solution.plugin_nancheck.nsteps",
+                        "value": []
+                    }
+                },
+                "Pluginresidual": {
+                    "solution.plugin_residual.nsteps": {
+                        "id": "Pluginresidual.solution.plugin_residual.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_residual.file": {
+                        "id": "Pluginresidual.solution.plugin_residual.file",
+                        "value": []
+                    },
+                    "solution.plugin_residual.header": {
+                        "id": "Pluginresidual.solution.plugin_residual.header",
+                        "value": []
+                    }
+                },
+                "Pluginsampler": {
+                    "solution.plugin_sampler.nsteps": {
+                        "id": "Pluginsampler.solution.plugin_sampler.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.samp_pts": {
+                        "id": "Pluginsampler.solution.plugin_sampler.samp_pts",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.format": {
+                        "id": "Pluginsampler.solution.plugin_sampler.format",
+                        "value": [
+                            null
+                        ]
+                    },
+                    "solution.plugin_sampler.file": {
+                        "id": "Pluginsampler.solution.plugin_sampler.file",
+                        "value": []
+                    },
+                    "solution.plugin_sampler.header": {
+                        "id": "Pluginsampler.solution.plugin_sampler.header",
+                        "value": []
+                    }
+                },
+                "PluginTimeaverage": {
+                    "solution.plugin_tavg.nsteps": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.nsteps",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.dt_out": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.dt_out",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.basedir": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.basedir",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.basename": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.basename",
+                        "value": []
+                    },
+                    "solution.plugin_tavg.avg_name": {
+                        "id": "PluginTimeaverage.solution.plugin_tavg.avg_name",
+                        "value": []
+                    }
+                },
+                "ics": {
+                    "ics.rho": {
+                        "id": "ics.ics.rho",
+                        "value": [
+                            "pow(1 - S*S*M*M*(gamma - 1)*exp(2*%(f)s)/(8*pi*pi), 1/(gamma - 1))"
+                        ]
+                    },
+                    "ics.u": {
+                        "id": "ics.ics.u",
+                        "value": [
+                            "S*y*exp(%(f)s)/(2*pi*R)"
+                        ]
+                    },
+                    "ics.v": {
+                        "id": "ics.ics.v",
+                        "value": [
+                            "1 - S*x*exp(%(f)s)/(2*pi*R)"
+                        ]
+                    },
+                    "ics.w": {
+                        "id": "ics.ics.w",
+                        "value": []
+                    },
+                    "ics.p": {
+                        "id": "ics.ics.p",
+                        "value": [
+                            "1/(gamma*M*M)*pow(1 - S*S*M*M*(gamma - 1)*exp(2*%(f)s)/(8*pi*pi), gamma/(gamma - 1))"
+                        ]
+                    },
+                    "ics.custom": {
+                        "id": "ics.ics.custom",
+                        "value": [
+                            {
+                                "name": "f",
+                                "value": "((1 - x*x - y*y)/(2*R*R))"
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "solver-interfaces": [
+            {
+                "name": "Solver Interfaces",
+                "InterfacesOr": {
+                    "or": {
+                        "id": "InterfacesOr.or",
+                        "value": [
+                            0
+                        ]
+                    }
+                },
+                "Linear-int": {
+                    "solver.interfaces.flux_pts": {
+                        "id": "Linear-int.solver.interfaces.flux_pts",
+                        "value": [
+                            "gauss-legendre"
+                        ]
+                    },
+                    "solver.interfaces.quad_deg": {
+                        "id": "Linear-int.solver.interfaces.quad_deg",
+                        "value": []
+                    },
+                    "solver.interfaces.quad_pts": {
+                        "id": "Linear-int.solver.interfaces.quad_pts",
+                        "value": [
+                            null
+                        ]
+                    }
+                },
+                "Triangular-int": {
+                    "solver.interfaces.flux_pts": {
+                        "id": "Triangular-int.solver.interfaces.flux_pts",
+                        "value": [
+                            "williams-shunn"
+                        ]
+                    },
+                    "solver.interfaces.quad_deg": {
+                        "id": "Triangular-int.solver.interfaces.quad_deg",
+                        "value": []
+                    },
+                    "solver.interfaces.quad_pts": {
+                        "id": "Triangular-int.solver.interfaces.quad_pts",
+                        "value": [
+                            null
+                        ]
+                    }
+                },
+                "Quadrilateral-int": {
+                    "solver.interfaces.flux_pts": {
+                        "id": "Quadrilateral-int.solver.interfaces.flux_pts",
+                        "value": [
+                            "gauss-legendre"
+                        ]
+                    },
+                    "solver.interfaces.quad_deg": {
+                        "id": "Quadrilateral-int.solver.interfaces.quad_deg",
+                        "value": []
+                    },
+                    "solver.interfaces.quad_pts": {
+                        "id": "Quadrilateral-int.solver.interfaces.quad_pts",
+                        "value": [
+                            null
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
