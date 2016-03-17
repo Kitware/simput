@@ -24,7 +24,7 @@ Inside your browser, perform those edits:
 
 ### Constants
 
-- cpTref : ``
+- cpTref : ` `
 - Custom constants: (+3)
   - S: `13.5`
   - M: `0.4`
@@ -35,8 +35,8 @@ Inside your browser, perform those edits:
 #### Settings
 
 - Order                 : `3`
-- Viscosity correction  : ``
-- Shock capturing       : ``
+- Viscosity correction  : ` `
+- Shock capturing       : ` `
 
 #### Time Integrator
 
@@ -46,14 +46,14 @@ Inside your browser, perform those edits:
 
 #### Interfaces
 
-- LDG Beta  : 
-- LDG Tau   : 
+- LDG Beta  : ` `
+- LDG Tau   : ` `
 
 ### Solver Interfaces
 
 #### Interfaces
 
-- Type  : Linear 
+- Type  : `Linear`
 
 ### Solution
 
