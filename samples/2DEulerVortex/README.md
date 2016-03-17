@@ -75,7 +75,7 @@ Add 3 views
 
 - Type                                  : `ics`
 - Initial Density                       : 
-  -- `pow(1 - S*S*M*M*(gamma - 1)*exp(2*%(f)s)/(8*pi*pi), 1/(gamma - 1))`
+  - `pow(1 - S*S*M*M*(gamma - 1)*exp(2*%(f)s)/(8*pi*pi), 1/(gamma - 1))`
 - Initial X velocity                    : `S*y*exp(%(f)s)/(2*pi*R)`
 - Initial Y velocity                    : `1 - S*x*exp(%(f)s)/(2*pi*R)`
 - Initial static pressure distribution  : 
