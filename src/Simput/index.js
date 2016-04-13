@@ -85,6 +85,13 @@ export default React.createClass({
   },
 
   updateActive(viewId, index) {
+    if (viewId === -1 && index === -1) {
+      const data = [],
+        viewData = {};
+      this.setState({ data, viewData });
+      return;
+    }
+
     const data = modelGenerator(this.props.model, this.props.data, viewId, index,
         this.props.labels.activeLabels.attributes, this.props.help),
       viewData = this.props.data.data[viewId][index];

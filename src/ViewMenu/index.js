@@ -47,9 +47,12 @@ export default React.createClass({
   },
 
   removeView(viewId, index) {
-    // console.log(viewId, index);
     this.props.data.data[viewId].splice(index, 1);
-    this.activateSection(viewId, index > 0 ? index - 1 : 0);
+    if (this.props.data.data[viewId].length) {
+      this.activateSection(viewId, index > 0 ? index - 1 : index);
+    } else {
+      this.activateSection(-1, -1);
+    }
   },
 
   editView(viewId, index) {
@@ -89,83 +92,61 @@ export default React.createClass({
           }
 
           return (
-            <li
-              key={ `view-list-${viewId}` }
+            <li key={ `view-list-${viewId}` }
               className={ isActive(viewId, viewSize !== -1 ? 0 : viewSize) ? style.activeListItem : style.listItem }
             >
-              <span
-                onClick={ this.activateSection.bind(this, viewId, 0) }
-              >{ this.props.labels.getView(viewId) }</span>
-            <i
-              className={ viewSize === -1 ? style.addButton : style.hidden }
-              onClick={ this.addView.bind(this, viewId) }
-            >
-            </i>
-            <ul className={ (hasSubList && viewSize !== undefined) ? style.list : style.hidden }>
-            { viewList.map((viewData, viewIdx) => {
-              if (this.state.editingIndex === `${viewId}-${viewIdx}`) {
-                return (
-                  <li
-                    key={ `view-${viewId}-${viewIdx}` }
-                    className={ isActive(viewId, viewIdx) ? style.activeListItem : style.listItem }
-                  >
-                    <ContentEditable
-                      ref="editable"
-                      html={viewData.name}
-                      blurOnEnter
-                      className={ style.inLineBlock }
-                      onChange={ (e) => {viewData.name = e.target.value;} }
-                      onBlur={this.stopEditingView}
-                    />
-                    <i
-                      className={ style.deleteButton }
-                      style={{ visibility: 'hidden' }}
-                    >
-                    </i>
-                    <i
-                      className={ style.editButton }
-                      style={{ visibility: 'hidden' }}
-                    >
-                    </i>
-                  </li>);
-              }
+              <span onClick={ this.activateSection.bind(this, viewId, 0) }>
+                { this.props.labels.getView(viewId) }
+              </span>
+              <i className={ viewSize === -1 ? style.addButton : style.hidden } onClick={ this.addView.bind(this, viewId) }></i>
+              <ul className={ (hasSubList && viewSize !== undefined) ? style.list : style.hidden }>
+                { viewList.map((viewData, viewIdx) => {
+                  if (this.state.editingIndex === `${viewId}-${viewIdx}`) {
+                    return (
+                      <li
+                        key={ `view-${viewId}-${viewIdx}` }
+                        className={ isActive(viewId, viewIdx) ? style.activeListItem : style.listItem }
+                      >
+                        <ContentEditable
+                          ref="editable"
+                          html={viewData.name}
+                          blurOnEnter
+                          className={ style.inLineBlock }
+                          onChange={ (e) => {viewData.name = e.target.value;} }
+                          onBlur={this.stopEditingView}
+                        />
+                        <i className={ style.deleteButton } style={{ visibility: 'hidden' }}></i>
+                        <i className={ style.editButton }   style={{ visibility: 'hidden' }}></i>
+                      </li>);
+                  }
 
-              return (
-                <li
-                  key={ `view-${viewId}-${viewIdx}` }
-                  className={ isActive(viewId, viewIdx) ? style.activeListItem : style.listItem }
-                >
-                  <span
-                    className={ style.editable }
-                    onClick={ this.activateSection.bind(this, viewId, viewIdx) }
-                  >{ viewData.name }</span>
-                  <i
-                    className={ style.deleteButton }
-                    onClick={ this.removeView.bind(this, viewId, viewIdx) }
-                  ></i>
-                  <i
-                    className={ style.editButton }
-                    onClick={ this.editView.bind(this, viewId, viewIdx) }
-                  ></i>
-                </li>);
-            })}
-            </ul>
-            <ul className={ children.length ? style.list : style.hidden }>
-            { children.map((subViewId, subIdx) =>
-                <li
-                  key={ `sub-view-${subViewId}` }
-                  className={ isActive(subViewId, subIdx) ? style.activeListItem : style.listItem }
-                >
-                  <i className={ style.validIcon }></i>
-                  <span onClick={ this.activateSection.bind(this, subViewId, subIdx) }>
-                      { this.props.labels.getView(subViewId) }
-                  </span>
-                </li>
-            )}
-            </ul>
-          </li>);
+                  return (
+                    <li key={ `view-${viewId}-${viewIdx}` }
+                      className={ isActive(viewId, viewIdx) ? style.activeListItem : style.listItem }
+                    >
+                      <span className={ style.editable } onClick={ this.activateSection.bind(this, viewId, viewIdx) }>
+                        { viewData.name }
+                      </span>
+                      <i className={ style.deleteButton } onClick={ this.removeView.bind(this, viewId, viewIdx) }></i>
+                      <i className={ style.editButton }   onClick={ this.editView.bind(this, viewId, viewIdx) }></i>
+                    </li>);
+                })}
+              </ul> {/* closes `hasSubList && viewSize !== undefined` */}
+              <ul className={ children.length ? style.list : style.hidden }>
+              { children.map((subViewId, subIdx) =>
+                  <li key={ `sub-view-${subViewId}` }
+                    className={ isActive(subViewId, subIdx) ? style.activeListItem : style.listItem }
+                  >
+                    <i className={ style.validIcon }></i>
+                    <span onClick={ this.activateSection.bind(this, subViewId, subIdx) }>
+                        { this.props.labels.getView(subViewId) }
+                    </span>
+                  </li>
+              )}
+              </ul>
+            </li>); // closes `view-list-${viewId}`
         })}
-        </ul>
-      </div>);
+      </ul> {/* closes root list */}
+    </div>);
   },
 });
