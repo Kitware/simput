@@ -65,7 +65,7 @@
   },
   "scripts": {
     "build": "webpack",
-
+    "demo": "Simput -o . -t pyfr",
     "build:watch": "webpack --watch",
     "build:debug": "webpack --display-modules",
     "build:release": "webpack -p",
