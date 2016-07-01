@@ -1,0 +1,78 @@
+{
+    "order": [
+        "settings"
+    ],
+    "views": {
+        "settings": {
+            "attributes": [ "calculationSettings" ]
+        }
+    },
+    "definitions": {
+        "calculationSettings": {
+            "parameters": [
+                {
+                    "id"  : "settings.title",
+                    "type": "string",
+                    "default": ["myTitle"],
+                    "size": 1
+                }, {
+                    "id": "settings.filename_base",
+                    "type": "string",
+                    "default": ["job"],
+                    "size": 1
+                }, {
+                    "id": "settings.type",
+                    "type": "string",
+                    "ui": "enum",
+                    "size": 1,
+                    "default": ["optimize"],
+                    "domain": {
+                        "Single Point": "energy",
+                        "Equilibrium Geometry": "optimize",
+                        "Frequencies": "freq"
+                    }
+                }, {
+                    "id": "settings.theory_base",
+                    "type": "string",
+                    "ui": "enum",
+                    "size": 1,
+                    "default": ["dtf"],
+                    "domain": {
+                        "RHF": "scf",
+                        "B3LYP": "dtf",
+                        "MP2": "mp2",
+                        "CCSD": "ccsd"
+                    }
+                }, {
+                    "id": "settings.theory_basis",
+                    "type": "string",
+                    "ui": "enum",
+                    "size": 1,
+                    "default": ["6-31G*"],
+                    "domain": {
+                        "STO-3G": "STO-3G",
+                        "3-21 G": "3-21G",
+                        "6-31 G": "6-31G",
+                        "6-31 G(d)": "6-31G*",
+                        "6-31 G(d,p)": "6-31G**",
+                        "6-31+ G(d)": "6-31+G*",
+                        "6-311 G(d)": "6-311G*",
+                        "cc-pVDZ": "cc-pVDZ",
+                        "cc-pVTZ": "cc-pVTZ",
+                        "LANL2DZ": "LANL2DZ ECP"
+                    }
+                }, {
+                   "id"     : "settings.charge",
+                   "type"   : "integer",
+                   "size"   : 1,
+                   "default": [0]
+                }, {
+                   "id"     : "settings.multiplicity",
+                   "type"   : "integer",
+                   "size"   : 1,
+                   "default": [1]
+                }
+            ]
+        }
+    }
+}
