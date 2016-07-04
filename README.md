@@ -123,6 +123,49 @@ $ Simput -mc types/pyfr/src/ -t pyfr -o dist/types/
 
 A recent version Firefox is preferred for debugging. Errors in Chrome do not always point to [the exact line](https://github.com/altano/handlebars-loader/issues/67#issuecomment-171128403) where the error is happening.
 
+### Creating a new simulation type
+
+In a separate location create a folder for your type:
+
+```sh
+mkdir mytype
+cd mytype
+git init
+```
+
+Create the folder and file structure: 
+
+- src
+  - lang
+    - [language] e.g. "en", "fr"
+      - label.json, attribute and property labels
+      - help, help dialogs, _recommended, not required_
+        - [folders for each attribute]
+          - [file for each property, contents are html]
+  - templates
+    - [template file and helpers]
+  - convert.js, converts the simple model into the simulation deck format
+  - model.json, primary data structure
+- samples, empty or partially full sample data sets; _recommended, not required_
+- versions, an output folder for your compiled types; _recommended, not required_
+
+For examples of each take a look at `types/demo`
+
+To add the type to the simput repository:
+__It's critical that these are executed in order__
+
+```sh
+git checkout -b type-[mytype] #replace 'mytype' with the name of the new type
+git commit -m "initial commit"
+git remote add origin https://github.com/Kitware/simput.git
+git push origin [mytype-branch] # where 'mytype-branch' is the current branch name
+cd [your simput repo]
+git submodule add -b [mytype-branch] https://github.com/kitware/simput types/[mytype]
+git add .gitmodules types/
+git commit -m "added [mytype]"
+git push
+```
+
 #### Licensing
 
 **Simput** is licensed under [BSD Clause 3](LICENSE).
