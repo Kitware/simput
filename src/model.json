@@ -16,11 +16,6 @@
                     "default": ["myTitle"],
                     "size": 1
                 }, {
-                    "id": "settings.filename_base",
-                    "type": "string",
-                    "default": ["job"],
-                    "size": 1
-                }, {
                     "id": "settings.type",
                     "type": "string",
                     "ui": "enum",

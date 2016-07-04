@@ -7,7 +7,6 @@
             "title": "Settings",
             "parameters": {
                 "settings.title": "Title",
-                "settings.filename_base": "Filename Base",
                 "settings.type": "Calculation Type",
                 "settings.theory_base": "Theory",
                 "settings.theory_basis": "Basis",

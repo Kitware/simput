@@ -6,7 +6,9 @@ title "{{title}}"
 charge {{charge}}
 
 geometry units angstroms print xyz autosym
-
+{{#if input}}
+load {{input}}
+{{/if}}
 end
 
 basis {{basis}}

@@ -10,7 +10,12 @@ module.exports = function (model) {
     console.log('model: ', model);
 
     function get(obj, prop) {
-        return obj[prop].value[0];
+      try {
+        var ret = obj[prop].value[0];
+        return ret;
+      } catch (e) {
+        return null;
+      }
     }
 
     var calcSettings = model.data.settings[0].calculationSettings;
@@ -51,15 +56,15 @@ module.exports = function (model) {
     }
 
     templateData.data.calculation_type = get(calcSettings, 'settings.type');
+    templateData.data.input = get(model.data.external, 'input');
 
     console.log('template:', templateData);
-    var filename = get(calcSettings, 'settings.filename_base');
     var ret = {
         errors: templateData.errors,
         model: model,
         results: {}
     };
-    ret.results[filename + '.nw'] =  template(templateData.data);
+    ret.results['job.nw'] =  template(templateData.data);
 
     return ret;
 }
