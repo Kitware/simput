@@ -40,7 +40,7 @@ $ Simput
 
 ```
 
-### Examples
+## Examples
 
 ```sh
 $ Simput -t pyfr -o ~/pyfr/example
@@ -77,7 +77,7 @@ Then loading it back for further edits can be performed with the following comma
 $ Simput -i my-pyfr-model.json -o ~/pyfr/example
 ```
 
-### Demos
+## Demos
 
 There are a few supplied demos in the folder `types`, each have their own README.
 
@@ -166,11 +166,11 @@ git commit -m "added [mytype]"
 git push
 ```
 
-#### Licensing
+## Licensing
 
 **Simput** is licensed under [BSD Clause 3](LICENSE).
 
-#### Getting Involved
+## Getting Involved
 
 Fork our repository and do great things. At [Kitware](http://www.kitware.com),
 we've been contributing to open-source software for 15 years and counting, and
