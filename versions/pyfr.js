@@ -2923,7 +2923,7 @@
 	module.exports = {
 		"views": {
 			"backend": "Backend",
-			"constants": "Contstants",
+			"constants": "Constants",
 			"solver": "Solver",
 			"solver-interfaces": "Solver Interfaces",
 			"solver-elements": "Solver Elements",
