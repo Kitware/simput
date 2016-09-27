@@ -22,6 +22,7 @@ export default React.createClass({
     help: React.PropTypes.object,
     labels: React.PropTypes.object,
     model: React.PropTypes.object,
+    parse: React.PropTypes.func,
   },
 
   getInitialState() {
@@ -34,6 +35,10 @@ export default React.createClass({
 
   saveModel() {
     this.downloadFile(JSON.stringify(this.props.data, null, '    '));
+  },
+
+  parseFile() {
+    console.log('this is some parser');
   },
 
   convertModel() {
@@ -113,6 +118,11 @@ export default React.createClass({
         <div className={ style.header }>
             <span className={ style.title }>Simput</span>
             <div>
+                { this.props.convert !== null ? (<button className={ style.button } onClick={ this.parseFile }>
+                    <span className={ style.buttonLabel }>Import File</span>
+                    <i className={ style.uploadIcon }></i>
+                </button>) :
+                null }
                 <button className={ style.button } onClick={ this.saveModel }>
                     <span className={ style.buttonLabel }>Download Model</span>
                     <i className={ style.saveIcon }></i>

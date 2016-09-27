@@ -44,6 +44,11 @@
     composes: fa-save from 'font-awesome/css/font-awesome.css';
 }
 
+.uploadIcon {
+    composes: fa        from 'font-awesome/css/font-awesome.css';
+    composes: fa-upload from 'font-awesome/css/font-awesome.css';
+}
+
 .content {
     display: flex;
     flex-order: row;
