@@ -27,6 +27,7 @@ export default React.createClass({
 
   getInitialState() {
     return {
+      fullData: this.props.data,
       data: [],
       viewData: {},
       downloadButtonState: 'normal',
@@ -34,20 +35,33 @@ export default React.createClass({
   },
 
   saveModel() {
-    this.downloadFile(JSON.stringify(this.props.data, null, '    '));
+    this.downloadFile(JSON.stringify(this.state.fullData, null, '    '));
   },
 
-  parseFile() {
-    console.log('this is some parser');
+  parseFile(e) {
+    if (e.currentTarget.files.length === 0) {
+      alert('No files selected');
+      return;
+    }
+    const file = e.currentTarget.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.readyState !== FileReader.DONE) {
+        alert(`There was an error loading ${file.name}`);
+      }
+      const newData = this.props.parse(this.state.data.type, reader.result);
+      this.setState({ fullData: newData });
+    };
+    reader.readAsText(file);
   },
 
   convertModel() {
     if (!this.props.convert) {
-      console.log(`There is no convert function for "${this.props.data.type}"`);
+      console.log(`There is no convert function for "${this.state.data.type}"`);
       return;
     }
 
-    const results = this.props.convert(this.props.data);
+    const results = this.props.convert(this.state.data);
 
     if (!results.error) {
       console.log('posting', results);
@@ -80,7 +94,7 @@ export default React.createClass({
       downloadLink = document.getElementById('file-download-link');
 
     downloadLink.href = downloadURL;
-    downloadLink.download = `${this.props.data.type}.json`;
+    downloadLink.download = `${this.state.fullData.type}.json`;
     downloadLink.click();
 
     // Free memory
@@ -97,9 +111,9 @@ export default React.createClass({
       return;
     }
 
-    const data = modelGenerator(this.props.model, this.props.data, viewId, index,
+    const data = modelGenerator(this.props.model, this.state.fullData, viewId, index,
         this.props.labels.activeLabels.attributes, this.props.help),
-      viewData = this.props.data.data[viewId][index];
+      viewData = this.state.fullData.data[viewId][index];
     this.setState({ data, viewData });
   },
 
@@ -118,24 +132,28 @@ export default React.createClass({
         <div className={ style.header }>
             <span className={ style.title }>Simput</span>
             <div>
-                { this.props.convert !== null ? (<button className={ style.button } onClick={ this.parseFile }>
-                    <span className={ style.buttonLabel }>Import File</span>
-                    <i className={ style.uploadIcon }></i>
-                </button>) :
+                { this.props.convert !== null ? (
+                  <div style={{ display: 'inline-block' }}>
+                    <input type="file" id="fileElem" style={{ display: 'none' }} onChange={this.parseFile} />
+                    <label className={ [style.button, style.buttonLabel].join(' ') }htmlFor="fileElem">
+                      Import File <i className={ style.uploadIcon }></i>
+                    </label>
+                  </div>
+                  ) :
                 null }
                 <button className={ style.button } onClick={ this.saveModel }>
-                    <span className={ style.buttonLabel }>Download Model</span>
+                    <span className={ style.buttonText }>Download Model</span>
                     <i className={ style.saveIcon }></i>
                 </button>
                 <button className={ style.button } onClick={ this.convertModel } disabled={this.state.downloadButtonState !== 'normal'}>
-                    <span className={ style.buttonLabel }>Save & Convert</span>
+                    <span className={ style.buttonText }>Save & Convert</span>
                     <i className={buttonStates[this.state.downloadButtonState]}></i>
                 </button>
             </div>
         </div>
         <div className={ style.content }>
             <ViewMenu
-              data={ this.props.data }
+              data={ this.state.fullData }
               model={ this.props.model }
               labels={ this.props.labels }
               onChange={ this.updateActive }

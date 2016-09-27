@@ -35,7 +35,7 @@ export function createViewer(url, callback) {
         ReactDOM.unmountComponentAtNode(container);
         ReactDOM.render(
           <App
-            data={ data.data }
+            data={ data }
             model={ module.model }
             labels={ labels }
             help={ help }
