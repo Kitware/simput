@@ -1,5 +1,4 @@
 var ini = require('ini');
-// var model = require('./model.json');
 
 function assign(target, prefix, id, value) {
   var newId =  prefix + '.' + id;
@@ -18,9 +17,10 @@ function assign(target, prefix, id, value) {
 }
 
 module.exports = function(type, contents) {
-    var iniFile = ini.parse(data);
+    var iniFile = ini.parse(contents);
     var output = { type, data: {} };
 
+    // constants section
     if (iniFile.hasOwnProperty('constants')) {
       var constantsSection = {};
       var expectedAttrs = ['gamma', 'mu', 'pr', 'cpTref', 'cpTs', 'cpTs'];
@@ -35,7 +35,7 @@ module.exports = function(type, contents) {
         if (expectedAttrs.indexOf(el) !== -1) {
           return;
         }
-        customConstants.value.push({ name: el, value: iniFile.constants[el] });
+        customConstants.value.push({ name: el, value: iniFile.constants[el].trim() });
       });
       constantsSection['constants.custom'] = customConstants;
 
