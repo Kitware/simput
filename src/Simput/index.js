@@ -28,7 +28,7 @@ export default React.createClass({
   getInitialState() {
     return {
       fullData: this.props.data, // { input: bool, data: { type: '', data: {...}} }
-      data: [],     // data for the current property panel
+      panelData: [],     // data for the current property panel
       viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
     };
@@ -43,14 +43,16 @@ export default React.createClass({
       alert('No files selected');
       return;
     }
+    const type = this.state.fullData.data.type;
     const file = e.currentTarget.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.readyState !== FileReader.DONE) {
         alert(`There was an error loading ${file.name}`);
       }
-      const newData = this.props.parse(this.state.fullData.type, reader.result);
-      this.setState({ fullData: newData });
+      const newFullData = Object.assign({}, this.state.fullData);
+      newFullData.data = this.props.parse(type, reader.result);
+      this.setState({ fullData: newFullData });
     };
     reader.readAsText(file);
   },
@@ -106,23 +108,22 @@ export default React.createClass({
 
   updateActive(viewId, index) {
     if (viewId === -1 && index === -1) {
-      const data = [],
+      const panelData = [],
         viewData = {};
-      this.setState({ data, viewData });
+      this.setState({ panelData, viewData });
       return;
     }
 
-    const data = modelGenerator(this.props.model, this.state.fullData, viewId, index,
-        this.props.labels.activeLabels.attributes, this.props.help),
+    const panelData = modelGenerator(this.props.model, this.state.fullData, viewId, index,
+                                this.props.labels.activeLabels.attributes, this.props.help),
       viewData = this.state.fullData.data[viewId][index];
-    this.setState({ data, viewData });
+    this.setState({ panelData, viewData });
   },
 
   updateViewData(newData) {
     const viewData = this.state.viewData,
       keypath = newData.id.split('.'),
       attrName = keypath.shift();
-
     viewData[attrName][keypath.join('.')].value = newData.value;
     this.setState({ viewData });
   },
@@ -162,7 +163,7 @@ export default React.createClass({
             <div className={ style.block }>
                 <PropertyPanelBlock
                   className={ style.panel }
-                  input={this.state.data}
+                  input={this.state.panelData}
                   labels={this.props.labels}
                   viewData={this.state.viewData}
                   onChange={ this.updateViewData }
