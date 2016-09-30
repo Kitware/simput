@@ -1,4 +1,5 @@
 var ini = require('ini');
+
 var elementsFactory = require('./elementsFactory');
 var bcsFactory = require('./bcsFactory');
 var solnFactory = require('./solnFactory');
@@ -21,7 +22,7 @@ function assign(target, prefix, id, value) {
 
 module.exports = function(type, contents) {
   var iniFile = ini.parse(contents);
-  var output = { type, data: {} };
+  var output = { type: type, data: {} };
 
   // constants section
   if (iniFile.hasOwnProperty('constants')) {
@@ -54,8 +55,8 @@ module.exports = function(type, contents) {
     var settings = {};
 
     Object.keys(iniFile.solver).forEach(function(el) {
-      var attrId = 'solver.' + el;
-      assign(settings, 'Solver', attrId, iniFile.solver[attrId]);
+      var attrId = 'solver.' + el.replace(/-/g, '_');
+      assign(settings, 'Solver-settings', attrId, iniFile.solver[el]);
     });
 
     output.data.solver[0]['Solver-settings'] = settings;
@@ -68,10 +69,9 @@ module.exports = function(type, contents) {
 
     expectedAttrs.forEach(function(el) {
       var attrId = 'solver.' + el;
-      assign(settings, 'TimeIntegrator', attrId, iniFile['solver-time-integrator'][el]);
+      assign(integrator, 'TimeIntegrator', attrId, iniFile['solver-time-integrator'][el]);
     });
-
-    output.data.solver[0]['TimeIntegrator'] = settings;
+    output.data.solver[0]['TimeIntegrator'] = integrator;
 
     //  time integrator has a special secition if scheme is rk34 or rk45
     if (iniFile['solver-time-integrator'].scheme.match(/34$|45$/)) {
@@ -90,28 +90,28 @@ module.exports = function(type, contents) {
   if (iniFile['solver-artificial-viscosity']) {
     var av = {};
     Object.keys(iniFile['solver-artificial-viscosity']).forEach(function(el) {
-      var attrId = 'solver.' + el;
-      assign(settings, 'ArtificialViscosity', attrId, iniFile['solver-artificial-viscosity'][el]);
+      var attrId = 'solver.' + el.replace(/-/g, '_');
+      assign(av, 'ArtificialViscosity', attrId, iniFile['solver-artificial-viscosity'][el]);
     });
     output.data.solver[0]['ArtificialViscosity'] = av;
   }
 
   if (iniFile['solver-source-terms']) {
-    var av = {};
+    var solverSourceTerms = {};
     Object.keys(iniFile['solver-source-terms']).forEach(function(el) {
-      var attrId = 'solver.source-terms' + el;
-      assign(settings, 'Solver-source-terms', attrId, iniFile['Solver-source-terms'][el]);
+      var attrId = 'solver.source-terms.' + el;
+      assign(solverSourceTerms, 'Solver-source-terms', attrId, iniFile['solver-source-terms'][el]);
     });
-    output.data.solver[0]['Solver-source-terms'] = av;
+    output.data.solver[0]['Solver-source-terms'] = solverSourceTerms;
   }
 
   if (iniFile['solver-interfaces']) {
-    var av = {};
+    var solverInterfaces = {};
     Object.keys(iniFile['solver-interfaces']).forEach(function(el) {
       var attrId = 'solver.' + el;
-      assign(settings, 'Interfaces', attrId, iniFile['solver-interfaces'][el]);
+      assign(solverInterfaces, 'Interfaces', attrId, iniFile['solver-interfaces'][el]);
     });
-    output.data.solver[0]['Interfaces'] = av;
+    output.data.solver[0]['Interfaces'] = solverInterfaces;
   }
 
   // specific solver interfaces
@@ -123,11 +123,11 @@ module.exports = function(type, contents) {
         return {
           "solver.interfaces.flux_pts": {
             id: el + '.solver.interfaces.flux_pts',
-            value: [ iniFile[interfaces[0]]['flux_pts'] ]
+            value: [ iniFile[interfaces[0]]['flux-pts'] ]
           },
           "solver.interfaces.quad_deg": {
             id: el + '.solver.interfaces.quad_deg',
-            value: [ iniFile[interfaces[0]]['quad_deg'] ]
+            value: [ iniFile[interfaces[0]]['quad-deg'] ]
           },
           "solver.interfaces.quad_pts": {
             id: el + '.solver.interfaces.quad_pts',
@@ -182,7 +182,7 @@ module.exports = function(type, contents) {
   if (bcs.length) {
     output.data['solution-bcs'] = [];
     bcs.forEach(function(el, index) {
-      var elementProp = elementsFactory(iniFile[el], el);
+      var elementProp = bcsFactory(iniFile[el], el);
       output.data['solution-bcs'].push(elementProp);
     });
   };
@@ -196,7 +196,11 @@ module.exports = function(type, contents) {
       var attrs = {};
       expectedAttrs.forEach(function(prop){
         var attrId = 'solution.plugin_fluidforce.' + prop;
-        assign(attrs, 'PluginFluidforceName', attrId, iniFile[el][prop]);
+        if (prop === 'name') {
+          assign(attrs, 'PluginFluidforceName', attrId, el.replace('soln-plugin-fluidforce-', ''));
+        } else {
+          assign(attrs, 'PluginFluidforceName', attrId, iniFile[el][prop]);
+        }
       });
       var ffProp = { name: el, PluginFluidforceName: attrs };
       output.data['solution-ff'].push(ffProp);
@@ -215,5 +219,6 @@ module.exports = function(type, contents) {
     output.data['solution'] = props;
   }
 
+  console.log('parsed: ', output);
   return output;
 };

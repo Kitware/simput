@@ -1,7 +1,7 @@
 module.exports = function(source, name) {
   var types = ['char-riem-inv', 'no-slp-isot-wall', 'sub-in-frv', 'sub-in-ftpttang', 'sub-out-fp', 'sup-in-fa'];
-  var orVal = types.indexOf(source.type);
-  var bcsKey = types[source.type];
+  var bcsKey = source.type;
+  var orVal = types.indexOf(bcsKey);
 
   // quotes around keys are left over from copying this structure from a json file.
   var defaults = {
@@ -142,6 +142,10 @@ module.exports = function(source, name) {
     }
   };
   var bcs = defaults[bcsKey];
+  bcs.name = {
+    id: bcsKey + '.name',
+    value: [ name.replace('soln-bcs-', '') ]
+  };
   Object.keys(source).forEach(function(el) {
     bcs[el] = {
       id: bcsKey + '.' + el,

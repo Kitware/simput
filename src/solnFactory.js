@@ -1,6 +1,6 @@
 module.exports = function(source, name) {
   var types = ['soln-filter', 'soln-plugin-writer', 'soln-plugin-nancheck', 'soln-plugin-residual', 'soln-plugin-sampler', 'soln-plugin-tavg', 'soln-ics'];
-  var keys  = ["Filter",       "PluginWriter",      "PluginNaNcheck",       "Pluginresidual", "      Pluginsampler",      "PluginTimeaverage", "ics"];
+  var keys  = ['Filter',       'PluginWriter',      'PluginNaNcheck',       'Pluginresidual',       'Pluginsampler',       'PluginTimeaverage', 'ics'];
   var orVal = types.indexOf(name);
   var solnKey = keys[orVal];
 
@@ -121,7 +121,6 @@ module.exports = function(source, name) {
 
   var soln = defaults[solnKey];
   if (solnKey !== 'ics') {
-    console.log(source);
     var keyName = name.substr(5).replace(/-/g, '_');
     Object.keys(source).forEach(function(el) {
       var keyEl = el.replace(/-/g, '_');
