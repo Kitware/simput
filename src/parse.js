@@ -22,7 +22,7 @@ function assign(target, prefix, id, value) {
 
 module.exports = function(type, contents) {
   var iniFile = ini.parse(contents);
-  var output = { type: type, data: {} };
+  var output = { type: type };
 
   // constants section
   if (iniFile.hasOwnProperty('constants')) {
@@ -43,13 +43,13 @@ module.exports = function(type, contents) {
     });
     constantsSection['constants.custom'] = customConstants;
 
-    output.data.constants = [{
+    output.constants = [{
       name: 'Constants',
       Constants: constantsSection,
     }];
   }
 
-  output.data.solver = [{ name: 'Solver' }];
+  output.solver = [{ name: 'Solver' }];
   //Solver-settings
   if (iniFile.hasOwnProperty('solver')) {
     var settings = {};
@@ -59,7 +59,7 @@ module.exports = function(type, contents) {
       assign(settings, 'Solver-settings', attrId, iniFile.solver[el]);
     });
 
-    output.data.solver[0]['Solver-settings'] = settings;
+    output.solver[0]['Solver-settings'] = settings;
   }
 
   // solver time-integrator
@@ -71,7 +71,7 @@ module.exports = function(type, contents) {
       var attrId = 'solver.' + el;
       assign(integrator, 'TimeIntegrator', attrId, iniFile['solver-time-integrator'][el]);
     });
-    output.data.solver[0]['TimeIntegrator'] = integrator;
+    output.solver[0]['TimeIntegrator'] = integrator;
 
     //  time integrator has a special secition if scheme is rk34 or rk45
     if (iniFile['solver-time-integrator'].scheme.match(/34$|45$/)) {
@@ -82,7 +82,7 @@ module.exports = function(type, contents) {
         assign(rkScheme, 'rkScheme', attrId, iniFile['solver-time-integrator'][el]);
       });
 
-      output.data.solver[0].rkScheme = rkScheme;
+      output.solver[0].rkScheme = rkScheme;
     }
   }
 
@@ -93,7 +93,7 @@ module.exports = function(type, contents) {
       var attrId = 'solver.' + el.replace(/-/g, '_');
       assign(av, 'ArtificialViscosity', attrId, iniFile['solver-artificial-viscosity'][el]);
     });
-    output.data.solver[0]['ArtificialViscosity'] = av;
+    output.solver[0]['ArtificialViscosity'] = av;
   }
 
   if (iniFile['solver-source-terms']) {
@@ -102,7 +102,7 @@ module.exports = function(type, contents) {
       var attrId = 'solver.source-terms.' + el;
       assign(solverSourceTerms, 'Solver-source-terms', attrId, iniFile['solver-source-terms'][el]);
     });
-    output.data.solver[0]['Solver-source-terms'] = solverSourceTerms;
+    output.solver[0]['Solver-source-terms'] = solverSourceTerms;
   }
 
   if (iniFile['solver-interfaces']) {
@@ -111,7 +111,7 @@ module.exports = function(type, contents) {
       var attrId = 'solver.' + el;
       assign(solverInterfaces, 'Interfaces', attrId, iniFile['solver-interfaces'][el]);
     });
-    output.data.solver[0]['Interfaces'] = solverInterfaces;
+    output.solver[0]['Interfaces'] = solverInterfaces;
   }
 
   // specific solver interfaces
@@ -152,7 +152,7 @@ module.exports = function(type, contents) {
       };
     });
 
-    output.data['solver-interfaces'] = [{
+    output['solver-interfaces'] = [{
       name: 'Solver Interfaces',
       InterfacesOr: {
         "or": {
@@ -169,28 +169,28 @@ module.exports = function(type, contents) {
   // solver elements
   var elements = Object.keys(iniFile).filter(function(el) { return /solver-elements-.*$/.test(el) });
   if (elements.length) {
-    output.data['solver-elements'] = [];
+    output['solver-elements'] = [];
     elements.forEach(function(el, index) {
       var orVal = ['tri', 'quad', 'hex', 'tet', 'pri', 'pyr'].indexOf(el.split('-').pop());
       var elementProp = elementsFactory(iniFile[el], orVal, el);
-      output.data['solver-elements'].push(elementProp);
+      output['solver-elements'].push(elementProp);
     });
   }
 
   // bcs conditions
   var bcs = Object.keys(iniFile).filter(function(el) { return /soln-bcs-.*$/.test(el) });
   if (bcs.length) {
-    output.data['solution-bcs'] = [];
+    output['solution-bcs'] = [];
     bcs.forEach(function(el, index) {
       var elementProp = bcsFactory(iniFile[el], el);
-      output.data['solution-bcs'].push(elementProp);
+      output['solution-bcs'].push(elementProp);
     });
   };
 
   // solution fluidforce
   var fluidforce = Object.keys(iniFile).filter(function(el) { return /soln-plugin-fluidforce-.*$/.test(el) });
   if (fluidforce.length) {
-    output.data['solution-ff'] = [];
+    output['solution-ff'] = [];
     fluidforce.forEach(function(el) {
       var expectedAttrs = ['name', 'nsteps', 'file', 'header'];
       var attrs = {};
@@ -203,7 +203,7 @@ module.exports = function(type, contents) {
         }
       });
       var ffProp = { name: el, PluginFluidforceName: attrs };
-      output.data['solution-ff'].push(ffProp);
+      output['solution-ff'].push(ffProp);
     });
   }
 
@@ -216,7 +216,7 @@ module.exports = function(type, contents) {
       var soln = solnFactory(iniFile[el], el);
       props.push(soln);
     });
-    output.data['solution'] = props;
+    output['solution'] = props;
   }
 
   console.log('parsed: ', output);
