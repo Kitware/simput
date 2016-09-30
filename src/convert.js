@@ -259,9 +259,10 @@ module.exports = function (model) {
 
             if (!orVal) { return; }
 
-            Object.keys(orSrc).forEach( (key) => {
+            Object.keys(orSrc).forEach((key) => {
                 tryAssign(orDest, key, orSrc[key].value[0]);
             });
+            orDest.typeAttr = orVal;
             orDest.type = orDest.name;
             delete orDest.name;
             dest.push(orDest);
