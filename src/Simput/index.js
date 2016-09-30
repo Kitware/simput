@@ -27,15 +27,15 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      fullData: this.props.data,
-      data: [],
-      viewData: {},
+      fullData: this.props.data, // { input: bool, data: { type: '', data: {...}} }
+      data: [],     // data for the current property panel
+      viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
     };
   },
 
   saveModel() {
-    this.downloadFile(JSON.stringify(this.state.fullData, null, '    '));
+    this.downloadFile(JSON.stringify(this.state.fullData.data, null, '    '), this.state.fullData.data.type);
   },
 
   parseFile(e) {
@@ -49,7 +49,7 @@ export default React.createClass({
       if (reader.readyState !== FileReader.DONE) {
         alert(`There was an error loading ${file.name}`);
       }
-      const newData = this.props.parse(this.state.data.type, reader.result);
+      const newData = this.props.parse(this.state.fullData.type, reader.result);
       this.setState({ fullData: newData });
     };
     reader.readAsText(file);
@@ -57,11 +57,11 @@ export default React.createClass({
 
   convertModel() {
     if (!this.props.convert) {
-      console.log(`There is no convert function for "${this.state.data.type}"`);
+      console.log(`There is no convert function for "${this.state.fullData.type}"`);
       return;
     }
 
-    const results = this.props.convert(this.state.data);
+    const results = this.props.convert(this.state.fullData);
 
     if (!results.error) {
       console.log('posting', results);
@@ -86,7 +86,8 @@ export default React.createClass({
     }
   },
 
-  downloadFile(contents) {
+  // contents is a string here.
+  downloadFile(contents, type) {
     var newFileContent = new Blob([contents], {
         type: 'application/octet-binary',
       }),
@@ -94,7 +95,7 @@ export default React.createClass({
       downloadLink = document.getElementById('file-download-link');
 
     downloadLink.href = downloadURL;
-    downloadLink.download = `${this.state.fullData.type}.json`;
+    downloadLink.download = `${type}.json`;
     downloadLink.click();
 
     // Free memory
@@ -118,12 +119,12 @@ export default React.createClass({
   },
 
   updateViewData(newData) {
-    const data = this.state.viewData,
+    const viewData = this.state.viewData,
       keypath = newData.id.split('.'),
       attrName = keypath.shift();
 
-    data[attrName][keypath.join('.')].value = newData.value;
-    this.setState({ viewData: data });
+    viewData[attrName][keypath.join('.')].value = newData.value;
+    this.setState({ viewData });
   },
 
   render() {
