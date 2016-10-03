@@ -60,6 +60,7 @@ module.exports = function (directory, modelType, output, compress) {
         'model: require(\'./model.json\'),\n' +
         'lang: LANG,\n' +
         'convert: require(\'./convert.js\'),\n' +
+        'parse: PARSE\n' +
     '}\n';
 
     var lang = '{}';
@@ -75,6 +76,12 @@ module.exports = function (directory, modelType, output, compress) {
 
     if (lang !== '{}') {
        writeIndexList(path.join(directory, 'lang'));
+    }
+
+    if (test('-f', path.join(directory, 'parse.js'))) {
+      schema = schema.replace('PARSE', 'require(\'./parse.js\')');
+    } else {
+      schema = schema.replace('PARSE', 'null');
     }
 
     schema = schema.replace('TYPE', modelType);

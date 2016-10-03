@@ -22,27 +22,48 @@ export default React.createClass({
     help: React.PropTypes.object,
     labels: React.PropTypes.object,
     model: React.PropTypes.object,
+    parse: React.PropTypes.func,
   },
 
   getInitialState() {
     return {
-      data: [],
-      viewData: {},
+      fullData: this.props.data, // { input: bool, data: { type: '', data: {...}} }
+      panelData: [],     // data for the current property panel
+      viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
     };
   },
 
   saveModel() {
-    this.downloadFile(JSON.stringify(this.props.data, null, '    '));
+    this.downloadFile(JSON.stringify(this.state.fullData.data, null, '    '), this.state.fullData.data.type);
+  },
+
+  parseFile(e) {
+    if (e.currentTarget.files.length === 0) {
+      alert('No files selected');
+      return;
+    }
+    const type = this.state.fullData.data.type;
+    const file = e.currentTarget.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.readyState !== FileReader.DONE) {
+        alert(`There was an error loading ${file.name}`);
+      }
+      const newFullData = Object.assign({}, this.state.fullData);
+      newFullData.data = this.props.parse(type, reader.result);
+      this.setState({ fullData: newFullData });
+    };
+    reader.readAsText(file);
   },
 
   convertModel() {
     if (!this.props.convert) {
-      console.log(`There is no convert function for "${this.props.data.type}"`);
+      console.log(`There is no convert function for "${this.state.fullData.type}"`);
       return;
     }
 
-    const results = this.props.convert(this.props.data);
+    const results = this.props.convert(this.state.fullData);
 
     if (!results.error) {
       console.log('posting', results);
@@ -67,7 +88,8 @@ export default React.createClass({
     }
   },
 
-  downloadFile(contents) {
+  // contents is a string here.
+  downloadFile(contents, type) {
     var newFileContent = new Blob([contents], {
         type: 'application/octet-binary',
       }),
@@ -75,7 +97,7 @@ export default React.createClass({
       downloadLink = document.getElementById('file-download-link');
 
     downloadLink.href = downloadURL;
-    downloadLink.download = `${this.props.data.type}.json`;
+    downloadLink.download = `${type}.json`;
     downloadLink.click();
 
     // Free memory
@@ -86,25 +108,24 @@ export default React.createClass({
 
   updateActive(viewId, index) {
     if (viewId === -1 && index === -1) {
-      const data = [],
+      const panelData = [],
         viewData = {};
-      this.setState({ data, viewData });
+      this.setState({ panelData, viewData });
       return;
     }
 
-    const data = modelGenerator(this.props.model, this.props.data, viewId, index,
-        this.props.labels.activeLabels.attributes, this.props.help),
-      viewData = this.props.data.data[viewId][index];
-    this.setState({ data, viewData });
+    const panelData = modelGenerator(this.props.model, this.state.fullData, viewId, index,
+                                this.props.labels.activeLabels.attributes, this.props.help),
+      viewData = this.state.fullData.data[viewId][index];
+    this.setState({ panelData, viewData });
   },
 
   updateViewData(newData) {
-    const data = this.state.viewData,
+    const viewData = this.state.viewData,
       keypath = newData.id.split('.'),
       attrName = keypath.shift();
-
-    data[attrName][keypath.join('.')].value = newData.value;
-    this.setState({ viewData: data });
+    viewData[attrName][keypath.join('.')].value = newData.value;
+    this.setState({ viewData });
   },
 
   render() {
@@ -113,19 +134,28 @@ export default React.createClass({
         <div className={ style.header }>
             <span className={ style.title }>Simput</span>
             <div>
+                { this.props.convert !== null ? (
+                  <div style={{ display: 'inline-block' }}>
+                    <input type="file" id="fileElem" style={{ display: 'none' }} onChange={this.parseFile} />
+                    <label className={ [style.button, style.buttonLabel].join(' ') }htmlFor="fileElem">
+                      Import File <i className={ style.uploadIcon }></i>
+                    </label>
+                  </div>
+                  ) :
+                null }
                 <button className={ style.button } onClick={ this.saveModel }>
-                    <span className={ style.buttonLabel }>Download Model</span>
+                    <span className={ style.buttonText }>Download Model</span>
                     <i className={ style.saveIcon }></i>
                 </button>
                 <button className={ style.button } onClick={ this.convertModel } disabled={this.state.downloadButtonState !== 'normal'}>
-                    <span className={ style.buttonLabel }>Save & Convert</span>
+                    <span className={ style.buttonText }>Save & Convert</span>
                     <i className={buttonStates[this.state.downloadButtonState]}></i>
                 </button>
             </div>
         </div>
         <div className={ style.content }>
             <ViewMenu
-              data={ this.props.data }
+              data={ this.state.fullData }
               model={ this.props.model }
               labels={ this.props.labels }
               onChange={ this.updateActive }
@@ -133,7 +163,7 @@ export default React.createClass({
             <div className={ style.block }>
                 <PropertyPanelBlock
                   className={ style.panel }
-                  input={this.state.data}
+                  input={this.state.panelData}
                   labels={this.props.labels}
                   viewData={this.state.viewData}
                   onChange={ this.updateViewData }

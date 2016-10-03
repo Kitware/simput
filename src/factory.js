@@ -26,7 +26,8 @@ export function createViewer(url, callback) {
         var module = Simput.types[data.data.type],
           labels = new Labels(module, lang), // <= FIXME pick the right language // --lang
           help = {}, // FIXME too,
-          convert = module.convert;
+          convert = module.convert,
+          parse = module.parse;
 
         if (module.lang[lang] && module.lang[lang].help) {
           help = module.lang[lang].help;
@@ -34,11 +35,12 @@ export function createViewer(url, callback) {
         ReactDOM.unmountComponentAtNode(container);
         ReactDOM.render(
           <App
-            data={ data.data }
+            data={ data }
             model={ module.model }
             labels={ labels }
             help={ help }
             convert={ convert }
+            parse={ parse }
           />, container);
       };
 

@@ -120,7 +120,7 @@ $ Simput -mc types/pyfr/src/ -t pyfr -o dist/types/
 
 A recent version Firefox is preferred for debugging. Errors in Chrome do not always point to [the exact line](https://github.com/altano/handlebars-loader/issues/67#issuecomment-171128403) where the error is happening.
 
-### Creating a new simulation type
+## Creating a new simulation type
 
 In a separate location create a folder for your type:
 
@@ -143,13 +143,14 @@ Create the folder and file structure:
         - [template file and helpers]
     - `model.json`, primary data structure.
     - `convert.js`, converts the model into the simulation deck format.
+    - `parse.js`, converts a complete input file to the simput model; _recommended, not required_.
 - `/samples`, empty or partially full sample datasets; _recommended, not required_.
 - `/versions`, an output folder for your compiled type; _recommended, not required_.
 - `README.md`, a description of your type; _recommended, not required_.
 
 For examples of each take a look at `types/demo`
 
-To add the type to the simput repository:
+### **Optional**: Add the type as a submodule to this repository
 __It's critical that these are executed in order__
 
 ```sh
