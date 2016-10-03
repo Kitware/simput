@@ -24,6 +24,73 @@ module.exports = function(type, contents) {
   var iniFile = ini.parse(contents);
   var output = { type: type };
 
+  if (iniFile.hasOwnProperty('backend')) {
+    var bsettings = {};
+    Object.keys(iniFile.backend).forEach(function(el) {
+      var attrId = 'backend.' + el.replace(/-/g, '_');
+      assign(bsettings, 'Backend-settings', attrId, iniFile.backend[el]);
+    });
+    output.backend = [{ name: 'Backend', 'Backend-settings': bsettings }]
+  }
+
+  var backends = Object.keys(iniFile).filter(function(el) { return /backend-.*$/.test(el) });
+  if (backends.length) {
+    // if the backend section gets bigger it might be worth having a factory for this section
+    var key = backends[0];
+    var iniEnds   = ['openmp', 'opencl', 'cuda'];
+    var modelEnds = ['Open-MP', 'Open-CL', 'CUDA'];
+    var orVal = iniEnds.indexOf(key.split('-')[1]);
+
+    var defaults = {
+      "BackendOr": {
+        "or": {
+          "id": "BackendOr.or", "value": [ orVal ]
+        }
+      },
+      "Open-MP": {
+        "open-mp.cc": {
+          "id": "Open-MP.open-mp.cc", "value": []
+        },
+        "open-mp.cflags": {
+          "id": "Open-MP.open-mp.cflags", "value": []
+        },
+        "open-mp.cblas": {
+          "id": "Open-MP.open-mp.cblas", "value": []
+        },
+        "open-mp.cblas_type": {
+          "id": "Open-MP.open-mp.cblas_type",
+          "value": [null]
+        }
+      },
+      "Open-CL": {
+        "open-cl.platform_id": {
+          "id": "Open-CL.open-cl.platform_id", "value": []
+        },
+        "open-cl.device_type": {
+          "id": "Open-CL.open-cl.device_type", "value": [0]
+        },
+        "open-cl.device_id": {
+          "id": "Open-CL.open-cl.device_id", "value": []
+        }
+      },
+      "CUDA": {
+        "cuda.device_id": {
+          "id": "CUDA.cuda.device_id", "value": [""]
+        }
+      }
+    };
+
+    var enumProp = defaults[modelEnds[orVal]];
+    Object.keys(iniFile[key]).forEach(function(el) {
+      if (iniFile[key][el] === undefined) {
+        return;
+      }
+      enumProp[modelEnds[orVal].toLowerCase() + '.' + el.replace(/-/g, '_')].value = [ iniFile[key][el] ];
+    });
+
+    output.backend[0] = Object.assign({}, output.backend, defaults);
+  }
+
   // constants section
   if (iniFile.hasOwnProperty('constants')) {
     var constantsSection = {};
