@@ -27,6 +27,13 @@ function toAbsolutePath(relPath) {
   return path.normalize(ret);
 }
 
+function getPort(val) {
+  if (!isNaN(parseInt(val, 10))) {
+    return parseInt(val, 10);
+  }
+  throw Error('port option requires a number');
+}
+
 program
     .version(version)
 
@@ -37,15 +44,15 @@ program
 
     .option('-n, --no-gui', 'Just generate output')
     .option('-s, --silent', 'Do not open the browser')
-    .option('-p, --port [8080]', 'Server port\n', function(n) { return Number(n); }, 8080)
+    .option('-p, --port [8080]', 'Server port\n', getPort, 8080)
 
-    //management
+    // management
     .option('-c, --compile [directory]', 'Directory to compile files')
     .option('-m, --minify', 'Minify compiled file')
     .option('-a, --add [file]',    'Add model to list of available inputs')
     .option('-l, --list',          'List model types of available as inputs')
     .option('-r, --remove [type]', 'Remove model from list of available inputs')
-    //.option('-g --generate', 'Generate blank language files from the model')
+    // .option('-g --generate', 'Generate blank language files from the model')
 
   .parse(process.argv);
 
