@@ -24,6 +24,7 @@ module.exports = function (type, contents) {
   var iniFile = ini.parse(contents);
   var output = { type: type };
 
+  output.backend = [{ name: 'Backend' }];
   if (iniFile.hasOwnProperty('backend')) {
     var bsettings = {};
     Object.keys(iniFile.backend).forEach(function (el) {
@@ -92,6 +93,7 @@ module.exports = function (type, contents) {
   }
 
   // constants section
+  output.constants = [{ name: 'Constants' }];
   if (iniFile.hasOwnProperty('constants')) {
     var constantsSection = {};
     var expectedAttrs = ['gamma', 'mu', 'pr', 'cpTref', 'cpTs', 'cpTs'];
@@ -116,8 +118,8 @@ module.exports = function (type, contents) {
     }];
   }
 
-  output.solver = [{ name: 'Solver' }];
   // Solver-settings
+  output.solver = [{ name: 'Solver' }];
   if (iniFile.hasOwnProperty('solver')) {
     var settings = {};
 
@@ -183,6 +185,7 @@ module.exports = function (type, contents) {
 
   // specific solver interfaces
   var interfaces = Object.keys(iniFile).filter(function(el) { return /solver-interfaces-.*$/.test(el) });
+  output['solver-interfaces'] = [{ name: 'Solver Interfaces' }];
   if (interfaces.length) {
     var orVal = ['line', 'tri', 'quad'].indexOf(interfaces[0].split('-').pop());
     var orVals = ['Linear-int', 'Triangular-int', 'Quadrilateral-int'].map(function(el, index) {
@@ -285,6 +288,16 @@ module.exports = function (type, contents) {
     });
     output['solution'] = props;
   }
+
+  // go through found and proper sections, if there are any that fall outside of it, throw an error
+  var allSections = ['backend', 'solver', 'constants', 'solver-time-integrator',
+    'solver-artificial-viscosity', 'solver-source-terms', 'solver-interfaces'].concat(
+    backends, interfaces, elements, bcs, fluidforce, soln);
+  Object.keys(iniFile).forEach(function(el) {
+    if (allSections.indexOf(el) === -1) {
+      throw new Error('Unrecognized section in ini file"' + el + '"');
+    }
+  });
 
   console.log('parsed: ', output);
   return output;
