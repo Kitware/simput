@@ -47,12 +47,13 @@ export default React.createClass({
     const file = e.currentTarget.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      if (reader.readyState !== FileReader.DONE) {
-        alert(`There was an error loading ${file.name}`);
-      }
       const newFullData = Object.assign({}, this.state.fullData);
-      newFullData.data = this.props.parse(type, reader.result);
-      this.setState({ fullData: newFullData });
+      try {
+        newFullData.data = this.props.parse(type, reader.result);
+        this.setState({ fullData: newFullData });
+      } catch (error) {
+        alert(`Error parsing file:\n${error}`);
+      }
     };
     reader.readAsText(file);
   },
