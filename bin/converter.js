@@ -3,17 +3,9 @@ require('shelljs/global');
 var fs = require('fs'),
     path = require('path'),
     home = process.env.HOME,
-    simputFolder = path.join(home, '.Simput/');
+    simputFolder = path.join(home, '.Simput/'),
+    toAbsolutePath = require('./utils').toAbsolutePath;
 
-function toAbsolutePath(relPath) {
-    var ret;
-    if (!path.isAbsolute(relPath)) {
-        ret = path.join(process.env.PWD, relPath);
-    } else {
-        ret = relPath;
-    }
-    return path.normalize(ret);
-}
 
 function unitSuffix(size) {
     var suffixes = {1000:' B', 1000000:' KB', 1000000000:' MB', 1000000000000:' GB'},

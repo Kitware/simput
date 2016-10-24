@@ -11,21 +11,13 @@ const path       = require('path'),
 const simputCompiler  = require('./compile'),
       simputManager   = require('./manager'),
       simputConverter = require('./converter'),
+      toAbsolutePath = require('./utils').toAbsolutePath,
       pkg = require('../package.json');
 
 const home = process.env.HOME,
       simputFolder = path.join(home, '.Simput/'),
       version = /semantically-release/.test(pkg.version) ? 'development version' : pkg.version;
 
-function toAbsolutePath(relPath) {
-  var ret;
-  if (!path.isAbsolute(relPath)) {
-    ret = path.join(process.env.PWD, relPath);
-  } else {
-    ret = relPath;
-  }
-  return path.normalize(ret);
-}
 
 function getPort(val) {
   if (!isNaN(parseInt(val, 10))) {
@@ -67,7 +59,11 @@ if (program.input && program.output && !program.gui) {
     simputConverter(program.input, program.output);
 } else if (program.compile) {
     mkdir('-p', toAbsolutePath(program.output));
-    simputCompiler(toAbsolutePath(program.compile), program.type, program.output, program.minify);
+    var addFunc = null;
+    if (program.add) {
+      addFunc = () => { simputManager.add(program.output + '/' + program.type + '.js'); };
+    }
+    simputCompiler(toAbsolutePath(program.compile), program.type, program.output, program.minify, addFunc);
 } else if (program.output) {
     const app = express();
     app.use(bodyParser.json({limit: 10000000}));

@@ -4,21 +4,19 @@ var fs = require('fs'),
     path = require('path'),
     home = process.env.HOME,
     simputFolder = path.join(home, '.Simput/'),
+    toAbsolutePath = require('./utils').toAbsolutePath,
     Simput = null;
 
-function toAbsolutePath(relPath) {
-    var ret;
-    if (!path.isAbsolute(relPath)) {
-        ret = path.join(process.env.PWD, relPath);
-    } else {
-        ret = relPath;
+function folderCheck() {
+    if (!test('-d', simputFolder)) {
+        mkdir('-p', simputFolder);
     }
-    return path.normalize(ret);
 }
 
 exports.add = function(file) {
     folderCheck();
     cp('-f', toAbsolutePath(file), simputFolder);
+    console.log('Added "' + file.split('/').pop() + '" to types');
 };
 
 exports.list = function() {
@@ -59,10 +57,4 @@ function populateSimput() {
         require(path.join(simputFolder, file));
     });
     Simput = GLOBAL.Simput;
-}
-
-function folderCheck() {
-    if (!test('-d', simputFolder)) {
-        mkdir('-p', simputFolder);
-    }
 }

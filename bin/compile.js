@@ -43,7 +43,7 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
         };
 }
 
-module.exports = function (directory, modelType, output, compress) {
+module.exports = function (directory, modelType, output, compress, callback) {
     if (!modelType) {
         modelType = path.basename(directory);
     }
@@ -103,6 +103,10 @@ module.exports = function (directory, modelType, output, compress) {
         } else {
             console.log('built ' + path.join(output,modelType) + '.js, cleaning up');
             cleanup();
+        }
+
+        if (callback) {
+          callback();
         }
     });
 }
