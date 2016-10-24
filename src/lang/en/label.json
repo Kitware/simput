@@ -52,7 +52,7 @@
             "parameters": {
                 "constants.gamma": "Gamma",
                 "constants.mu": "Mu",
-                "constants.pr": "Pr",
+                "constants.Pr": "Pr",
                 "constants.cpTref": "cpTref",
                 "constants.cpTs": "cpTS",
                 "constants.custom": "Custom constants"

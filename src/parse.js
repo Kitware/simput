@@ -96,7 +96,7 @@ module.exports = function (type, contents) {
   output.constants = [{ name: 'Constants' }];
   if (iniFile.hasOwnProperty('constants')) {
     var constantsSection = {};
-    var expectedAttrs = ['gamma', 'mu', 'pr', 'cpTref', 'cpTs', 'cpTs'];
+    var expectedAttrs = ['gamma', 'mu', 'Pr', 'cpTref', 'cpTs', 'cpTs'];
 
     expectedAttrs.forEach(function(el) {
       var attrId = 'constants.' + el;
