@@ -1,5 +1,29 @@
 var template = require('./templates/output.hbs');
 
+function get(obj, prop) {
+  var parts = prop.split('.'),
+    last = parts.pop(),
+    falseyReturn = parts[parts.length - 1] === 'length' ? 0 : false;
+
+  if (!obj) {
+    return falseyReturn;
+  }
+
+  while (prop = parts.shift()) {
+    obj = obj[prop];
+    if (obj == null) {
+      return falseyReturn;
+    }
+  }
+
+  // we don't want to return undefined
+  if (obj[last] == null) {
+    return falseyReturn;
+  }
+
+  return obj[last];
+}
+
 module.exports = function (model) {
     var templateData = { data: {}, valid: true , errors: []},
         viewInstance = null,
@@ -15,6 +39,7 @@ module.exports = function (model) {
 
     //assigns item to dest[key]
     function tryAssign(dest, key, item) {
+        if (item === undefined) return;
         // convert the key to a valid pyfr name
         key = last(key.split('.')).replace(/_/g, '-');
         try {
@@ -25,16 +50,16 @@ module.exports = function (model) {
     }
 
     //backend settings
-    if (model.data.backend && model.data.backend[0]) {
+    if (get(model, 'model.data.backend.0')) {
         var dest = {},
             backend = model.data.backend[0]['Backend-settings'];
-        tryAssign(dest, 'precision', backend['backend.precision'].value[0]);
-        tryAssign(dest, 'rank-allocator', backend['backend.rank_allocator'].value[0]);
+        tryAssign(dest, 'precision', get(backend['backend.precision'], 'value.0'));
+        tryAssign(dest, 'rank-allocator', get(backend['backend.rank_allocator'], 'value.0'));
         templateData.data.backend = dest;
     }
 
     //backend model 'Open-MP', 'Open-CL', 'CUDA'
-    if (model.data.backend && model.data.backend[0].BackendOr.or.value) {
+    if (get(model, 'data.backend.0.BackendOr.or.value')) {
         var dest = {},
             enumVal = model.data.backend[0].BackendOr.or.value[0],
             orVal = ['Open-MP', 'Open-CL', 'CUDA'][enumVal],
@@ -47,8 +72,8 @@ module.exports = function (model) {
         templateData.data[orVal] = dest;
     }
 
-    //constants
-    if (model.data.constants && model.data.constants[0]) {
+    // constants
+    if (get(model, 'data.constants.0.Constants')) {
         var dest = {},
             constants = model.data.constants[0].Constants;
 
@@ -69,7 +94,7 @@ module.exports = function (model) {
     }
 
     //solver - settings
-    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['Solver-settings']) {
+    if (get(model, 'data.solver.0.Solver-settings')) {
         var dest = {},
             ss = model.data.solver[0]['Solver-settings'];
 
@@ -80,8 +105,8 @@ module.exports = function (model) {
         templateData.data.solver_settings = dest;
     }
 
-    //solver - time integrator
-    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['TimeIntegrator']) {
+    // solver - time integrator
+    if (get(model, 'data.solver.0.TimeIntegrator')) {
         var dest = {},
             ti = model.data.solver[0]['TimeIntegrator'];
 
@@ -92,8 +117,20 @@ module.exports = function (model) {
         templateData.data.solver_ti = dest;
     }
 
-    //solver - artificail visc
-    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['ArtificialViscosity']) {
+    // solver - time integrator - rkscheme
+    if (get(model, 'data.solver.0.rkScheme')) {
+        var dest = {},
+            rk = model.data.solver[0]['rkScheme'];
+
+        Object.keys(rk).forEach( (el) => {
+            tryAssign(dest, el, rk[el].value[0]);
+        });
+
+        templateData.data.solver_ti = Object.assign(templateData.data.solver_ti, dest);
+    }
+
+    // solver - artificail visc
+    if (get(model, 'data.solver.0.ArtificialViscosity')) {
         var dest = {},
             av = model.data.solver[0]['ArtificialViscosity'];
 
@@ -104,8 +141,8 @@ module.exports = function (model) {
         templateData.data.solver_av = dest;
     }
 
-    //solver - source terms
-    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['Solver-source-terms']) {
+    // solver - source terms
+    if (get(model, 'model.data.solver.0.Solver-source-terms')) {
         var dest = {},
             sst = model.data.solver[0]['Solver-source-terms'];
 
@@ -117,7 +154,7 @@ module.exports = function (model) {
     }
 
     //solver - interfaces
-    if (model.data.solver && model.data.solver[0] && model.data.solver[0]['Interfaces']) {
+    if (get(model, 'data.solver.0.Interfaces')) {
         var dest = {},
             interfaces = model.data.solver[0]['Interfaces'];
 
@@ -128,8 +165,8 @@ module.exports = function (model) {
         templateData.data.solver_interfaces = dest;
     }
 
-    //solver line, tri, quad interfaces
-    if (model.data['solver-interfaces'] && model.data['solver-interfaces'][0]) {
+    // solver line, tri, quad interfaces
+    if (get(model, 'model.data.solver-interfaces.0.InterfacesOr.or.value.0')) {
         var dest = {},
             enumVal = model.data['solver-interfaces'][0].InterfacesOr.or.value[0],
             orVal = ['Linear-int', 'Triangular-int', 'Quadrilateral-int'][enumVal],

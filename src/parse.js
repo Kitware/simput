@@ -145,9 +145,9 @@ module.exports = function (type, contents) {
     //  time integrator has a special secition if scheme is rk34 or rk45
     if (iniFile['solver-time-integrator'].scheme.match(/34$|45$/)) {
       var rkScheme = {};
-      var rkAttrs = ['atol', 'rtol', 'safety_fact', 'min_fact', 'max_fact'];
+      var rkAttrs = ['atol', 'rtol', 'safety-fact', 'min-fact', 'max-fact'];
       rkAttrs.forEach(function(el) {
-        var attrId = 'solver.' + el;
+        var attrId = 'solver.' + el.replace(/-/g, '_');
         assign(rkScheme, 'rkScheme', attrId, iniFile['solver-time-integrator'][el]);
       });
 
