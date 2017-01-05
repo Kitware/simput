@@ -38,6 +38,12 @@ module.exports = function(source, name) {
         "value": []
       }
     },
+    "no-slp-adia-wall": {
+      "name": {
+        "id": "no-slp-adia-wall.name",
+        "value": [""]
+      }
+    },
     "no-slp-isot-wall": {
       "name": {
         "id": "no-slp-isot-wall.name",
@@ -58,6 +64,12 @@ module.exports = function(source, name) {
       "cpTw": {
         "id": "no-slp-isot-wall.cpTw",
         "value": []
+      }
+    },
+    "slp-adia-wall": {
+      "name": {
+        "id": "slp-adia-wall.name",
+        "value": [""]
       }
     },
     "sub-in-frv": {

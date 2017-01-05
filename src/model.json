@@ -925,7 +925,18 @@
          ]
       },
       "no-slp-adia-wall": {
-         "parameters": []
+         "parameters": [
+            {
+               "id":"name",
+               "type": "string",
+               "ui"  : "enum",
+               "size": 1 ,
+               "default": [""],
+               "domain": {
+                  "external": "boundary-names"
+               }
+            }
+         ]
       },
       "no-slp-isot-wall": {
          "parameters": [
@@ -958,7 +969,18 @@
          ]
       },
       "slp-adia-wall": {
-         "parameters": []
+         "parameters": [
+            {
+               "id":"name",
+               "type": "string",
+               "ui"  : "enum",
+               "size": 1 ,
+               "default": [""],
+               "domain": {
+                  "external": "boundary-names"
+               }
+            }
+         ]
       },
       "sub-in-frv": {
          "parameters": [

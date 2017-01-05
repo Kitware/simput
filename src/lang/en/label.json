@@ -294,11 +294,11 @@
         },
         "no-slp-adia-wall": {
             "title": "no-slp-adia-wall",
-            "parameters": {}
+            "parameters": { "name": "Name" }
         },
         "slp-adia-wall": {
             "title": "slp-adia-wall",
-            "parameters": {}
+            "parameters": { "name": "Name" }
         },
         "sup-out-fn": {
             "title": "sup-out-fn",

@@ -290,7 +290,7 @@ module.exports = function (model) {
              'sup-out-fn'];
 
         vals.forEach( (el) => {
-            const orVal = enumVals[el['bcsOr'].or.value[0]],
+            const orVal = enumVals[el.bcsOr.or.value[0]],
                 orSrc  = el[orVal],
                 orDest = {};
 
