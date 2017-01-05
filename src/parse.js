@@ -5,7 +5,7 @@ var bcsFactory = require('./bcsFactory');
 var solnFactory = require('./solnFactory');
 
 function assign(target, prefix, id, value) {
-  var newId =  prefix + '.' + id;
+  var newId = prefix + '.' + id;
   var newValue;
   if (value === undefined) {
     newValue = [];

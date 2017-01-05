@@ -1,5 +1,8 @@
 module.exports = function(source, name) {
-  var types = ['char-riem-inv', 'no-slp-isot-wall', 'sub-in-frv', 'sub-in-ftpttang', 'sub-out-fp', 'sup-in-fa'];
+  var types = ['char-riem-inv', 'no-slp-adia-wall',
+             'no-slp-isot-wall', 'slp-adia-wall',
+             'sub-in-frv', 'sub-in-ftpttang',
+             'sub-out-fp', 'sup-in-fa', 'sup-out-fn'];
   var bcsKey = source.type;
   var orVal = types.indexOf(bcsKey);
 
