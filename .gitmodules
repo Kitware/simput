@@ -10,3 +10,7 @@
 	path = types/nwchem
 	url = https://github.com/kitware/simput
 	branch = type-nwchem
+[submodule "types/openfoam-tutorials"]
+	path = types/openfoam-tutorials
+	url = https://github.com/kitware/simput
+	branch = type-openfoam-tutorials
