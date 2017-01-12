@@ -17,3 +17,11 @@ cd simulation
 
 # Make dataset readable by PV
 touch dataset.foam
+
+# Unzip any obj file so they can be used as context
+find . -name *.obj.gz -exec gzip -dk {} \;
+
+# Gather context shapes in ../context
+mkdir -p ../context
+cd ../context
+find ../simulation -name *.obj -exec ln -s {} ../context/ \;
