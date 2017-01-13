@@ -3,7 +3,7 @@ var template = require('./templates/output.hbs');
 function get(obj, prop) {
   var parts = prop.split('.'),
     last = parts.pop(),
-    falseyReturn = parts[parts.length - 1] === 'length' ? 0 : false;
+    falseyReturn = parts[parts.length - 1] === 'length' ? 0 : undefined;
 
   if (!obj) {
     return falseyReturn;
@@ -50,7 +50,7 @@ module.exports = function (model) {
     }
 
     //backend settings
-    if (get(model, 'model.data.backend.0')) {
+    if (get(model, 'data.backend.0')) {
         var dest = {},
             backend = model.data.backend[0]['Backend-settings'];
         tryAssign(dest, 'precision', get(backend['backend.precision'], 'value.0'));
@@ -59,7 +59,7 @@ module.exports = function (model) {
     }
 
     //backend model 'Open-MP', 'Open-CL', 'CUDA'
-    if (get(model, 'data.backend.0.BackendOr.or.value')) {
+    if (get(model, 'data.backend.0.BackendOr.or.value.0') >= 0) {
         var dest = {},
             enumVal = model.data.backend[0].BackendOr.or.value[0],
             orVal = ['Open-MP', 'Open-CL', 'CUDA'][enumVal],
@@ -142,7 +142,7 @@ module.exports = function (model) {
     }
 
     // solver - source terms
-    if (get(model, 'model.data.solver.0.Solver-source-terms')) {
+    if (get(model, 'data.solver.0.Solver-source-terms')) {
         var dest = {},
             sst = model.data.solver[0]['Solver-source-terms'];
 
@@ -166,7 +166,7 @@ module.exports = function (model) {
     }
 
     // solver line, tri, quad interfaces
-    if (get(model, 'model.data.solver-interfaces.0.InterfacesOr.or.value.0')) {
+    if (get(model, 'data.solver-interfaces.0.InterfacesOr.or.value.0') >= 0) {
         var dest = {},
             enumVal = model.data['solver-interfaces'][0].InterfacesOr.or.value[0],
             orVal = ['Linear-int', 'Triangular-int', 'Quadrilateral-int'][enumVal],
