@@ -20,7 +20,8 @@ function assign(target, prefix, id, value) {
   };
 }
 
-module.exports = function (type, contents) {
+module.exports = function (type, fileContents) {
+  var contents = fileContents['pyfr.ini'];
   var iniFile = ini.parse(contents);
   var output = { type: type };
 
