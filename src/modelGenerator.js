@@ -84,7 +84,7 @@ function getUI(model, attrName, paramId, labels, help, external) {
       uiLabels = labels[attrName].parameters[paramId];
     }
 
-    if (help[attrName] && help[attrName][paramId]) {
+    if (help && help[attrName] && help[attrName][paramId]) {
       uiHelp = help[attrName][paramId];
     }
 
