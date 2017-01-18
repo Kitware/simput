@@ -56,7 +56,7 @@ module.exports = function (model) {
     }
 
     templateData.data.calculation_type = get(calcSettings, 'settings.type');
-    templateData.data.input = get(model.data.external, 'input');
+    templateData.data.input = model.data.external.input;
 
     console.log('template:', templateData);
     var ret = {
