@@ -1,0 +1,86 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    p
+    {
+        solver           {{{solvers.p.solver}}};
+        tolerance        {{{solvers.p.tolerance}}};
+        relTol           {{{solvers.p.relTol}}};
+        smoother         {{{solvers.p.smoother}}};
+    }
+
+    Phi
+    {
+        $p;
+    }
+
+    U
+    {
+        solver           {{{solvers.U.solver}}};
+        smoother         {{{solvers.U.smoother}}};
+        tolerance        {{{solvers.U.tolerance}}};
+        relTol           {{{solvers.U.relTol}}};
+        nSweeps          {{{solvers.U.nSweeps}}};
+    }
+
+    k
+    {
+        solver           {{{solvers.k.solver}}};
+        smoother         {{{solvers.k.smoother}}};
+        tolerance        {{{solvers.k.tolerance}}};
+        relTol           {{{solvers.k.relTol}}};
+        nSweeps          {{{solvers.k.nSweeps}}};
+    }
+
+    omega
+    {
+        solver           {{{solvers.omega.solver}}};
+        smoother         {{{solvers.omega.smoother}}};
+        tolerance        {{{solvers.omega.tolerance}}};
+        relTol           {{{solvers.omega.relTol}}};
+        nSweeps          {{{solvers.omega.nSweeps}}};
+    }
+}
+
+SIMPLE
+{
+    nNonOrthogonalCorrectors  {{{solvers.correctors.simple.nNonOrthogonalCorrectors}}};
+    consistent                {{{solvers.correctors.simple.consistent}}};
+}
+
+potentialFlow
+{
+    nNonOrthogonalCorrectors  {{{solvers.correctors.potentialFlow.nNonOrthogonalCorrectors}}};
+}
+
+relaxationFactors
+{
+    equations
+    {
+        U               {{{relaxationFactors.equations.U}}};
+        k               {{{relaxationFactors.equations.k}}};
+        omega           {{{relaxationFactors.equations.omega}}};
+    }
+}
+
+cache
+{
+    grad(U);
+}
+
+// ************************************************************************* //

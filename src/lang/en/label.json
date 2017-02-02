@@ -1,0 +1,13 @@
+{
+    "views": {
+        "ExampleSelection": "OpenFOAM Tutorial"
+    },
+    "attributes": {
+        "example": {
+            "title": "Example selection",
+            "parameters": {
+                "example.path": "Path"
+            }
+        }
+    }
+}

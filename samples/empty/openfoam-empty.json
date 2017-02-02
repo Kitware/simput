@@ -1,0 +1,8 @@
+{
+  "type": "openfoam-windtunnel",
+  "data": {},
+  "external": {
+    "meshName": "motorBike",
+    "meshBounds": [-0.292, 1.75, -0.35, 0.332, -4.23e-05, 1.35]
+  }
+}

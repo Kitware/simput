@@ -1,0 +1,41 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      decomposeParDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+numberOfSubdomains {{{decompose.numberOfSubdomains}}};
+
+method          {{{decompose.method}}};
+
+simpleCoeffs
+{
+    n               ({{{vector decompose.simpleCoeffs.n}}});
+    delta           {{{decompose.simpleCoeffs.delta}}};
+}
+
+hierarchicalCoeffs
+{
+    n               ({{{vector decompose.hierarchicalCoeffs.n}}});
+    delta           {{{decompose.hierarchicalCoeffs.delta}}};
+    order           {{{decompose.hierarchicalCoeffs.order}}};
+}
+
+manualCoeffs
+{
+    dataFile        "cellDecomposition";
+}
+
+
+// ************************************************************************* //

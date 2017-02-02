@@ -1,0 +1,1400 @@
+{
+   "order": [
+      "InitialConditions", "WindTunnel", "Parameters"
+   ],
+   "views" : {
+      "InitialConditions": {
+        "attributes": [ "initconst", "initfields", "transport" ]
+      },
+      "WindTunnel": {
+        "attributes": [ "wallBounds", "wallAssign" ]
+      },
+      "Parameters": {
+        "attributes": [ "controldict-time", "controldict-write" ]
+      },
+      "Solvers": {
+        "attributes": [ "solver-p", "solver-U", "solver-k", "solver-omega", "correctors", "relaxationFactors" ]
+      },
+      "Decomposition": {
+        "attributes": [ "decomposeParDict", "decomposition_simpleCoeffs", "decomposition_hierarchicalCoeffs", "forceCoeffs" ]
+      },
+      "Mesh": {
+        "attributes": [ "meshQuality", "meshRefinement" ]
+      },
+      "Runtime": {
+        "attributes": [ "runtime" ],
+        "size": -1
+      }
+
+   },
+   "external": {
+      "meshName": "motorBike",
+      "meshBounds": [-0.292, 1.75, -0.35, 0.332, -4.23e-05, 1.35]
+   },
+   "definitions": {
+      "initconst": {
+        "label": "Constants",
+         "parameters": [
+            {
+              "label"  : "Flow velocity",
+              "id": "initialConditions.flowVelocity",
+              "type": "double",
+              "size": 3,
+              "default": [20, 0, 0]
+            },
+            {
+              "label"  : "Pressure",
+              "id": "initialConditions.pressure",
+              "type": "double",
+              "size": 1,
+              "default": [0]
+            },
+            {
+              "label"  : "Turbulent KE",
+              "id": "initialConditions.turbulentKE",
+              "type": "double",
+              "size": 1,
+              "default": [0.24]
+            },
+            {
+              "label"  : "Turbulent Omega",
+              "id": "initialConditions.turbulentOmega",
+              "type": "double",
+              "size": 1,
+              "default": [1.78]
+            }
+         ]
+      },
+      "initfields": {
+        "label": "Fields initialisation",
+        "parameters": [
+          {
+            "label"  : "Dimensions for k",
+            "id": "fields.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "label"  : "Dimensions for nut",
+            "id": "fields.nut.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Dimensions for omega",
+            "id": "fields.omega.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 0, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Dimensions for p",
+            "id": "fields.p.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "label"  : "Dimensions for U",
+            "id": "fields.U.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 1, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Inlet value for U",
+            "id": "fields.U.inletValue",
+            "type": "double",
+            "size": 3,
+            "default": [0, 0, 0]
+          }
+        ]
+      },
+      "transport": {
+        "label": "Transport settings",
+        "parameters": [
+          {
+            "label"  : "Model",
+            "id": "transport.model",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["Newtonian"],
+            "domain"   : {
+               "Newtonian": "Newtonian",
+               "BirdCarreau": "BirdCarreau",
+               "CrossPowerLaw": "CrossPowerLaw",
+               "powerLaw": "powerLaw",
+               "HerschelBulkley": "HerschelBulkley",
+               "Casson": "Casson"
+            }
+          },
+          ["Newtonian", "BirdCarreau", "CrossPowerLaw", "powerLaw", "HerschelBulkley", "Casson"]
+        ],
+        "children": {
+          "Newtonian": "transport['transport.model'][0] === 'Newtonian'",
+          "BirdCarreau": "transport['transport.model'][0] === 'BirdCarreau'",
+          "CrossPowerLaw": "transport['transport.model'][0] === 'CrossPowerLaw'",
+          "powerLaw": "transport['transport.model'][0] === 'powerLaw'",
+          "HerschelBulkley": "transport['transport.model'][0] === 'HerschelBulkley'",
+          "Casson": "transport['transport.model'][0] === 'Casson'"
+        }
+      },
+      "Newtonian": {
+        "parameters": [
+          {
+            "label"  : "Nu",
+            "id": "Newtonian.nu.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu Epsilon",
+            "id": "Newtonian.nu.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1.5e-05
+          }
+        ]
+      },
+      "BirdCarreau": {
+        "parameters": [
+          {
+            "label"  : "Nu 0",
+            "id": "BirdCarreau.nu0.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu 0 Epsilon",
+            "id": "BirdCarreau.nu0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "label"  : "Nu Inf",
+            "id": "BirdCarreau.nuInf.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu Inf Epsilon",
+            "id": "BirdCarreau.nuInf.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "label"  : "k",
+            "id": "BirdCarreau.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 0, 1, 0, 0, 0, 0]
+          },{
+            "label"  : "k Epsilon",
+            "id": "BirdCarreau.k.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          },{
+            "label"  : "n",
+            "id": "BirdCarreau.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "label"  : "n Epsilon",
+            "id": "BirdCarreau.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 0.5
+          }
+        ]
+      },
+      "CrossPowerLaw": {
+        "parameters": [
+          {
+            "label"  : "Nu 0",
+            "id": "CrossPowerLaw.nu0.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu 0 Epsilon",
+            "id": "CrossPowerLaw.nu0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "label"  : "Nu Inf",
+            "id": "CrossPowerLaw.nuInf.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu Inf Epsilon",
+            "id": "CrossPowerLaw.nuInf.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "label"  : "m",
+            "id": "CrossPowerLaw.m.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 0, 1, 0, 0, 0, 0]
+          },{
+            "label"  : "m Epsilon",
+            "id": "CrossPowerLaw.m.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          },{
+            "label"  : "n",
+            "id": "CrossPowerLaw.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "label"  : "n Epsilon",
+            "id": "CrossPowerLaw.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 0.5
+          }
+        ]
+      },
+      "powerLaw": {
+        "parameters": [
+          {
+            "label"  : "Nu Max",
+            "id": "powerLaw.nuMax.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu Max Epsilon",
+            "id": "powerLaw.nuMax.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "label"  : "Nu Min",
+            "id": "powerLaw.nuMin.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu Min Epsilon",
+            "id": "powerLaw.nuMin.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "label"  : "k",
+            "id": "powerLaw.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "k Epsilon",
+            "id": "powerLaw.k.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "label"  : "n",
+            "id": "powerLaw.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "label"  : "n Epsilon",
+            "id": "powerLaw.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          }
+        ]
+      },
+      "HerschelBulkley": {
+        "parameters": [
+          {
+            "label"  : "Nu 0",
+            "id": "HerschelBulkley.nu0.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "Nu 0 Epsilon",
+            "id": "HerschelBulkley.nu0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-03
+          },{
+            "label"  : "Tau 0",
+            "id": "HerschelBulkley.tau0.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "label"  : "Tau 0 Epsilon",
+            "id": "HerschelBulkley.tau0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          },{
+            "label"  : "k",
+            "id": "HerschelBulkley.k.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "k Epsilon",
+            "id": "HerschelBulkley.k.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1e-05
+          },{
+            "label"  : "n",
+            "id": "HerschelBulkley.n.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 0, 0, 0, 0, 0, 0]
+          },{
+            "label"  : "n Epsilon",
+            "id": "HerschelBulkley.n.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 1
+          }
+        ]
+      },
+      "Casson": {
+        "parameters": [
+          {
+            "label"  : "m",
+            "id": "Casson.m.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "m Epsilon",
+            "id": "Casson.m.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 3.934986e-6
+          },{
+            "label"  : "Tau 0",
+            "id": "Casson.tau0.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -2, 0, 0, 0, 0]
+          },{
+            "label"  : "Tau 0 Epsilon",
+            "id": "Casson.tau0.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 2.9032e-6
+          },{
+            "label"  : "nuMax",
+            "id": "Casson.nuMax.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "nuMax Epsilon",
+            "id": "Casson.nuMax.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 13.3333e-6
+          },{
+            "label"  : "nuMin",
+            "id": "Casson.nuMin.dimensions",
+            "type": "double",
+            "size": 7,
+            "default": [0, 2, -1, 0, 0, 0, 0]
+          },{
+            "label"  : "nuMin Epsilon",
+            "id": "Casson.nuMin.epsilon",
+            "type": "double",
+            "size": 1,
+            "default": 3.9047e-6
+          }
+        ]
+      },
+      "wallBounds": {
+        "label"  : "Bounds of wind tunnel",
+        "parameters": [
+          {
+            "label"  : "X",
+            "id": "tunnel.bounds.x",
+            "type": "double",
+            "size": 2,
+            "default": [-5, 15]
+          },{
+            "label"  : "Y",
+            "id": "tunnel.bounds.y",
+            "type": "double",
+            "size": 2,
+            "default": [-4, 4]
+          },{
+            "label"  : "Z",
+            "id": "tunnel.bounds.z",
+            "type": "double",
+            "size": 2,
+            "default": [0, 8]
+          }
+        ]
+      },
+      "wallAssign": {
+        "label"  : "Walls orientations",
+        "parameters": [
+          {
+            "label"  : "Wall normal to X (positive side)",
+            "id": "tunnel.walls.x.plus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["outlet"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "label"  : "Wall normal to X (negative side)",
+            "id": "tunnel.walls.x.minus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["inlet"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "label"  : "Wall normal to Y (positive side)",
+            "id": "tunnel.walls.y.plus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["rightWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "label"  : "Wall normal to Y (negative side)",
+            "id": "tunnel.walls.y.minus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["leftWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "label"  : "Wall normal to Z (positive side)",
+            "id": "tunnel.walls.z.plus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["topWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          },{
+            "label"  : "Wall normal to Z (negative side)",
+            "id": "tunnel.walls.z.minus",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["bottomWall"],
+            "domain"   : {
+               "outlet": "outlet",
+               "inlet": "inlet",
+               "leftWall": "leftWall",
+               "rightWall": "rightWall",
+               "topWall": "topWall",
+               "bottomWall": "bottomWall"
+            }
+          }
+        ]
+      },
+      "controldict-time": {
+        "label"  : "Time control",
+        "parameters": [
+          {
+            "label"  : "Start time of the simulation",
+            "id": "controldict.time.startFrom",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["startTime"],
+            "domain"   : {
+               "startTime": "startTime",
+               "firstTime": "firstTime",
+               "latestTime": "latestTime"
+            }
+          },["controldict-time-startTime"],{
+            "label"  : "End time",
+            "id": "controldict.time.end",
+            "type": "double",
+            "size": 1,
+            "default": [500]
+          },{
+            "label"  : "Delta time",
+            "id": "controldict.time.delta",
+            "type": "double",
+            "size": 1,
+            "default": [1]
+          }
+        ],
+        "children": {
+          "controldict-time-startTime": "controldict.time['controldict.time.startFrom'][0] === 'startTime'"
+        }
+      },
+      "controldict-time-startTime": {
+        "parameters": [
+          {
+            "label"  : "Start time",
+            "id": "controldict.time.startTime",
+            "type": "double",
+            "size": 1,
+            "default": [0]
+          }
+        ]
+      },
+      "controldict-write": {
+        "label"  : "Output parameters",
+        "parameters": [
+          {
+            "label"  : "Write control",
+            "id": "controldict.write.control",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["timeStep"],
+            "domain"   : {
+               "timeStep": "timeStep",
+               "runTime": "runTime",
+               "adjustableRunTime": "adjustableRunTime",
+               "cpuTime": "cpuTime",
+               "clockTime": "clockTime"
+            }
+          },{
+            "label"  : "Write interval",
+            "id": "controldict.write.interval",
+            "type": "double",
+            "size": 1,
+            "default": [100]
+          },{
+            "label"  : "Write format",
+            "id": "controldict.write.format",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["binary"],
+            "domain"   : {
+               "ascii": "ascii",
+               "binary": "binary"
+            }
+          },{
+            "label"  : "Write precision",
+            "id": "controldict.write.precision",
+            "type": "integer",
+            "size": 1,
+            "default": [6]
+          },{
+            "label"  : "Compress",
+            "id": "controldict.write.gzip",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["yes"],
+            "domain"   : {
+               "yes": "yes",
+               "no": "no"
+            }
+          },{
+            "label"  : "Time format",
+            "id": "controldict.write.time.format",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["general"],
+            "domain"   : {
+               "general": "general",
+               "fixed": "fixed",
+               "scientific": "scientific"
+            }
+          },{
+            "label"  : "Time precision",
+            "id": "controldict.write.time.precision",
+            "type": "integer",
+            "size": 1,
+            "default": [6]
+          },{
+            "label"  : "Graph format",
+            "id": "controldict.write.graph.format",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["raw"],
+            "domain"   : {
+               "raw": "raw",
+               "gnuplot": "gnuplot",
+               "xmgr": "xmgr",
+               "jplot": "jplot"
+            }
+          }
+        ]
+      },
+      "decomposeParDict": {
+        "label"  : "Decomposition",
+        "parameters": [
+          {
+            "label"  : "Number of subdomains",
+            "id": "decomposeParDict.subdomains",
+            "type": "integer",
+            "size": 1,
+            "default": [6]
+          },{
+            "label"  : "Method",
+            "id": "decomposeParDict.method",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["hierarchical"],
+            "domain"   : {
+               "hierarchical": "hierarchical",
+               "ptscotch": "ptscotch"
+            }
+          }
+        ]
+      },
+      "decomposition_simpleCoeffs": {
+        "label": "Simple Coeffs",
+        "parameters": [
+          {
+            "label"  : "n",
+            "id": "decomposeParDict.simpleCoeffs.n",
+            "type": "double",
+            "size": 3,
+            "default": [4, 1, 1]
+          },
+          {
+            "label"  : "delta",
+            "id": "decomposeParDict.simpleCoeffs.delta",
+            "type": "double",
+            "size": 1,
+            "default": [0.001]
+          }
+        ]
+      },
+      "decomposition_hierarchicalCoeffs": {
+        "label": "Hierarchical Coeffs",
+        "parameters": [
+          {
+            "label"  : "n",
+            "id": "decomposeParDict.hierarchicalCoeffs.n",
+            "type": "double",
+            "size": 3,
+            "default": [3, 2, 1]
+          },{
+            "label"  : "delta",
+            "id": "decomposeParDict.hierarchicalCoeffs.delta",
+            "type": "double",
+            "size": 1,
+            "default": [0.001]
+          },{
+            "label"  : "order",
+            "id": "decomposeParDict.hierarchicalCoeffs.order",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["xyz"],
+            "domain"   : {
+               "xyz": "xyz",
+               "xzy": "xzy",
+               "yxz": "yxz",
+               "yzx": "yzx",
+               "zyx": "zyx",
+               "zxy": "zxy"
+            }
+          }
+        ]
+      },
+      "forceCoeffs": {
+        "label": "Force analysis",
+        "parameters": [
+          {
+            "label": "Write control",
+            "id": "forceCoeffs.write.control",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["timeStep"],
+            "domain"   : {
+               "timeStep": "timeStep",
+               "runTime": "runTime",
+               "adjustableRunTime": "adjustableRunTime",
+               "cpuTime": "cpuTime",
+               "clockTime": "clockTime"
+            }
+          },{
+            "label": "Write interval",
+            "id": "forceCoeffs.write.interval",
+            "type": "double",
+            "size": 1,
+            "default": [1]
+          },{
+            "label": "Log",
+            "id": "forceCoeffs.write.log",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["yes"],
+            "domain"   : {
+               "yes": "yes",
+               "no": "no"
+            }
+          },{
+            "label"  : "liftDir",
+            "id": "forceCoeffs.liftDir",
+            "type": "double",
+            "size": 3,
+            "default": [0, 0, 1]
+          },{
+            "label"  : "dragDir",
+            "id": "forceCoeffs.dragDir",
+            "type": "double",
+            "size": 3,
+            "default": [1, 0, 0]
+          },{
+            "label"  : "CofR",
+            "id": "forceCoeffs.CofR",
+            "type": "double",
+            "size": 3,
+            "default": [0.72, 0, 0]
+          },{
+            "label"  : "pitchAxis",
+            "id": "forceCoeffs.pitchAxis",
+            "type": "double",
+            "size": 3,
+            "default": [0, 1, 0]
+          },{
+            "label"  : "magUInf",
+            "id": "forceCoeffs.magUInf",
+            "type": "double",
+            "size": 1,
+            "default": [20]
+          },{
+            "label"  : "lRef",
+            "id": "forceCoeffs.lRef",
+            "type": "double",
+            "size": 1,
+            "default": [1.42]
+          },{
+            "label"  : "Aref",
+            "id": "forceCoeffs.Aref",
+            "type": "double",
+            "size": 1,
+            "default": [0.75]
+          }
+        ]
+      },
+      "solver-p": {
+        "label": "p",
+        "parameters": [
+          {
+            "label": "Solver type",
+            "id": "solver.p.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GAMG"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "label": "Smoother",
+            "id": "solver.p.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symGaussSeidel": "symmetric Gauss-Seidel",
+               "DIC/DILU": "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)",
+               "DICGaussSeidel": "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)"
+            }
+          },{
+            "label"  : "Tolerance",
+            "id": "solver.p.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-7]
+          },{
+            "label"  : "Relative Tolerance",
+            "id": "solver.p.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.01]
+          }
+        ]
+      },
+      "solver-U": {
+        "label": "U",
+        "parameters": [
+          {
+            "label": "Solver type",
+            "id": "solver.U.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["smoothSolver"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "label": "Smoother",
+            "id": "solver.U.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symGaussSeidel": "symmetric Gauss-Seidel",
+               "DIC/DILU": "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)",
+               "DICGaussSeidel": "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)"
+            }
+          },{
+            "label"  : "Tolerance",
+            "id": "solver.U.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-8]
+          },{
+            "label"  : "Relative Tolerance",
+            "id": "solver.U.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "label"  : "nSweeps",
+            "id": "solver.U.nSweeps",
+            "type": "integer",
+            "size": 1,
+            "default": [1]
+          }
+        ]
+      },
+      "solver-k": {
+        "label": "k",
+        "parameters": [
+          {
+            "label": "Solver type",
+            "id": "solver.k.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["smoothSolver"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "label": "Smoother",
+            "id": "solver.k.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symGaussSeidel": "symmetric Gauss-Seidel",
+               "DIC/DILU": "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)",
+               "DICGaussSeidel": "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)"
+            }
+          },{
+            "label"  : "Tolerance",
+            "id": "solver.k.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-8]
+          },{
+            "label"  : "Relative Tolerance",
+            "id": "solver.k.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "label"  : "nSweeps",
+            "id": "solver.k.nSweeps",
+            "type": "integer",
+            "size": 1,
+            "default": [1]
+          }
+        ]
+      },
+      "solver-omega": {
+        "label": "omega",
+        "parameters": [
+          {
+            "label": "Solver type",
+            "id": "solver.omega.solver",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["smoothSolver"],
+            "domain"   : {
+               "GAMG": "GAMG",
+               "smoothSolver": "smoothSolver",
+               "PBiCG": "PBiCG"
+            }
+          },{
+            "label": "Smoother",
+            "id": "solver.omega.smoother",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["GaussSeidel"],
+            "domain"   : {
+               "GaussSeidel": "Gauss-Seidel",
+               "symGaussSeidel": "symmetric Gauss-Seidel",
+               "DIC/DILU": "diagonal incomplete-Cholesky (symmetric), incomplete-LU (asymmetric)",
+               "DICGaussSeidel": "diagonal incomplete-Cholesky/LU with Gauss-Seidel (symmetric/asymmetric)"
+            }
+          },{
+            "label"  : "Tolerance",
+            "id": "solver.omega.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [1e-8]
+          },{
+            "label"  : "Relative Tolerance",
+            "id": "solver.omega.relTol",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "label"  : "nSweeps",
+            "id": "solver.omega.nSweeps",
+            "type": "integer",
+            "size": 1,
+            "default": [1]
+          }
+        ]
+      },
+      "correctors": {
+        "label": "Correctors",
+        "parameters": [
+          {
+            "label"  : "Simple nNonOrthogonalCorrectors",
+            "id": "correctors.simple.nNonOrthogonalCorrectors",
+            "type": "double",
+            "size": 1,
+            "default": [0]
+          },{
+            "label": "Simple consistent",
+            "id": "correctors.simple..consistent",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["yes"],
+            "domain"   : {
+               "yes": "yes",
+               "no": "no"
+            }
+          },{
+            "label"  : "PotentialFlow nNonOrthogonalCorrectors",
+            "id": "correctors.potentialFlow.nNonOrthogonalCorrectors",
+            "type": "double",
+            "size": 1,
+            "default": [10]
+          }
+        ]
+      },
+      "relaxationFactors": {
+        "label": "Relaxation Factors",
+        "parameters": [
+          {
+            "label"  : "U",
+            "id": "relaxationFactors.equations.U",
+            "type": "double",
+            "size": 1,
+            "default": [0.9]
+          },{
+            "label"  : "k",
+            "id": "relaxationFactors.equations.k",
+            "type": "double",
+            "size": 1,
+            "default": [0.7]
+          },{
+            "label"  : "omega",
+            "id": "relaxationFactors.equations.omega",
+            "type": "double",
+            "size": 1,
+            "default": [0.7]
+          }
+        ]
+      },
+      "meshQuality": {
+        "label": "Mesh quality",
+        "parameters": [
+          {
+            "label"  : "minFaceWeight",
+            "id": "meshQuality.minFaceWeight",
+            "type": "double",
+            "size": 1,
+            "default": [0.02]
+          }
+        ]
+      },
+      "meshRefinement": {
+        "label": "Mesh Refinement",
+        "parameters": [
+          {
+            "label"  : "Type",
+            "id": "meshRefinement.refinementBox.type",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["searchableBox"],
+            "domain"   : {
+               "searchableBox": "searchableBox",
+               "searchableSphere": "searchableSphere"
+            }
+          },
+          ["searchableBox", "searchableSphere"]
+        ],
+        "children": {
+          "searchableBox": "meshRefinement['meshRefinement.refinementBox.type'][0] === 'searchableBox'",
+          "searchableSphere": "meshRefinement['meshRefinement.refinementBox.type'][0] === 'searchableSphere'"
+        }
+      },
+      "searchableBox": {
+        "parameters": [
+          {
+            "label"  : "Refinement Box (min)",
+            "id": "meshRefinement.refinementBox.min",
+            "type": "double",
+            "size": 3,
+            "default": [-1.0, -0.7, 0.0]
+          },{
+            "label"  : "Refinement Box (max)",
+            "id": "meshRefinement.refinementBox.max",
+            "type": "double",
+            "size": 3,
+            "default": [8.0, 0.7, 2.5]
+          }
+        ]
+      },
+      "searchableSphere": {
+        "parameters": [
+          {
+            "label"  : "Refinement Sphere (center)",
+            "id": "meshRefinement.refinementSphere.center",
+            "type": "double",
+            "size": 3,
+            "default": [0, 0, 0]
+          },{
+            "label"  : "Refinement Sphere (radius)",
+            "id": "meshRefinement.refinementSphere.radius",
+            "type": "double",
+            "size": 1,
+            "default": [1.05]
+          }
+        ]
+      },
+      "runtime" : {
+        "label": "Runtime step",
+        "parameters": [
+          {
+            "label": "Type",
+            "id": "runtime.step",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["castellatedMesh"],
+            "domain"   : {
+               "castellatedMesh": "castellatedMesh",
+               "snap": "snap",
+               "addLayers": "addLayers"
+            }
+          },
+          ["castellatedMeshControls", "snapControls", "addLayersControls"]
+        ],
+        "children": {
+          "castellatedMeshControls": "runtime['runtime.step'][0] === 'castellatedMesh'",
+          "snapControls": "runtime['runtime.step'][0] === 'snap'",
+          "addLayersControls": "runtime['runtime.step'][0] === 'addLayers'"
+        }
+      },
+      "castellatedMeshControls": {
+        "label": "Castellated Mesh Controls",
+        "parameters": [
+          {
+            "label"  : "maxLocalCells",
+            "id": "castellatedMeshControls.maxLocalCells",
+            "type": "integer",
+            "size": 1,
+            "default": [100000]
+          },{
+            "label"  : "maxGlobalCells",
+            "id": "castellatedMeshControls.maxGlobalCells",
+            "type": "integer",
+            "size": 1,
+            "default": [2000000]
+          },{
+            "label"  : "minRefinementCells",
+            "id": "castellatedMeshControls.minRefinementCells",
+            "type": "integer",
+            "size": 1,
+            "default": [10]
+          },{
+            "label"  : "maxLoadUnbalance",
+            "id": "castellatedMeshControls.maxLoadUnbalance",
+            "type": "double",
+            "size": 1,
+            "default": [0.10]
+          },{
+            "label"  : "nCellsBetweenLevels",
+            "id": "castellatedMeshControls.nCellsBetweenLevels",
+            "type": "integer",
+            "size": 1,
+            "default": [3]
+          },{
+            "label"  : "resolveFeatureAngle",
+            "id": "castellatedMeshControls.resolveFeatureAngle",
+            "type": "integer",
+            "size": 1,
+            "default": [30]
+          },{
+            "label"  : "locationInMesh",
+            "id": "castellatedMeshControls.locationInMesh",
+            "type": "double",
+            "size": 3,
+            "default": [3.0001, 3.0001, 0.43]
+          },{
+            "label"  : "allowFreeStandingZoneFaces",
+            "id": "castellatedMeshControls.allowFreeStandingZoneFaces",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["true"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          }
+        ]
+      },
+      "snapControls": {
+        "parameters": [
+          {
+            "label"  : "nSmoothPatch",
+            "id": "snapControls.nSmoothPatch",
+            "type": "double",
+            "size": 1,
+            "default": [3]
+          },{
+            "label"  : "tolerance",
+            "id": "snapControls.tolerance",
+            "type": "double",
+            "size": 1,
+            "default": [2.0]
+          },{
+            "label"  : "nSolveIter",
+            "id": "snapControls.nSolveIter",
+            "type": "integer",
+            "size": 1,
+            "default": [30]
+          },{
+            "label"  : "nRelaxIter",
+            "id": "snapControls.nRelaxIter",
+            "type": "integer",
+            "size": 1,
+            "default": [5]
+          },{
+            "label"  : "nFeatureSnapIter",
+            "id": "snapControls.nFeatureSnapIter",
+            "type": "integer",
+            "size": 1,
+            "default": [10]
+          },{
+            "label"  : "implicitFeatureSnap",
+            "id": "snapControls.implicitFeatureSnap",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["false"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          },{
+            "label"  : "explicitFeatureSnap",
+            "id": "snapControls.explicitFeatureSnap",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["true"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          },{
+            "label"  : "multiRegionFeatureSnap",
+            "id": "snapControls.multiRegionFeatureSnap",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["false"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          }
+        ]
+      },
+      "addLayersControls": {
+        "parameters": [
+          {
+            "label"  : "relativeSizes",
+            "id": "addLayersControls.relativeSizes",
+            "type": "string",
+            "ui": "enum",
+            "size"   : 1,
+            "default": ["true"],
+            "domain"   : {
+               "true": "true",
+               "false": "false"
+            }
+          },{
+            "label"  : "expansionRatio",
+            "id": "addLayersControls.expansionRatio",
+            "type": "double",
+            "size": 1,
+            "default": [1.0]
+          },{
+            "label"  : "finalLayerThickness",
+            "id": "addLayersControls.finalLayerThickness",
+            "type": "double",
+            "size": 1,
+            "default": [0.3]
+          },{
+            "label"  : "minThickness",
+            "id": "addLayersControls.minThickness",
+            "type": "double",
+            "size": 1,
+            "default": [0.1]
+          },{
+            "label"  : "nGrow",
+            "id": "addLayersControls.nGrow",
+            "type": "double",
+            "size": 1,
+            "default": [0]
+          },{
+            "label"  : "",
+            "id": "addLayersControls.",
+            "type": "double",
+            "size": 1,
+            "default": []
+          },{
+            "label"  : "featureAngle",
+            "id": "addLayersControls.featureAngle",
+            "type": "double",
+            "size": 1,
+            "default": [60]
+          },{
+            "label"  : "slipFeatureAngle",
+            "id": "addLayersControls.slipFeatureAngle",
+            "type": "double",
+            "size": 1,
+            "default": [30]
+          },{
+            "label"  : "nRelaxIter",
+            "id": "addLayersControls.nRelaxIter",
+            "type": "integer",
+            "size": 1,
+            "default": [3]
+          },{
+            "label"  : "nSmoothSurfaceNormals",
+            "id": "addLayersControls.nSmoothSurfaceNormals",
+            "type": "double",
+            "size": 1,
+            "default": [1]
+          },{
+            "label"  : "nSmoothNormals",
+            "id": "addLayersControls.nSmoothNormals",
+            "type": "double",
+            "size": 1,
+            "default": [3]
+          },{
+            "label"  : "nSmoothThickness",
+            "id": "addLayersControls.nSmoothThickness",
+            "type": "double",
+            "size": 1,
+            "default": [10]
+          },{
+            "label"  : "maxFaceThicknessRatio",
+            "id": "addLayersControls.maxFaceThicknessRatio",
+            "type": "double",
+            "size": 1,
+            "default": [0.5]
+          },{
+            "label"  : "maxThicknessToMedialRatio",
+            "id": "addLayersControls.maxThicknessToMedialRatio",
+            "type": "double",
+            "size": 1,
+            "default": [0.3]
+          },{
+            "label"  : "minMedianAxisAngle",
+            "id": "addLayersControls.minMedianAxisAngle",
+            "type": "double",
+            "size": 1,
+            "default": [90]
+          },{
+            "label"  : "nBufferCellsNoExtrude",
+            "id": "addLayersControls.nBufferCellsNoExtrude",
+            "type": "integer",
+            "size": 1,
+            "default": [0]
+          },{
+            "label"  : "nLayerIter",
+            "id": "addLayersControls.nLayerIter",
+            "type": "integer",
+            "size": 1,
+            "default": [50]
+          }
+        ]
+      }
+    }
+}
