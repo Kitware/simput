@@ -18,3 +18,7 @@
 	path = types/nwchem-neb
 	url = https://github.com/kitware/simput
 	branch = type-nwchem-neb
+[submodule "types/openfoam-windtunnel"]
+	path = types/openfoam-windtunnel
+	url = https://github.com/kitware/simput
+	branch = type-openfoam-windtunnel
