@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd $1
+
+# Env setup
+source /opt/OpenFOAM/OpenFOAM-v1612+/etc/bashrc
+export PATH=$WM_THIRD_PARTY_DIR/platforms/linux64Gcc/qt-4.8.5/bin:$PATH
+export LD_LIBRARY_PATH=/opt/OpenFOAM/ThirdParty-v1612+/platforms/linux64Gcc/ParaView-5.0.1/lib/paraview-5.0/mesa-llvm:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/OpenFOAM/ThirdParty-v1612+/platforms/linux64Gcc/ParaView-5.0.1/lib/paraview-5.0/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/OpenFOAM/ThirdParty-v1612+/platforms/linux64Gcc/qt-4.8.5/lib:$LD_LIBRARY_PATH
+export PATH=/opt/OpenFOAM/ThirdParty-v1612+/platforms/linux64Gcc/cmake-3.4.3/bin:$PATH
+
+# Tutorial example
+./Allrun

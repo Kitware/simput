@@ -20,11 +20,17 @@ var templates = {
   'system/surfaceFeatureExtractDict': require('./templates/system/surfaceFeatureExtractDict.hbs'),
   Allclean: require('./templates/Allclean.hbs'),
   Allrun: require('./templates/Allrun.hbs'),
+  DockerRun: require('./templates/DockerRun.hbs'),
 };
 
+var permissions = {
+  Allclean: 'u+x',
+  Allrun: 'u+x',
+  DockerRun: 'u+x',
+};
 
 module.exports = function convert(dataModel) {
-  const results = {};
+  const results = { 'dataset.foam': '' };
   let error = [];
   const templateModel = {
     // 0.orig/include/initialConditions
@@ -260,5 +266,5 @@ module.exports = function convert(dataModel) {
     error = null;
   }
 
-  return { results, error, model: dataModel };
+  return { results, error, model: dataModel, permissions };
 };
