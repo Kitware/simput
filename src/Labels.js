@@ -1,3 +1,5 @@
+/* eslint-disable class-methods-use-this */
+
 export default class Labels {
   constructor(module, defaultLang = 'en') {
     this.allLanguages = module.lang;

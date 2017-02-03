@@ -1,7 +1,8 @@
-import * as Factory from './factory.js';
+import 'normalize.css';
 
-require('normalize.css');
+import Factory from './factory';
 
+/* eslint-disable import/prefer-default-export */
 export function load(url, container) {
   Factory.createViewer(url, (viewer) => {
     if (!viewer) {

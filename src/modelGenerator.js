@@ -19,7 +19,7 @@ function getParameter(model, attrName, paramId) {
     parameterCache[attrName] = {};
   }
   if (!parameterCache[attrName][paramId]) {
-    model.definitions[attrName].parameters.forEach(param => {
+    model.definitions[attrName].parameters.forEach((param) => {
       parameterCache[attrName][param.id] = param;
     });
   }
@@ -36,11 +36,11 @@ function generateUI(parameter, label, help, external, modelExternal) {
     },
     allowedKey = ['id', 'size', 'layout', 'domain', 'default', 'type'];
 
-  for (const key in parameter) {
+  Object.keys(parameter).forEach((key) => {
     if (allowedKey.indexOf(key) !== -1) {
       ui[key] = clone(parameter[key]);
     }
-  }
+  });
 
   if (parameter.domain && parameter.domain.external) {
     const externalKey = parameter.domain.external;
@@ -197,7 +197,7 @@ function getShowFunction(model, attrName, orAttr) {
 
 function getShowParamFunction(model, attrName, boolExpr) {
   var funcTemplate = [];
-  model.definitions[attrName].parameters.forEach(param => {
+  model.definitions[attrName].parameters.forEach((param) => {
     funcTemplate.push(`var ${param.id.replace(/-|\./g, '')} = viewData['${attrName}']['${param.id}'].value`);
   });
 

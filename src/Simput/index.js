@@ -1,9 +1,11 @@
 import PropertyPanelBlock   from 'paraviewweb/src/React/Properties/PropertyPanel';
 import React                from 'react';
+
+import style                from 'SimputStyle/Simput.mcss';
+
 import ViewMenu             from '../ViewMenu';
 import modelGenerator       from '../modelGenerator';
 import { postJSON }         from '../network';
-import style                from 'SimputStyle/Simput.mcss';
 
 const buttonStates = {
   normal: style.normalStateIcon,
@@ -131,45 +133,45 @@ export default React.createClass({
 
   render() {
     return (
-      <div className={ style.container }>
-        <div className={ style.header }>
-            <span className={ style.title }>Simput</span>
-            <div>
-                { this.props.convert !== null ? (
-                  <div style={{ display: 'inline-block' }}>
-                    <input type="file" id="fileElem" style={{ display: 'none' }} onChange={this.parseFile} />
-                    <label className={ [style.button, style.buttonLabel].join(' ') }htmlFor="fileElem">
-                      Import File <i className={ style.uploadIcon }></i>
-                    </label>
-                  </div>
-                  ) :
-                null }
-                <button className={ style.button } onClick={ this.saveModel }>
-                    <span className={ style.buttonText }>Download Model</span>
-                    <i className={ style.saveIcon }></i>
-                </button>
-                <button className={ style.button } onClick={ this.convertModel } disabled={this.state.downloadButtonState !== 'normal'}>
-                    <span className={ style.buttonText }>Save & Convert</span>
-                    <i className={buttonStates[this.state.downloadButtonState]}></i>
-                </button>
-            </div>
+      <div className={style.container}>
+        <div className={style.header}>
+          <span className={style.title}>Simput</span>
+          <div>
+            { this.props.convert !== null ? (
+              <div style={{ display: 'inline-block' }}>
+                <input type="file" id="fileElem" style={{ display: 'none' }} onChange={this.parseFile} />
+                <label className={[style.button, style.buttonLabel].join(' ')} htmlFor="fileElem">
+                  Import File <i className={style.uploadIcon} />
+                </label>
+              </div>
+              ) :
+            null }
+            <button className={style.button} onClick={this.saveModel}>
+              <span className={style.buttonText}>Download Model</span>
+              <i className={style.saveIcon} />
+            </button>
+            <button className={style.button} onClick={this.convertModel} disabled={this.state.downloadButtonState !== 'normal'}>
+              <span className={style.buttonText}>Save & Convert</span>
+              <i className={buttonStates[this.state.downloadButtonState]} />
+            </button>
+          </div>
         </div>
-        <div className={ style.content }>
-            <ViewMenu
-              data={ this.state.fullData }
-              model={ this.props.model }
-              labels={ this.props.labels }
-              onChange={ this.updateActive }
+        <div className={style.content}>
+          <ViewMenu
+            data={this.state.fullData}
+            model={this.props.model}
+            labels={this.props.labels}
+            onChange={this.updateActive}
+          />
+          <div className={style.block}>
+            <PropertyPanelBlock
+              className={style.panel}
+              input={this.state.panelData}
+              labels={this.props.labels}
+              viewData={this.state.viewData}
+              onChange={this.updateViewData}
             />
-            <div className={ style.block }>
-                <PropertyPanelBlock
-                  className={ style.panel }
-                  input={this.state.panelData}
-                  labels={this.props.labels}
-                  viewData={this.state.viewData}
-                  onChange={ this.updateViewData }
-                />
-            </div>
+          </div>
         </div>
       </div>);
   },

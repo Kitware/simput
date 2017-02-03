@@ -1,14 +1,14 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
+
 import App          from './Simput';
 import Labels       from './Labels';
 import { getJSON }  from './network';
 
 const container = document.querySelector('.react-content');
-/* global Simput */
 
 /* eslint-disable no-use-before-define */
-export function createViewer(url, callback) {
+function createViewer(url, callback) {
   var lang = 'en';
   getJSON(url, (error, data) => {
     if (error) {
@@ -35,12 +35,12 @@ export function createViewer(url, callback) {
         ReactDOM.unmountComponentAtNode(container);
         ReactDOM.render(
           <App
-            data={ data }
-            model={ module.model }
-            labels={ labels }
-            help={ help }
-            convert={ convert }
-            parse={ parse }
+            data={data}
+            model={module.model}
+            labels={labels}
+            help={help}
+            convert={convert}
+            parse={parse}
           />, container);
       };
 
@@ -75,19 +75,23 @@ function setupChoices(choices) {
         return (
           <li
             style={{ cursor: 'pointer' }}
-            key={ index }
-            onClick={ setupSimput }
-            name={ el }
+            key={index}
+            onClick={setupSimput}
+            name={el}
           >{ el }</li>
         );
       }
 
       return (
         <ul>
-        { this.props.choices.map(listamatize) }
+          { this.props.choices.map(listamatize) }
         </ul>);
     },
   });
 
-  ReactDOM.render(<Choices choices={ choices } />, container);
+  ReactDOM.render(<Choices choices={choices} />, container);
 }
+
+export default {
+  createViewer,
+};
