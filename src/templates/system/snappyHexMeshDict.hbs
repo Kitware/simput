@@ -15,8 +15,8 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 // Which of the steps to run
-{{#each hexMesh.steps as step}}
-{{{step}}} true;
+{{#each hexMesh.steps}}
+{{{this}}} true;
 {{/each}}
 
 // Geometry. Definition of all surfaces. All surfaces are of class
@@ -36,8 +36,8 @@ geometry
     refinementBox
     {
         type {{{hexMesh.geometry.refinementBox.type}}};
-        min ({{{vector hexMesh.geometry.refinementBox.min}}});
-        max ({{{vector hexMesh.geometry.refinementBox.max}}});
+        min ({{{[../vector] hexMesh.geometry.refinementBox.min}}});
+        max ({{{[../vector] hexMesh.geometry.refinementBox.max}}});
     }
 };
 
@@ -158,7 +158,7 @@ castellatedMeshControls
     // section reachable from the locationInMesh is kept.
     // NOTE: This point should never be on a face, always inside a cell, even
     // after refinement.
-    locationInMesh ({{{vector hexMesh.castellatedMeshControls.locationInMesh}}});
+    locationInMesh ({{{[../vector] hexMesh.castellatedMeshControls.locationInMesh}}});
 
 
     // Whether any faceZones (as specified in the refinementSurfaces)

@@ -1,13 +1,326 @@
 {
-    "views": {
-        "ExampleSelection": "OpenFOAM Tutorial"
+  "views": {
+    "InitialConditions": "Boundary conditions",
+    "WindTunnel": "Wind tunnel definition",
+    "Parameters": "Parameters",
+    "Solvers": "Solvers",
+    "Decomposition": "Decomposition",
+    "Mesh": "Mesh generation",
+    "Runtime": "Runtime",
+    "castellatedMeshControls": "Castellated Mesh Controls",
+    "snapControls": "Snap Controls",
+    "addLayersControls": "Add layers Controls"
+  },
+  "attributes": {
+    "initconst": {
+      "title": "Initial conditions",
+      "parameters": {
+        "initialConditions.flowVelocity": "Flow veolicty",
+        "initialConditions.pressure": "Pressure",
+        "initialConditions.turbulentKE": "Turbulent KE",
+        "initialConditions.turbulentOmega": "Turbulent Omega"
+      }
     },
-    "attributes": {
-        "example": {
-            "title": "Example selection",
-            "parameters": {
-                "example.path": "Path"
-            }
-        }
+    "initfields": {
+      "title": "Fields initialisation",
+      "parameters": {
+        "fields.k.dimensions": "Dimensions for k",
+        "fields.nut.dimensions": "Dimensions for nut",
+        "fields.omega.dimensions": "Dimensions for omega",
+        "fields.p.dimensions": "Dimensions for p",
+        "fields.U.dimensions": "Dimensions for U",
+        "fields.U.inletValue": "Inlet value for U"
+      }
+    },
+    "transport": {
+      "title": "Transport settings",
+      "parameters": {
+        "transport.model": "Model"
+      }
+    },
+    "Newtonian": {
+      "title": "Newtonian",
+      "parameters": {
+        "Newtonian.nu.dimensions": "Nu",
+        "Newtonian.nu.epsilon": "Nu Epsilon"
+      }
+    },
+    "BirdCarreau": {
+      "title": "BirdCarreau",
+      "parameters": {
+        "BirdCarreau.nu0.dimensions": "Nu0",
+        "BirdCarreau.nu0.epsilon": "Nu0 Epsilon",
+        "BirdCarreau.nuInf.dimensions": "Nu Inf",
+        "BirdCarreau.nuInf.epsilon": "Nu Inf Epsilon",
+        "BirdCarreau.k.dimensions": "k",
+        "BirdCarreau.k.epsilon": "k Epsilon",
+        "BirdCarreau.n.dimensions": "n",
+        "BirdCarreau.n.epsilon": "n Epsilon"
+      }
+    },
+    "CrossPowerLaw": {
+      "title": "CrossPowerLaw",
+      "parameters": {
+        "CrossPowerLaw.nu0.dimensions": "Nu 0",
+        "CrossPowerLaw.nu0.epsilon": "Nu 0 Epsilon",
+        "CrossPowerLaw.nuInf.dimensions": "Nu Inf",
+        "CrossPowerLaw.nuInf.epsilon": "Nu Inf Epsilon",
+        "CrossPowerLaw.m.dimensions": "m",
+        "CrossPowerLaw.m.epsilon": "m Epsilon",
+        "CrossPowerLaw.n.dimensions": "n",
+        "CrossPowerLaw.n.epsilon": "n Epsilon"
+      }
+    },
+    "powerLaw": {
+      "title": "powerLaw",
+      "parameters": {
+        "powerLaw.nuMax.dimensions": "Nu Max",
+        "powerLaw.nuMax.epsilon": "Nu Max Epsilon",
+        "powerLaw.nuMin.dimensions": "Nu Min",
+        "powerLaw.nuMin.epsilon": "Nu Min Epsilon",
+        "powerLaw.k.dimensions": "k",
+        "powerLaw.k.epsilon": "k Epsilon",
+        "powerLaw.n.dimensions": "n",
+        "powerLaw.n.epsilon": "n Epsilon"
+      }
+    },
+    "HerschelBulkley": {
+      "title": "HerschelBulkley",
+      "parameters": {
+        "HerschelBulkley.nu0.dimensions": "Nu 0",
+        "HerschelBulkley.nu0.epsilon": "Nu 0 Epsilon",
+        "HerschelBulkley.tau0.dimensions": "Tau 0",
+        "HerschelBulkley.tau0.epsilon": "Tau 0 Epsilon",
+        "HerschelBulkley.k.dimensions": "k",
+        "HerschelBulkley.k.epsilon": "k Epsilon",
+        "HerschelBulkley.n.dimensions": "n",
+        "HerschelBulkley.n.epsilon": "n Epsilon"
+      }
+    },
+    "Casson": {
+      "title": "Casson",
+      "parameters": {
+        "Casson.m.dimensions": "m",
+        "Casson.m.epsilon": "m Epsilon",
+        "Casson.tau0.dimensions": "Tau 0",
+        "Casson.tau0.epsilon": "Tau 0 Epsilon",
+        "Casson.nuMax.dimensions": "nuMax",
+        "Casson.nuMax.epsilon": "nuMax Epsilon",
+        "Casson.nuMin.dimensions": "nuMin",
+        "Casson.nuMin.epsilon": "nuMin Epsilon"
+      }
+    },
+    "wallBounds": {
+      "title"  : "Bounds of wind tunnel",
+      "parameters": {
+        "tunnel.bounds.x": "X (min, max)",
+        "tunnel.bounds.y": "Y (min, max)",
+        "tunnel.bounds.z": "Z (min, max)"
+      }
+    },
+    "wallAssign": {
+      "title"  : "Walls orientations",
+      "parameters": {
+        "tunnel.walls.x.plus": "Wall normal to X (positive side)",
+        "tunnel.walls.x.minus": "Wall normal to X (negative side)",
+        "tunnel.walls.y.plus": "Wall normal to Y (positive side)",
+        "tunnel.walls.y.minus": "Wall normal to Y (negative side)",
+        "tunnel.walls.z.plus": "Wall normal to Z (positive side)",
+        "tunnel.walls.z.minus": "Wall normal to Z (negative side)"
+      }
+    },
+    "controldictTime": {
+      "title"  : "Time control",
+      "parameters": {
+        "controldict.time.startFrom": "Start time of the simulation",
+        "controldict.time.startTime": "Start time",
+        "controldict.time.end": "End time",
+        "controldict.time.delta": "Delta time"
+      }
+    },
+    "controldictWrite": {
+      "title": "Output parameters",
+      "parameters": {
+        "controldict.write.control": "Write control",
+        "controldict.write.interval": "Write interval",
+        "controldict.write.format": "Write format",
+        "controldict.write.precision": "Write precision",
+        "controldict.write.gzip": "Compress",
+        "controldict.write.time.format": "Time format",
+        "controldict.write.time.precision": "Time precision",
+        "controldict.write.graph.format": "Graph format"
+      }
+    },
+    "decomposeParDict": {
+      "title": "Decomposition",
+      "parameters": {
+        "decomposeParDict.subdomains": "Number of subdomains",
+        "decomposeParDict.method": "Method"
+      }
+    },
+    "decomposition_simpleCoeffs": {
+      "title": "Simple Coeffs",
+      "parameters": {
+        "decomposeParDict.simpleCoeffs.n": "N",
+        "decomposeParDict.simpleCoeffs.delta": "Delta"
+      }
+    },
+    "decomposition_hierarchicalCoeffs": {
+      "title": "Hierarchical Coeffs",
+      "parameters": {
+        "decomposeParDict.hierarchicalCoeffs.n": "N",
+        "decomposeParDict.hierarchicalCoeffs.delta": "Delta",
+         "decomposeParDict.hierarchicalCoeffs.order": "Order"
+      }
+    },
+    "forceCoeffs": {
+      "title": "Force analysis",
+      "parameters": {
+        "forceCoeffs.write.control": "Write control",
+        "forceCoeffs.write.interval": "Write interval",
+        "forceCoeffs.write.log": "Log",
+        "forceCoeffs.liftDir": "liftDir",
+        "forceCoeffs.dragDir": "dragDir",
+        "forceCoeffs.CofR": "CofR",
+        "forceCoeffs.pitchAxis": "pitchAxis",
+        "forceCoeffs.magUInf": "magUInf",
+        "forceCoeffs.lRef": "lRef",
+        "forceCoeffs.Aref": "Aref"
+      }
+    },
+    "solver-p": {
+      "title": "p",
+      "parameters": {
+        "solver.p.solver": "Solver type",
+        "solver.p.smoother": "Smoother",
+        "solver.p.tolerance": "Tolerance",
+        "solver.p.relTol": "Relative Tolerance"
+      }
+    },
+    "solver-U": {
+      "title": "U",
+      "parameters": {
+        "solver.U.solver": "Solver type",
+        "solver.U.smoother": "Smoother",
+        "solver.U.tolerance": "Tolerance",
+        "solver.U.relTol": "Relative Tolerance",
+        "solver.U.nSweeps": "nSweeps"
+      }
+    },
+    "solver-k": {
+      "title": "k",
+      "parameters": {
+        "solver.k.solver": "Solver type",
+        "solver.k.smoother": "Smoother",
+        "solver.k.tolerance": "Tolerance",
+        "solver.k.relTol": "Relative Tolerance",
+        "solver.k.nSweeps": "nSweeps"
+      }
+    },
+    "solver-omega": {
+      "title": "omega",
+      "parameters": {
+        "solver.omega.solver": "Solver type",
+        "solver.omega.smoother": "Smoother",
+        "solver.omega.tolerance": "Tolerance",
+        "solver.omega.relTol": "Relative Tolerance",
+        "solver.omega.nSweeps": "nSweeps"
+      }
+    },
+    "correctors": {
+      "title": "Correctors",
+      "parameters": {
+        "correctors.simple.nNonOrthogonalCorrectors": "Simple nNonOrthogonalCorrectors",
+        "correctors.simple..consistent": "Simple consistent",
+        "correctors.potentialFlow.nNonOrthogonalCorrectors": "PotentialFlow nNonOrthogonalCorrectors"
+      }
+    },
+    "relaxationFactors": {
+      "title": "Relaxation Factors",
+      "parameters": {
+        "relaxationFactors.equations.U": "U",
+        "relaxationFactors.equations.k": "k",
+        "relaxationFactors.equations.omega": "omega"
+      }
+    },
+    "meshQuality": {
+      "title": "Mesh quality",
+      "parameters": {
+        "meshQuality.minFaceWeight": "minFaceWeight"
+      }
+    },
+    "meshRefinement": {
+      "title": "Mesh Refinement",
+      "parameters": {
+        "meshRefinement.refinementBox.type": "Type"
+      }
+    },
+    "searchableBox": {
+      "title": "Box",
+      "parameters": {
+        "meshRefinement.refinementBox.min": "Refinement Box (min[x,y,z])",
+        "meshRefinement.refinementBox.max": "Refinement Box (max[x,y,z])"
+      }
+    },
+    "searchableSphere": {
+      "title": "Sphere",
+      "parameters": {
+        "meshRefinement.refinementSphere.center": "Refinement Sphere (center)",
+        "meshRefinement.refinementSphere.radius": "Refinement Sphere (radius)"
+      }
+    },
+    "runtime" : {
+      "title": "Runtime step",
+      "parameters": {
+        "runtime.step": "Type"
+      }
+    },
+    "castellatedMeshControls": {
+      "title": "Castellated Mesh Controls",
+      "parameters": {
+        "castellatedMeshControls.maxLocalCells": "maxLocalCells",
+        "castellatedMeshControls.maxGlobalCells": "maxGlobalCells",
+        "castellatedMeshControls.minRefinementCells": "minRefinementCells",
+        "castellatedMeshControls.maxLoadUnbalance": "maxLoadUnbalance",
+        "castellatedMeshControls.nCellsBetweenLevels": "nCellsBetweenLevels",
+        "castellatedMeshControls.resolveFeatureAngle": "resolveFeatureAngle",
+        "castellatedMeshControls.locationInMesh": "locationInMesh",
+        "castellatedMeshControls.allowFreeStandingZoneFaces": "allowFreeStandingZoneFaces"
+      }
+    },
+    "snapControls": {
+      "title": "Snap Controls",
+      "parameters": {
+        "snapControls.nSmoothPatch": "nSmoothPatch",
+        "snapControls.tolerance": "tolerance",
+        "snapControls.nSolveIter": "nSolveIter",
+        "snapControls.nRelaxIter": "nRelaxIter",
+        "snapControls.nFeatureSnapIter": "nFeatureSnapIter",
+        "snapControls.implicitFeatureSnap": "implicitFeatureSnap",
+        "snapControls.explicitFeatureSnap": "explicitFeatureSnap",
+        "snapControls.multiRegionFeatureSnap": "multiRegionFeatureSnap"
+      }
+    },
+    "addLayersControls": {
+      "title": "Add layers Controls",
+      "parameters": {
+        "addLayersControls.relativeSizes": "relativeSizes",
+        "addLayersControls.expansionRatio": "expansionRatio",
+        "addLayersControls.finalLayerThickness": "finalLayerThickness",
+        "addLayersControls.minThickness": "minThickness",
+        "addLayersControls.nGrow": "nGrow",
+        "addLayersControls.featureAngle": "featureAngle",
+        "addLayersControls.slipFeatureAngle": "slipFeatureAngle",
+        "addLayersControls.nRelaxIter": "nRelaxIter",
+        "addLayersControls.nSmoothSurfaceNormals": "nSmoothSurfaceNormals",
+        "addLayersControls.nSmoothNormals": "nSmoothNormals",
+        "addLayersControls.nSmoothThickness": "nSmoothThickness",
+        "addLayersControls.maxFaceThicknessRatio": "maxFaceThicknessRatio",
+        "addLayersControls.maxThicknessToMedialRatio": "maxThicknessToMedialRatio",
+        "addLayersControls.minMedianAxisAngle": "minMedianAxisAngle",
+        "addLayersControls.nBufferCellsNoExtrude": "nBufferCellsNoExtrude",
+        "addLayersControls.nLayerIter": "nLayerIter"
+      }
     }
+  }
 }

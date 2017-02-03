@@ -17,7 +17,7 @@ FoamFile
 
 #include        "include/initialConditions"
 
-dimensions      [{{{vector U.dimensions}}}];
+dimensions      [{{{[../vector] U.dimensions}}}];
 
 internalField   uniform $flowVelocity;
 
@@ -31,7 +31,7 @@ boundaryField
     outlet
     {
         type            inletOutlet;
-        inletValue      uniform ({{{vector U.inletValue}}});
+        inletValue      uniform ({{{[../vector] U.inletValue}}});
         value           $internalField;
     }
 

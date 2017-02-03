@@ -17,13 +17,13 @@ forceCoeffs1
 
     log            {{{forceCoeffs.log}}};
 
-    patches     ({{{vector forceCoeffs.patches}}});
+    patches     ({{{[../vector] forceCoeffs.patches}}});
     rho         rhoInf;      // Indicates incompressible
     rhoInf      1;           // Redundant for incompressible
-    liftDir     ({{{vector forceCoeffs.liftDir}}});
-    dragDir     ({{{vector forceCoeffs.dragDir}}});
-    CofR        ({{{vector forceCoeffs.CofR}}});
-    pitchAxis   ({{{vector forceCoeffs.pitchAxis}}});
+    liftDir     ({{{[../vector] forceCoeffs.liftDir}}});
+    dragDir     ({{{[../vector] forceCoeffs.dragDir}}});
+    CofR        ({{{[../vector] forceCoeffs.CofR}}});
+    pitchAxis   ({{{[../vector] forceCoeffs.pitchAxis}}});
     magUInf     {{{forceCoeffs.magUInf}}};
     lRef        {{{forceCoeffs.lRef}}};
     Aref        {{{forceCoeffs.Aref}}};

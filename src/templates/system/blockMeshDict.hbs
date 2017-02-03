@@ -19,19 +19,19 @@ convertToMeters 1;
 
 vertices
 (
-    ({{item tunnel.bounds 0}} {{item tunnel.bounds 2}} {{item tunnel.bounds 4}})
-    ({{item tunnel.bounds 1}} {{item tunnel.bounds 2}} {{item tunnel.bounds 4}})
-    ({{item tunnel.bounds 1}} {{item tunnel.bounds 3}} {{item tunnel.bounds 4}})
-    ({{item tunnel.bounds 0}} {{item tunnel.bounds 3}} {{item tunnel.bounds 4}})
-    ({{item tunnel.bounds 0}} {{item tunnel.bounds 2}} {{item tunnel.bounds 5}})
-    ({{item tunnel.bounds 1}} {{item tunnel.bounds 2}} {{item tunnel.bounds 5}})
-    ({{item tunnel.bounds 1}} {{item tunnel.bounds 3}} {{item tunnel.bounds 5}})
-    ({{item tunnel.bounds 0}} {{item tunnel.bounds 3}} {{item tunnel.bounds 5}})
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 4}})
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 5}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 2}} {{[../item] tunnel.bounds 5}})
+    ({{[../item] tunnel.bounds 1}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 5}})
+    ({{[../item] tunnel.bounds 0}} {{[../item] tunnel.bounds 3}} {{[../item] tunnel.bounds 5}})
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ({{{delta tunnel.bounds}}}) simpleGrading ({{{vector tunnel.simpleGrading}}})
+    hex (0 1 2 3 4 5 6 7) ({{{[../delta] tunnel.bounds}}}) simpleGrading ({{{[../vector] tunnel.simpleGrading}}})
 );
 
 edges
