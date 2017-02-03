@@ -113,8 +113,8 @@ if (program.input && program.output && !program.gui) {
     })
     .post(function(req, res) {
         //receive new file content and update the file at program.input
-        mkdir('-p', toAbsolutePath(program.output));
         for (var key in req.body.results) {
+            mkdir('-p', toAbsolutePath(path.dirname(path.join(program.output, key))));
             fs.writeFileSync(path.join(program.output, key), req.body.results[key]);
         }
 
