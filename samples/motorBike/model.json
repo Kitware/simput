@@ -1,0 +1,1224 @@
+{
+    "input": true,
+    "data": {
+        "type": "openfoam-windtunnel",
+        "data": {},
+        "InitialConditions": [
+            {
+                "name": "Boundary conditions",
+                "initconst": {
+                    "initialConditions.flowVelocity": {
+                        "id": "initconst.initialConditions.flowVelocity",
+                        "value": [
+                            20,
+                            0,
+                            0
+                        ]
+                    },
+                    "initialConditions.pressure": {
+                        "id": "initconst.initialConditions.pressure",
+                        "value": [
+                            0
+                        ]
+                    },
+                    "initialConditions.turbulentKE": {
+                        "id": "initconst.initialConditions.turbulentKE",
+                        "value": [
+                            0.24
+                        ]
+                    },
+                    "initialConditions.turbulentOmega": {
+                        "id": "initconst.initialConditions.turbulentOmega",
+                        "value": [
+                            1.78
+                        ]
+                    }
+                },
+                "initfields": {
+                    "fields.k.dimensions": {
+                        "id": "initfields.fields.k.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -2,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "fields.nut.dimensions": {
+                        "id": "initfields.fields.nut.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "fields.omega.dimensions": {
+                        "id": "initfields.fields.omega.dimensions",
+                        "value": [
+                            0,
+                            0,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "fields.p.dimensions": {
+                        "id": "initfields.fields.p.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -2,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "fields.U.dimensions": {
+                        "id": "initfields.fields.U.dimensions",
+                        "value": [
+                            0,
+                            1,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "fields.U.inletValue": {
+                        "id": "initfields.fields.U.inletValue",
+                        "value": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                },
+                "transport": {
+                    "transport.model": {
+                        "id": "transport.transport.model",
+                        "value": [
+                            "Newtonian"
+                        ]
+                    }
+                },
+                "Newtonian": {
+                    "Newtonian.nu.dimensions": {
+                        "id": "Newtonian.Newtonian.nu.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "Newtonian.nu.epsilon": {
+                        "id": "Newtonian.Newtonian.nu.epsilon",
+                        "value": [
+                            0.000015
+                        ]
+                    }
+                },
+                "BirdCarreau": {
+                    "BirdCarreau.nu0.dimensions": {
+                        "id": "BirdCarreau.BirdCarreau.nu0.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "BirdCarreau.nu0.epsilon": {
+                        "id": "BirdCarreau.BirdCarreau.nu0.epsilon",
+                        "value": [
+                            0.001
+                        ]
+                    },
+                    "BirdCarreau.nuInf.dimensions": {
+                        "id": "BirdCarreau.BirdCarreau.nuInf.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "BirdCarreau.nuInf.epsilon": {
+                        "id": "BirdCarreau.BirdCarreau.nuInf.epsilon",
+                        "value": [
+                            0.00001
+                        ]
+                    },
+                    "BirdCarreau.k.dimensions": {
+                        "id": "BirdCarreau.BirdCarreau.k.dimensions",
+                        "value": [
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "BirdCarreau.k.epsilon": {
+                        "id": "BirdCarreau.BirdCarreau.k.epsilon",
+                        "value": [
+                            1
+                        ]
+                    },
+                    "BirdCarreau.n.dimensions": {
+                        "id": "BirdCarreau.BirdCarreau.n.dimensions",
+                        "value": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "BirdCarreau.n.epsilon": {
+                        "id": "BirdCarreau.BirdCarreau.n.epsilon",
+                        "value": [
+                            0.5
+                        ]
+                    }
+                },
+                "CrossPowerLaw": {
+                    "CrossPowerLaw.nu0.dimensions": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.nu0.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "CrossPowerLaw.nu0.epsilon": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.nu0.epsilon",
+                        "value": [
+                            0.001
+                        ]
+                    },
+                    "CrossPowerLaw.nuInf.dimensions": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.nuInf.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "CrossPowerLaw.nuInf.epsilon": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.nuInf.epsilon",
+                        "value": [
+                            0.00001
+                        ]
+                    },
+                    "CrossPowerLaw.m.dimensions": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.m.dimensions",
+                        "value": [
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "CrossPowerLaw.m.epsilon": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.m.epsilon",
+                        "value": [
+                            1
+                        ]
+                    },
+                    "CrossPowerLaw.n.dimensions": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.n.dimensions",
+                        "value": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "CrossPowerLaw.n.epsilon": {
+                        "id": "CrossPowerLaw.CrossPowerLaw.n.epsilon",
+                        "value": [
+                            0.5
+                        ]
+                    }
+                },
+                "powerLaw": {
+                    "powerLaw.nuMax.dimensions": {
+                        "id": "powerLaw.powerLaw.nuMax.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "powerLaw.nuMax.epsilon": {
+                        "id": "powerLaw.powerLaw.nuMax.epsilon",
+                        "value": [
+                            0.001
+                        ]
+                    },
+                    "powerLaw.nuMin.dimensions": {
+                        "id": "powerLaw.powerLaw.nuMin.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "powerLaw.nuMin.epsilon": {
+                        "id": "powerLaw.powerLaw.nuMin.epsilon",
+                        "value": [
+                            0.00001
+                        ]
+                    },
+                    "powerLaw.k.dimensions": {
+                        "id": "powerLaw.powerLaw.k.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "powerLaw.k.epsilon": {
+                        "id": "powerLaw.powerLaw.k.epsilon",
+                        "value": [
+                            0.00001
+                        ]
+                    },
+                    "powerLaw.n.dimensions": {
+                        "id": "powerLaw.powerLaw.n.dimensions",
+                        "value": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "powerLaw.n.epsilon": {
+                        "id": "powerLaw.powerLaw.n.epsilon",
+                        "value": [
+                            1
+                        ]
+                    }
+                },
+                "HerschelBulkley": {
+                    "HerschelBulkley.nu0.dimensions": {
+                        "id": "HerschelBulkley.HerschelBulkley.nu0.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "HerschelBulkley.nu0.epsilon": {
+                        "id": "HerschelBulkley.HerschelBulkley.nu0.epsilon",
+                        "value": [
+                            0.001
+                        ]
+                    },
+                    "HerschelBulkley.tau0.dimensions": {
+                        "id": "HerschelBulkley.HerschelBulkley.tau0.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -2,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "HerschelBulkley.tau0.epsilon": {
+                        "id": "HerschelBulkley.HerschelBulkley.tau0.epsilon",
+                        "value": [
+                            1
+                        ]
+                    },
+                    "HerschelBulkley.k.dimensions": {
+                        "id": "HerschelBulkley.HerschelBulkley.k.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "HerschelBulkley.k.epsilon": {
+                        "id": "HerschelBulkley.HerschelBulkley.k.epsilon",
+                        "value": [
+                            0.00001
+                        ]
+                    },
+                    "HerschelBulkley.n.dimensions": {
+                        "id": "HerschelBulkley.HerschelBulkley.n.dimensions",
+                        "value": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "HerschelBulkley.n.epsilon": {
+                        "id": "HerschelBulkley.HerschelBulkley.n.epsilon",
+                        "value": [
+                            1
+                        ]
+                    }
+                },
+                "Casson": {
+                    "Casson.m.dimensions": {
+                        "id": "Casson.Casson.m.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "Casson.m.epsilon": {
+                        "id": "Casson.Casson.m.epsilon",
+                        "value": [
+                            0.000003934986
+                        ]
+                    },
+                    "Casson.tau0.dimensions": {
+                        "id": "Casson.Casson.tau0.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -2,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "Casson.tau0.epsilon": {
+                        "id": "Casson.Casson.tau0.epsilon",
+                        "value": [
+                            0.0000029032
+                        ]
+                    },
+                    "Casson.nuMax.dimensions": {
+                        "id": "Casson.Casson.nuMax.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "Casson.nuMax.epsilon": {
+                        "id": "Casson.Casson.nuMax.epsilon",
+                        "value": [
+                            0.0000133333
+                        ]
+                    },
+                    "Casson.nuMin.dimensions": {
+                        "id": "Casson.Casson.nuMin.dimensions",
+                        "value": [
+                            0,
+                            2,
+                            -1,
+                            0,
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "Casson.nuMin.epsilon": {
+                        "id": "Casson.Casson.nuMin.epsilon",
+                        "value": [
+                            0.0000039047
+                        ]
+                    }
+                }
+            }
+        ],
+        "WindTunnel": [
+            {
+                "name": "Wind tunnel definition",
+                "wallBounds": {
+                    "tunnel.bounds.x": {
+                        "id": "wallBounds.tunnel.bounds.x",
+                        "value": [
+                            -5,
+                            15
+                        ]
+                    },
+                    "tunnel.bounds.y": {
+                        "id": "wallBounds.tunnel.bounds.y",
+                        "value": [
+                            -4,
+                            4
+                        ]
+                    },
+                    "tunnel.bounds.z": {
+                        "id": "wallBounds.tunnel.bounds.z",
+                        "value": [
+                            0,
+                            8
+                        ]
+                    }
+                },
+                "wallAssign": {
+                    "tunnel.walls.x.plus": {
+                        "id": "wallAssign.tunnel.walls.x.plus",
+                        "value": [
+                            "outlet"
+                        ]
+                    },
+                    "tunnel.walls.x.minus": {
+                        "id": "wallAssign.tunnel.walls.x.minus",
+                        "value": [
+                            "inlet"
+                        ]
+                    },
+                    "tunnel.walls.y.plus": {
+                        "id": "wallAssign.tunnel.walls.y.plus",
+                        "value": [
+                            "rightWall"
+                        ]
+                    },
+                    "tunnel.walls.y.minus": {
+                        "id": "wallAssign.tunnel.walls.y.minus",
+                        "value": [
+                            "leftWall"
+                        ]
+                    },
+                    "tunnel.walls.z.plus": {
+                        "id": "wallAssign.tunnel.walls.z.plus",
+                        "value": [
+                            "topWall"
+                        ]
+                    },
+                    "tunnel.walls.z.minus": {
+                        "id": "wallAssign.tunnel.walls.z.minus",
+                        "value": [
+                            "bottomWall"
+                        ]
+                    }
+                }
+            }
+        ],
+        "Parameters": [
+            {
+                "name": "Parameters",
+                "controldictTime": {
+                    "controldictTimeStartFrom": {
+                        "id": "controldictTime.controldictTimeStartFrom",
+                        "value": [
+                            "startTime"
+                        ]
+                    },
+                    "controldict.time.startTime": {
+                        "id": "controldictTime.controldict.time.startTime",
+                        "value": [
+                            0
+                        ]
+                    },
+                    "controldict.time.end": {
+                        "id": "controldictTime.controldict.time.end",
+                        "value": [
+                            500
+                        ]
+                    },
+                    "controldict.time.delta": {
+                        "id": "controldictTime.controldict.time.delta",
+                        "value": [
+                            1
+                        ]
+                    }
+                },
+                "controldictWrite": {
+                    "controldict.write.control": {
+                        "id": "controldictWrite.controldict.write.control",
+                        "value": [
+                            "timeStep"
+                        ]
+                    },
+                    "controldict.write.interval": {
+                        "id": "controldictWrite.controldict.write.interval",
+                        "value": [
+                            100
+                        ]
+                    },
+                    "controldict.write.format": {
+                        "id": "controldictWrite.controldict.write.format",
+                        "value": [
+                            "binary"
+                        ]
+                    },
+                    "controldict.write.precision": {
+                        "id": "controldictWrite.controldict.write.precision",
+                        "value": [
+                            6
+                        ]
+                    },
+                    "controldict.write.gzip": {
+                        "id": "controldictWrite.controldict.write.gzip",
+                        "value": [
+                            "yes"
+                        ]
+                    },
+                    "controldict.write.time.format": {
+                        "id": "controldictWrite.controldict.write.time.format",
+                        "value": [
+                            "general"
+                        ]
+                    },
+                    "controldict.write.time.precision": {
+                        "id": "controldictWrite.controldict.write.time.precision",
+                        "value": [
+                            6
+                        ]
+                    },
+                    "controldict.write.graph.format": {
+                        "id": "controldictWrite.controldict.write.graph.format",
+                        "value": [
+                            "raw"
+                        ]
+                    }
+                }
+            }
+        ],
+        "Solvers": [
+            {
+                "name": "Solvers",
+                "solver-p": {
+                    "solver.p.solver": {
+                        "id": "solver-p.solver.p.solver",
+                        "value": [
+                            "GAMG"
+                        ]
+                    },
+                    "solver.p.smoother": {
+                        "id": "solver-p.solver.p.smoother",
+                        "value": [
+                            "GaussSeidel"
+                        ]
+                    },
+                    "solver.p.tolerance": {
+                        "id": "solver-p.solver.p.tolerance",
+                        "value": [
+                            1e-7
+                        ]
+                    },
+                    "solver.p.relTol": {
+                        "id": "solver-p.solver.p.relTol",
+                        "value": [
+                            0.01
+                        ]
+                    }
+                },
+                "solver-U": {
+                    "solver.U.solver": {
+                        "id": "solver-U.solver.U.solver",
+                        "value": [
+                            "smoothSolver"
+                        ]
+                    },
+                    "solver.U.smoother": {
+                        "id": "solver-U.solver.U.smoother",
+                        "value": [
+                            "GaussSeidel"
+                        ]
+                    },
+                    "solver.U.tolerance": {
+                        "id": "solver-U.solver.U.tolerance",
+                        "value": [
+                            1e-8
+                        ]
+                    },
+                    "solver.U.relTol": {
+                        "id": "solver-U.solver.U.relTol",
+                        "value": [
+                            0.1
+                        ]
+                    },
+                    "solver.U.nSweeps": {
+                        "id": "solver-U.solver.U.nSweeps",
+                        "value": [
+                            1
+                        ]
+                    }
+                },
+                "solver-k": {
+                    "solver.k.solver": {
+                        "id": "solver-k.solver.k.solver",
+                        "value": [
+                            "smoothSolver"
+                        ]
+                    },
+                    "solver.k.smoother": {
+                        "id": "solver-k.solver.k.smoother",
+                        "value": [
+                            "GaussSeidel"
+                        ]
+                    },
+                    "solver.k.tolerance": {
+                        "id": "solver-k.solver.k.tolerance",
+                        "value": [
+                            1e-8
+                        ]
+                    },
+                    "solver.k.relTol": {
+                        "id": "solver-k.solver.k.relTol",
+                        "value": [
+                            0.1
+                        ]
+                    },
+                    "solver.k.nSweeps": {
+                        "id": "solver-k.solver.k.nSweeps",
+                        "value": [
+                            1
+                        ]
+                    }
+                },
+                "solver-omega": {
+                    "solver.omega.solver": {
+                        "id": "solver-omega.solver.omega.solver",
+                        "value": [
+                            "smoothSolver"
+                        ]
+                    },
+                    "solver.omega.smoother": {
+                        "id": "solver-omega.solver.omega.smoother",
+                        "value": [
+                            "GaussSeidel"
+                        ]
+                    },
+                    "solver.omega.tolerance": {
+                        "id": "solver-omega.solver.omega.tolerance",
+                        "value": [
+                            1e-8
+                        ]
+                    },
+                    "solver.omega.relTol": {
+                        "id": "solver-omega.solver.omega.relTol",
+                        "value": [
+                            0.1
+                        ]
+                    },
+                    "solver.omega.nSweeps": {
+                        "id": "solver-omega.solver.omega.nSweeps",
+                        "value": [
+                            1
+                        ]
+                    }
+                },
+                "correctors": {
+                    "correctors.simple.nNonOrthogonalCorrectors": {
+                        "id": "correctors.correctors.simple.nNonOrthogonalCorrectors",
+                        "value": [
+                            0
+                        ]
+                    },
+                    "correctors.simple..consistent": {
+                        "id": "correctors.correctors.simple..consistent",
+                        "value": [
+                            "yes"
+                        ]
+                    },
+                    "correctors.potentialFlow.nNonOrthogonalCorrectors": {
+                        "id": "correctors.correctors.potentialFlow.nNonOrthogonalCorrectors",
+                        "value": [
+                            10
+                        ]
+                    }
+                },
+                "relaxationFactors": {
+                    "relaxationFactors.equations.U": {
+                        "id": "relaxationFactors.relaxationFactors.equations.U",
+                        "value": [
+                            0.9
+                        ]
+                    },
+                    "relaxationFactors.equations.k": {
+                        "id": "relaxationFactors.relaxationFactors.equations.k",
+                        "value": [
+                            0.7
+                        ]
+                    },
+                    "relaxationFactors.equations.omega": {
+                        "id": "relaxationFactors.relaxationFactors.equations.omega",
+                        "value": [
+                            0.7
+                        ]
+                    }
+                }
+            }
+        ],
+        "Decomposition": [
+            {
+                "name": "Decomposition",
+                "decomposeParDict": {
+                    "decomposeParDict.subdomains": {
+                        "id": "decomposeParDict.decomposeParDict.subdomains",
+                        "value": [
+                            6
+                        ]
+                    },
+                    "decomposeParDict.method": {
+                        "id": "decomposeParDict.decomposeParDict.method",
+                        "value": [
+                            "hierarchical"
+                        ]
+                    }
+                },
+                "decomposition_simpleCoeffs": {
+                    "decomposeParDict.simpleCoeffs.n": {
+                        "id": "decomposition_simpleCoeffs.decomposeParDict.simpleCoeffs.n",
+                        "value": [
+                            4,
+                            1,
+                            1
+                        ]
+                    },
+                    "decomposeParDict.simpleCoeffs.delta": {
+                        "id": "decomposition_simpleCoeffs.decomposeParDict.simpleCoeffs.delta",
+                        "value": [
+                            0.001
+                        ]
+                    }
+                },
+                "decomposition_hierarchicalCoeffs": {
+                    "decomposeParDict.hierarchicalCoeffs.n": {
+                        "id": "decomposition_hierarchicalCoeffs.decomposeParDict.hierarchicalCoeffs.n",
+                        "value": [
+                            3,
+                            2,
+                            1
+                        ]
+                    },
+                    "decomposeParDict.hierarchicalCoeffs.delta": {
+                        "id": "decomposition_hierarchicalCoeffs.decomposeParDict.hierarchicalCoeffs.delta",
+                        "value": [
+                            0.001
+                        ]
+                    },
+                    "decomposeParDict.hierarchicalCoeffs.order": {
+                        "id": "decomposition_hierarchicalCoeffs.decomposeParDict.hierarchicalCoeffs.order",
+                        "value": [
+                            "xyz"
+                        ]
+                    }
+                },
+                "forceCoeffs": {
+                    "forceCoeffs.write.control": {
+                        "id": "forceCoeffs.forceCoeffs.write.control",
+                        "value": [
+                            "timeStep"
+                        ]
+                    },
+                    "forceCoeffs.write.interval": {
+                        "id": "forceCoeffs.forceCoeffs.write.interval",
+                        "value": [
+                            1
+                        ]
+                    },
+                    "forceCoeffs.write.log": {
+                        "id": "forceCoeffs.forceCoeffs.write.log",
+                        "value": [
+                            "yes"
+                        ]
+                    },
+                    "forceCoeffs.liftDir": {
+                        "id": "forceCoeffs.forceCoeffs.liftDir",
+                        "value": [
+                            0,
+                            0,
+                            1
+                        ]
+                    },
+                    "forceCoeffs.dragDir": {
+                        "id": "forceCoeffs.forceCoeffs.dragDir",
+                        "value": [
+                            1,
+                            0,
+                            0
+                        ]
+                    },
+                    "forceCoeffs.CofR": {
+                        "id": "forceCoeffs.forceCoeffs.CofR",
+                        "value": [
+                            0.72,
+                            0,
+                            0
+                        ]
+                    },
+                    "forceCoeffs.pitchAxis": {
+                        "id": "forceCoeffs.forceCoeffs.pitchAxis",
+                        "value": [
+                            0,
+                            1,
+                            0
+                        ]
+                    },
+                    "forceCoeffs.magUInf": {
+                        "id": "forceCoeffs.forceCoeffs.magUInf",
+                        "value": [
+                            20
+                        ]
+                    },
+                    "forceCoeffs.lRef": {
+                        "id": "forceCoeffs.forceCoeffs.lRef",
+                        "value": [
+                            1.42
+                        ]
+                    },
+                    "forceCoeffs.Aref": {
+                        "id": "forceCoeffs.forceCoeffs.Aref",
+                        "value": [
+                            0.75
+                        ]
+                    }
+                }
+            }
+        ],
+        "Mesh": [
+            {
+                "name": "Mesh generation",
+                "meshQuality": {
+                    "meshQuality.minFaceWeight": {
+                        "id": "meshQuality.meshQuality.minFaceWeight",
+                        "value": [
+                            0.02
+                        ]
+                    }
+                },
+                "meshRefinement": {
+                    "meshRefinement.refinementBox.type": {
+                        "id": "meshRefinement.meshRefinement.refinementBox.type",
+                        "value": [
+                            "searchableBox"
+                        ]
+                    }
+                },
+                "searchableBox": {
+                    "meshRefinement.refinementBox.min": {
+                        "id": "searchableBox.meshRefinement.refinementBox.min",
+                        "value": [
+                            -1,
+                            -0.7,
+                            0
+                        ]
+                    },
+                    "meshRefinement.refinementBox.max": {
+                        "id": "searchableBox.meshRefinement.refinementBox.max",
+                        "value": [
+                            8,
+                            0.7,
+                            2.5
+                        ]
+                    }
+                },
+                "searchableSphere": {
+                    "meshRefinement.refinementSphere.center": {
+                        "id": "searchableSphere.meshRefinement.refinementSphere.center",
+                        "value": [
+                            0,
+                            0,
+                            0
+                        ]
+                    },
+                    "meshRefinement.refinementSphere.radius": {
+                        "id": "searchableSphere.meshRefinement.refinementSphere.radius",
+                        "value": [
+                            1.05
+                        ]
+                    }
+                }
+            }
+        ],
+        "castellatedMeshControls": [
+            {
+                "name": "Castellated Mesh Controls",
+                "castellatedMeshControls": {
+                    "castellatedMeshControls.maxLocalCells": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.maxLocalCells",
+                        "value": [
+                            100000
+                        ]
+                    },
+                    "castellatedMeshControls.maxGlobalCells": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.maxGlobalCells",
+                        "value": [
+                            2000000
+                        ]
+                    },
+                    "castellatedMeshControls.minRefinementCells": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.minRefinementCells",
+                        "value": [
+                            10
+                        ]
+                    },
+                    "castellatedMeshControls.maxLoadUnbalance": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.maxLoadUnbalance",
+                        "value": [
+                            0.1
+                        ]
+                    },
+                    "castellatedMeshControls.nCellsBetweenLevels": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.nCellsBetweenLevels",
+                        "value": [
+                            3
+                        ]
+                    },
+                    "castellatedMeshControls.resolveFeatureAngle": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.resolveFeatureAngle",
+                        "value": [
+                            30
+                        ]
+                    },
+                    "castellatedMeshControls.locationInMesh": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.locationInMesh",
+                        "value": [
+                            3.0001,
+                            3.0001,
+                            0.43
+                        ]
+                    },
+                    "castellatedMeshControls.allowFreeStandingZoneFaces": {
+                        "id": "castellatedMeshControls.castellatedMeshControls.allowFreeStandingZoneFaces",
+                        "value": [
+                            "true"
+                        ]
+                    }
+                }
+            }
+        ],
+        "snapControls": [
+            {
+                "name": "Snap Controls"
+            },
+            {
+                "snapControls": {
+                    "snapControls.nSmoothPatch": {
+                        "id": "snapControls.snapControls.nSmoothPatch",
+                        "value": [
+                            3
+                        ]
+                    },
+                    "snapControls.tolerance": {
+                        "id": "snapControls.snapControls.tolerance",
+                        "value": [
+                            2
+                        ]
+                    },
+                    "snapControls.nSolveIter": {
+                        "id": "snapControls.snapControls.nSolveIter",
+                        "value": [
+                            30
+                        ]
+                    },
+                    "snapControls.nRelaxIter": {
+                        "id": "snapControls.snapControls.nRelaxIter",
+                        "value": [
+                            5
+                        ]
+                    },
+                    "snapControls.nFeatureSnapIter": {
+                        "id": "snapControls.snapControls.nFeatureSnapIter",
+                        "value": [
+                            10
+                        ]
+                    },
+                    "snapControls.implicitFeatureSnap": {
+                        "id": "snapControls.snapControls.implicitFeatureSnap",
+                        "value": [
+                            "false"
+                        ]
+                    },
+                    "snapControls.explicitFeatureSnap": {
+                        "id": "snapControls.snapControls.explicitFeatureSnap",
+                        "value": [
+                            "true"
+                        ]
+                    },
+                    "snapControls.multiRegionFeatureSnap": {
+                        "id": "snapControls.snapControls.multiRegionFeatureSnap",
+                        "value": [
+                            "false"
+                        ]
+                    }
+                }
+            }
+        ],
+        "addLayersControls": [
+            {
+                "name": "Add layers Controls"
+            },
+            {},
+            {
+                "addLayersControls": {
+                    "addLayersControls.relativeSizes": {
+                        "id": "addLayersControls.addLayersControls.relativeSizes",
+                        "value": [
+                            "true"
+                        ]
+                    },
+                    "addLayersControls.expansionRatio": {
+                        "id": "addLayersControls.addLayersControls.expansionRatio",
+                        "value": [
+                            1
+                        ]
+                    },
+                    "addLayersControls.finalLayerThickness": {
+                        "id": "addLayersControls.addLayersControls.finalLayerThickness",
+                        "value": [
+                            0.3
+                        ]
+                    },
+                    "addLayersControls.minThickness": {
+                        "id": "addLayersControls.addLayersControls.minThickness",
+                        "value": [
+                            0.1
+                        ]
+                    },
+                    "addLayersControls.nGrow": {
+                        "id": "addLayersControls.addLayersControls.nGrow",
+                        "value": [
+                            0
+                        ]
+                    },
+                    "addLayersControls.featureAngle": {
+                        "id": "addLayersControls.addLayersControls.featureAngle",
+                        "value": [
+                            60
+                        ]
+                    },
+                    "addLayersControls.slipFeatureAngle": {
+                        "id": "addLayersControls.addLayersControls.slipFeatureAngle",
+                        "value": [
+                            30
+                        ]
+                    },
+                    "addLayersControls.nRelaxIter": {
+                        "id": "addLayersControls.addLayersControls.nRelaxIter",
+                        "value": [
+                            3
+                        ]
+                    },
+                    "addLayersControls.nSmoothSurfaceNormals": {
+                        "id": "addLayersControls.addLayersControls.nSmoothSurfaceNormals",
+                        "value": [
+                            1
+                        ]
+                    },
+                    "addLayersControls.nSmoothNormals": {
+                        "id": "addLayersControls.addLayersControls.nSmoothNormals",
+                        "value": [
+                            3
+                        ]
+                    },
+                    "addLayersControls.nSmoothThickness": {
+                        "id": "addLayersControls.addLayersControls.nSmoothThickness",
+                        "value": [
+                            10
+                        ]
+                    },
+                    "addLayersControls.maxFaceThicknessRatio": {
+                        "id": "addLayersControls.addLayersControls.maxFaceThicknessRatio",
+                        "value": [
+                            0.5
+                        ]
+                    },
+                    "addLayersControls.maxThicknessToMedialRatio": {
+                        "id": "addLayersControls.addLayersControls.maxThicknessToMedialRatio",
+                        "value": [
+                            0.3
+                        ]
+                    },
+                    "addLayersControls.minMedianAxisAngle": {
+                        "id": "addLayersControls.addLayersControls.minMedianAxisAngle",
+                        "value": [
+                            90
+                        ]
+                    },
+                    "addLayersControls.nBufferCellsNoExtrude": {
+                        "id": "addLayersControls.addLayersControls.nBufferCellsNoExtrude",
+                        "value": [
+                            0
+                        ]
+                    },
+                    "addLayersControls.nLayerIter": {
+                        "id": "addLayersControls.addLayersControls.nLayerIter",
+                        "value": [
+                            50
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -260,5 +260,5 @@ module.exports = function convert(dataModel) {
     error = null;
   }
 
-  return { results, error };
+  return { results, error, model: dataModel };
 };
