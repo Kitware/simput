@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-import json, os, sys, errno
+import json, os, sys, errno, stat
 
 def getPath(value):
   if os.path.isabs(value):
