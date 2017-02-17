@@ -26,10 +26,10 @@
       },
       "castellatedMeshControls": {
         "attributes": ["castellatedMeshControls"]
-      }, 
+      },
       "snapControls": {
         "attributes": ["snapControls"]
-      }, 
+      },
       "addLayersControls": {
         "attributes": ["addLayersControls"]
       }
@@ -933,7 +933,7 @@
             "size": 1,
             "default": [0]
           },{
-            "id": "correctors.simple..consistent",
+            "id": "correctors.simple.consistent",
             "type": "string",
             "ui": "enum",
             "size"   : 1,

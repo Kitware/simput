@@ -16,6 +16,7 @@ FoamFile
 
 transportModel  {{{transport.model}}};
 
-nu              [{{{[../vector] transport.dimensions}}}] {{{transport.epsilon}}};
-
+{{#if transport.nu}}
+nu              [{{{[../vector] transport.nu.dimensions}}}] {{{transport.nu.epsilon}}};
+{{/if}}
 // ************************************************************************* //

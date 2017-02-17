@@ -28,5 +28,5 @@ runParallel $(getApplication)
 
 runApplication reconstructParMesh -constant
 runApplication reconstructPar -latestTime
-
+runApplication foamToVTK -allPatches -time '{{{controls.startTime}}}:{{{controls.endTime}}}'
 #------------------------------------------------------------------------------
