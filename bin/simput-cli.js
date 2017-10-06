@@ -113,8 +113,6 @@ if (program.input && program.output && !program.gui) {
     })
     .post(function(req, res) {
 
-	    res.send(JSON.stringify(req.body));
-
         /* Results */
 
         for (var key in req.body.results) {
