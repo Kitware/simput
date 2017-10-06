@@ -112,15 +112,36 @@ if (program.input && program.output && !program.gui) {
         }
     })
     .post(function(req, res) {
-        //receive new file content and update the file at program.input
+
+	    res.send(JSON.stringify(req.body));
+
+        /* Results */
+
         for (var key in req.body.results) {
             mkdir('-p', toAbsolutePath(path.dirname(path.join(program.output, key))));
             fs.writeFileSync(path.join(program.output, key), req.body.results[key]);
         }
 
-        //save the model too
+        /* Copies */
+
+        if (typeof(req.body.copies) !== 'undefined') {
+	        req.body.copies.forEach((filePath) => {
+	            const cleanFilePath = path.join(...filePath.split('/'));
+	            const source = path.join(process.env.PWD, 'types', req.body.model.data.type, 'src', 'templates', cleanFilePath);
+	            const destination = path.join(program.output, cleanFilePath);
+
+		        mkdir('-p', path.dirname(destination));
+		        cp(source, destination);
+            });
+        }
+
+        /* Model */
+
         fs.writeFileSync(path.join(program.output, 'model.json'),
         JSON.stringify(req.body.model, null, '    '));
+
+        /* Return */
+
         res.send('Data saved');
     });
 

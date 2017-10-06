@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-import json, os, sys, errno, stat
+import json, os, sys, errno, stat, shutil
 
 def getPath(value):
   if os.path.isabs(value):
@@ -24,13 +24,28 @@ def unpack(srcFile, destDirectory):
   with open(srcFile) as simputExport:
     data = json.load(simputExport)
     fileContents = data['results'] if 'results' in data else data
+    copies = data['copies'] if 'copies' in data else []
     permissions = data['permissions'] if 'permissions' in data else {}
+
+    # Files
+
     for name in fileContents:
       fileDest = os.path.join(destDirectory, name)
       destDir = os.path.dirname(fileDest)
       mkdirp(destDir)
       with open(fileDest, 'w+') as out:
         out.write(fileContents[name])
+
+    # Copies
+
+    for filePath in copies:
+      sourceFile = os.path.join(os.getcwd(), 'types', data['model']['data']['type'], 'src', 'templates', filePath)
+      destinationFile = os.path.join(destDirectory, filePath);
+
+      mkdirp(os.path.dirname(destinationFile))
+      shutil.copyfile(sourceFile, destinationFile)
+
+    # Permissions
 
     for name in permissions:
       fileDest = os.path.join(destDirectory, name)

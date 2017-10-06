@@ -17,12 +17,28 @@ if (process.argv.length < 4) {
   var jsonContent = require(filePath);
   var content = jsonContent.results || jsonContent;
 
+  /* Results */
+
   Object.keys(content).forEach(function(name) {
     var fileDest = path.join(destPath, name);
     var destDir = path.dirname(fileDest);
     shell.mkdir('-p', destDir);
     fs.writeFileSync(fileDest, content[name]);
   });
+
+  /* Copies */
+
+  if (jsonContent.copies) {
+    jsonContent.copies.forEach(function(filePath) {
+      var sourceFile = path.join(process.cwd(), 'types', jsonContent.model.data.type, 'src', 'templates', filePath);
+      var destinationFile = path.join(destPath, filePath);
+
+      shell.mkdir('-p', path.dirname(destinationFile));
+      shell.cp(sourceFile, destinationFile);
+    });
+  }
+
+  /* Permissions */
 
   if (jsonContent.permissions) {
     var permissions = jsonContent.permissions;

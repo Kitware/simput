@@ -74,6 +74,7 @@ export default React.createClass({
       postJSON('/data', {
         results: results.results,
         model: results.model,
+        copies: results.copies,
       }, (error, data) => {
         if (error) {
           console.log('there was an error');
