@@ -122,7 +122,7 @@ if (program.input && program.output && !program.gui) {
 
         /* Copies */
 
-        if (typeof(req.body.copies) !== 'undefined') {
+        if (req.body.copies) {
 	        req.body.copies.forEach((filePath) => {
 	            const cleanFilePath = path.join(...filePath.split('/'));
 	            const source = path.join(process.env.PWD, 'types', req.body.model.data.type, 'src', 'templates', cleanFilePath);
