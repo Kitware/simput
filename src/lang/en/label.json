@@ -249,6 +249,13 @@
         "meshQuality.minFaceWeight": "minFaceWeight"
       }
     },
+    "meshSize": {
+      "title": "Mesh Size",
+      "parameters": {
+        "meshSize.dimensions": "Dimensions",
+        "meshSize.simpleGrading": "Simple Grading"
+      }
+    },
     "meshRefinement": {
       "title": "Mesh Refinement",
       "parameters": {

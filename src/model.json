@@ -19,7 +19,7 @@
         "attributes": [ "decomposeParDict", "decomposition_simpleCoeffs", "decomposition_hierarchicalCoeffs", "forceCoeffs" ]
       },
       "Mesh": {
-        "attributes": [ "meshQuality", "meshRefinement" ]
+        "attributes": [ "meshSize", "meshQuality", "meshRefinement" ]
       },
       "Runtime": {
         "children": [ "castellatedMeshControls", "snapControls", "addLayersControls" ]
@@ -977,6 +977,23 @@
             "type": "double",
             "size": 1,
             "default": [0.02]
+          }
+        ]
+      },
+      "meshSize": {
+        "parameters": [
+          {
+            "id": "meshSize.dimensions",
+            "type": "integer",
+            "size"   : 3,
+            "layout": "3",
+            "default": [10, 10, 10]
+          },{
+            "id": "meshSize.simpleGrading",
+            "type": "integer",
+            "size"   : 3,
+            "layout": "3",
+            "default": [1, 2, 3]
           }
         ]
       },

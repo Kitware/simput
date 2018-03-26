@@ -348,6 +348,17 @@ module.exports = [
     dst: 'relaxationFactors/equations/omega',
   },
 
+  // meshSize
+  {
+    help: 'Mesh size: dimensions',
+    src: 'data/Mesh/0/meshSize/meshSize.dimensions/value',
+    dst: 'meshSize/dimensions',
+  }, {
+    help: 'Mesh size: simpleGrading',
+    src: 'data/Mesh/0/meshSize/meshSize.simpleGrading/value',
+    dst: 'meshSize/grading',
+  },
+
   // meshQuality
   {
     help: 'Mesh quality: minFaceWeight',

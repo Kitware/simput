@@ -49,7 +49,6 @@ module.exports = {
       -4, 4,
       0, 8,
     ],
-    simpleGrading: [1, 1, 1],
     walls: {
       x: {
         plus: 'outlet',
@@ -157,6 +156,12 @@ module.exports = {
       k: 0.7,
       omega: 0.7,
     },
+  },
+
+  // system/blockMeshDict
+  meshSize: {
+    dimensions: [10, 10, 10],
+    grading: [1, 2, 3],
   },
 
   // system/meshQualityDict
