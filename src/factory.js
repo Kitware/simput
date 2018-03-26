@@ -1,9 +1,9 @@
-import React        from 'react';
-import ReactDOM     from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import App          from './Simput';
-import Labels       from './Labels';
-import { getJSON }  from './network';
+import App from './Simput';
+import Labels from './Labels';
+import { getJSON } from './network';
 
 const container = document.querySelector('.react-content');
 
@@ -41,7 +41,9 @@ function createViewer(url, callback) {
             help={help}
             convert={convert}
             parse={parse}
-          />, container);
+          />,
+          container
+        );
       };
 
       body.appendChild(script);
@@ -78,14 +80,13 @@ function setupChoices(choices) {
             key={index}
             onClick={setupSimput}
             name={el}
-          >{ el }</li>
+          >
+            {el}
+          </li>
         );
       }
 
-      return (
-        <ul>
-          { this.props.choices.map(listamatize) }
-        </ul>);
+      return <ul>{this.props.choices.map(listamatize)}</ul>;
     },
   });
 

@@ -5,7 +5,10 @@ export default class Labels {
     this.allLanguages = module.lang;
     this.model = module.model;
     this.lang = defaultLang;
-    this.activeLabels = (this.allLanguages[this.lang] && this.allLanguages[this.lang]['label.json']) ? this.allLanguages[this.lang]['label.json'] : null;
+    this.activeLabels =
+      this.allLanguages[this.lang] && this.allLanguages[this.lang]['label.json']
+        ? this.allLanguages[this.lang]['label.json']
+        : null;
   }
 
   setLanguage(lang = 'en') {
@@ -18,7 +21,11 @@ export default class Labels {
 
   getView(name) {
     if (this.activeLabels) {
-      return this.activeLabels.views[name] || this.model.views[name].label || 'No label in lang or model';
+      return (
+        this.activeLabels.views[name] ||
+        this.model.views[name].label ||
+        'No label in lang or model'
+      );
     }
     return this.model.views[name].label || 'No label in model';
   }

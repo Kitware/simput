@@ -1,11 +1,11 @@
-import PropertyPanelBlock   from 'paraviewweb/src/React/Properties/PropertyPanel';
-import React                from 'react';
+import PropertyPanelBlock from 'paraviewweb/src/React/Properties/PropertyPanel';
+import React from 'react';
 
-import style                from 'SimputStyle/Simput.mcss';
+import style from 'SimputStyle/Simput.mcss';
 
-import ViewMenu             from '../ViewMenu';
-import modelGenerator       from '../modelGenerator';
-import { postJSON }         from '../network';
+import ViewMenu from '../ViewMenu';
+import modelGenerator from '../modelGenerator';
+import { postJSON } from '../network';
 
 const buttonStates = {
   normal: style.normalStateIcon,
@@ -15,7 +15,6 @@ const buttonStates = {
 };
 
 export default React.createClass({
-
   displayName: 'Simput',
 
   propTypes: {
@@ -30,14 +29,17 @@ export default React.createClass({
   getInitialState() {
     return {
       fullData: this.props.data, // { input: bool, data: { type: '', data: {...}} }
-      panelData: [],     // data for the current property panel
+      panelData: [], // data for the current property panel
       viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
     };
   },
 
   saveModel() {
-    this.downloadFile(JSON.stringify(this.state.fullData.data, null, '    '), this.state.fullData.data.type);
+    this.downloadFile(
+      JSON.stringify(this.state.fullData.data, null, '    '),
+      this.state.fullData.data.type
+    );
   },
 
   parseFile(e) {
@@ -62,7 +64,9 @@ export default React.createClass({
 
   convertModel() {
     if (!this.props.convert) {
-      console.log(`There is no convert function for "${this.state.fullData.type}"`);
+      console.log(
+        `There is no convert function for "${this.state.fullData.type}"`
+      );
       return;
     }
 
@@ -71,21 +75,25 @@ export default React.createClass({
     if (!results.error) {
       console.log('posting', results);
       this.setState({ downloadButtonState: 'busy' });
-      postJSON('/data', {
-        results: results.results,
-        model: results.model,
-        copies: results.copies || [],
-      }, (error, data) => {
-        if (error) {
-          console.log('there was an error');
-          console.log(error.message);
-          this.setState({ downloadButtonState: 'error' });
+      postJSON(
+        '/data',
+        {
+          results: results.results,
+          model: results.model,
+          copies: results.copies || [],
+        },
+        (error, data) => {
+          if (error) {
+            console.log('there was an error');
+            console.log(error.message);
+            this.setState({ downloadButtonState: 'error' });
+          }
+          this.setState({ downloadButtonState: 'success' });
+          setTimeout(() => {
+            this.setState({ downloadButtonState: 'normal' });
+          }, 2000);
         }
-        this.setState({ downloadButtonState: 'success' });
-        setTimeout(() => {
-          this.setState({ downloadButtonState: 'normal' });
-        }, 2000);
-      });
+      );
     } else {
       console.log('There was an error converting: ');
       console.log(results.error.message);
@@ -118,8 +126,14 @@ export default React.createClass({
       return;
     }
 
-    const panelData = modelGenerator(this.props.model, this.state.fullData, viewId, index,
-                                this.props.labels.activeLabels.attributes, this.props.help),
+    const panelData = modelGenerator(
+        this.props.model,
+        this.state.fullData,
+        viewId,
+        index,
+        this.props.labels.activeLabels.attributes,
+        this.props.help
+      ),
       viewData = this.state.fullData.data[viewId][index];
     this.setState({ panelData, viewData });
   },
@@ -138,20 +152,31 @@ export default React.createClass({
         <div className={style.header}>
           <span className={style.title}>Simput</span>
           <div>
-            { this.props.convert !== null ? (
+            {this.props.convert !== null ? (
               <div style={{ display: 'inline-block' }}>
-                <input type="file" id="fileElem" style={{ display: 'none' }} onChange={this.parseFile} />
-                <label className={[style.button, style.buttonLabel].join(' ')} htmlFor="fileElem">
+                <input
+                  type="file"
+                  id="fileElem"
+                  style={{ display: 'none' }}
+                  onChange={this.parseFile}
+                />
+                <label
+                  className={[style.button, style.buttonLabel].join(' ')}
+                  htmlFor="fileElem"
+                >
                   Import File <i className={style.uploadIcon} />
                 </label>
               </div>
-              ) :
-            null }
+            ) : null}
             <button className={style.button} onClick={this.saveModel}>
               <span className={style.buttonText}>Download Model</span>
               <i className={style.saveIcon} />
             </button>
-            <button className={style.button} onClick={this.convertModel} disabled={this.state.downloadButtonState !== 'normal'}>
+            <button
+              className={style.button}
+              onClick={this.convertModel}
+              disabled={this.state.downloadButtonState !== 'normal'}
+            >
               <span className={style.buttonText}>Save & Convert</span>
               <i className={buttonStates[this.state.downloadButtonState]} />
             </button>
@@ -174,6 +199,7 @@ export default React.createClass({
             />
           </div>
         </div>
-      </div>);
+      </div>
+    );
   },
 });
