@@ -31,10 +31,10 @@ function getParameter(model, attrName, paramId) {
 function generateUI(parameter, label, help, external, modelExternal) {
   // FIXME !!!!
   const ui = {
-      propType: 'Cell',
-      componentLabels: [],
-    },
-    allowedKey = ['id', 'size', 'layout', 'domain', 'default', 'type'];
+    propType: 'Cell',
+    componentLabels: [],
+  };
+  const allowedKey = ['id', 'size', 'layout', 'domain', 'default', 'type'];
 
   Object.keys(parameter).forEach((key) => {
     if (allowedKey.indexOf(key) !== -1) {
@@ -77,8 +77,8 @@ function getUI(model, attrName, paramId, labels, help, external) {
   }
 
   if (!uiCache[attrName][paramId]) {
-    let uiLabels = null,
-      uiHelp = null;
+    let uiLabels = null;
+    let uiHelp = null;
 
     if (
       labels[attrName] &&
@@ -188,16 +188,16 @@ function getParameterData(
   labels,
   help
 ) {
-  const ui = getUI(model, attrName, parameterId, labels, help, input.external),
-    data = getData(
-      model,
-      input.data,
-      selectedViewId,
-      viewIdx,
-      attrName,
-      parameterId,
-      input.external
-    );
+  const ui = getUI(model, attrName, parameterId, labels, help, input.external);
+  const data = getData(
+    model,
+    input.data,
+    selectedViewId,
+    viewIdx,
+    attrName,
+    parameterId,
+    input.external
+  );
 
   return { ui, data, show: alwaysShow };
 }
@@ -211,18 +211,20 @@ function getShowFunction(model, attrName, orAttr) {
 
   if (!showCache[attrName][orAttr]) {
     const attrList = [attrName].concat(
-        Object.keys(model.definitions[attrName].children)
-      ),
-      boolExpr = model.definitions[attrName].children[orAttr],
-      funcTemplate = [
-        `var global = {};
-            for (var attr in viewData) {
-                global[attr] = {};
-                for (var key in viewData[attr]) {
-                    global[attr][key] = viewData[attr][key].value;
-                }
-            }`,
-      ];
+      Object.keys(model.definitions[attrName].children)
+    );
+    const boolExpr = model.definitions[attrName].children[orAttr];
+    const funcTemplate = [
+      `
+      var global = {};
+      for (var attr in viewData) {
+           global[attr] = {};
+           for (var key in viewData[attr]) {
+               global[attr][key] = viewData[attr][key].value;
+           }
+      }
+    `,
+    ];
 
     attrList.forEach((attr) => {
       funcTemplate.push(
@@ -240,7 +242,7 @@ function getShowFunction(model, attrName, orAttr) {
 }
 
 function getShowParamFunction(model, attrName, boolExpr) {
-  var funcTemplate = [];
+  const funcTemplate = [];
   model.definitions[attrName].parameters.forEach((param) => {
     funcTemplate.push(
       `var ${param.id.replace(/-|\./g, '')} = viewData['${attrName}']['${
@@ -263,20 +265,20 @@ export default function generateDataModel(
   labels,
   help
 ) {
-  var propertyList = [],
-    viewData = input.data[selectedViewId][viewIdx],
-    viewAttrs = model.views[selectedViewId].attributes || [];
+  const propertyList = [];
+  const viewData = input.data[selectedViewId][viewIdx];
+  const viewAttrs = model.views[selectedViewId].attributes || [];
 
   // FIXME should add attribute separator + or management
   viewAttrs.forEach((attrName) => {
-    const attr = { title: labels[attrName].title },
-      contents = [];
+    const attr = { title: labels[attrName].title };
+    const contents = [];
     model.definitions[attrName].parameters.forEach((paramAttr, idx) => {
       if (Array.isArray(paramAttr)) {
         // OR prop
         paramAttr.forEach((orAttr) => {
           model.definitions[orAttr].parameters.forEach((param) => {
-            var prop = getParameterData(
+            const prop = getParameterData(
               model,
               input,
               selectedViewId,

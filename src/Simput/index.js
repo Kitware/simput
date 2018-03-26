@@ -1,5 +1,7 @@
-import PropertyPanelBlock from 'paraviewweb/src/React/Properties/PropertyPanel';
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import PropertyPanelBlock from 'paraviewweb/src/React/Properties/PropertyPanel';
 
 import style from 'SimputStyle/Simput.mcss';
 
@@ -14,33 +16,33 @@ const buttonStates = {
   success: style.successStateIcon,
 };
 
-export default React.createClass({
-  displayName: 'Simput',
+/* eslint-disable no-alert */
 
-  propTypes: {
-    convert: React.PropTypes.func,
-    data: React.PropTypes.object,
-    help: React.PropTypes.object,
-    labels: React.PropTypes.object,
-    model: React.PropTypes.object,
-    parse: React.PropTypes.func,
-  },
-
-  getInitialState() {
-    return {
-      fullData: this.props.data, // { input: bool, data: { type: '', data: {...}} }
+export default class Simput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullData: props.data, // { input: bool, data: { type: '', data: {...}} }
       panelData: [], // data for the current property panel
       viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
     };
-  },
+
+    // Bind callback
+    this.saveModel = this.saveModel.bind(this);
+    this.parseFile = this.parseFile.bind(this);
+    this.convertModel = this.convertModel.bind(this);
+    this.downloadFile = this.downloadFile.bind(this);
+    this.updateActive = this.updateActive.bind(this);
+    this.updateViewData = this.updateViewData.bind(this);
+  }
 
   saveModel() {
     this.downloadFile(
       JSON.stringify(this.state.fullData.data, null, '    '),
       this.state.fullData.data.type
     );
-  },
+  }
 
   parseFile(e) {
     if (e.currentTarget.files.length === 0) {
@@ -60,7 +62,7 @@ export default React.createClass({
       }
     };
     reader.readAsText(file);
-  },
+  }
 
   convertModel() {
     if (!this.props.convert) {
@@ -98,15 +100,16 @@ export default React.createClass({
       console.log('There was an error converting: ');
       console.log(results.error.message);
     }
-  },
+  }
 
   // contents is a string here.
+  /* eslint-disable class-methods-use-this */
   downloadFile(contents, type) {
-    var newFileContent = new Blob([contents], {
-        type: 'application/octet-binary',
-      }),
-      downloadURL = window.URL.createObjectURL(newFileContent),
-      downloadLink = document.getElementById('file-download-link');
+    const newFileContent = new Blob([contents], {
+      type: 'application/octet-binary',
+    });
+    const downloadURL = window.URL.createObjectURL(newFileContent);
+    const downloadLink = document.getElementById('file-download-link');
 
     downloadLink.href = downloadURL;
     downloadLink.download = `${type}.json`;
@@ -116,35 +119,36 @@ export default React.createClass({
     setTimeout(() => {
       window.URL.revokeObjectURL(downloadURL);
     }, 1000);
-  },
+  }
+  /* eslint-enable class-methods-use-this */
 
   updateActive(viewId, index) {
     if (viewId === -1 && index === -1) {
-      const panelData = [],
-        viewData = {};
+      const panelData = [];
+      const viewData = {};
       this.setState({ panelData, viewData });
       return;
     }
 
     const panelData = modelGenerator(
-        this.props.model,
-        this.state.fullData,
-        viewId,
-        index,
-        this.props.labels.activeLabels.attributes,
-        this.props.help
-      ),
-      viewData = this.state.fullData.data[viewId][index];
+      this.props.model,
+      this.state.fullData,
+      viewId,
+      index,
+      this.props.labels.activeLabels.attributes,
+      this.props.help
+    );
+    const viewData = this.state.fullData.data[viewId][index];
     this.setState({ panelData, viewData });
-  },
+  }
 
   updateViewData(newData) {
-    const viewData = this.state.viewData,
-      keypath = newData.id.split('.'),
-      attrName = keypath.shift();
+    const viewData = this.state.viewData;
+    const keypath = newData.id.split('.');
+    const attrName = keypath.shift();
     viewData[attrName][keypath.join('.')].value = newData.value;
     this.setState({ viewData });
-  },
+  }
 
   render() {
     return (
@@ -201,5 +205,23 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+Simput.propTypes = {
+  convert: PropTypes.func,
+  data: PropTypes.object,
+  help: PropTypes.object,
+  labels: PropTypes.object,
+  model: PropTypes.object,
+  parse: PropTypes.func,
+};
+
+Simput.defaultProps = {
+  convert: undefined,
+  data: undefined,
+  help: undefined,
+  labels: undefined,
+  model: undefined,
+  parse: undefined,
+};

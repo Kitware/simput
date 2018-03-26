@@ -1,49 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import ContentEditable from 'paraviewweb/src/React/Widgets/ContentEditableWidget';
 import style from 'SimputStyle/ViewMenu.mcss';
 
 /* eslint-disable react/jsx-no-bind */
-export default React.createClass({
-  displayName: 'ViewMenu',
-
-  propTypes: {
-    className: React.PropTypes.string,
-    data: React.PropTypes.object,
-    labels: React.PropTypes.object,
-    model: React.PropTypes.object,
-    onChange: React.PropTypes.func,
-  },
-
-  getDefaultProps() {
-    return {
-      className: '',
-    };
-  },
-
-  getInitialState() {
-    return {
+export default class ViewMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       viewId: null,
       index: 0,
       editingIndex: -1,
     };
-  },
+
+    // Bind callback
+    this.addView = this.addView.bind(this);
+    this.removeView = this.removeView.bind(this);
+    this.editView = this.editView.bind(this);
+    this.stopEditingView = this.stopEditingView.bind(this);
+    this.activateSection = this.activateSection.bind(this);
+  }
 
   componentDidUpdate() {
     if (this.state.editingIndex !== -1) {
       this.editable.setFocus();
     }
-  },
+  }
 
   addView(viewId) {
-    const viewList = this.props.data.data[viewId] || [],
-      index = viewList.length,
-      name = `${this.props.labels.getView(viewId)} ${index}`;
+    const viewList = this.props.data.data[viewId] || [];
+    const index = viewList.length;
+    const name = `${this.props.labels.getView(viewId)} ${index}`;
 
     viewList.push({ name });
     this.props.data.data[viewId] = viewList;
 
     this.activateSection(viewId, index);
-  },
+  }
 
   removeView(viewId, index) {
     this.props.data.data[viewId].splice(index, 1);
@@ -52,16 +46,16 @@ export default React.createClass({
     } else {
       this.activateSection(-1, -1);
     }
-  },
+  }
 
   editView(viewId, index) {
     this.setState({ editingIndex: `${viewId}-${index}` });
-  },
+  }
 
   stopEditingView() {
     console.log();
     this.setState({ editingIndex: -1 });
-  },
+  }
 
   activateSection(viewId, index) {
     const viewList = this.props.data.data[viewId] || [];
@@ -73,7 +67,7 @@ export default React.createClass({
     if (this.props.onChange) {
       this.props.onChange(viewId, index);
     }
-  },
+  }
 
   render() {
     const isActive = (viewId, idx) =>
@@ -83,12 +77,12 @@ export default React.createClass({
       <div className={[this.props.className, style.container].join(' ')}>
         <ul className={style.rootList}>
           {this.props.model.order.map((viewId, idx) => {
-            const viewList = this.props.data.data[viewId] || [],
-              hasSubList =
-                this.props.data.data[viewId] &&
-                this.props.data.data[viewId].length > 0,
-              viewSize = this.props.model.views[viewId].size,
-              children = this.props.model.views[viewId].children || [];
+            const viewList = this.props.data.data[viewId] || [];
+            const hasSubList =
+              this.props.data.data[viewId] &&
+              this.props.data.data[viewId].length > 0;
+            const viewSize = this.props.model.views[viewId].size;
+            const children = this.props.model.views[viewId].children || [];
 
             if (
               this.props.data.hideViews &&
@@ -132,7 +126,9 @@ export default React.createClass({
                           }
                         >
                           <ContentEditable
-                            ref={(c) => (this.editable = c)}
+                            ref={(c) => {
+                              this.editable = c;
+                            }}
                             html={viewData.name}
                             blurOnEnter
                             className={style.inLineBlock}
@@ -214,5 +210,21 @@ export default React.createClass({
         </ul>
       </div>
     );
-  },
-});
+  }
+}
+
+ViewMenu.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.object,
+  labels: PropTypes.object,
+  model: PropTypes.object,
+  onChange: PropTypes.func,
+};
+
+ViewMenu.defaultProps = {
+  className: '',
+  data: undefined,
+  labels: undefined,
+  model: undefined,
+  onChange: undefined,
+};

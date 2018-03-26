@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import App from './Simput';
 import Labels from './Labels';
@@ -9,7 +10,7 @@ const container = document.querySelector('.react-content');
 
 /* eslint-disable no-use-before-define */
 function createViewer(url, callback) {
-  var lang = 'en';
+  const lang = 'en';
   getJSON(url, (error, data) => {
     if (error) {
       console.error(error.toString());
@@ -23,11 +24,11 @@ function createViewer(url, callback) {
       script.type = 'text/javascript';
       script.src = scriptToLoad;
       script.onload = () => {
-        var module = Simput.types[data.data.type],
-          labels = new Labels(module, lang), // <= FIXME pick the right language // --lang
-          help = {}, // FIXME too,
-          convert = module.convert,
-          parse = module.parse;
+        const module = Simput.types[data.data.type];
+        const labels = new Labels(module, lang); // <= FIXME pick the right language // --lang
+        let help = {}; // FIXME too,
+        const convert = module.convert;
+        const parse = module.parse;
 
         if (module.lang[lang] && module.lang[lang].help) {
           help = module.lang[lang].help;
@@ -61,35 +62,32 @@ function setupSimput(event) {
   });
 }
 
+function listAmatize(el, index) {
+  return (
+    <li
+      style={{ cursor: 'pointer' }}
+      key={index}
+      onClick={setupSimput}
+      name={el}
+    >
+      {el}
+    </li>
+  );
+}
+
+function Choices(props) {
+  return <ul>{props.choices.map(listAmatize)}</ul>;
+}
+
+Choices.propTypes = {
+  choices: PropTypes.array,
+};
+
+Choices.defaultProps = {
+  choices: [],
+};
+
 function setupChoices(choices) {
-  var Choices = React.createClass({
-    displayName: 'Choices',
-    propTypes: {
-      choices: React.PropTypes.array,
-    },
-    getDefaultProps() {
-      return {
-        choices: [],
-      };
-    },
-    render() {
-      function listamatize(el, index) {
-        return (
-          <li
-            style={{ cursor: 'pointer' }}
-            key={index}
-            onClick={setupSimput}
-            name={el}
-          >
-            {el}
-          </li>
-        );
-      }
-
-      return <ul>{this.props.choices.map(listamatize)}</ul>;
-    },
-  });
-
   ReactDOM.render(<Choices choices={choices} />, container);
 }
 

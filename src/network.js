@@ -1,5 +1,5 @@
 export function getJSON(url, callback) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
 
   xhr.open('GET', url, true);
   xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
@@ -21,7 +21,7 @@ export function getJSON(url, callback) {
 }
 
 export function postJSON(url, content, callback) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
 
   xhr.open('POST', url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
