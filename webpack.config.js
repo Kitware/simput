@@ -1,36 +1,40 @@
-var path = require('path'),
-    loaders = require('./node_modules/paraviewweb/config/webpack.loaders.js');
+const path = require('path');
+const rules = require('paraviewweb/config/webpack.loaders.js');
+
+const eslintrcPath = path.join(__dirname, '.eslintrc.js');
+
+const entry = path.join(__dirname, './src/index.js');
+const outputPath = path.join(__dirname, './dist');
 
 module.exports = {
   plugins: [],
-  entry: './src/index.js',
+  entry,
   output: {
-    path: './dist',
+    path: outputPath,
     filename: 'Simput.js',
   },
   module: {
-    preLoaders: [
+    rules: [
+      {
+        test: require.resolve('./src/index.js'),
+        loader: 'expose-loader?Simput',
+      },
       {
         test: /\.js$/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         exclude: /node_modules/,
+        enforce: 'pre',
+        options: { configFile: eslintrcPath },
       },
-    ],
-    loaders: [
-        { test: require.resolve("./src/index.js"), loader: "expose?Simput" },
-    ].concat(loaders),
+    ].concat(rules),
   },
   resolve: {
     alias: {
-      'PVWStyle/ReactProperties/PropertyPanel.mcss': path.resolve('./style/PropertyPanel.mcss'),
+      'PVWStyle/ReactProperties/PropertyPanel.mcss': path.resolve(
+        './style/PropertyPanel.mcss'
+      ),
       PVWStyle: path.resolve('./node_modules/paraviewweb/style'),
       SimputStyle: path.resolve('./style'),
     },
-  },
-  postcss: [
-    require('autoprefixer')({ browsers: ['last 2 versions'] }),
-  ],
-  eslint: {
-    configFile: '.eslintrc.js',
   },
 };

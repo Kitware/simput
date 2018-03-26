@@ -3,7 +3,6 @@ sudo: false
 notifications:
   email:
     recipients:
-      - tristan.wright@kitware.com
       - sebastien.jourdain@kitware.com
     on_success: change
     on_failure: always
