@@ -16,7 +16,7 @@
     "handlebars": "4.0.11",
     "handlebars-loader": "1.7.0",
     "ini": "1.3.5",
-    "kw-web-suite": "5.0.1"
+    "kw-web-suite": "6.0.1"
   },
   "devDependencies": {
     "monologue.js": "0.3.5",
@@ -30,11 +30,11 @@
     "validate": "prettier --config ./prettier.config.js --list-different \"src/**/*.js\"",
     "reformat": "prettier --config ./prettier.config.js --write \"src/**/*.js\"",
     "reformat-only": "prettier --single-quote --trailing-comma es5 --print-width 80 --arrow-parens always --write",
-    "build": "webpack",
+    "build": "webpack --mode development",
     "demo": "Simput -o . -t pyfr",
-    "build:watch": "webpack --watch",
-    "build:debug": "webpack --display-modules",
-    "build:release": "webpack -p",
+    "build:watch": "webpack --watch --mode development",
+    "build:debug": "webpack --display-modules --mode development",
+    "build:release": "webpack --mode production",
     "commit": "git cz",
     "semantic-release": "semantic-release"
   },

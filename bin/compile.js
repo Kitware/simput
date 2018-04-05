@@ -1,138 +1,173 @@
-require('shelljs/global');
+const shell = require('shelljs');
+const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
+const toAbsolutePath = require('./utils').toAbsolutePath;
 
-var webpack = require('webpack'),
-    path = require('path'),
-    fs = require('fs'),
-    fileToDelete = [];
+const fileToDelete = [];
+
+// ----------------------------------------------------------------------------
 
 function buildWebpackConfiguration(name, basepath, outputPath, compress) {
-    var plugins = [];
-    if (compress) {
-        plugins.push(
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false,
-                },
-            })
-        );
-    }
-    return {
-            entry: basepath + '/index.js',
-            output : {
-                path: outputPath,
-                filename: name + '.js',
+  const plugins = [];
+  const entry = path.join(basepath, 'index.js');
+  return {
+    mode: compress ? 'production' : 'development',
+    entry,
+    output: {
+      path: outputPath,
+      filename: `${name}.js`,
+    },
+    plugins,
+    module: {
+      rules: [
+        // { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },
+        // { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000" },
+        {
+          test: entry,
+          loader: `expose-loader?Simput.types.${name}`,
+        },
+        { test: /\.(png|jpg)$/, use: 'url-loader?limit=81920' },
+        { test: /\.html$/, loader: 'html-loader' },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader', 'postcss-loader'],
+        },
+        { test: /\.cjson$/, loader: 'hson-loader' },
+        { test: /\.hson$/, loader: 'hson-loader' },
+        { test: /\.jade$/i, loader: 'jade-loader' },
+        { test: /\.hbs$/i, loader: 'handlebars-loader' },
+        {
+          test: /\.js$/,
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: ['env'],
+              },
             },
-            plugins: plugins,
-            module: {
-                loaders: [
-                    // { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },
-                    // { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000" },
-                    {
-                      test: require.resolve(basepath + '/index.js'),
-                      loader: 'expose?Simput.types.' + name,
-                    },
-                    { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
-                    { test: /\.css$/, loader: "style!css!autoprefixer?browsers=last 2 version" },
-                    { test: /\.json$/i, loader: 'json'},
-                    { test: /\.jade$/i, loader: 'jade'},
-                    { test: /\.html$/, loader: 'html-loader' },
-                    { test: /\.hbs$/i, loader: 'handlebars-loader'},
-                    { test: /\.js$/i, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015" },
-                ],
-            },
-        };
+          ],
+        },
+      ],
+    },
+  };
 }
 
-module.exports = function (directory, modelType, output, compress, callback) {
-    if (!modelType) {
-        modelType = path.basename(directory);
-    }
-    // ensure modelType has no . in it, it will create keypaths in the webpack expose loader
-    modelType = modelType.replace(/\./, '-').toLowerCase();
-
-
-    if (!output) {
-        output = directory;
-    }
-
-    var schema = '{\n' +
-        'type: \'TYPE\',\n' +
-        'model: require(\'./model.json\'),\n' +
-        'lang: LANG,\n' +
-        'convert: require(\'./convert.js\'),\n' +
-        'parse: PARSE\n' +
-    '}\n';
-
-    var lang = '{}';
-    ['model.json', 'convert.js'].forEach(function(file) {
-        if ( !test('-f', path.join(directory, file)) ) {
-            console.log('Missing `' + file + '`!');
-        }
-    });
-
-    if ( test('-d', path.join(directory, 'lang')) ) {
-        lang = 'require(\'./lang\')';
-    }
-
-    if (lang !== '{}') {
-       writeIndexList(path.join(directory, 'lang'));
-    }
-
-    if (test('-f', path.join(directory, 'parse.js'))) {
-      schema = schema.replace('PARSE', 'require(\'./parse.js\')');
-    } else {
-      schema = schema.replace('PARSE', 'null');
-    }
-
-    schema = schema.replace('TYPE', modelType);
-    schema = schema.replace('LANG', lang);
-
-    fs.writeFileSync(path.join(directory, 'index.js'), 'module.exports = ' + schema);
-    fileToDelete.push(path.join(directory, 'index.js'));
-    webpack(buildWebpackConfiguration(modelType, directory, output, compress), function(err, stats){
-        if (err) {
-            throw err;
-        }
-        var jsonStats = stats.toJson();
-        if (stats.hasErrors()) {
-            console.error('Error building ');
-            throw jsonStats.errors;
-        } else if (stats.hasWarnings()) {
-            console.warn('built with warnings.');
-            console.warn(jsonStats.warnings);
-        } else {
-            console.log('built ' + path.join(output,modelType) + '.js, cleaning up');
-            cleanup();
-        }
-
-        if (callback) {
-          callback();
-        }
-    });
-}
+// ----------------------------------------------------------------------------
 
 function writeIndexList(directory) {
-    var list = 'module.exports = {\n';
-    ls(directory).forEach(function(file){
-        if ( test('-d', path.join(directory, file))) {
-            writeIndexList(path.join(directory, file));
-            list += '"' + file + '": require("./' + file + '"),\n';
-        } else if (file !== 'index.js') {
-            if ( ['js', 'json'].indexOf(file.split('.').pop()) === -1) {
-                list += '"' + file + '": require("html!./' + file + '"),\n';
-            } else {
-                list += '"' + file + '": require("./' + file + '"),\n';
-            }
-        }
-    });
+  let list = 'module.exports = {\n';
+  shell.ls(directory).forEach((file) => {
+    if (shell.test('-d', path.join(directory, file))) {
+      writeIndexList(path.join(directory, file));
+      list += `"${file}": require("./${file}"),\n`;
+    } else if (file !== 'index.js') {
+      if (['js', 'json'].indexOf(file.split('.').pop()) === -1) {
+        list += `"${file}": require("html-loader!./${file}"),\n`;
+      } else {
+        list += `"${file}": require("./${file}"),\n`;
+      }
+    }
+  });
 
-    list += '}\n';
-    fs.writeFileSync(path.join(directory, 'index.js'), list);
-    fileToDelete.push(path.join(directory, 'index.js'));
+  list += '}\n';
+  fs.writeFileSync(path.join(directory, 'index.js'), list);
+  fileToDelete.push(path.join(directory, 'index.js'));
 }
+
+// ----------------------------------------------------------------------------
 
 function cleanup() {
-    while(fileToDelete.length) {
-        rm(fileToDelete.pop());
-    }
+  while (fileToDelete.length) {
+    shell.rm(fileToDelete.pop());
+  }
 }
+
+// ----------------------------------------------------------------------------
+
+module.exports = function compile(
+  directory,
+  type,
+  outputDirectory,
+  compress,
+  callback
+) {
+  let modelType = type;
+  let output = outputDirectory;
+  if (!modelType) {
+    modelType = path.basename(directory);
+  }
+  // ensure modelType has no . in it, it will create keypaths in the webpack expose loader
+  modelType = modelType.replace(/\./, '-').toLowerCase();
+
+  if (!output) {
+    output = directory;
+  }
+
+  let schema =
+    '{\n' +
+    "type: 'TYPE',\n" +
+    "model: require('./model.json'),\n" +
+    'lang: LANG,\n' +
+    "convert: require('./convert.js'),\n" +
+    'parse: PARSE\n' +
+    '}\n';
+
+  let lang = '{}';
+  ['model.json', 'convert.js'].forEach((file) => {
+    if (!shell.test('-f', path.join(directory, file))) {
+      console.log(`Missing '${file}'!`);
+    }
+  });
+
+  if (shell.test('-d', path.join(directory, 'lang'))) {
+    lang = "require('./lang')";
+  }
+
+  if (lang !== '{}') {
+    writeIndexList(path.join(directory, 'lang'));
+  }
+
+  if (shell.test('-f', path.join(directory, 'parse.js'))) {
+    schema = schema.replace('PARSE', "require('./parse.js')");
+  } else {
+    schema = schema.replace('PARSE', 'null');
+  }
+
+  schema = schema.replace('TYPE', modelType);
+  schema = schema.replace('LANG', lang);
+
+  fs.writeFileSync(
+    path.join(directory, 'index.js'),
+    `module.exports = ${schema}`
+  );
+  fileToDelete.push(path.join(directory, 'index.js'));
+  webpack(
+    buildWebpackConfiguration(
+      modelType,
+      directory,
+      toAbsolutePath(output),
+      compress
+    ),
+    (err, stats) => {
+      if (err) {
+        throw err;
+      }
+      const jsonStats = stats.toJson();
+      if (stats.hasErrors()) {
+        console.error('Error building ');
+        throw jsonStats.errors;
+      } else if (stats.hasWarnings()) {
+        console.warn('built with warnings.');
+        console.warn(jsonStats.warnings);
+      } else {
+        console.log('built', path.join(output, modelType), 'cleaning up');
+        cleanup();
+      }
+
+      if (callback) {
+        callback();
+      }
+    }
+  );
+};

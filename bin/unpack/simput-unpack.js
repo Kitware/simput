@@ -1,49 +1,58 @@
 #! /usr/bin/env node
 
-var shell = require('shelljs');
-
-var path = require('path');
-var fs = require('fs');
+const shell = require('shelljs');
+const path = require('path');
+const fs = require('fs');
 
 function getPath(arg) {
-  return path.normalize(path.isAbsolute(arg) ? arg : path.join(process.cwd(), arg));
+  return path.normalize(
+    path.isAbsolute(arg) ? arg : path.join(process.cwd(), arg)
+  );
 }
 
 if (process.argv.length < 4) {
   console.log('unpack file.json output/directory');
 } else {
-  var filePath = getPath(process.argv[2]);
-  var destPath = getPath(process.argv[3]);
-  var jsonContent = require(filePath);
-  var content = jsonContent.results || jsonContent;
+  /* eslint-disable */
+  const jsonContent = require(getPath(process.argv[2]));
+  /* eslint-enable */
+  const destPath = getPath(process.argv[3]);
+  const content = jsonContent.results || jsonContent;
 
-  /* Results */
+  // Results -------------------------------
 
-  Object.keys(content).forEach(function(name) {
-    var fileDest = path.join(destPath, name);
-    var destDir = path.dirname(fileDest);
+  Object.keys(content).forEach((name) => {
+    const fileDest = path.join(destPath, name);
+    const destDir = path.dirname(fileDest);
     shell.mkdir('-p', destDir);
     fs.writeFileSync(fileDest, content[name]);
   });
 
-  /* Copies */
+  // Copies --------------------------------
 
   if (jsonContent.copies) {
-    jsonContent.copies.forEach(function(filePath) {
-      var sourceFile = path.join(process.cwd(), 'types', jsonContent.model.data.type, 'src', 'templates', filePath);
-      var destinationFile = path.join(destPath, filePath);
+    jsonContent.copies.forEach((filePath) => {
+      const sourceFile = path.join(
+        process.cwd(),
+        'types',
+        jsonContent.model.data.type,
+        'src',
+        'templates',
+        filePath
+      );
+      const destinationFile = path.join(destPath, filePath);
 
       shell.mkdir('-p', path.dirname(destinationFile));
       shell.cp(sourceFile, destinationFile);
     });
   }
 
-  /* Permissions */
+  // Permissions ---------------------------
 
   if (jsonContent.permissions) {
-    var permissions = jsonContent.permissions;
-    Object.keys(permissions).forEach(function(name) {
-      var fileDest = path.join(destPath, name);
+    const permissions = jsonContent.permissions;
+    Object.keys(permissions).forEach((name) => {
+      const fileDest = path.join(destPath, name);
       shell.chmod(permissions[fileDest], fileDest);
     });
   }
