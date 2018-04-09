@@ -2,7 +2,9 @@ const shell = require('shelljs');
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
+
 const toAbsolutePath = require('./utils').toAbsolutePath;
+const generateConvertFile = require('./convertFileGenerator');
 
 const fileToDelete = [];
 
@@ -104,17 +106,19 @@ module.exports = function compile(
     output = directory;
   }
 
-  let schema =
-    '{\n' +
-    "type: 'TYPE',\n" +
-    "model: require('./model.json'),\n" +
-    'lang: LANG,\n' +
-    "convert: require('./convert.js'),\n" +
-    'parse: PARSE\n' +
-    '}\n';
-
   let lang = '{}';
-  ['model.json', 'convert.js'].forEach((file) => {
+  let modelFileName = null;
+  ['model.json', 'model.js'].forEach((file) => {
+    if (shell.test('-f', path.join(directory, file))) {
+      modelFileName = file;
+    }
+  });
+
+  if (modelFileName) {
+    generateConvertFile(directory, modelFileName);
+  }
+
+  [modelFileName || 'model.json', 'convert.js'].forEach((file) => {
     if (!shell.test('-f', path.join(directory, file))) {
       console.log(`Missing '${file}'!`);
     }
@@ -127,6 +131,14 @@ module.exports = function compile(
   if (lang !== '{}') {
     writeIndexList(path.join(directory, 'lang'));
   }
+
+  let schema = `{
+    type: 'TYPE',
+    model: require('./${modelFileName}'),
+    lang: LANG,
+    convert: require('./convert.js'),
+    parse: PARSE
+  }`;
 
   if (shell.test('-f', path.join(directory, 'parse.js'))) {
     schema = schema.replace('PARSE', "require('./parse.js')");
