@@ -19,6 +19,7 @@
     "kw-web-suite": "6.0.1"
   },
   "devDependencies": {
+    "kw-doc": "1.1.2",
     "monologue.js": "0.3.5",
     "mout": "1.0.0",
     "react": "16.2.0",
@@ -27,6 +28,9 @@
     "font-awesome": "4.7.0"
   },
   "scripts": {
+    "doc": "kw-doc -c ./documentation/config.js",
+    "doc:www": "kw-doc -c ./documentation/config.js -s",
+    "doc:publish": "kw-doc -c ./documentation/config.js -mp",
     "validate": "prettier --config ./prettier.config.js --list-different \"src/**/*.js\"",
     "reformat": "prettier --config ./prettier.config.js --write \"src/**/*.js\"",
     "reformat-only": "prettier --single-quote --trailing-comma es5 --print-width 80 --arrow-parens always --write",
