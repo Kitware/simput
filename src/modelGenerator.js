@@ -34,7 +34,15 @@ function generateUI(parameter, label, help, external, modelExternal) {
     propType: 'Cell',
     componentLabels: [],
   };
-  const allowedKey = ['id', 'size', 'layout', 'domain', 'default', 'type'];
+  const allowedKey = [
+    'id',
+    'size',
+    'layout',
+    'domain',
+    'default',
+    'type',
+    'label',
+  ];
 
   Object.keys(parameter).forEach((key) => {
     if (allowedKey.indexOf(key) !== -1) {
@@ -81,6 +89,7 @@ function getUI(model, attrName, paramId, labels, help, external) {
     let uiHelp = null;
 
     if (
+      labels &&
       labels[attrName] &&
       labels[attrName].parameters &&
       labels[attrName].parameters[paramId]
@@ -271,7 +280,11 @@ export default function generateDataModel(
 
   // FIXME should add attribute separator + or management
   viewAttrs.forEach((attrName) => {
-    const attr = { title: labels[attrName].title };
+    const attr = {
+      title: labels
+        ? labels[attrName].title
+        : model.definitions[attrName].label,
+    };
     const contents = [];
     model.definitions[attrName].parameters.forEach((paramAttr, idx) => {
       if (Array.isArray(paramAttr)) {

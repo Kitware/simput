@@ -135,7 +135,9 @@ export default class Simput extends React.Component {
       this.state.fullData,
       viewId,
       index,
-      this.props.labels.activeLabels.attributes,
+      this.props.labels.activeLabels
+        ? this.props.labels.activeLabels.attributes
+        : null,
       this.props.help
     );
     const viewData = this.state.fullData.data[viewId][index];
