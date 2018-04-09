@@ -1,0 +1,38 @@
+{
+  "views": {
+     "Materials": "Materials",
+    "Cells": "Cells",
+    "Assembly": "Assemblies",
+    "Insert": "Inserts",
+    "Control": "Controls",
+    "Core": "Core"
+  },
+  "attributes": {
+    "material": {
+      "title": "Material definition",
+      "parameters": {
+        "name": "Name",
+        "density": "Density",
+        "thexp": "Thermal Expansion Coefficient",
+        "fractions": "Material fractions (material:fraction)"
+      }
+    },
+    "baffle": {
+      "title": "Baffle definition",
+      "parameters": {
+        "gap": "Gap size",
+        "thick": "Thickness",
+        "material": "Material"
+      }
+    },
+    "core": {
+      "title": "Core definition",
+      "parameters": {
+        "name": "Reactor name",
+        "size": "Grid size",
+        "height": "Height",
+        "shape": "Shape mask"
+      }
+    }
+  }
+}

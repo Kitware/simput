@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet version="1.0" type="text/xsl" href="PL9.xsl"?>
+<ParameterList name="CASEID">
+  <Parameter name="case_id" type="string" value="Reactor name"/>
+  <ParameterList name="CORE">
+    <Parameter name="core_name" type="string" value="Reactor name"/>
+    <Parameter name="core_size" type="double" value="15"/>
+    <Parameter name="height" type="double" value="400"/>
+    <Parameter name="baffle_mat" type="string" value="materials-not-found"/>
+    <ParameterList name="Materials">
+      <ParameterList name="Material_water">
+        <Parameter name="name" type="string" value="water"/>
+        <Parameter name="density" type="double" value="1"/>
+        <Parameter name="thexp" type="double" value="1"/>
+      </ParameterList>
+      <ParameterList name="Material_df">
+        <Parameter name="name" type="string" value="df"/>
+        <Parameter name="density" type="double" value="1"/>
+        <Parameter name="thexp" type="double" value="1"/>
+      </ParameterList>
+      <ParameterList name="Material_fg">
+        <Parameter name="name" type="string" value="fg"/>
+        <Parameter name="density" type="double" value="1"/>
+        <Parameter name="thexp" type="double" value="1"/>
+      </ParameterList>
+      <ParameterList name="Material_jh">
+        <Parameter name="name" type="string" value="jh"/>
+        <Parameter name="density" type="double" value="1"/>
+        <Parameter name="thexp" type="double" value="1"/>
+      </ParameterList>
+    </ParameterList>
+  </ParameterList>
+</ParameterList>

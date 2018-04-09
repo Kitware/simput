@@ -1,0 +1,33 @@
+{
+  "CASEID": {
+    "case_id": "Reactor name",
+    "CORE": {
+      "core_name": "Reactor name",
+      "core_size": 15,
+      "height": 400,
+      "baffle_mat": "materials-not-found",
+      "Materials": {
+        "Material_water": {
+          "name": "water",
+          "density": 1,
+          "thexp": 1
+        },
+        "Material_df": {
+          "name": "df",
+          "density": 1,
+          "thexp": 1
+        },
+        "Material_fg": {
+          "name": "fg",
+          "density": 1,
+          "thexp": 1
+        },
+        "Material_jh": {
+          "name": "jh",
+          "density": 1,
+          "thexp": 1
+        }
+      }
+    }
+  }
+}
