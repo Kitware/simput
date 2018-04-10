@@ -19,6 +19,10 @@
 	url = https://github.com/kitware/simput
 	branch = type-nwchem-neb
 [submodule "types/openfoam-windtunnel"]
-	path = types/openfoam-windtunnel
+        path = types/openfoam-windtunnel
+        url = https://github.com/kitware/simput
+        branch = type-openfoam-windtunnel
+[submodule "types/vera"]
+	path = types/vera
 	url = https://github.com/kitware/simput
-	branch = type-openfoam-windtunnel
+	branch = type-vera
