@@ -47,6 +47,16 @@ Simput listening on port 8080
 
 ## Concept
 
-
-
 ![Concept](concept.jpg)
+
+## Components
+
+In order to create a new input type for SimPut you will need:
+
+- __model.json / model.js:__ describe what kind of input are needed from the user and how those input should be layout via views.
+- __convert.js *[optional]*:__ provide a path to validate and restructure the view data model into another one easier for template engine and create a target file map (file path / content).
+- __templates/\*.hbs *[optional]*:__ Template files to use inside convert.js to actually do the conversion into a file format.
+- __lang/en/__
+  - __label.json *[optional]*:__ Label to use for a specific langage such as `en:english`
+  - __help/{Attribute Name}/{Parameter Id} *[optional]*:__ Extended HTML snippet used for togglable help panel
+

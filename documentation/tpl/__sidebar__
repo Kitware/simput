@@ -1,3 +1,4 @@
 docs:
   getting_started:
     overview: index.html
+    model: model.html
