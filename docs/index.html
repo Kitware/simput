@@ -48,7 +48,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://kitware.github.io/simput/docs/simput-ui.png">
 <meta property="og:image" content="https://kitware.github.io/simput/docs/concept.jpg">
-<meta property="og:updated_time" content="2018-04-10T14:47:48.811Z">
+<meta property="og:updated_time" content="2018-04-11T19:06:00.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Overview">
 <meta name="twitter:description" content="Simput is a tool for simplifying the process of writing and editing simulation input files.It can be used as standalone tool or within other platform such as HPCCloud to streamlining input definition.">
@@ -111,11 +111,22 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput -o /tmp -i types/pyfr/samples/empty/pyfr-empty-externals.json </span><br><span class="line">Simput listening on port 8080</span><br></pre></td></tr></table></figure>
 <p><img src="simput-ui.png" alt="User Interface"></p>
 <h2 id="Concept" class="article-heading"><a href="#Concept" class="headerlink" title="Concept"></a>Concept<a class="article-anchor" href="#Concept" aria-hidden="true"></a></h2><p><img src="concept.jpg" alt="Concept"></p>
+<h2 id="Components" class="article-heading"><a href="#Components" class="headerlink" title="Components"></a>Components<a class="article-anchor" href="#Components" aria-hidden="true"></a></h2><p>In order to create a new input type for SimPut you will need:</p>
+<ul>
+<li><strong>model.json / model.js:</strong> describe what kind of input are needed from the user and how those input should be layout via views.</li>
+<li><strong>convert.js <em>[optional]</em>:</strong> provide a path to validate and restructure the view data model into another one easier for template engine and create a target file map (file path / content).</li>
+<li><strong>templates/*.hbs <em>[optional]</em>:</strong> Template files to use inside convert.js to actually do the conversion into a file format.</li>
+<li><strong>lang/en/</strong><ul>
+<li><strong>label.json <em>[optional]</em>:</strong> Label to use for a specific langage such as <code>en:english</code></li>
+<li><strong>help/{Attribute Name}/{Parameter Id} <em>[optional]</em>:</strong> Extended HTML snippet used for togglable help panel</li>
+</ul>
+</li>
+</ul>
 
               </div>
               <footer class="article-footer">
-                <time class="article-footer-updated" datetime="2018-04-10T14:47:48.811Z" itemprop="dateModified">Last updated: 2018-04-10</time>
-                
+                <time class="article-footer-updated" datetime="2018-04-11T19:06:00.745Z" itemprop="dateModified">Last updated: 2018-04-11</time>
+                <a href="model.html" class="article-footer-next" title="DataModel definition"><span>Next</span><i class="fa fa-chevron-right"></i></a>
               </footer>
               
             </div>
@@ -123,14 +134,14 @@
           <aside id="article-toc" role="navigation">
             <div id="article-toc-inner">
               <strong class="sidebar-title">Contents</strong>
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-SimPut"><span class="toc-text">What is SimPut?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Usage"><span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concept"><span class="toc-text">Concept</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-SimPut"><span class="toc-text">What is SimPut?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Usage"><span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concept"><span class="toc-text">Concept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Components"><span class="toc-text">Components</span></a></li></ol>
               <a href="#" id="article-toc-top">Back to Top</a>
             </div>
           </aside>
         </div>
       </article>
       <aside id="sidebar" role="navigation">
-  <div class="inner"><strong class="sidebar-title">Getting Started</strong><a href="index.html" class="sidebar-link current">Overview</a></div>
+  <div class="inner"><strong class="sidebar-title">Getting Started</strong><a href="index.html" class="sidebar-link current">Overview</a><a href="model.html" class="sidebar-link">DataModel definition</a></div>
 </aside>
     </div>
   </div>
@@ -158,7 +169,7 @@
       </li>
     </ul>
     
-      <strong class="mobile-nav-title">Getting Started</strong><a href="index.html" class="mobile-nav-link current">Overview</a>
+      <strong class="mobile-nav-title">Getting Started</strong><a href="index.html" class="mobile-nav-link current">Overview</a><a href="model.html" class="mobile-nav-link">DataModel definition</a>
     
   </div>
   <div id="mobile-lang-select-wrap">
