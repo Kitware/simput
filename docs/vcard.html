@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8">
+  <title>How to create an address book | SimPut</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://kitware.github.io/simput/docs/vcard.html">
+  <!-- Alternative links -->
+  
+    
+      <link rel="alternative" hreflang="en" href="https://kitware.github.io/simput/docs/vcard.html">
+    
+  
+  <!-- Icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/simput/icon/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/simput/icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/simput/icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/simput/icon/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/simput/icon/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/simput/icon/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/simput/icon/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/simput/icon/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="/simput/icon/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="/simput/icon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/simput/icon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/simput/icon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/simput/icon/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#2f83cd">
+  <meta name="msapplication-TileImage" content="/simput/icon/mstile-144x144.png">
+  <!-- CSS -->
+  <!-- build:css build/css/navy.css -->
+  <link rel="stylesheet" href="/simput/css/navy.css">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css">
+  <!-- RSS -->
+  <link rel="alternate" href="/simput/atom.xml" title="SimPut">
+  <!-- Open Graph -->
+  <meta name="description" content="center.half &amp;gt; img {   width: 50%; }   In that example we will use simput to create vcard for our contact information and we will walk you through the model definition to its usage inside Simput. Crea">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How to create an address book">
+<meta property="og:url" content="https://kitware.github.io/simput/docs/vcard.html">
+<meta property="og:site_name" content="SimPut">
+<meta property="og:description" content="center.half &amp;gt; img {   width: 50%; }   In that example we will use simput to create vcard for our contact information and we will walk you through the model definition to its usage inside Simput. Crea">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://kitware.github.io/simput/docs/vcard-step-0.png">
+<meta property="og:image" content="https://kitware.github.io/simput/docs/vcard-step-1.png">
+<meta property="og:image" content="https://kitware.github.io/simput/docs/vcard-step-2.png">
+<meta property="og:image" content="https://kitware.github.io/simput/docs/vcard-step-1.png">
+<meta property="og:updated_time" content="2018-04-12T20:27:46.315Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to create an address book">
+<meta name="twitter:description" content="center.half &amp;gt; img {   width: 50%; }   In that example we will use simput to create vcard for our contact information and we will walk you through the model definition to its usage inside Simput. Crea">
+<meta name="twitter:image" content="https://kitware.github.io/simput/docs/vcard-step-0.png">
+  <!-- Google Analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90338862-11', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header" class="wrapper">
+  <div id="header-inner" class="inner">
+    <h1 id="logo-wrap">
+      <a href="/simput/" id="logo">ParaViewWeb</a>
+    </h1>
+    <nav id="main-nav">
+      <a href="/simput/docs/" class="main-nav-link">Docs</a>
+      <a href="https://github.com/kitware/simput" class="main-nav-link"><i class="fa fa-github-alt"></i></a>
+      <div id="search-input-wrap">
+        <div id="search-input-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <input type="search" id="search-input" placeholder="Search...">
+      </div>
+    </nav>
+    <a id="mobile-nav-toggle">
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+      <span class="mobile-nav-toggle-bar"></span>
+    </a>
+  </div>
+</header>
+
+    <div id="content-wrap">
+  <div id="content" class="wrapper">
+    <div id="content-inner">
+      <article class="article-container" itemscope itemtype="http://schema.org/Article">
+        <div class="article-inner">
+          <div class="article">
+            <div class="inner">
+              <header class="article-header">
+                <h1 class="article-title" itemprop="name">How to create an address book</h1>
+              </header>
+              <div class="article-content" itemprop="articleBody">
+                <style>
+center.half > img {
+  width: 50%;
+}
+</style>
+
+<p>In that example we will use simput to create vcard for our contact information and we will walk you through the model definition to its usage inside Simput.</p>
+<h2 id="Creation-of-new-type" class="article-heading"><a href="#Creation-of-new-type" class="headerlink" title="Creation of new type"></a>Creation of new type<a class="article-anchor" href="#Creation-of-new-type" aria-hidden="true"></a></h2><h3 id="Model-creation" class="article-heading"><a href="#Model-creation" class="headerlink" title="Model creation"></a>Model creation<a class="article-anchor" href="#Model-creation" aria-hidden="true"></a></h3><p>Let’s create one View for which we can add and remove as many <code>person</code>. A <code>person</code> should have a <strong>firstName</strong>, <strong>lastName</strong> with some <em>address</em> information.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">   order: [</span><br><span class="line">      &apos;AddressBook&apos;</span><br><span class="line">   ],</span><br><span class="line">   views : &#123;</span><br><span class="line">      AddressBook : &#123; </span><br><span class="line">         id: &apos;AdressBook&apos;,  </span><br><span class="line">         label : &apos;Address Book&apos;,   </span><br><span class="line">         attributes: [ &apos;person&apos; ],</span><br><span class="line">         size: -1</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">   definitions: &#123;</span><br><span class="line">      person: &#123;</span><br><span class="line">         label: &apos;Person&apos;, </span><br><span class="line">         parameters: [</span><br><span class="line">            &#123;</span><br><span class="line">               id     : &apos;firstName&apos;,</span><br><span class="line">               label  : &apos;First Name&apos;,</span><br><span class="line">               type   : &apos;string&apos;,</span><br><span class="line">               size   : 1,</span><br><span class="line">               default: &apos;John&apos;,</span><br><span class="line">            &#125;,&#123;</span><br><span class="line">               id     : &apos;lastName&apos;,</span><br><span class="line">               label  : &apos;Last Name&apos;,</span><br><span class="line">               type   : &apos;string&apos;,</span><br><span class="line">               size   : 1,</span><br><span class="line">               default: &apos;Doe&apos;,</span><br><span class="line">            &#125;,&#123;</span><br><span class="line">               id     : &apos;street&apos;,</span><br><span class="line">               label  : &apos;Street&apos;,</span><br><span class="line">               type   : &apos;string&apos;,</span><br><span class="line">               size   : 1,</span><br><span class="line">               default: &apos;No where to be found&apos;,</span><br><span class="line">            &#125;,&#123;</span><br><span class="line">               id     : &apos;city&apos;,</span><br><span class="line">               label  : &apos;City&apos;,</span><br><span class="line">               type   : &apos;string&apos;,</span><br><span class="line">               size   : 1,</span><br><span class="line">               default: &apos;No Where&apos;,</span><br><span class="line">            &#125;,&#123;</span><br><span class="line">               id     : &apos;state&apos;,</span><br><span class="line">               label  : &apos;State&apos;,</span><br><span class="line">               type   : &apos;string&apos;,</span><br><span class="line">               size   : 1,</span><br><span class="line">               default: &apos;ZZ&apos;,</span><br><span class="line">            &#125;,&#123;</span><br><span class="line">               id     : &apos;zip&apos;,</span><br><span class="line">               label  : &apos;ZIP&apos;,</span><br><span class="line">               type   : &apos;string&apos;,</span><br><span class="line">               size   : 1,</span><br><span class="line">               default: &apos;12345&apos;,</span><br><span class="line">            &#125;,&#123;</span><br><span class="line">               id     : &apos;country&apos;,</span><br><span class="line">               label  : &apos;Country&apos;,</span><br><span class="line">               type   : &apos;string&apos;,</span><br><span class="line">               size   : 1,</span><br><span class="line">               default: &apos;Heaven&apos;,</span><br><span class="line">            &#125;</span><br><span class="line">         ]</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Convert-function" class="article-heading"><a href="#Convert-function" class="headerlink" title="Convert function"></a>Convert function<a class="article-anchor" href="#Convert-function" aria-hidden="true"></a></h3><p>Now that we have the piece of information we want from the user, let’s see how we can write each <code>person</code> into a single file with its personal information using the <code>vcard</code> format.</p>
+<p>The funtion below will loop over each view data and will define a new file using a template that will allow us to respect the vcard format.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const vCardTemplate = require(&quot;./templates/vcard.hbs&quot;);</span><br><span class="line"></span><br><span class="line">module.exports = function(dataModel) &#123;</span><br><span class="line">    const results = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    dataModel.data.AddressBook.forEach((attributes) =&gt; &#123;</span><br><span class="line">        const person = &#123;&#125;;</span><br><span class="line">        Object.keys(attributes.person).forEach((fieldName) =&gt; &#123;</span><br><span class="line">            person[fieldName] = attributes.person[fieldName].value[0];</span><br><span class="line">        &#125;)</span><br><span class="line">        results[`$&#123;person.firstName&#125; $&#123;person.lastName&#125;.vcf`] = vCardTemplate(</span><br><span class="line">            person</span><br><span class="line">        );</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return &#123; results, model: dataModel &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Template-file" class="article-heading"><a href="#Template-file" class="headerlink" title="Template file"></a>Template file<a class="article-anchor" href="#Template-file" aria-hidden="true"></a></h3><p>The following template is strait forward but looping and condition could be achieved inside a template.<br><a href="https://handlebarsjs.com/" target="_blank" rel="noopener">Click to learn more about Handlebars</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BEGIN:VCARD</span><br><span class="line">VERSION:3.0</span><br><span class="line">N:&#123;&#123;&#123;lastName&#125;&#125;&#125;;&#123;&#123;&#123;firstName&#125;&#125;&#125;;;;</span><br><span class="line">FN:&#123;&#123;&#123;firstName&#125;&#125;&#125; &#123;&#123;&#123;lastName&#125;&#125;&#125;</span><br><span class="line">ADR;type=HOME;type=pref:;;&#123;&#123;&#123;street&#125;&#125;&#125;;&#123;&#123;&#123;city&#125;&#125;&#125;;&#123;&#123;&#123;state&#125;&#125;&#125;;&#123;&#123;&#123;zip&#125;&#125;&#125;;&#123;&#123;&#123;country&#125;&#125;&#125;</span><br><span class="line">END:VCARD</span><br></pre></td></tr></table></figure>
+<h2 id="Compilation-of-new-type" class="article-heading"><a href="#Compilation-of-new-type" class="headerlink" title="Compilation of new type"></a>Compilation of new type<a class="article-anchor" href="#Compilation-of-new-type" aria-hidden="true"></a></h2><p>Make sure <code>Simput</code> has been installed globally by running the following command line:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ npm install -g simput</span><br></pre></td></tr></table></figure>
+<p>If properly installed, you should be able to run <code>Simput</code> and get the following command line help.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput </span><br><span class="line"></span><br><span class="line">  Usage: Simput [options]</span><br><span class="line"></span><br><span class="line">  Options:</span><br><span class="line"></span><br><span class="line">    -V, --version                 output the version number</span><br><span class="line">    -i, --input [file|directory]  Input file or directory</span><br><span class="line">    -o, --output [directory]      Output directory to output to</span><br><span class="line">    -t, --type [type]             Type of input</span><br><span class="line">    </span><br><span class="line">    -n, --no-gui                  Just generate output</span><br><span class="line">    -s, --silent                  Do not open the browser</span><br><span class="line">    -p, --port [8080]             Server port</span><br><span class="line">     (default: 8080)</span><br><span class="line">    -c, --compile [directory]     Directory to compile files</span><br><span class="line">    -m, --minify                  Minify compiled file</span><br><span class="line">    -a, --add [file]              Add model to list of available inputs</span><br><span class="line">    -l, --list                    List model types of available as inputs</span><br><span class="line">    -r, --remove [type]           Remove model from list of available inputs</span><br><span class="line">    -h, --help                    output usage information</span><br></pre></td></tr></table></figure>
+<p>Now, you should be able to build your new type define with the following file structure:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -type f</span><br><span class="line">./convert.js</span><br><span class="line">./templates/vcard.hbs</span><br><span class="line">./model.js</span><br></pre></td></tr></table></figure>
+<p>Let’s create a new compiled type <code>vcard</code> using the local directory for both input and output.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput -c . -o . -t vcard</span><br></pre></td></tr></table></figure>
+<p>Now let’s see what we have</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ find . -type f</span><br><span class="line">./convert.js</span><br><span class="line">./vcard.js            # &lt;---- New file</span><br><span class="line">./templates/vcard.hbs</span><br><span class="line">./model.js</span><br></pre></td></tr></table></figure>
+<p>Since we have new file, let’s register that type into Simput by running the following command line:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput -a ./vcard.js</span><br><span class="line">Added &quot;vcard.js&quot; to types</span><br><span class="line"></span><br><span class="line">$ Simput -l</span><br><span class="line">______________________</span><br><span class="line">---- Simput Types ----</span><br><span class="line">¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯</span><br><span class="line"> - vcard  :</span><br></pre></td></tr></table></figure>
+<h2 id="Use-Simput-and-your-type-to-fill-your-address-book" class="article-heading"><a href="#Use-Simput-and-your-type-to-fill-your-address-book" class="headerlink" title="Use Simput and your type to fill your address book"></a>Use Simput and your type to fill your address book<a class="article-anchor" href="#Use-Simput-and-your-type-to-fill-your-address-book" aria-hidden="true"></a></h2><p>Let’s try to run it and enter a couple of persons</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput -t vcard -o ~/MyAddressBook</span><br><span class="line">No valid json found in ~/MyAddressBook</span><br><span class="line">Simput listening on port 8080</span><br></pre></td></tr></table></figure>
+<p>Open <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> in your browser.</p>
+<center class="half"><br><img src="vcard-step-0.png" alt=""><br>Initial empty page / content<br></center>
+
+<p>Start filling it…</p>
+<center class="half"><br><img src="vcard-step-1.png" alt=""><br>Add a couple persons<br></center>
+
+<p>Then press on <code>Save &amp; Convert</code> button</p>
+<center class="half"><br><img src="vcard-step-2.png" alt=""><br>The vcard have been written along with the data model<br></center>
+
+<p>If you restart Simput with the following command line, you will find all the persons you’ve entered</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput -t vcard -o ~/MyAddressBook</span><br><span class="line">Simput listening on port 8080</span><br></pre></td></tr></table></figure>
+<center class="half"><br><img src="vcard-step-1.png" alt=""><br>Add a couple persons<br></center>
+
+
+              </div>
+              <footer class="article-footer">
+                <time class="article-footer-updated" datetime="2018-04-12T20:27:46.315Z" itemprop="dateModified">Last updated: 2018-04-12</time>
+                <a href="convert.html" class="article-footer-prev" title="Convert function"><i class="fa fa-chevron-left"></i><span>Prev</span></a>
+              </footer>
+              
+            </div>
+          </div>
+          <aside id="article-toc" role="navigation">
+            <div id="article-toc-inner">
+              <strong class="sidebar-title">Contents</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Creation-of-new-type"><span class="toc-text">Creation of new type</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-creation"><span class="toc-text">Model creation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Convert-function"><span class="toc-text">Convert function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Template-file"><span class="toc-text">Template file</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compilation-of-new-type"><span class="toc-text">Compilation of new type</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-Simput-and-your-type-to-fill-your-address-book"><span class="toc-text">Use Simput and your type to fill your address book</span></a></li></ol>
+              <a href="#" id="article-toc-top">Back to Top</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+      <aside id="sidebar" role="navigation">
+  <div class="inner"><strong class="sidebar-title">Getting Started</strong><a href="index.html" class="sidebar-link">Overview</a><a href="model.html" class="sidebar-link">DataModel definition</a><a href="convert.html" class="sidebar-link">Convert function</a><strong class="sidebar-title">Example</strong><a href="vcard.html" class="sidebar-link current">Address book</a></div>
+</aside>
+    </div>
+  </div>
+</div>
+
+    <footer id="footer" class="wrapper">
+  <div class="inner">
+    <div id="footer-copyright">
+      &copy; 2018 <a href="https://www.kitware.com/" target="_blank">Kitware Inc.</a>
+    </div>
+    <div id="footer-links">
+      <a href="https://github.com/kitware/simput" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+    </div>
+  </div>
+</footer>
+
+  </div>
+  <div id="mobile-nav-dimmer"></div>
+  <nav id="mobile-nav">
+  <div id="mobile-nav-inner">
+    <ul id="mobile-nav-list">
+      <a href="/simput/docs/" class="mobile-nav-link">Docs</a>
+      <li class="mobile-nav-item">
+        <a href="https://github.com/kitware/simput" class="mobile-nav-link" rel="external" target="_blank">GitHub</a>
+      </li>
+    </ul>
+    
+      <strong class="mobile-nav-title">Getting Started</strong><a href="index.html" class="mobile-nav-link">Overview</a><a href="model.html" class="mobile-nav-link">DataModel definition</a><a href="convert.html" class="mobile-nav-link">Convert function</a><strong class="mobile-nav-title">Example</strong><a href="vcard.html" class="mobile-nav-link current">Address book</a>
+    
+  </div>
+  <div id="mobile-lang-select-wrap">
+    <span id="mobile-lang-select-label"><i class="fa fa-globe"></i><span>English</span></span>
+    <select id="mobile-lang-select" data-canonical="docs/vcard.html">
+      
+        <option value="en" selected>English</option>
+      
+    </select>
+  </div>
+</nav>
+  <!-- Scripts -->
+<!-- build:js build/js/main.js -->
+<script src="/simput/js/lang_select.js"></script>
+<script src="/simput/js/toc.js"></script>
+<script src="/simput/js/mobile_nav.js"></script>
+<!-- endbuild -->
+<script src="https://cdn.jsdelivr.net/retinajs/1.3.0/retina.min.js" async></script>
+
+
+
+</body>
+</html>
