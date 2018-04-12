@@ -1,13 +1,17 @@
-var vCardTemplate = require('./templates/vcard.hbs');
+const vCardTemplate = require('./templates/vcard.hbs');
 
-export default function(dataModel) {
-    const results = {}, 
-        error = null;
+module.exports = function convert(dataModel) {
+  const results = {};
 
-    dataModel.data.AddressBook.forEach( person => {
-        const key = [ person.firstName, person.lastName ].join(' ');
-        results[key+'.vcf'] = vCardTemplate(person);
+  dataModel.data.AddressBook.forEach((attributes) => {
+    const person = {};
+    Object.keys(attributes.person).forEach((fieldName) => {
+      person[fieldName] = attributes.person[fieldName].value[0];
     });
+    results[`${person.firstName} ${person.lastName}.vcf`] = vCardTemplate(
+      person
+    );
+  });
 
-    return { results, error };
-}
+  return { results, model: dataModel };
+};
