@@ -229,7 +229,7 @@ The vcard have been written along with the data model
 If you restart Simput with the following command line, you will find all the persons you've entered
 
 ```
-$ Simput -t vcard -o ~/MyAddressBook
+$ Simput -o ~/MyAddressBook
 Simput listening on port 8080
 ```
 
