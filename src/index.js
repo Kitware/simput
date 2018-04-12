@@ -1,5 +1,6 @@
 import 'normalize.css';
 
+import PropertyFactory from 'paraviewweb/src/React/Properties/PropertyFactory';
 import Factory from './factory';
 
 /* eslint-disable import/prefer-default-export */
@@ -12,4 +13,8 @@ export function load(url, container) {
 
     Factory.createUI(viewer, container);
   });
+}
+
+export function updateWidgetMapping(type, reactFn) {
+  PropertyFactory.updateWidgetMapping(type, reactFn);
 }
