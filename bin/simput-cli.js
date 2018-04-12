@@ -55,7 +55,7 @@ if (!process.argv.slice(2).length) {
   process.exit(0);
 }
 
-// inout
+// input
 if (program.input && program.output && !program.gui) {
   shell.mkdir('-p', toAbsolutePath(program.output));
   simputConverter(program.input, program.output);
@@ -86,6 +86,7 @@ if (program.input && program.output && !program.gui) {
   });
 
   let inputFile = null;
+  const modelInOutput = path.join(program.output, 'model.json');
   if (program.input) {
     // load input
     /* eslint-disable */
@@ -94,6 +95,10 @@ if (program.input && program.output && !program.gui) {
     } else {
       inputFile = require(path.join(process.env.PWD, program.input));
     }
+    /* eslint-enable */
+  } else if (shell.test('-f', modelInOutput)) {
+    /* eslint-disable */
+    inputFile = require(modelInOutput);
     /* eslint-enable */
   }
 
@@ -117,12 +122,15 @@ if (program.input && program.output && !program.gui) {
   app
     .route('/data')
     .get((req, res) => {
-      if (program.input) {
+      if (inputFile) {
         // send input file
         res.send({ input: true, data: inputFile });
-      } else {
-        // send options for input
+      } else if (program.type) {
+        // send empty type
         res.send({ input: true, data: { type: program.type, data: {} } });
+      } else {
+        // send possible types for input
+        res.send({ input: false, data: Object.keys(Simput.types) });
       }
     })
     .post((req, res) => {
@@ -139,17 +147,9 @@ if (program.input && program.output && !program.gui) {
 
       // Copies --------------------------------
       if (req.body.copies) {
-        req.body.copies.forEach((filePath) => {
-          const cleanFilePath = path.join(...filePath.split('/'));
-          const source = path.join(
-            process.env.PWD,
-            'types',
-            req.body.model.data.type,
-            'src',
-            'templates',
-            cleanFilePath
-          );
-          const destination = path.join(program.output, cleanFilePath);
+        req.body.copies.forEach((entry) => {
+          const source = path.join(...entry.src.split('/'));
+          const destination = path.join(program.output, entry.dst);
 
           shell.mkdir('-p', path.dirname(destination));
           shell.cp(source, destination);

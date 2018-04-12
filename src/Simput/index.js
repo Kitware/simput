@@ -22,7 +22,7 @@ export default class Simput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullData: props.data, // { input: bool, data: { type: '', data: {...}} }
+      fullData: props.data, // { type: '', data: {...}, external: {} }
       panelData: [], // data for the current property panel
       viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
@@ -39,8 +39,8 @@ export default class Simput extends React.Component {
 
   saveModel() {
     this.downloadFile(
-      JSON.stringify(this.state.fullData.data, null, '    '),
-      this.state.fullData.data.type
+      JSON.stringify(this.state.fullData, null, 2),
+      this.state.fullData.type
     );
   }
 
@@ -49,16 +49,20 @@ export default class Simput extends React.Component {
       alert('No files selected');
       return;
     }
-    const type = this.state.fullData.data.type;
+    const type = this.state.fullData.type;
     const file = e.currentTarget.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       const newFullData = Object.assign({}, this.state.fullData);
-      try {
-        newFullData.data = this.props.parse(type, reader.result);
-        this.setState({ fullData: newFullData });
-      } catch (error) {
-        alert(`Error parsing file:\n${error}`);
+      if (this.props.parse) {
+        try {
+          newFullData.data = this.props.parse(type, reader.result);
+          this.setState({ fullData: newFullData });
+        } catch (error) {
+          alert(`Error parsing file:\n${error}`);
+        }
+      } else {
+        alert('Cannot parse file as no parse method is provided');
       }
     };
     reader.readAsText(file);

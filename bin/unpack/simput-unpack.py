@@ -38,9 +38,9 @@ def unpack(srcFile, destDirectory):
 
     # Copies
 
-    for filePath in copies:
-      sourceFile = os.path.join(os.getcwd(), 'types', data['model']['data']['type'], 'src', 'templates', filePath)
-      destinationFile = os.path.join(destDirectory, filePath);
+    for entry in copies:
+      sourceFile = entry['src']
+      destinationFile = os.path.join(destDirectory, entry['dst']);
 
       mkdirp(os.path.dirname(destinationFile))
       shutil.copyfile(sourceFile, destinationFile)

@@ -8,6 +8,39 @@ import { getJSON } from './network';
 
 const container = document.querySelector('.react-content');
 
+function mountViewer(data, lang) {
+  const scriptToLoad = `/type/${data.type}.js`;
+  const body = document.getElementsByTagName('body')[0];
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = scriptToLoad;
+  script.onload = () => {
+    const module = Simput.types[data.type];
+    const labels = new Labels(module, lang); // <= FIXME pick the right language // --lang
+    let help = {}; // FIXME too,
+    const convert = module.convert;
+    const parse = module.parse;
+
+    if (module.lang[lang] && module.lang[lang].help) {
+      help = module.lang[lang].help;
+    }
+    ReactDOM.unmountComponentAtNode(container);
+    ReactDOM.render(
+      <App
+        data={data}
+        model={module.model}
+        labels={labels}
+        help={help}
+        convert={convert}
+        parse={parse}
+      />,
+      container
+    );
+  };
+
+  body.appendChild(script);
+}
+
 /* eslint-disable no-use-before-define */
 function createViewer(url, callback) {
   const lang = 'en';
@@ -18,36 +51,7 @@ function createViewer(url, callback) {
     }
 
     if (data.input) {
-      const scriptToLoad = `/type/${data.data.type}.js`;
-      const body = document.getElementsByTagName('body')[0];
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = scriptToLoad;
-      script.onload = () => {
-        const module = Simput.types[data.data.type];
-        const labels = new Labels(module, lang); // <= FIXME pick the right language // --lang
-        let help = {}; // FIXME too,
-        const convert = module.convert;
-        const parse = module.parse;
-
-        if (module.lang[lang] && module.lang[lang].help) {
-          help = module.lang[lang].help;
-        }
-        ReactDOM.unmountComponentAtNode(container);
-        ReactDOM.render(
-          <App
-            data={data}
-            model={module.model}
-            labels={labels}
-            help={help}
-            convert={convert}
-            parse={parse}
-          />,
-          container
-        );
-      };
-
-      body.appendChild(script);
+      mountViewer(data.data, lang);
     } else {
       setupChoices(data.data);
     }
@@ -56,10 +60,8 @@ function createViewer(url, callback) {
 /* eslint-enable no-use-before-define */
 
 function setupSimput(event) {
-  // console.log('unimplemented', event.target.getAttribute('name'));
-  createViewer(`/type/${event.target.getAttribute('name')}.js`, () => {
-    console.log('new!');
-  });
+  const type = event.target.getAttribute('name');
+  mountViewer({ data: {}, type }, 'en');
 }
 
 function listAmatize(el, index) {

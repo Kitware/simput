@@ -13,6 +13,7 @@ const fileToDelete = [];
 function buildWebpackConfiguration(name, basepath, outputPath, compress) {
   const plugins = [];
   const entry = path.join(basepath, 'index.js');
+  const simputNodeModules = path.join(__dirname, '../node_modules');
   return {
     mode: compress ? 'production' : 'development',
     entry,
@@ -21,6 +22,9 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
       filename: `${name}.js`,
     },
     plugins,
+    resolveLoader: {
+      modules: [simputNodeModules],
+    },
     module: {
       rules: [
         // { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=60000&mimetype=application/font-woff" },
@@ -45,7 +49,17 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['env'],
+                babelrc: false,
+                presets: [
+                  [
+                    `${simputNodeModules}/babel-preset-env`,
+                    {
+                      targets: {
+                        browsers: ['last 2 versions', 'safari >= 7'],
+                      },
+                    },
+                  ],
+                ],
               },
             },
           ],

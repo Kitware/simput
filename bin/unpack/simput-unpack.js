@@ -31,16 +31,9 @@ if (process.argv.length < 4) {
   // Copies --------------------------------
 
   if (jsonContent.copies) {
-    jsonContent.copies.forEach((filePath) => {
-      const sourceFile = path.join(
-        process.cwd(),
-        'types',
-        jsonContent.model.data.type,
-        'src',
-        'templates',
-        filePath
-      );
-      const destinationFile = path.join(destPath, filePath);
+    jsonContent.copies.forEach((entry) => {
+      const sourceFile = entry.src;
+      const destinationFile = path.join(destPath, entry.dst);
 
       shell.mkdir('-p', path.dirname(destinationFile));
       shell.cp(sourceFile, destinationFile);
