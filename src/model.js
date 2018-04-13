@@ -1,9 +1,13 @@
 module.exports = {
+  scripts: [
+    // 'https://unpkg.com/@doe-casl/verain-view@1.1.1/dist/simput-external-vera.js',
+    'simput-external-vera.js',
+  ],
   output: {
     'data.json': { type: 'default' },
     'verain.xml': { type: 'template', template: './templates/vera-xml.hbs' },
   },
-  order: ['Materials', 'Core'],
+  order: ['Materials', 'Cells', 'Core'],
   views: {
     Materials: {
       label: 'Materials',
@@ -33,7 +37,10 @@ module.exports = {
         },
       ],
     },
-    Cells: {},
+    Cells: {
+      label: 'Cells',
+      attributes: ['cell'],
+    },
     Assembly: {},
     Insert: {},
     Control: {},
@@ -153,6 +160,36 @@ module.exports = {
           id: 'shape',
           type: 'core-shape', // FIXME
           label: 'Mask',
+        },
+      ],
+    },
+    cell: {
+      label: 'Cell definition',
+      parameters: [
+        {
+          id: 'before',
+          type: 'string',
+          size: 1,
+          default: 'before',
+          label: 'Before',
+        },
+        {
+          id: 'cell',
+          propType: 'RodCellEditor',
+          size: 1,
+          default: {
+            name: 'Cell name',
+            radii: [1],
+            mats: ['mod'],
+          },
+          label: 'Cell',
+        },
+        {
+          id: 'after',
+          type: 'string',
+          size: 1,
+          default: 'after',
+          label: 'After',
         },
       ],
     },
