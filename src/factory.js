@@ -8,13 +8,17 @@ import { getJSON } from './network';
 
 const container = document.querySelector('.react-content');
 
-function mountViewer(data, lang) {
-  const scriptToLoad = `/type/${data.type}.js`;
+function loadScript(url, callback) {
   const body = document.getElementsByTagName('body')[0];
   const script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = scriptToLoad;
-  script.onload = () => {
+  script.src = url;
+  script.onload = callback;
+  body.appendChild(script);
+}
+
+function mountViewer(data, lang) {
+  function done() {
     const module = Simput.types[data.type];
     const labels = new Labels(module, lang); // <= FIXME pick the right language // --lang
     let help = {}; // FIXME too,
@@ -36,9 +40,23 @@ function mountViewer(data, lang) {
       />,
       container
     );
-  };
+  }
+  loadScript(`/type/${data.type}.js`, () => {
+    const scripts = Simput.types[data.type].model.scripts || [];
+    let count = scripts.length + 1;
 
-  body.appendChild(script);
+    function scriptAdded() {
+      count--;
+      if (count === 0) {
+        done();
+      }
+    }
+
+    for (let i = 0; i < scripts.length; i++) {
+      loadScript(scripts[i], scriptAdded);
+    }
+    scriptAdded();
+  });
 }
 
 /* eslint-disable no-use-before-define */
