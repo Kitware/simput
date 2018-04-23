@@ -20,6 +20,14 @@ module.exports = {
         loader: 'expose-loader?Simput',
       },
       {
+        test: require.resolve('react'),
+        loader: 'expose-loader?React',
+      },
+      {
+        test: require.resolve('react-dom'),
+        loader: 'expose-loader?ReactDOM',
+      },
+      {
         test: /\.js$/,
         loader: 'eslint-loader',
         exclude: /node_modules/,
