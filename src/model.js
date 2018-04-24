@@ -36,10 +36,23 @@ module.exports = {
           ],
         },
       ],
+      hooks: [
+        {
+          type: 'copyViewNameToAttributeParameter',
+          attribute: 'material.name',
+        },
+        { type: 'materialsToExternal' },
+      ],
     },
     Cells: {
       label: 'Cells',
       attributes: ['cell'],
+      hooks: [
+        { type: 'copyParameterToViewName', attribute: 'cell.name' },
+        { type: 'cellsToExternal' },
+      ],
+      size: -1,
+      readOnly: true,
     },
     Assembly: {},
     Insert: {},
@@ -79,8 +92,9 @@ module.exports = {
           id: 'name',
           type: 'string',
           size: 1,
-          default: 'water',
+          default: 'Water',
           label: 'Name',
+          show: 'false',
         },
         {
           id: 'density',
@@ -167,11 +181,11 @@ module.exports = {
       label: 'Cell definition',
       parameters: [
         {
-          id: 'before',
+          id: 'name',
           type: 'string',
           size: 1,
-          default: 'before',
-          label: 'Before',
+          default: 'A',
+          label: 'Name',
         },
         {
           id: 'cell',
@@ -182,14 +196,11 @@ module.exports = {
             radii: [1],
             mats: ['mod'],
           },
+          domain: {
+            dynamic: true,
+            external: 'materials',
+          },
           label: 'Cell',
-        },
-        {
-          id: 'after',
-          type: 'string',
-          size: 1,
-          default: 'after',
-          label: 'After',
         },
       ],
     },
