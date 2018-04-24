@@ -151,6 +151,7 @@ module.exports = function compile(
     model: require('./${modelFileName}'),
     lang: LANG,
     convert: require('./convert.js'),
+    hooks: HOOKS,
     parse: PARSE
   }`;
 
@@ -158,6 +159,12 @@ module.exports = function compile(
     schema = schema.replace('PARSE', "require('./parse.js')");
   } else {
     schema = schema.replace('PARSE', 'null');
+  }
+
+  if (shell.test('-f', path.join(directory, 'hooks.js'))) {
+    schema = schema.replace('HOOKS', "require('./hooks.js')");
+  } else {
+    schema = schema.replace('HOOKS', 'null');
   }
 
   schema = schema.replace('TYPE', modelType);

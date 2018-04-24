@@ -49,11 +49,13 @@ export default class ViewMenu extends React.Component {
   }
 
   editView(viewId, index) {
-    this.setState({ editingIndex: `${viewId}-${index}` });
+    this.setState({ editingIndex: `${viewId}-${index}`, viewId, index });
   }
 
   stopEditingView() {
-    console.log();
+    if (this.props.onChange) {
+      this.props.onChange(this.state.viewId, this.state.index);
+    }
     this.setState({ editingIndex: -1 });
   }
 
@@ -144,6 +146,38 @@ export default class ViewMenu extends React.Component {
                           <i
                             className={style.editButton}
                             style={{ visibility: 'hidden' }}
+                          />
+                        </li>
+                      );
+                    }
+
+                    if (this.props.model.views[viewId].readOnly) {
+                      return (
+                        <li
+                          key={`view-${viewId}-${viewIdx}`}
+                          className={
+                            isActive(viewId, viewIdx)
+                              ? style.activeListItem
+                              : style.listItem
+                          }
+                        >
+                          <span
+                            className={style.editable}
+                            onClick={this.activateSection.bind(
+                              this,
+                              viewId,
+                              viewIdx
+                            )}
+                          >
+                            {viewData.name}
+                          </span>
+                          <i
+                            className={style.deleteButton}
+                            onClick={this.removeView.bind(
+                              this,
+                              viewId,
+                              viewIdx
+                            )}
                           />
                         </li>
                       );

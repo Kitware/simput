@@ -26,6 +26,7 @@ export default class Simput extends React.Component {
       panelData: [], // data for the current property panel
       viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
+      hooks: [],
     };
 
     // Bind callback
@@ -35,6 +36,7 @@ export default class Simput extends React.Component {
     this.downloadFile = this.downloadFile.bind(this);
     this.updateActive = this.updateActive.bind(this);
     this.updateViewData = this.updateViewData.bind(this);
+    this.applyHooksAndSaveState = this.applyHooksAndSaveState.bind(this);
   }
 
   saveModel() {
@@ -130,7 +132,9 @@ export default class Simput extends React.Component {
     if (viewId === -1 && index === -1) {
       const panelData = [];
       const viewData = {};
-      this.setState({ panelData, viewData });
+      this.setState({ panelData, viewData }, () => {
+        this.applyHooksAndSaveState(viewData);
+      });
       return;
     }
 
@@ -145,7 +149,23 @@ export default class Simput extends React.Component {
       this.props.help
     );
     const viewData = this.state.fullData.data[viewId][index];
-    this.setState({ panelData, viewData });
+    const hooks = this.props.model.views[viewId].hooks || [];
+
+    this.setState({ panelData, viewData, hooks }, () => {
+      this.applyHooksAndSaveState(viewData);
+    });
+  }
+
+  applyHooksAndSaveState(viewData) {
+    const stateToUpdate = { viewData };
+    const { hooks } = this.state;
+    for (let i = 0; i < hooks.length; i++) {
+      const hookConfig = hooks[i];
+      global.Simput.applyHook(hookConfig, this.state.fullData, viewData);
+      stateToUpdate.fullData = this.state.fullData;
+    }
+
+    this.setState(stateToUpdate);
   }
 
   updateViewData(newData) {
@@ -153,7 +173,8 @@ export default class Simput extends React.Component {
     const keypath = newData.id.split('.');
     const attrName = keypath.shift();
     viewData[attrName][keypath.join('.')].value = newData.value;
-    this.setState({ viewData });
+
+    this.applyHooksAndSaveState(viewData);
   }
 
   render() {

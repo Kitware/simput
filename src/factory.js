@@ -28,6 +28,12 @@ function mountViewer(data, lang) {
     if (module.lang[lang] && module.lang[lang].help) {
       help = module.lang[lang].help;
     }
+
+    // Initialize hooks
+    if (module.hooks) {
+      module.hooks();
+    }
+
     ReactDOM.unmountComponentAtNode(container);
     ReactDOM.render(
       <App

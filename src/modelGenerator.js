@@ -59,10 +59,19 @@ function generateUI(parameter, label, help, external, modelExternal) {
     } else if (modelExternal && modelExternal[externalKey]) {
       ui.domain = modelExternal[externalKey];
     } else {
+      console.log(
+        `no domain found for external (${externalKey})`,
+        external,
+        modelExternal
+      );
       ui.domain = {
         [`${externalKey} not found`]: `${externalKey}-not-found`,
       };
     }
+  }
+
+  if (parameter.domain && parameter.domain.dynamic) {
+    ui.dynamic = true;
   }
 
   if (parameter.ui) {
@@ -109,7 +118,9 @@ function getUI(model, attrName, paramId, labels, help, external) {
       external,
       model.external
     );
-    uiCache[attrName][paramId] = newUI;
+    if (!newUI.dynamic) {
+      uiCache[attrName][paramId] = newUI;
+    }
 
     return newUI;
   }
@@ -278,6 +289,8 @@ export default function generateDataModel(
   const propertyList = [];
   const viewData = input.data[selectedViewId][viewIdx];
   const viewAttrs = model.views[selectedViewId].attributes || [];
+
+  console.log('generateDataModel: input', input);
 
   // FIXME should add attribute separator + or management
   viewAttrs.forEach((attrName) => {

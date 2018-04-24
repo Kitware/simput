@@ -224,6 +224,19 @@ Attribute rendering with different ui
 Attribute rendering with different ui
 </center>
 
+The domain in the UI can be filled by some external data. 
+
+```
+{
+   id: 'fancy',
+   propType: 'CustomWidget', // Can be registered dynamically from an external script
+   domain: {
+      external: 'fieldToEmbedInUIAsDomain',
+      dynamic: true, // Optional and only needed if the UI section of that parameter can not be cached
+   }
+}
+```
+
 ##### Conditional attributes
 
 Parameters can be dynamically composed based on other attribute parameters and conditional expression.
@@ -293,6 +306,69 @@ views : {
 ![View menu](view-menu.png)
 View menu
 </center>
+
+To a view can be attached hooks to dynamically massage the data between transitions. This allow for instance to copy the dynamic view name into a parameter of a given attribute or expose a set of view data into some external domain so they could be used somewhere else in the input definition.
+
+```
+views : {
+   SingleView: {
+      label: 'Single View',
+      attributes: [ 'attr1' ],
+      hooks: [
+        // { type: 'copyViewNameToAttributeParameter', attribute: 'attributeName.parameterId' }, // Type available by default
+        { type: 'copyParameterToViewName', attribute: 'attributeName.parameterId' },          // Type available by default
+        { type: 'yourCustomHook', ...what-ever-you-want... },                                 // User defined hook dynamically registered
+      ],
+      readOnly: true,
+   },
+},
+```
+
+Note the `readOnly` option disable the view name edition from the side menu which works well if you want to use a parameter to define that view name.
+
+To register your own hooks, you will have to create a `hooks.js` next to your model file. The following listing illustrate what that file should looks like.
+
+```
+function getExternal(dataModel) {
+  if (!dataModel.external) {
+    dataModel.external = {};
+  }
+  return dataModel.external;
+}
+
+function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+
+  // Fill materials
+  if (dataModel.data.Materials) {
+    const mats = dataModel.data.Materials;
+    external.materials = {};
+    for (let i = 0; i < mats.length; i++) {
+      const name = mats[i].name;
+      const currentMaterial = { name };
+      // Gather material fields
+      Object.keys(mats[i].material).forEach((key) => {
+        currentMaterial[key] = mats[i].material[key].value[0];
+      });
+
+      // save to external
+      external.materials[name] = currentMaterial;
+    }
+  }
+}
+
+function paramToViewName(hookConfig, dataModel, currentViewData) {
+  const [attributeName, parameterId] = hookConfig.attribute.split('.');
+  currentViewData.name = currentViewData[attributeName][parameterId].value[0];
+}
+
+module.exports = function initialize() {
+  Simput.registerHook('materialsToExternal', pushMaterialsToExternalHook);
+  Simput.registerHook('paramToViewName', paramToViewName);
+};
+
+```
+
 
 ### Order
 
@@ -369,3 +445,7 @@ The `.` on the left side are used as nesting structure inside an object.
 The `{xxx}` are automatically replaced on the left side with the actual value of the `xxx` parameter. 
 
 
+### Scripts
+
+External scripts can be loaded for a given type by providing at the root level a `scripts: [],` section with the list of url that the type should load in order to works.
+This can be useful to register custom widgets to edit your custom parameter.

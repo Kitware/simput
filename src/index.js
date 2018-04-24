@@ -2,6 +2,7 @@ import 'normalize.css';
 
 import PropertyFactory from 'paraviewweb/src/React/Properties/PropertyFactory';
 import Factory from './factory';
+import HookManager from './HookManager';
 
 /* eslint-disable import/prefer-default-export */
 export function load(url, container) {
@@ -18,3 +19,5 @@ export function load(url, container) {
 export function updateWidgetMapping(type, reactFn) {
   PropertyFactory.updateWidgetMapping(type, reactFn);
 }
+
+export const { applyHook, registerHook } = HookManager;
