@@ -97,6 +97,7 @@ module.exports = function simputConvert(viewData, mapping, outputFiles) {
 
   return {
     results,
+    model: viewData,
     error,
   };
 };

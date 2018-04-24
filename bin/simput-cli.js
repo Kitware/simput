@@ -86,7 +86,7 @@ if (program.input && program.output && !program.gui) {
   });
 
   let inputFile = null;
-  const modelInOutput = path.join(program.output, 'model.json');
+  const modelInOutput = path.resolve(path.join(program.output, 'model.json'));
   if (program.input) {
     // load input
     /* eslint-disable */
