@@ -338,7 +338,7 @@ function getExternal(dataModel) {
   return dataModel.external;
 }
 
-function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
+function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData, modelDefinition) {
   const external = getExternal(dataModel);
 
   // Fill materials
@@ -371,6 +371,7 @@ module.exports = function initialize() {
 
 ```
 
+Hooks can also be used to alter the model definition in order to add or remove views in the __order__ list.
 
 ### Order
 
