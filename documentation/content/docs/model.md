@@ -327,6 +327,7 @@ views : {
 ```
 
 Note the `readOnly` option disable the view name edition from the side menu which works well if you want to use a parameter to define that view name.
+The `noDelete` option disable the delete action on the view. That flag can either be define at the view definition or inside the `currentViewData` that the hooks are getting passed. The 'readOnly' flag follow the same pattern regarding where its definition can be provided.   
 
 To register your own hooks, you will have to create a `hooks.js` next to your model file. The following listing illustrate what that file should looks like.
 
