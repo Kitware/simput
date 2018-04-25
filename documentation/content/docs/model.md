@@ -15,10 +15,11 @@ The model can either be a JSON or a JavaScript file. But we recommend to use the
 
 ```JavaScript
 module.exports = {
-  output: {},        // optional if no convert.js provided
-  order: [],         // List view names in order for the menu
-  views: {},         // Views definitions
-  definitions: {},   // Attributes and parameters definitions
+  output: {},                                          // optional if no convert.js provided
+  defaultActiveView: "NameOfTheViewInOrderToActivate", // Optional
+  order: [],                                           // List view names in order for the menu
+  views: {},                                           // Views definitions
+  definitions: {},                                     // Attributes and parameters definitions
 };
 ```
 
@@ -27,6 +28,7 @@ vs
 ```JSON
 {
   "output": {},
+  "defaultActiveView": "NameOfTheViewInOrderToActivate",
   "order": [],
   "views": {},
   "definitions": {}
