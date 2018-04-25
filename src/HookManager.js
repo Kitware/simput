@@ -1,14 +1,19 @@
 const HOOKS = {};
 
-function noOpHook(hookConfiguration, fullDataModel, localViewDataModel) {}
+function noOpHook(
+  hookConfiguration,
+  fullDataModel,
+  localViewDataModel,
+  model
+) {}
 
 function registerHook(name, fn) {
   HOOKS[name] = fn;
 }
 
-function applyHook(hookConfig, fullDataModel, viewDataModel) {
+function applyHook(hookConfig, fullDataModel, viewDataModel, model) {
   const hookFn = HOOKS[hookConfig.type] || noOpHook;
-  hookFn(hookConfig, fullDataModel, viewDataModel);
+  hookFn(hookConfig, fullDataModel, viewDataModel, model);
 }
 
 export default {
@@ -32,7 +37,12 @@ function copyViewNameToAttributeParameter(
 
 function paramToViewName(hookConfig, dataModel, currentViewData) {
   const [attributeName, parameterId] = hookConfig.attribute.split('.');
-  currentViewData.name = currentViewData[attributeName][parameterId].value[0];
+  if (
+    currentViewData[attributeName] &&
+    currentViewData[attributeName][parameterId]
+  ) {
+    currentViewData.name = currentViewData[attributeName][parameterId].value[0];
+  }
 }
 
 // ----------------------------------------------------------------------------

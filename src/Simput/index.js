@@ -27,6 +27,7 @@ export default class Simput extends React.Component {
       viewData: {}, // generated data structure for the view
       downloadButtonState: 'normal',
       hooks: [],
+      model: props.model,
     };
 
     // Bind callback
@@ -139,7 +140,7 @@ export default class Simput extends React.Component {
     }
 
     const panelData = modelGenerator(
-      this.props.model,
+      this.state.model,
       this.state.fullData,
       viewId,
       index,
@@ -149,7 +150,7 @@ export default class Simput extends React.Component {
       this.props.help
     );
     const viewData = this.state.fullData.data[viewId][index];
-    const hooks = this.props.model.views[viewId].hooks || [];
+    const hooks = this.state.model.views[viewId].hooks || [];
 
     this.setState({ panelData, viewData, hooks }, () => {
       this.applyHooksAndSaveState(viewData);
@@ -161,8 +162,14 @@ export default class Simput extends React.Component {
     const { hooks } = this.state;
     for (let i = 0; i < hooks.length; i++) {
       const hookConfig = hooks[i];
-      global.Simput.applyHook(hookConfig, this.state.fullData, viewData);
+      global.Simput.applyHook(
+        hookConfig,
+        this.state.fullData,
+        viewData,
+        this.state.model
+      );
       stateToUpdate.fullData = this.state.fullData;
+      stateToUpdate.model = this.state.model;
     }
 
     this.setState(stateToUpdate);
@@ -216,7 +223,7 @@ export default class Simput extends React.Component {
         <div className={style.content}>
           <ViewMenu
             data={this.state.fullData}
-            model={this.props.model}
+            model={this.state.model}
             labels={this.props.labels}
             onChange={this.updateActive}
           />

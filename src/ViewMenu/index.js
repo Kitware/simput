@@ -12,6 +12,7 @@ export default class ViewMenu extends React.Component {
       viewId: null,
       index: 0,
       editingIndex: -1,
+      collapseViews: {},
     };
 
     // Bind callback
@@ -20,12 +21,32 @@ export default class ViewMenu extends React.Component {
     this.editView = this.editView.bind(this);
     this.stopEditingView = this.stopEditingView.bind(this);
     this.activateSection = this.activateSection.bind(this);
+    this.getBulletType = this.getBulletType.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.model.defaultActiveView) {
+      this.activateSection(this.props.model.defaultActiveView, 0);
+    }
   }
 
   componentDidUpdate() {
     if (this.state.editingIndex !== -1) {
       this.editable.setFocus();
     }
+  }
+
+  getBulletType(viewId) {
+    const viewSize = this.props.model.views[viewId].size;
+    const children = this.props.model.views[viewId].children || [];
+
+    if (viewSize === -1 || children.length) {
+      return this.state.collapseViews[viewId]
+        ? 'collapsedBullet'
+        : 'expendedBullet';
+    }
+
+    return 'noBullet';
   }
 
   addView(viewId) {
@@ -65,10 +86,17 @@ export default class ViewMenu extends React.Component {
       viewList.push({ name: this.props.labels.getView(viewId) });
       this.props.data.data[viewId] = viewList;
     }
+
     this.setState({ viewId, index });
     if (this.props.onChange) {
       this.props.onChange(viewId, index);
     }
+  }
+
+  toggleCollapse(viewId) {
+    const { collapseViews } = this.state;
+    collapseViews[viewId] = !collapseViews[viewId];
+    this.setState({ collapseViews });
   }
 
   render() {
@@ -102,6 +130,19 @@ export default class ViewMenu extends React.Component {
                     : style.listItem
                 }
               >
+                <span
+                  className={style[this.getBulletType(viewId)]}
+                  onClick={this.toggleCollapse.bind(this, viewId)}
+                >
+                  <svg
+                    className={style.caret}
+                    width="15"
+                    height="15"
+                    viewBox="0 0 26 26"
+                  >
+                    <path d="M11,1 L21,11 L11,21 L1,11" />
+                  </svg>
+                </span>
                 <span onClick={this.activateSection.bind(this, viewId, 0)}>
                   {this.props.labels.getView(viewId)}
                 </span>
@@ -111,8 +152,10 @@ export default class ViewMenu extends React.Component {
                 />
                 <ul
                   className={
-                    hasSubList && viewSize !== undefined
-                      ? style.list
+                    hasSubList &&
+                    viewSize !== undefined &&
+                    !this.state.collapseViews[viewId]
+                      ? style.nestedList
                       : style.hidden
                   }
                 >
@@ -197,7 +240,9 @@ export default class ViewMenu extends React.Component {
                   })}
                 </ul>{' '}
                 {/* closes `hasSubList && viewSize !== undefined` */}
-                <ul className={children.length ? style.list : style.hidden}>
+                <ul
+                  className={children.length ? style.nestedList : style.hidden}
+                >
                   {children.map((subViewId, subIdx) => (
                     <li
                       key={`sub-view-${subViewId}`}
