@@ -7,12 +7,18 @@ module.exports = {
     'data.json': { type: 'default' },
     'verain.xml': { type: 'template', template: './templates/vera-xml.hbs' },
   },
-  order: ['Materials', 'Cells', 'Core'],
+  defaultActiveView: 'Specifications',
+  order: ['Specifications', 'Materials'],
   views: {
+    Specifications: {
+      label: 'Specifications',
+      attributes: ['coreSize'],
+    },
     Materials: {
       label: 'Materials',
       attributes: ['material'],
       size: -1,
+      readOnly: true,
       output: [
         {
           extract: ['name', 'density', 'thexp', 'fractions'],
@@ -37,11 +43,9 @@ module.exports = {
         },
       ],
       hooks: [
-        {
-          type: 'copyViewNameToAttributeParameter',
-          attribute: 'material.name',
-        },
+        { type: 'copyParameterToViewName', attribute: 'material.name' },
         { type: 'materialsToExternal' },
+        { type: 'addNextView', viewName: 'Materials', nextViewName: 'Cells' },
       ],
     },
     Cells: {
@@ -50,41 +54,53 @@ module.exports = {
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'cell.name' },
         { type: 'cellsToExternal' },
+        { type: 'updateMaterialUsed' },
+        { type: 'addNextView', viewName: 'Cells', nextViewName: 'Rods' },
       ],
       size: -1,
       readOnly: true,
     },
+    Rods: {
+      label: 'Rods',
+      attributes: ['rodInfo', 'rodStack'],
+      size: -1,
+      readOnly: true,
+      hooks: [{ type: 'copyParameterToViewName', attribute: 'rodInfo.name' }],
+    },
     Assembly: {},
     Insert: {},
     Control: {},
-    Core: {
-      label: 'Core',
-      attributes: ['core', 'baffle'],
-      output: [
+  },
+  definitions: {
+    coreSize: {
+      label: 'Core dimensions',
+      parameters: [
         {
-          extract: ['name', 'size', 'height', 'shape'],
-          src: 'core',
-          dst: [
-            'CASEID.case_id=name',
-            'CASEID.CORE.core_name=name',
-            'CASEID.CORE.core_size=size',
-            'CASEID.CORE.height=height',
-            'CASEID.CORE.shape=shape',
-          ],
+          id: 'height',
+          type: 'float',
+          size: 1,
+          default: 400,
+          label: 'Core height',
+          help: 'Height of the core in cm.',
         },
         {
-          extract: ['gap', 'thick', 'material'],
-          src: 'baffle',
-          dst: [
-            'CASEID.CORE.baffle_gap=gap',
-            'CASEID.CORE.baffle_mat=material',
-            'CASEID.CORE.baffle_thick=thick',
-          ],
+          id: 'grid',
+          type: 'int',
+          size: 1,
+          default: 15,
+          label: 'Grid size',
+          help: 'Size of the grid for the core',
+        },
+        {
+          id: 'pitch',
+          type: 'float',
+          size: 1,
+          default: 1.26,
+          label: 'Cell pitch',
+          help: 'Default cell pitch in assemblies',
         },
       ],
     },
-  },
-  definitions: {
     material: {
       label: 'Material definition',
       parameters: [
@@ -94,7 +110,6 @@ module.exports = {
           size: 1,
           default: 'Water',
           label: 'Name',
-          show: 'false',
         },
         {
           id: 'density',
@@ -114,6 +129,43 @@ module.exports = {
           id: 'fractions',
           ui: 'map',
           label: 'Material fractions (material:fraction)',
+        },
+      ],
+    },
+    rodInfo: {
+      label: 'Rod description',
+      parameters: [
+        {
+          id: 'name',
+          type: 'string',
+          size: 1,
+          default: 'Control A',
+          label: 'Name',
+        },
+        {
+          id: 'height',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Rod height',
+        },
+      ],
+    },
+    rodStack: {
+      label: 'Axial definition',
+      parameters: [
+        {
+          id: 'cellIds',
+          type: 'string',
+          size: -1,
+          label: 'Cell types',
+        },
+        {
+          id: 'axialSize',
+          type: 'float',
+          size: 1,
+          default: 1,
+          label: 'Cell height',
         },
       ],
     },

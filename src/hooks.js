@@ -49,7 +49,32 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
   }
 }
 
+function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
+  const mats = dataModel.data.Materials;
+  for (let i = 0; i < mats.length; i++) {
+    mats[i].noDelete = Math.random() > 0.5;
+  }
+}
+
+function addNextView(hookConfig, dataModel, currentViewData, model) {
+  const { viewName, nextViewName } = hookConfig;
+  if (dataModel.data[viewName].length) {
+    if (model.order.indexOf(nextViewName) === -1) {
+      const insertIndex = 1 + model.order.indexOf(viewName);
+      model.order.splice(insertIndex, 0, nextViewName);
+    }
+  } else {
+    // remove view
+    const indexToDelete = model.order.indexOf(nextViewName);
+    if (indexToDelete !== -1) {
+      model.order.splice(indexToDelete, 1);
+    }
+  }
+}
+
 module.exports = function initialize() {
   Simput.registerHook('materialsToExternal', pushMaterialsToExternalHook);
   Simput.registerHook('cellsToExternal', pushCellsToExternalHook);
+  Simput.registerHook('updateMaterialUsed', updateMaterialUsed);
+  Simput.registerHook('addNextView', addNextView);
 };
