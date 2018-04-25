@@ -151,38 +151,6 @@ export default class ViewMenu extends React.Component {
                       );
                     }
 
-                    if (this.props.model.views[viewId].readOnly) {
-                      return (
-                        <li
-                          key={`view-${viewId}-${viewIdx}`}
-                          className={
-                            isActive(viewId, viewIdx)
-                              ? style.activeListItem
-                              : style.listItem
-                          }
-                        >
-                          <span
-                            className={style.editable}
-                            onClick={this.activateSection.bind(
-                              this,
-                              viewId,
-                              viewIdx
-                            )}
-                          >
-                            {viewData.name}
-                          </span>
-                          <i
-                            className={style.deleteButton}
-                            onClick={this.removeView.bind(
-                              this,
-                              viewId,
-                              viewIdx
-                            )}
-                          />
-                        </li>
-                      );
-                    }
-
                     return (
                       <li
                         key={`view-${viewId}-${viewIdx}`}
@@ -205,10 +173,24 @@ export default class ViewMenu extends React.Component {
                         <i
                           className={style.deleteButton}
                           onClick={this.removeView.bind(this, viewId, viewIdx)}
+                          style={{
+                            visibility:
+                              this.props.model.views[viewId].noDelete ||
+                              viewData.noDelete
+                                ? 'hidden'
+                                : 'visible',
+                          }}
                         />
                         <i
                           className={style.editButton}
                           onClick={this.editView.bind(this, viewId, viewIdx)}
+                          style={{
+                            visibility:
+                              this.props.model.views[viewId].readOnly ||
+                              viewData.readOnly
+                                ? 'hidden'
+                                : 'visible',
+                          }}
                         />
                       </li>
                     );
