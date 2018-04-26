@@ -75,7 +75,7 @@ function generateUI(parameter, label, help, external, modelExternal) {
   }
 
   if (parameter.ui) {
-    ui.propType = uiPropTypeMapping[parameter.ui];
+    ui.propType = uiPropTypeMapping[parameter.ui] || parameter.ui;
   }
 
   if (label) {
@@ -153,7 +153,7 @@ function getData(
 
   if (!containerData[attrName][parameterId]) {
     const paramDef = getParameter(model, attrName, parameterId);
-    if (paramDef.default) {
+    if (paramDef.default !== undefined) {
       containerData[attrName][parameterId] = {
         id: `${attrName}.${parameterId}`,
         value: [].concat(clone(paramDef.default)),
@@ -289,8 +289,6 @@ export default function generateDataModel(
   const propertyList = [];
   const viewData = input.data[selectedViewId][viewIdx];
   const viewAttrs = model.views[selectedViewId].attributes || [];
-
-  console.log('generateDataModel: input', input);
 
   // FIXME should add attribute separator + or management
   viewAttrs.forEach((attrName) => {
