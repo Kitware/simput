@@ -171,17 +171,9 @@ module.exports = {
       label: 'Axial definition',
       parameters: [
         {
-          id: 'cellIds',
-          type: 'string',
-          size: -1,
+          id: 'rod',
+          ui: 'RodPreview',
           label: 'Cell types',
-        },
-        {
-          id: 'axialSize',
-          type: 'float',
-          size: 1,
-          default: 1,
-          label: 'Cell height',
         },
       ],
     },
