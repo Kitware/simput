@@ -65,7 +65,14 @@ module.exports = {
       attributes: ['rodInfo', 'rodStack'],
       size: -1,
       readOnly: true,
-      hooks: [{ type: 'copyParameterToViewName', attribute: 'rodInfo.name' }],
+      hooks: [
+        { type: 'copyParameterToViewName', attribute: 'rodInfo.name' },
+        {
+          type: 'copy',
+          src: 'data.Specifications.0.coreSize.height.value.0',
+          dst: 'rodInfo.height',
+        },
+      ],
     },
     Assembly: {},
     Insert: {},
@@ -130,6 +137,12 @@ module.exports = {
           ui: 'map',
           label: 'Material fractions (material:fraction)',
         },
+        {
+          id: 'color',
+          propType: 'Color',
+          label: 'Associated color',
+          default: [204 / 255, 235 / 255, 197 / 255],
+        },
       ],
     },
     rodInfo: {
@@ -144,10 +157,13 @@ module.exports = {
         },
         {
           id: 'height',
-          type: 'float',
+          type: 'string',
           size: 1,
-          default: 0,
+          default: '',
           label: 'Rod height',
+          domain: {
+            readOnly: true,
+          },
         },
       ],
     },
