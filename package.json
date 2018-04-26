@@ -34,7 +34,7 @@
     "validate": "prettier --config ./prettier.config.js --list-different \"src/**/*.js\"",
     "reformat": "prettier --config ./prettier.config.js --write \"src/**/*.js\"",
     "reformat-only": "prettier --single-quote --trailing-comma es5 --print-width 80 --arrow-parens always --write",
-    "build": "webpack --mode development",
+    "build": "webpack --mode development --devtool cheap-source-map",
     "demo": "Simput -o . -t pyfr",
     "build:watch": "webpack --watch --mode development",
     "build:debug": "webpack --display-modules --mode development",
