@@ -245,8 +245,8 @@ module.exports = {
           size: 1,
           default: {
             name: 'Cell name',
-            radii: [1],
-            mats: ['mod'],
+            radii: [],
+            mats: [],
           },
           domain: {
             dynamic: true,
