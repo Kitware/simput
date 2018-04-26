@@ -35,6 +35,8 @@ function copyViewNameToAttributeParameter(
   localViewDataModel[attributeName][parameterId].value = [name];
 }
 
+// ----------------------------------------------------------------------------
+
 function paramToViewName(hookConfig, dataModel, currentViewData) {
   const [attributeName, parameterId] = hookConfig.attribute.split('.');
   if (
@@ -42,6 +44,26 @@ function paramToViewName(hookConfig, dataModel, currentViewData) {
     currentViewData[attributeName][parameterId]
   ) {
     currentViewData.name = currentViewData[attributeName][parameterId].value[0];
+  }
+}
+
+// ----------------------------------------------------------------------------
+
+function copy(hookConfig, dataModel, currentViewData) {
+  const { src, dst } = hookConfig;
+  let value = dataModel;
+  const [attributeName, parameterId] = dst.split('.');
+  const tokens = src.split('.');
+  while (tokens.length) {
+    const token = tokens.shift();
+    value = value[token];
+  }
+  if (
+    currentViewData[attributeName] &&
+    currentViewData[attributeName][parameterId]
+  ) {
+    console.log('before', currentViewData[attributeName][parameterId].value);
+    currentViewData[attributeName][parameterId].value[0] = value;
   }
 }
 
@@ -55,3 +77,4 @@ registerHook(
 );
 
 registerHook('copyParameterToViewName', paramToViewName);
+registerHook('copy', copy);
