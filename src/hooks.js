@@ -51,8 +51,14 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
 
 function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   const mats = dataModel.data.Materials;
+  const cell = currentViewData.cell.cell.value[0];
+  const usedMats = {};
+  cell.mats.forEach((m) => {
+    usedMats[m] = true;
+  });
+
   for (let i = 0; i < mats.length; i++) {
-    mats[i].noDelete = Math.random() > 0.5;
+    mats[i].noDelete = mats[i].name in usedMats;
   }
 }
 
