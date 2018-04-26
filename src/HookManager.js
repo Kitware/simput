@@ -62,7 +62,6 @@ function copy(hookConfig, dataModel, currentViewData) {
     currentViewData[attributeName] &&
     currentViewData[attributeName][parameterId]
   ) {
-    console.log('before', currentViewData[attributeName][parameterId].value);
     currentViewData[attributeName][parameterId].value[0] = value;
   }
 }
