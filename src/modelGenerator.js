@@ -1,4 +1,4 @@
-import clone from 'mout/src/lang/clone';
+import clone from 'mout/src/lang/deepClone';
 
 /* eslint-disable no-new-func */
 
