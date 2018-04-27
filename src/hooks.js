@@ -17,7 +17,7 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
       const currentMaterial = { name };
       // Gather material fields
       Object.keys(mats[i].material).forEach((key) => {
-        currentMaterial[key] = mats[i].material[key].value[0];
+        currentMaterial[key] = mats[i].material[key].value;
       });
 
       // save to external
@@ -39,7 +39,7 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
       // Gather material fields
       if (cells[i].materials) {
         Object.keys(cells[i].materials).forEach((key) => {
-          currentCell[key] = cells[i].cell[key].value[0];
+          currentCell[key] = cells[i].cell[key].value;
         });
 
         // save to external
