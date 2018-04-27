@@ -5,6 +5,7 @@ import PropertyPanelBlock from 'paraviewweb/src/React/Properties/PropertyPanel';
 
 import style from 'SimputStyle/Simput.mcss';
 
+import HookManager from '../HookManager';
 import ViewMenu from '../ViewMenu';
 import modelGenerator from '../modelGenerator';
 import { postJSON } from '../network';
@@ -21,6 +22,10 @@ const buttonStates = {
 export default class Simput extends React.Component {
   constructor(props) {
     super(props);
+
+    // Run hooks on all existing view if any
+    HookManager.applyAll(props.data, props.model);
+
     this.state = {
       fullData: props.data, // { type: '', data: {...}, external: {} }
       panelData: [], // data for the current property panel

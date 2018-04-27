@@ -16,9 +16,25 @@ function applyHook(hookConfig, fullDataModel, viewDataModel, model) {
   hookFn(hookConfig, fullDataModel, viewDataModel, model);
 }
 
+function applyAll(fullDataModel, model) {
+  if (fullDataModel && fullDataModel.data) {
+    Object.keys(fullDataModel.data).forEach((viewId) => {
+      const hooks = model.views[viewId].hooks || [];
+      const views = fullDataModel.data[viewId];
+      for (let viewIdx = 0; viewIdx < views.length; viewIdx++) {
+        const viewDataModel = views[viewIdx];
+        for (let hookIdx = 0; hookIdx < hooks.length; hookIdx++) {
+          applyHook(hooks[hookIdx], fullDataModel, viewDataModel, model);
+        }
+      }
+    });
+  }
+}
+
 export default {
   applyHook,
   registerHook,
+  applyAll,
 };
 
 // ----------------------------------------------------------------------------
