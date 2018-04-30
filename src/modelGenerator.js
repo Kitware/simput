@@ -52,21 +52,33 @@ function generateUI(parameter, label, help, external, modelExternal) {
   });
 
   if (parameter.domain && parameter.domain.external) {
-    const externalKey = parameter.domain.external;
-    delete ui.domain.external;
-    if (external && external[externalKey]) {
-      ui.domain = external[externalKey];
-    } else if (modelExternal && modelExternal[externalKey]) {
-      ui.domain = modelExternal[externalKey];
+    if (Array.isArray(parameter.domain.external)) {
+      ui.domain = {};
+      for (let i = 0; i < parameter.domain.external.length; i++) {
+        const key = parameter.domain.external[i];
+        if (external && external[key]) {
+          ui.domain[key] = external[key];
+        } else if (modelExternal && modelExternal[key]) {
+          ui.domain[key] = modelExternal[key];
+        }
+      }
     } else {
-      console.log(
-        `no domain found for external (${externalKey})`,
-        external,
-        modelExternal
-      );
-      ui.domain = {
-        [`${externalKey} not found`]: `${externalKey}-not-found`,
-      };
+      const externalKey = parameter.domain.external;
+      delete ui.domain.external;
+      if (external && external[externalKey]) {
+        ui.domain = external[externalKey];
+      } else if (modelExternal && modelExternal[externalKey]) {
+        ui.domain = modelExternal[externalKey];
+      } else {
+        console.log(
+          `no domain found for external (${externalKey})`,
+          external,
+          modelExternal
+        );
+        ui.domain = {
+          [`${externalKey} not found`]: `${externalKey}-not-found`,
+        };
+      }
     }
   }
 
