@@ -209,8 +209,16 @@ module.exports = {
       parameters: [
         {
           id: 'rod',
-          ui: 'RodPreview',
-          label: 'Cell types',
+          propType: 'RodEditor',
+          size: 1,
+          default: {
+            stack: [],
+          },
+          domain: {
+            dynamic: true,
+            external: 'cells',
+          },
+          label: 'Rod',
         },
       ],
     },
@@ -286,7 +294,7 @@ module.exports = {
         },
         {
           id: 'cell',
-          propType: 'RodCellEditor',
+          propType: 'CellEditor',
           size: 1,
           default: {
             name: 'Cell name',
