@@ -216,7 +216,7 @@ module.exports = {
           },
           domain: {
             dynamic: true,
-            external: 'cells',
+            external: ['cells', 'materials'],
           },
           label: 'Rod',
         },
