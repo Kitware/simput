@@ -57,6 +57,18 @@ const rodPalette = [
   '#999999',
 ];
 
+const mapPalette = [
+  '#e41a1c',
+  '#377eb8',
+  '#4daf4a',
+  '#984ea3',
+  '#ff7f00',
+  '#ffff33',
+  '#a65628',
+  '#f781bf',
+  '#999999',
+];
+
 module.exports = {
   scripts: [
     // 'https://unpkg.com/@doe-casl/verain-view@1.1.1/dist/simput-external-vera.js',
@@ -72,6 +84,23 @@ module.exports = {
     Specifications: {
       label: 'Specifications',
       attributes: ['coreSpec', 'assemblySpec', 'baffleSpec'],
+      hooks: [
+        {
+          type: 'copyToExternal',
+          src: 'data.Specifications.0.assemblySpec.grid.value.0',
+          dst: 'assemblySize',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.Specifications.0.assemblySpec.pitch.value.0',
+          dst: 'assemblyPitch',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.Specifications.0.coreSpec.grid.value.0',
+          dst: 'coreSize',
+        },
+      ],
     },
     Materials: {
       label: 'Materials',
@@ -138,11 +167,18 @@ module.exports = {
           src: 'data.Specifications.0.coreSpec.height.value.0',
           dst: 'rodInfo.height',
         },
+        { type: 'rodsToExternal' },
+        { type: 'addNextView', viewName: 'Rods', nextViewName: 'Maps' },
       ],
     },
-    Assembly: {},
-    Insert: {},
-    Control: {},
+    Maps: {
+      label: 'Rod maps',
+      attributes: ['mapInfo', 'rodMap'],
+      size: -1,
+      readOnly: true,
+      hooks: [{ type: 'copyParameterToViewName', attribute: 'rodMap.name' }],
+    },
+    Core: {},
   },
   definitions: {
     coreSpec: {
@@ -347,6 +383,43 @@ module.exports = {
           domain: {
             dynamic: true,
             external: ['cells', 'materials'],
+          },
+          label: 'Rod',
+        },
+      ],
+    },
+    mapInfo: {
+      label: 'Rod map',
+      parameters: [
+        {
+          id: 'name',
+          type: 'string',
+          size: 1,
+          default: 'Assembly',
+          label: 'Name',
+        },
+        {
+          id: 'color',
+          propType: 'Color',
+          label: 'Associated color',
+          default: [204 / 255, 235 / 255, 197 / 255],
+          domain: {
+            palette: mapPalette,
+          },
+        },
+      ],
+    },
+    rodMap: {
+      label: 'Layout definition',
+      parameters: [
+        {
+          id: 'map',
+          propType: 'MapEditor',
+          size: 1,
+          default: [],
+          domain: {
+            dynamic: true,
+            external: ['assemblySize', 'rodsNames', 'rodsColors'],
           },
           label: 'Rod',
         },

@@ -55,6 +55,24 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
   }
 }
 
+function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+
+  // Fill cells
+  if (dataModel.data.Rods) {
+    const rods = dataModel.data.Rods;
+    external.rodsNames = { '0': '-' };
+    external.rodsColors = { '0': 'white' };
+    for (let i = 0; i < rods.length; i++) {
+      const { id, name } = rods[i];
+      external.rodsNames[id] = name;
+      external.rodsColors[id] = `rgb(${rods[i].rodInfo.color.value
+        .map((rgb) => Math.floor(rgb * 255))
+        .join(',')})`;
+    }
+  }
+}
+
 function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   const mats = dataModel.data.Materials;
   const usedMats = {};
@@ -113,4 +131,5 @@ module.exports = function initialize() {
   Simput.registerHook('updateMaterialUsed', updateMaterialUsed);
   Simput.registerHook('updateCellUsed', updateCellUsed);
   Simput.registerHook('addNextView', addNextView);
+  Simput.registerHook('rodsToExternal', pushRodsToExternalHook);
 };
