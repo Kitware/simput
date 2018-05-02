@@ -13,6 +13,7 @@ export default class ViewMenu extends React.Component {
       index: 0,
       editingIndex: -1,
       collapseViews: {},
+      nextViewId: props.nextViewId,
     };
 
     // Bind callback
@@ -81,13 +82,21 @@ export default class ViewMenu extends React.Component {
   }
 
   activateSection(viewId, index) {
+    let { nextViewId } = this.state;
     const viewList = this.props.data.data[viewId] || [];
     if (viewList.length <= index) {
-      viewList.push({ name: this.props.labels.getView(viewId) });
+      viewList.push({
+        name: this.props.labels.getView(viewId),
+        id: nextViewId++,
+      });
       this.props.data.data[viewId] = viewList;
     }
 
-    this.setState({ viewId, index });
+    if (index > -1 && !viewList[index].id) {
+      viewList[index].id = nextViewId++;
+    }
+
+    this.setState({ viewId, index, nextViewId });
     if (this.props.onChange) {
       this.props.onChange(viewId, index);
     }
@@ -280,6 +289,7 @@ ViewMenu.propTypes = {
   labels: PropTypes.object,
   model: PropTypes.object,
   onChange: PropTypes.func,
+  nextViewId: PropTypes.number,
 };
 
 ViewMenu.defaultProps = {
@@ -288,4 +298,5 @@ ViewMenu.defaultProps = {
   labels: undefined,
   model: undefined,
   onChange: undefined,
+  nextViewId: 1,
 };

@@ -26,6 +26,20 @@ function getParameter(model, attrName, paramId) {
   return parameterCache[attrName][paramId];
 }
 
+function getNextViewId(viewData) {
+  let nextId = 0;
+  const viewNames = Object.keys(viewData.data);
+  while (viewNames.length) {
+    const views = viewData.data[viewNames.pop()];
+    for (let i = 0; i < views.length; i++) {
+      if (views[i].id) {
+        nextId = Math.max(nextId, views[i].id);
+      }
+    }
+  }
+  return nextId + 1;
+}
+
 // --- UI handling ---
 
 function generateUI(parameter, label, help, external, modelExternal) {
@@ -356,3 +370,6 @@ export default function generateDataModel(
 
   return propertyList;
 }
+
+// Expose helper
+generateDataModel.getNextViewId = getNextViewId;

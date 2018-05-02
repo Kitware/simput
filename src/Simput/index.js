@@ -33,6 +33,7 @@ export default class Simput extends React.Component {
       downloadButtonState: 'normal',
       hooks: [],
       model: props.model,
+      nextViewId: modelGenerator.getNextViewId(props.data),
     };
 
     // Bind callback
@@ -231,6 +232,7 @@ export default class Simput extends React.Component {
             model={this.state.model}
             labels={this.props.labels}
             onChange={this.updateActive}
+            nextViewId={this.state.nextViewId}
           />
           <div className={style.block}>
             <PropertyPanelBlock
