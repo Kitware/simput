@@ -103,6 +103,7 @@ module.exports = {
       ],
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'material.name' },
+        { type: 'specsToExternal' },
         { type: 'materialsToExternal' },
         { type: 'addNextView', viewName: 'Materials', nextViewName: 'Cells' },
       ],
@@ -115,6 +116,11 @@ module.exports = {
         { type: 'cellsToExternal' },
         { type: 'updateMaterialUsed' },
         { type: 'addNextView', viewName: 'Cells', nextViewName: 'Rods' },
+        {
+          type: 'copy',
+          src: 'data.Specifications.0.assemblySpec.pitch.value.0',
+          dst: 'cell.pitch',
+        },
       ],
       size: -1,
       readOnly: true,
@@ -260,6 +266,16 @@ module.exports = {
           size: 1,
           default: 'A',
           label: 'Name',
+        },
+        {
+          id: 'pitch',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Contact radius/pitch',
+          domain: {
+            readOnly: true,
+          },
         },
         {
           id: 'color',
