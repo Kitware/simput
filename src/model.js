@@ -128,7 +128,7 @@ module.exports = {
         { type: 'copyParameterToViewName', attribute: 'rodInfo.name' },
         {
           type: 'copy',
-          src: 'data.Specifications.0.coreSize.height.value.0',
+          src: 'data.Specifications.0.coreSpec.height.value.0',
           dst: 'rodInfo.height',
         },
       ],
