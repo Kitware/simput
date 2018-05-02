@@ -1,4 +1,4 @@
-const palette = [
+const materialPalette = [
   '#8dd3c7',
   '#ffffb3',
   '#bebada',
@@ -34,6 +34,29 @@ const palette = [
   '#9abf88',
 ];
 
+const cellPalette = [
+  '#1b9e77',
+  '#d95f02',
+  '#7570b3',
+  '#e7298a',
+  '#66a61e',
+  '#e6ab02',
+  '#a6761d',
+  '#666666',
+];
+
+const rodPalette = [
+  '#e41a1c',
+  '#377eb8',
+  '#4daf4a',
+  '#984ea3',
+  '#ff7f00',
+  '#ffff33',
+  '#a65628',
+  '#f781bf',
+  '#999999',
+];
+
 module.exports = {
   scripts: [
     // 'https://unpkg.com/@doe-casl/verain-view@1.1.1/dist/simput-external-vera.js',
@@ -48,7 +71,7 @@ module.exports = {
   views: {
     Specifications: {
       label: 'Specifications',
-      attributes: ['coreSize'],
+      attributes: ['coreSpec', 'assemblySpec', 'baffleSpec'],
     },
     Materials: {
       label: 'Materials',
@@ -115,8 +138,8 @@ module.exports = {
     Control: {},
   },
   definitions: {
-    coreSize: {
-      label: 'Core dimensions',
+    coreSpec: {
+      label: 'Core Specifications',
       parameters: [
         {
           id: 'height',
@@ -131,8 +154,21 @@ module.exports = {
           type: 'int',
           size: 1,
           default: 15,
-          label: 'Grid size',
+          label: 'Size',
           help: 'Size of the grid for the core',
+        },
+      ],
+    },
+    assemblySpec: {
+      label: 'Assembly Specifications',
+      parameters: [
+        {
+          id: 'grid',
+          type: 'int',
+          size: 1,
+          default: 17,
+          label: 'Size',
+          help: 'Size of the grid for an assembly',
         },
         {
           id: 'pitch',
@@ -141,6 +177,36 @@ module.exports = {
           default: 1.26,
           label: 'Cell pitch',
           help: 'Default cell pitch in assemblies',
+        },
+      ],
+    },
+    baffleSpec: {
+      label: 'Baffle Specifications',
+      parameters: [
+        {
+          id: 'gap',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Gap',
+        },
+        {
+          id: 'thick',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Thickness',
+        },
+        {
+          id: 'material',
+          type: 'int',
+          size: 1,
+          ui: 'enum',
+          domain: {
+            dynamic: true,
+            external: 'materialNames',
+          },
+          label: 'Material',
         },
       ],
     },
@@ -153,6 +219,15 @@ module.exports = {
           size: 1,
           default: 'Water',
           label: 'Name',
+        },
+        {
+          id: 'color',
+          propType: 'Color',
+          label: 'Associated color',
+          default: [204 / 255, 235 / 255, 197 / 255],
+          domain: {
+            palette: materialPalette,
+          },
         },
         {
           id: 'density',
@@ -173,14 +248,41 @@ module.exports = {
           ui: 'map',
           label: 'Material fractions (material:fraction)',
         },
+      ],
+    },
+    cell: {
+      label: 'Cell definition',
+      parameters: [
+        {
+          id: 'name',
+          type: 'string',
+          size: 1,
+          default: 'A',
+          label: 'Name',
+        },
         {
           id: 'color',
           propType: 'Color',
           label: 'Associated color',
           default: [204 / 255, 235 / 255, 197 / 255],
           domain: {
-            palette,
+            palette: cellPalette,
           },
+        },
+        {
+          id: 'cell',
+          propType: 'CellEditor',
+          size: 1,
+          default: {
+            name: 'Cell name',
+            radii: [],
+            mats: [],
+          },
+          domain: {
+            dynamic: true,
+            external: 'materials',
+          },
+          label: 'Cell',
         },
       ],
     },
@@ -193,6 +295,15 @@ module.exports = {
           size: 1,
           default: 'Control A',
           label: 'Name',
+        },
+        {
+          id: 'color',
+          propType: 'Color',
+          label: 'Associated color',
+          default: [204 / 255, 235 / 255, 197 / 255],
+          domain: {
+            palette: rodPalette,
+          },
         },
         {
           id: 'height',
@@ -221,116 +332,6 @@ module.exports = {
             external: ['cells', 'materials'],
           },
           label: 'Rod',
-        },
-      ],
-    },
-    baffle: {
-      label: 'Baffle definition',
-      parameters: [
-        {
-          id: 'gap',
-          type: 'float',
-          size: 1,
-          default: 0,
-          label: 'Gap',
-        },
-        {
-          id: 'thick',
-          type: 'float',
-          size: 1,
-          default: 0,
-          label: 'Thickness',
-        },
-        {
-          id: 'material',
-          type: 'string',
-          size: 1,
-          ui: 'enum',
-          domain: {
-            external: 'materials', // FIXME
-          },
-          label: 'Material',
-        },
-      ],
-    },
-    core: {
-      label: 'Core definition',
-      parameters: [
-        {
-          id: 'name',
-          type: 'string',
-          size: 1,
-          default: 'Reactor name',
-          label: 'Name',
-        },
-        {
-          id: 'size',
-          type: 'integer',
-          size: 1,
-          default: 15,
-          label: 'Number of elements in grid',
-        },
-        {
-          id: 'height',
-          type: 'float',
-          size: 1,
-          default: 400,
-          label: 'Height',
-        },
-        {
-          id: 'shape',
-          type: 'core-shape', // FIXME
-          label: 'Mask',
-        },
-      ],
-    },
-    cell: {
-      label: 'Cell definition',
-      parameters: [
-        {
-          id: 'name',
-          type: 'string',
-          size: 1,
-          default: 'A',
-          label: 'Name',
-        },
-        {
-          id: 'cell',
-          propType: 'CellEditor',
-          size: 1,
-          default: {
-            name: 'Cell name',
-            radii: [],
-            mats: [],
-          },
-          domain: {
-            dynamic: true,
-            external: 'materials',
-          },
-          label: 'Cell',
-        },
-        {
-          id: 'color',
-          propType: 'Color',
-          label: 'Associated color',
-          default: [204 / 255, 235 / 255, 197 / 255],
-          domain: {
-            palette,
-          },
-        },
-      ],
-    },
-    assemblyMap: {
-      parameters: [
-        {
-          id: 'layout',
-          type: 'grid-layout',
-          domain: {
-            gridSize: 'core.size', // FIXME
-            mask: 'core.shape', // FIXME
-            values: 'Assembly.name', // FIXME
-          },
-          label: 'Layout',
         },
       ],
     },

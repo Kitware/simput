@@ -12,6 +12,7 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
   if (dataModel.data.Materials) {
     const mats = dataModel.data.Materials;
     external.materials = {};
+    external.materialNames = {};
     for (let i = 0; i < mats.length; i++) {
       const name = mats[i].name;
       const currentMaterial = { name };
@@ -23,6 +24,7 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
 
         // save to external
         external.materials[name] = currentMaterial;
+        external.materialNames[name] = mats[i].id;
       }
     }
   }
