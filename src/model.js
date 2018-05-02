@@ -126,6 +126,7 @@ module.exports = {
       readOnly: true,
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'rodInfo.name' },
+        { type: 'updateCellUsed' },
         {
           type: 'copy',
           src: 'data.Specifications.0.coreSpec.height.value.0',
