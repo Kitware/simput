@@ -15,6 +15,7 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
     external.materialNames = {};
     for (let i = 0; i < mats.length; i++) {
       const name = mats[i].name;
+      const id = mats[i].id;
       const currentMaterial = { name };
       // Gather material fields
       if (mats[i].material) {
@@ -23,8 +24,8 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
         });
 
         // save to external
-        external.materials[name] = currentMaterial;
-        external.materialNames[name] = mats[i].id;
+        external.materials[id] = currentMaterial;
+        external.materialNames[name] = id;
       }
     }
   }
@@ -39,6 +40,7 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
     external.cells = {};
     for (let i = 0; i < cells.length; i++) {
       const name = cells[i].name;
+      const id = cells[i].id;
       const currentCell = { name };
       // Gather cell fields
       if (cells[i].cell) {
@@ -47,7 +49,7 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
         });
 
         // save to external
-        external.cells[name] = currentCell;
+        external.cells[id] = currentCell;
       }
     }
   }
@@ -67,7 +69,7 @@ function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   }
 
   for (let i = 0; i < mats.length; i++) {
-    mats[i].noDelete = mats[i].name in usedMats;
+    mats[i].noDelete = mats[i].id in usedMats;
   }
 }
 
