@@ -109,6 +109,24 @@ function updateCellUsed(hookConfig, dataModel, currentViewData) {
   }
 }
 
+function updateRodUsed(hookConfig, dataModel, currentViewData) {
+  const rods = dataModel.data.Rods;
+  const usedRods = {};
+
+  if (dataModel.data.Maps) {
+    const maps = dataModel.data.Maps;
+    for (let i = 0; i < maps.length; i++) {
+      maps[i].rodMap.map.value[0].grid.forEach((id) => {
+        usedRods[id] = true;
+      });
+    }
+  }
+
+  for (let i = 0; i < rods.length; i++) {
+    rods[i].noDelete = rods[i].id in usedRods;
+  }
+}
+
 function addNextView(hookConfig, dataModel, currentViewData, model) {
   const { viewName, nextViewName } = hookConfig;
   if (dataModel.data[viewName].length) {
@@ -130,6 +148,7 @@ module.exports = function initialize() {
   Simput.registerHook('cellsToExternal', pushCellsToExternalHook);
   Simput.registerHook('updateMaterialUsed', updateMaterialUsed);
   Simput.registerHook('updateCellUsed', updateCellUsed);
+  Simput.registerHook('updateRodUsed', updateRodUsed);
   Simput.registerHook('addNextView', addNextView);
   Simput.registerHook('rodsToExternal', pushRodsToExternalHook);
 };

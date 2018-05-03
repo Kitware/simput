@@ -1,3 +1,7 @@
+// ----------------------------------------------------------------------------
+// Color palettes
+// ----------------------------------------------------------------------------
+
 const materialPalette = [
   '#8dd3c7',
   '#ffffb3',
@@ -69,15 +73,15 @@ const mapPalette = [
   '#999999',
 ];
 
+// ----------------------------------------------------------------------------
+// Model definition
+// ----------------------------------------------------------------------------
+
 module.exports = {
   scripts: [
     // 'https://unpkg.com/@doe-casl/verain-view@1.1.1/dist/simput-external-vera.js',
     'simput-external-vera.js',
   ],
-  output: {
-    'data.json': { type: 'default' },
-    'verain.xml': { type: 'template', template: './templates/vera-xml.hbs' },
-  },
   defaultActiveView: 'Specifications',
   order: ['Specifications', 'Materials'],
   views: {
@@ -107,29 +111,6 @@ module.exports = {
       attributes: ['material'],
       size: -1,
       readOnly: true,
-      output: [
-        {
-          extract: ['name', 'density', 'thexp', 'fractions'],
-          src: 'material',
-          dst: [
-            // 'CASEID.CORE.Materials.{name}.name=name',
-            // 'CASEID.CORE.Materials.{name}.density=density',
-            // 'CASEID.CORE.Materials.{name}.thexp=thexp',
-            // 'CASEID.CORE.Materials.{name}.fractions=fractions',
-
-            // 'CASEID.CORE.Materials[]+=name',
-            // 'CASEID.CORE.Materials.{name}.name=name',
-            // 'CASEID.CORE.Materials.{name}.density=density',
-            // 'CASEID.CORE.Materials.{name}.thexp=thexp',
-            // 'CASEID.CORE.Materials.{name}.fractions=fractions',
-
-            'CASEID.CORE.Materials.Material_{name}.name=name',
-            'CASEID.CORE.Materials.Material_{name}.density=density',
-            'CASEID.CORE.Materials.Material_{name}.thexp=thexp',
-            'CASEID.CORE.Materials.Material_{name}.fractions=fractions',
-          ],
-        },
-      ],
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'material.name' },
         { type: 'specsToExternal' },
@@ -176,7 +157,10 @@ module.exports = {
       attributes: ['mapInfo', 'rodMap'],
       size: -1,
       readOnly: true,
-      hooks: [{ type: 'copyParameterToViewName', attribute: 'rodMap.name' }],
+      hooks: [
+        { type: 'updateRodUsed' },
+        { type: 'copyParameterToViewName', attribute: 'mapInfo.name' },
+      ],
     },
     Core: {},
   },
@@ -185,20 +169,20 @@ module.exports = {
       label: 'Core Specifications',
       parameters: [
         {
-          id: 'height',
-          type: 'float',
-          size: 1,
-          default: 400,
-          label: 'Core height',
-          help: 'Height of the core in cm.',
-        },
-        {
           id: 'grid',
           type: 'int',
           size: 1,
           default: 15,
           label: 'Size',
           help: 'Size of the grid for the core',
+        },
+        {
+          id: 'height',
+          type: 'float',
+          size: 1,
+          default: 400,
+          label: 'Core height',
+          help: 'Height of the core in cm.',
         },
       ],
     },
@@ -227,18 +211,18 @@ module.exports = {
       label: 'Baffle Specifications',
       parameters: [
         {
-          id: 'gap',
-          type: 'float',
-          size: 1,
-          default: 0,
-          label: 'Gap',
-        },
-        {
           id: 'thick',
           type: 'float',
           size: 1,
           default: 0,
           label: 'Thickness',
+        },
+        {
+          id: 'gap',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Gap',
         },
         {
           id: 'material',
@@ -260,7 +244,7 @@ module.exports = {
           id: 'name',
           type: 'string',
           size: 1,
-          default: 'Water',
+          default: '',
           label: 'Name',
         },
         {
@@ -300,7 +284,7 @@ module.exports = {
           id: 'name',
           type: 'string',
           size: 1,
-          default: 'A',
+          default: '',
           label: 'Name',
         },
         {
@@ -346,7 +330,7 @@ module.exports = {
           id: 'name',
           type: 'string',
           size: 1,
-          default: 'Control A',
+          default: '',
           label: 'Name',
         },
         {
@@ -416,7 +400,7 @@ module.exports = {
           id: 'map',
           propType: 'MapEditor',
           size: 1,
-          default: [],
+          default: {},
           domain: {
             dynamic: true,
             external: ['assemblySize', 'rodsNames', 'rodsColors'],
