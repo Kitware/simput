@@ -136,26 +136,23 @@ export default class Simput extends React.Component {
   /* eslint-enable class-methods-use-this */
 
   updateActive(viewId, index) {
-    if (viewId === -1 && index === -1) {
-      const panelData = [];
-      const viewData = {};
-      this.setState({ panelData, viewData }, () => {
-        this.applyHooksAndSaveState(viewData);
-      });
-      return;
+    let panelData = [];
+    let viewData = {};
+
+    if (index > -1) {
+      panelData = modelGenerator(
+        this.state.model,
+        this.state.fullData,
+        viewId,
+        index,
+        this.props.labels.activeLabels
+          ? this.props.labels.activeLabels.attributes
+          : null,
+        this.props.help
+      );
+      viewData = this.state.fullData.data[viewId][index];
     }
 
-    const panelData = modelGenerator(
-      this.state.model,
-      this.state.fullData,
-      viewId,
-      index,
-      this.props.labels.activeLabels
-        ? this.props.labels.activeLabels.attributes
-        : null,
-      this.props.help
-    );
-    const viewData = this.state.fullData.data[viewId][index];
     const hooks = this.state.model.views[viewId].hooks || [];
 
     this.setState({ panelData, viewData, hooks }, () => {
