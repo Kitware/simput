@@ -31,6 +31,13 @@ function applyAll(fullDataModel, model) {
   }
 }
 
+function getExternal(dataModel) {
+  if (!dataModel.external) {
+    dataModel.external = {};
+  }
+  return dataModel.external;
+}
+
 export default {
   applyHook,
   registerHook,
@@ -84,6 +91,33 @@ function copy(hookConfig, dataModel, currentViewData) {
 }
 
 // ----------------------------------------------------------------------------
+
+function copyToExternal(hookConfig, dataModel, currentViewData) {
+  const { src, dst } = hookConfig;
+
+  // src
+  let value = dataModel;
+  const srcTokens = src.split('.');
+  while (srcTokens.length && value) {
+    const token = srcTokens.shift();
+    value = value[token];
+  }
+
+  // dst
+  const dstTokens = dst.split('.');
+  const lastKey = dstTokens.pop();
+  let container = getExternal(dataModel);
+  while (dstTokens.length && value) {
+    const token = dstTokens.shift();
+    if (!container[token]) {
+      container[token] = {};
+    }
+    container = container[token];
+  }
+  container[lastKey] = value;
+}
+
+// ----------------------------------------------------------------------------
 // Generic hooks registration
 // ----------------------------------------------------------------------------
 
@@ -94,3 +128,4 @@ registerHook(
 
 registerHook('copyParameterToViewName', paramToViewName);
 registerHook('copy', copy);
+registerHook('copyToExternal', copyToExternal);

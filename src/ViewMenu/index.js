@@ -89,13 +89,13 @@ export default class ViewMenu extends React.Component {
   activateSection(viewId, index) {
     let { nextViewId } = this.state;
     const viewList = this.props.data.data[viewId] || [];
-    if (viewList.length <= index) {
+    while (viewList.length <= index) {
       viewList.push({
         name: this.props.labels.getView(viewId),
         id: nextViewId++,
       });
-      this.props.data.data[viewId] = viewList;
     }
+    this.props.data.data[viewId] = viewList;
 
     if (index > -1 && !viewList[index].id) {
       viewList[index].id = nextViewId++;
