@@ -166,23 +166,14 @@ module.exports = {
     },
     Core: {
       label: 'Core map',
-      children: [
-        'CoreAssemblyMap',
-        'CoreInsertMap',
-        'CoreControlMap',
-        'CoreDetectorMap',
-      ],
+      children: ['CoreAssemblyMap', 'CoreControlInsertMap', 'CoreDetectorMap'],
     },
     CoreAssemblyMap: {
       label: 'Assemblies',
       attributes: ['coreMap'],
     },
-    CoreInsertMap: {
-      label: 'Inserts',
-      attributes: ['coreMap'],
-    },
-    CoreControlMap: {
-      label: 'Controls',
+    CoreControlInsertMap: {
+      label: 'Controls and Inserts',
       attributes: ['coreMap'],
     },
     CoreDetectorMap: {
@@ -432,6 +423,7 @@ module.exports = {
               colors: 'rodsColors',
               size: 'assemblySize',
             },
+            emptyItem: '0',
             grid: [],
           },
           domain: {
@@ -455,6 +447,7 @@ module.exports = {
               colors: 'mapColors',
               size: 'coreSize',
             },
+            emptyItem: '0',
             grid: [],
           },
           domain: {
