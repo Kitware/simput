@@ -58,7 +58,7 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
 function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
   const external = getExternal(dataModel);
 
-  // Fill cells
+  // Fill rods
   if (dataModel.data.Rods) {
     const rods = dataModel.data.Rods;
     external.rodsNames = { '0': '-' };
@@ -67,6 +67,24 @@ function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
       const { id, name } = rods[i];
       external.rodsNames[id] = name;
       external.rodsColors[id] = `rgb(${rods[i].rodInfo.color.value
+        .map((rgb) => Math.floor(rgb * 255))
+        .join(',')})`;
+    }
+  }
+}
+
+function mapsToExternal(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+
+  // Fill maps
+  if (dataModel.data.Maps) {
+    const maps = dataModel.data.Maps;
+    external.mapNames = { '0': '-' };
+    external.mapColors = { '0': 'white' };
+    for (let i = 0; i < maps.length; i++) {
+      const { id, name } = maps[i];
+      external.mapNames[id] = name;
+      external.mapColors[id] = `rgb(${maps[i].mapInfo.color.value
         .map((rgb) => Math.floor(rgb * 255))
         .join(',')})`;
     }
@@ -151,4 +169,5 @@ module.exports = function initialize() {
   Simput.registerHook('updateRodUsed', updateRodUsed);
   Simput.registerHook('addNextView', addNextView);
   Simput.registerHook('rodsToExternal', pushRodsToExternalHook);
+  Simput.registerHook('mapsToExternal', mapsToExternal);
 };

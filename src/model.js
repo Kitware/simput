@@ -159,10 +159,36 @@ module.exports = {
       readOnly: true,
       hooks: [
         { type: 'updateRodUsed' },
+        { type: 'mapsToExternal' },
         { type: 'copyParameterToViewName', attribute: 'mapInfo.name' },
+        { type: 'addNextView', viewName: 'Maps', nextViewName: 'Core' },
       ],
     },
-    Core: {},
+    Core: {
+      label: 'Core map',
+      children: [
+        'CoreAssemblyMap',
+        'CoreInsertMap',
+        'CoreControlMap',
+        'CoreDetectorMap',
+      ],
+    },
+    CoreAssemblyMap: {
+      label: 'Assemblies',
+      attributes: ['coreMap'],
+    },
+    CoreInsertMap: {
+      label: 'Inserts',
+      attributes: ['coreMap'],
+    },
+    CoreControlMap: {
+      label: 'Controls',
+      attributes: ['coreMap'],
+    },
+    CoreDetectorMap: {
+      label: 'Detectors',
+      attributes: ['coreMap'],
+    },
   },
   definitions: {
     coreSpec: {
@@ -401,6 +427,11 @@ module.exports = {
           propType: 'MapEditor',
           size: 1,
           default: {
+            config: {
+              names: 'rodsNames',
+              colors: 'rodsColors',
+              size: 'assemblySize',
+            },
             grid: [],
           },
           domain: {
@@ -408,6 +439,28 @@ module.exports = {
             external: ['assemblySize', 'rodsNames', 'rodsColors'],
           },
           label: 'Rod',
+        },
+      ],
+    },
+    coreMap: {
+      label: 'Layout',
+      parameters: [
+        {
+          id: 'map',
+          propType: 'MapEditor',
+          size: 1,
+          default: {
+            config: {
+              names: 'mapNames',
+              colors: 'mapColors',
+              size: 'coreSize',
+            },
+            grid: [],
+          },
+          domain: {
+            dynamic: true,
+            external: ['coreSize', 'mapNames', 'mapColors'],
+          },
         },
       ],
     },
