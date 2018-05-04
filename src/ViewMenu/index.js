@@ -63,11 +63,12 @@ export default class ViewMenu extends React.Component {
 
   removeView(viewId, index) {
     this.props.data.data[viewId].splice(index, 1);
-    if (this.props.data.data[viewId].length) {
-      if (this.state.viewId === viewId) {
-        this.activateSection(viewId, index > 0 ? index - 1 : index);
+
+    if (this.state.viewId === viewId) {
+      if (this.props.data.data[viewId].length) {
+        this.activateSection(viewId, index >= 0 ? index - 1 : index);
       } else {
-        this.activateSection(this.state.viewId, this.state.index);
+        this.activateSection(null, -1);
       }
     } else {
       this.activateSection(viewId, -1);
@@ -102,7 +103,7 @@ export default class ViewMenu extends React.Component {
 
     this.setState({
       viewId: index > -1 ? viewId : this.state.viewId,
-      index,
+      index: index > -1 ? index : this.state.index,
       nextViewId,
     });
     if (this.props.onChange) {

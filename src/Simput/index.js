@@ -138,6 +138,13 @@ export default class Simput extends React.Component {
   updateActive(viewId, index) {
     let panelData = [];
     let viewData = {};
+    let hooks = this.state.hooks;
+
+    if (viewId !== null) {
+      panelData = this.state.panelData;
+      viewData = this.state.viewData;
+      hooks = this.state.model.views[viewId].hooks || [];
+    }
 
     if (index > -1) {
       panelData = modelGenerator(
@@ -152,8 +159,6 @@ export default class Simput extends React.Component {
       );
       viewData = this.state.fullData.data[viewId][index];
     }
-
-    const hooks = this.state.model.views[viewId].hooks || [];
 
     this.setState({ panelData, viewData, hooks }, () => {
       this.applyHooksAndSaveState(viewData);
