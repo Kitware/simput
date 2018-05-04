@@ -330,7 +330,7 @@ module.exports = {
           id: 'name',
           type: 'string',
           size: 1,
-          default: '',
+          default: 'New Rod',
           label: 'Name',
         },
         {
@@ -400,7 +400,9 @@ module.exports = {
           id: 'map',
           propType: 'MapEditor',
           size: 1,
-          default: {},
+          default: {
+            grid: [],
+          },
           domain: {
             dynamic: true,
             external: ['assemblySize', 'rodsNames', 'rodsColors'],
