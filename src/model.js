@@ -270,7 +270,7 @@ module.exports = {
           id: 'name',
           type: 'string',
           size: 1,
-          default: '',
+          default: 'New Material',
           label: 'Name',
         },
         {
@@ -310,7 +310,7 @@ module.exports = {
           id: 'name',
           type: 'string',
           size: 1,
-          default: '',
+          default: 'New Cell',
           label: 'Name',
         },
         {
