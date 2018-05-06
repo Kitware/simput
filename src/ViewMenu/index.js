@@ -148,26 +148,31 @@ export default class ViewMenu extends React.Component {
                     : style.listItem
                 }
               >
-                <span
-                  className={style[this.getBulletType(viewId)]}
-                  onClick={this.toggleCollapse.bind(this, viewId)}
-                >
-                  <svg
-                    className={style.caret}
-                    width="15"
-                    height="15"
-                    viewBox="0 0 26 26"
+                <div className={style.listRow}>
+                  <span
+                    className={style[this.getBulletType(viewId)]}
+                    onClick={this.toggleCollapse.bind(this, viewId)}
                   >
-                    <path d="M11,1 L21,11 L11,21 L1,11" />
-                  </svg>
-                </span>
-                <span onClick={this.activateSection.bind(this, viewId, 0)}>
-                  {this.props.labels.getView(viewId)}
-                </span>
-                <i
-                  className={viewSize === -1 ? style.addButton : style.hidden}
-                  onClick={this.addView.bind(this, viewId)}
-                />
+                    <svg
+                      className={style.caret}
+                      width="15"
+                      height="15"
+                      viewBox="0 0 26 26"
+                    >
+                      <path d="M11,1 L21,11 L11,21 L1,11" />
+                    </svg>
+                  </span>
+                  <span
+                    className={style.listRowName}
+                    onClick={this.activateSection.bind(this, viewId, 0)}
+                  >
+                    {this.props.labels.getView(viewId)}
+                  </span>
+                  <i
+                    className={viewSize === -1 ? style.addButton : style.hidden}
+                    onClick={this.addView.bind(this, viewId)}
+                  />
+                </div>
                 <ul
                   className={
                     hasSubList &&
@@ -202,11 +207,11 @@ export default class ViewMenu extends React.Component {
                           />
                           <i
                             className={style.deleteButton}
-                            style={{ visibility: 'hidden' }}
+                            style={{ display: 'none' }}
                           />
                           <i
                             className={style.editButton}
-                            style={{ visibility: 'hidden' }}
+                            style={{ display: 'none' }}
                           />
                         </li>
                       );
@@ -221,38 +226,46 @@ export default class ViewMenu extends React.Component {
                             : style.listItem
                         }
                       >
-                        <span
-                          className={style.editable}
-                          onClick={this.activateSection.bind(
-                            this,
-                            viewId,
-                            viewIdx
-                          )}
-                        >
-                          {viewData.name}
-                        </span>
-                        <i
-                          className={style.deleteButton}
-                          onClick={this.removeView.bind(this, viewId, viewIdx)}
-                          style={{
-                            visibility:
-                              this.props.model.views[viewId].noDelete ||
-                              viewData.noDelete
-                                ? 'hidden'
-                                : 'visible',
-                          }}
-                        />
-                        <i
-                          className={style.editButton}
-                          onClick={this.editView.bind(this, viewId, viewIdx)}
-                          style={{
-                            visibility:
-                              this.props.model.views[viewId].readOnly ||
-                              viewData.readOnly
-                                ? 'hidden'
-                                : 'visible',
-                          }}
-                        />
+                        <div className={style.listRow}>
+                          <span
+                            className={[style.editable, style.listRowName].join(
+                              ' '
+                            )}
+                            onClick={this.activateSection.bind(
+                              this,
+                              viewId,
+                              viewIdx
+                            )}
+                          >
+                            {viewData.name}
+                          </span>
+                          <i
+                            className={style.deleteButton}
+                            onClick={this.removeView.bind(
+                              this,
+                              viewId,
+                              viewIdx
+                            )}
+                            style={{
+                              display:
+                                this.props.model.views[viewId].noDelete ||
+                                viewData.noDelete
+                                  ? 'none'
+                                  : 'inline-block',
+                            }}
+                          />
+                          <i
+                            className={style.editButton}
+                            onClick={this.editView.bind(this, viewId, viewIdx)}
+                            style={{
+                              display:
+                                this.props.model.views[viewId].readOnly ||
+                                viewData.readOnly
+                                  ? 'none'
+                                  : 'inline-block',
+                            }}
+                          />
+                        </div>
                       </li>
                     );
                   })}

@@ -29,6 +29,15 @@
   user-select: none;
 }
 
+.listRow {
+  display: flex;
+  flex-flow: row;
+}
+
+.listRowName {
+  flex: 2;
+}
+
 .nestedList {
   composes: list;
   padding-left: 10px;
@@ -43,7 +52,6 @@
 
 .button {
   display: inline-block;
-  float: right;
   composes: fa from 'font-awesome/css/font-awesome.css';
   composes: fa-fw from 'font-awesome/css/font-awesome.css';
 }
