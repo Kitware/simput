@@ -97,10 +97,17 @@ function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
 
   if (dataModel.data.Cells) {
     const cells = dataModel.data.Cells;
+
     for (let i = 0; i < cells.length; i++) {
       cells[i].cell.cell.value[0].mats.forEach((m) => {
         usedMats[m] = true;
       });
+
+      // detect if cells have no materials
+      cells[i].invalid = null;
+      if (cells[i].cell.cell.value[0].mats.length === 0) {
+        cells[i].invalid = 'Cell has no materials';
+      }
     }
   }
 
