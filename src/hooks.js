@@ -126,6 +126,12 @@ function updateCellUsed(hookConfig, dataModel, currentViewData) {
       rods[i].rodStack.rod.value[0].stack.forEach((layer) => {
         usedCells[layer.cell] = true;
       });
+
+      // detect if rods have no cells
+      rods[i].invalid = null;
+      if (rods[i].rodStack.rod.value[0].stack.length === 0) {
+        rods[i].invalid = 'Rod has no cells';
+      }
     }
   }
 
