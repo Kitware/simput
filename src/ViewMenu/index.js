@@ -240,6 +240,15 @@ export default class ViewMenu extends React.Component {
                             {viewData.name}
                           </span>
                           <i
+                            className={style.invalidIcon}
+                            title={viewData.invalid}
+                            style={{
+                              display: viewData.invalid
+                                ? 'inline-block'
+                                : 'none',
+                            }}
+                          />
+                          <i
                             className={style.deleteButton}
                             onClick={this.removeView.bind(
                               this,

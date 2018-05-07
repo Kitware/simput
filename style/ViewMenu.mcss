@@ -77,6 +77,11 @@
   composes: fa-check from 'font-awesome/css/font-awesome.css';
 }
 
+.invalidIcon {
+  composes: fa from 'font-awesome/css/font-awesome.css';
+  composes: fa-exclamation-triangle from 'font-awesome/css/font-awesome.css';
+}
+
 .editable {
   margin-right: 4px;
 }
