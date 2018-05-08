@@ -167,6 +167,7 @@ module.exports = {
     Core: {
       label: 'Core map',
       children: ['CoreAssemblyMap', 'CoreControlInsertMap', 'CoreDetectorMap'],
+      hooks: [{ type: 'coreToExternal' }],
     },
     CoreAssemblyMap: {
       label: 'Assemblies',

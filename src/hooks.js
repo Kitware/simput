@@ -13,6 +13,7 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
     const mats = dataModel.data.Materials;
     external.materials = {};
     external.materialNames = {};
+    external.matColors = {};
     for (let i = 0; i < mats.length; i++) {
       const name = mats[i].name;
       const id = mats[i].id;
@@ -26,6 +27,7 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
         // save to external
         external.materials[id] = currentMaterial;
         external.materialNames[name] = id;
+        external.matColors[id] = mats[i].material.color.value;
       }
     }
   }
@@ -38,18 +40,30 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
   if (dataModel.data.Cells) {
     const cells = dataModel.data.Cells;
     external.cells = {};
+    external.cellLayers = {};
     for (let i = 0; i < cells.length; i++) {
       const name = cells[i].name;
       const id = cells[i].id;
       const currentCell = { name };
+      const layers = [];
       // Gather cell fields
       if (cells[i].cell) {
         Object.keys(cells[i].cell).forEach((key) => {
           currentCell[key] = cells[i].cell[key].value;
         });
 
+        // Extract layers
+        const { mats, radii } = cells[i].cell.cell.value[0];
+        for (let lIdx = 0; lIdx < mats.length; lIdx++) {
+          layers.push({
+            material: mats[i],
+            radius: radii[i],
+          });
+        }
+
         // save to external
         external.cells[id] = currentCell;
+        external.cellLayers[id] = layers;
       }
     }
   }
@@ -62,10 +76,15 @@ function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
   if (dataModel.data.Rods) {
     const rods = dataModel.data.Rods;
     external.rods = {};
+    external.rodStack = {};
     external.rodsNames = { '0': '-' };
     external.rodsColors = { '0': 'white' };
     for (let i = 0; i < rods.length; i++) {
       const { id, name } = rods[i];
+      external.rodStack[id] = {
+        offset: rods[i].rodInfo.offset.value[0],
+        stack: rods[i].rodStack.rod.value[0].stack,
+      };
       external.rods[id] = rods[i];
       external.rodsNames[id] = name;
       external.rodsColors[id] = `rgb(${rods[i].rodInfo.color.value
@@ -83,13 +102,40 @@ function mapsToExternal(hookConfig, dataModel, currentViewData) {
     const maps = dataModel.data.Maps;
     external.mapNames = { '0': '-' };
     external.mapColors = { '0': 'white' };
+    external.assemblyMaps = {};
     for (let i = 0; i < maps.length; i++) {
       const { id, name } = maps[i];
       external.mapNames[id] = name;
       external.mapColors[id] = `rgb(${maps[i].mapInfo.color.value
         .map((rgb) => Math.floor(rgb * 255))
         .join(',')})`;
+
+      const { grid, config: { size } } = maps[i].rodMap.map.value[0];
+      external.assemblyMaps[id] = { grid, size: external[size] };
     }
+  }
+}
+
+function coreToExternal(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+  external.coreMap = {};
+
+  // Fill maps
+  if (dataModel.data.CoreAssemblyMap) {
+    const {
+      grid,
+      config: { size },
+    } = dataModel.data.CoreAssemblyMap[0].coreMap.map.value[0];
+    external.coreMap.size = external[size];
+    external.coreMap.gridAssembly = grid;
+  }
+  if (dataModel.data.CoreControlInsertMap) {
+    external.coreMap.gridInsertControls =
+      dataModel.data.CoreControlInsertMap[1].coreMap.map.value[0].grid;
+  }
+  if (dataModel.data.CoreDetectorMap) {
+    external.coreMap.gridDetectors =
+      dataModel.data.CoreDetectorMap[2].coreMap.map.value[0].grid;
   }
 }
 
@@ -185,4 +231,5 @@ module.exports = function initialize() {
   Simput.registerHook('addNextView', addNextView);
   Simput.registerHook('rodsToExternal', pushRodsToExternalHook);
   Simput.registerHook('mapsToExternal', mapsToExternal);
+  Simput.registerHook('coreToExternal', coreToExternal);
 };
