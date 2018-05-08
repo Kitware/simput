@@ -186,6 +186,12 @@ module.exports = {
       label: 'Core Specifications',
       parameters: [
         {
+          id: 'title',
+          type: 'string',
+          size: 1,
+          label: 'Title',
+        },
+        {
           id: 'grid',
           type: 'int',
           size: 1,
@@ -194,12 +200,20 @@ module.exports = {
           help: 'Size of the grid for the core',
         },
         {
+          id: 'apitch',
+          type: 'float',
+          size: 1,
+          default: 21.5,
+          label: 'Assembly pitch',
+          help: 'Default assembly spacing in core maps, in cm',
+        },
+        {
           id: 'height',
           type: 'float',
           size: 1,
           default: 400,
           label: 'Core height',
-          help: 'Height of the core in cm.',
+          help: 'Height of the core, in cm.',
         },
       ],
     },
@@ -220,7 +234,7 @@ module.exports = {
           size: 1,
           default: 1.26,
           label: 'Cell pitch',
-          help: 'Default cell pitch in assemblies',
+          help: 'Default cell pitch in assemblies, in cm',
         },
       ],
     },
@@ -452,6 +466,13 @@ module.exports = {
     coreMap: {
       label: 'Layout',
       parameters: [
+        {
+          id: 'title',
+          type: 'string',
+          size: 1,
+          // default: '',
+          label: 'Title',
+        },
         {
           id: 'map',
           propType: 'MapEditor',
