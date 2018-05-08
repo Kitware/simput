@@ -369,6 +369,13 @@ module.exports = {
             readOnly: true,
           },
         },
+        {
+          id: 'offset',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Rod offset',
+        },
       ],
     },
     rodStack: {
@@ -383,7 +390,7 @@ module.exports = {
           },
           domain: {
             dynamic: true,
-            external: ['cells', 'materials'],
+            external: ['cells', 'materials', 'assemblyPitch'],
           },
           label: 'Rod',
         },
