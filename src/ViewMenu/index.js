@@ -281,7 +281,11 @@ export default class ViewMenu extends React.Component {
                 </ul>{' '}
                 {/* closes `hasSubList && viewSize !== undefined` */}
                 <ul
-                  className={children.length ? style.nestedList : style.hidden}
+                  className={
+                    children.length && !this.state.collapseViews[viewId]
+                      ? style.nestedList
+                      : style.hidden
+                  }
                 >
                   {children.map((subViewId, subIdx) => (
                     <li
@@ -292,7 +296,6 @@ export default class ViewMenu extends React.Component {
                           : style.listItem
                       }
                     >
-                      <i className={style.validIcon} />
                       <span
                         onClick={this.activateSection.bind(
                           this,
