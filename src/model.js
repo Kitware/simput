@@ -415,7 +415,7 @@ module.exports = {
       parameters: [
         {
           id: 'map',
-          propType: 'MapEditor',
+          propType: 'AssemblyEditor',
           size: 1,
           default: {
             config: {
@@ -428,9 +428,17 @@ module.exports = {
           },
           domain: {
             dynamic: true,
-            external: ['assemblySize', 'rodsNames', 'rodsColors'],
+            external: [
+              'assemblyPitch',
+              'assemblySize',
+              'rodsNames',
+              'rodsColors',
+              'rods',
+              'cells',
+              'materials',
+            ],
           },
-          label: 'Rod',
+          label: 'Rod Map',
         },
       ],
     },

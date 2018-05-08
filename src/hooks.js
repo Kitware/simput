@@ -61,10 +61,12 @@ function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
   // Fill rods
   if (dataModel.data.Rods) {
     const rods = dataModel.data.Rods;
+    external.rods = {};
     external.rodsNames = { '0': '-' };
     external.rodsColors = { '0': 'white' };
     for (let i = 0; i < rods.length; i++) {
       const { id, name } = rods[i];
+      external.rods[id] = rods[i];
       external.rodsNames[id] = name;
       external.rodsColors[id] = `rgb(${rods[i].rodInfo.color.value
         .map((rgb) => Math.floor(rgb * 255))
