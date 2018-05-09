@@ -56,14 +56,16 @@ function fillAssembly(model, dataModel) {
   model.assembly.ppitch = assemblySpec.pitch.value[0];
 
   // grab the core map, see which assemblies are used
-  const coreMap = dataModel.data.CoreAssemblyMap[0].coreMap.map.value[0];
-  const usedAssemblies = extractUsedItems(coreMap);
-  const rodMaps = dataModel.data.Maps;
-  rodMaps.forEach((map) => {
-    if (usedAssemblies[map.id]) {
-      fillAssemblyMap(model, dataModel, map);
-    }
-  });
+  if (dataModel.data.CoreAssemblyMap && dataModel.data.Maps) {
+    const coreMap = dataModel.data.CoreAssemblyMap[0].coreMap.map.value[0];
+    const usedAssemblies = extractUsedItems(coreMap);
+    const rodMaps = dataModel.data.Maps;
+    rodMaps.forEach((map) => {
+      if (usedAssemblies[map.id]) {
+        fillAssemblyMap(model, dataModel, map);
+      }
+    });
+  }
 }
 
 module.exports = function convert(dataModel) {
