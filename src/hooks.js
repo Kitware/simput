@@ -11,6 +11,11 @@ function getExternal(dataModel) {
   if (!dataModel.external.viz.colors) {
     dataModel.external.viz.colors = {};
   }
+
+  // Provide name for 0
+  dataModel.external.viz.names[0] = '-';
+  dataModel.external.viz.colors[0] = [1, 1, 1];
+
   return dataModel.external;
 }
 
@@ -20,23 +25,15 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
   // Fill materials
   if (dataModel.data.Materials) {
     const mats = dataModel.data.Materials;
-    external.materials = {};
-    external.materialNames = {};
+    external.materialEnum = {};
     for (let i = 0; i < mats.length; i++) {
-      const name = mats[i].name;
-      const id = mats[i].id;
-      const currentMaterial = { name };
-      // Gather material fields
-      if (mats[i].material) {
-        Object.keys(mats[i].material).forEach((key) => {
-          currentMaterial[key] = mats[i].material[key].value;
-        });
+      const { id, name, material } = mats[i];
 
+      if (material) {
         // save to external
-        external.materials[id] = currentMaterial;
-        external.materialNames[name] = id;
-        external.viz.colors[id] = mats[i].material.color.value;
         external.viz.names[id] = name;
+        external.viz.colors[id] = material.color.value;
+        external.materialEnum[name] = id;
       }
     }
   }
@@ -48,24 +45,15 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
   // Fill cells
   if (dataModel.data.Cells) {
     const cells = dataModel.data.Cells;
-    external.cells = {};
     external.viz.cells = {};
     for (let i = 0; i < cells.length; i++) {
-      const name = cells[i].name;
-      const id = cells[i].id;
-      const currentCell = { name };
-      const layers = [];
-
-      external.viz.names[id] = name;
+      const { id, name, cell } = cells[i];
 
       // Gather cell fields
-      if (cells[i].cell) {
-        Object.keys(cells[i].cell).forEach((key) => {
-          currentCell[key] = cells[i].cell[key].value;
-        });
-
+      if (cell) {
         // Extract layers
-        const { mats, radii } = cells[i].cell.cell.value[0];
+        const { mats, radii } = cell.cell.value[0];
+        const layers = [];
         for (let lIdx = 0; lIdx < mats.length; lIdx++) {
           layers.push({
             material: mats[lIdx],
@@ -74,9 +62,9 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
         }
 
         // save to external
-        external.cells[id] = currentCell;
-        external.viz.cells[id] = layers;
+        external.viz.names[id] = name;
         external.viz.colors[id] = cells[i].cell.color.value;
+        external.viz.cells[id] = layers;
       }
     }
   }
@@ -88,48 +76,41 @@ function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
   // Fill rods
   if (dataModel.data.Rods) {
     const rods = dataModel.data.Rods;
-    external.rods = {};
     external.viz.rods = {};
-    external.rodsNames = { '0': '-' };
-    external.rodsColors = { '0': 'white' };
     for (let i = 0; i < rods.length; i++) {
-      const { id, name } = rods[i];
-      external.viz.names[id] = name;
-      external.viz.colors[id] = rods[i].rodInfo.color.value;
-      external.viz.rods[id] = {
-        offset: rods[i].rodInfo.offset.value[0],
-        length: rods[i].rodInfo.height.value[0],
-        cells: rods[i].rodStack.rod.value[0].stack,
-      };
-      external.rods[id] = rods[i];
-      external.rodsNames[id] = name;
-      external.rodsColors[id] = `rgb(${rods[i].rodInfo.color.value
-        .map((rgb) => Math.floor(rgb * 255))
-        .join(',')})`;
+      const { id, name, rodInfo, rodStack } = rods[i];
+
+      if (rodInfo && rodStack) {
+        external.viz.names[id] = name;
+        external.viz.colors[id] = rodInfo.color.value;
+        external.viz.rods[id] = {
+          offset: rodInfo.offset.value[0],
+          length: rodInfo.height.value[0],
+          cells: rodStack.rod.value[0].stack,
+        };
+      }
     }
   }
 }
 
 function mapsToExternal(hookConfig, dataModel, currentViewData) {
   const external = getExternal(dataModel);
+  const pitch = dataModel.data.Specifications[0].assemblySpec.pitch.value[0];
+  const size = dataModel.data.Specifications[0].assemblySpec.grid.value[0];
 
   // Fill maps
   if (dataModel.data.Maps) {
-    const pitch = dataModel.data.Specifications[0].assemblySpec.pitch.value[0];
     const maps = dataModel.data.Maps;
-    external.mapNames = { '0': '-' };
-    external.mapColors = { '0': 'white' };
     external.viz.assembly = {};
     for (let i = 0; i < maps.length; i++) {
-      const { id, name } = maps[i];
-      external.viz.names[id] = name;
-      external.mapNames[id] = name;
-      external.mapColors[id] = `rgb(${maps[i].mapInfo.color.value
-        .map((rgb) => Math.floor(rgb * 255))
-        .join(',')})`;
+      const { id, name, rodMap, mapInfo } = maps[i];
+      if (mapInfo && rodMap) {
+        const { grid } = rodMap.map.value[0];
 
-      const { grid, config: { size } } = maps[i].rodMap.map.value[0];
-      external.viz.assembly[id] = { grid, size: external[size], pitch };
+        external.viz.names[id] = name;
+        external.viz.colors[id] = mapInfo.color.value;
+        external.viz.assembly[id] = { grid, size, pitch };
+      }
     }
   }
 }
@@ -142,15 +123,15 @@ function coreToExternal(hookConfig, dataModel, currentViewData) {
 
   // Fill maps
   if (dataModel.data.CoreAssemblyMap) {
-    const { grid } = dataModel.data.CoreAssemblyMap[0].coreMap.map.value[0];
-    external.viz.core.gridAssembly = grid;
+    external.viz.core[dataModel.data.CoreAssemblyMap[0].id] =
+      dataModel.data.CoreAssemblyMap[0].coreMap.map.value[0].grid;
   }
   if (dataModel.data.CoreControlInsertMap) {
-    external.viz.core.gridInsertControls =
+    external.viz.core[dataModel.data.CoreControlInsertMap[1].id] =
       dataModel.data.CoreControlInsertMap[1].coreMap.map.value[0].grid;
   }
   if (dataModel.data.CoreDetectorMap) {
-    external.viz.core.gridDetectors =
+    external.viz.core[dataModel.data.CoreDetectorMap[2].id] =
       dataModel.data.CoreDetectorMap[2].coreMap.map.value[0].grid;
   }
 }

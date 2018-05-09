@@ -253,7 +253,7 @@ module.exports = {
           ui: 'enum',
           domain: {
             dynamic: true,
-            external: 'materialNames',
+            external: 'materialEnum',
           },
           label: 'Material',
         },
@@ -430,25 +430,12 @@ module.exports = {
           propType: 'AssemblyEditor',
           size: 1,
           default: {
-            config: {
-              names: 'rodsNames',
-              colors: 'rodsColors',
-              size: 'assemblySize',
-            },
             emptyItem: '0',
             grid: [],
           },
           domain: {
             dynamic: true,
-            external: [
-              'assemblyPitch',
-              'assemblySize',
-              'rodsNames',
-              'rodsColors',
-              'rods',
-              'cells',
-              'materials',
-            ],
+            external: 'viz',
           },
           label: 'Rod Map',
         },
@@ -458,28 +445,16 @@ module.exports = {
       label: 'Layout',
       parameters: [
         {
-          id: 'title',
-          type: 'string',
-          size: 1,
-          // default: '',
-          label: 'Title',
-        },
-        {
           id: 'map',
-          propType: 'MapEditor',
+          propType: 'CoreEditor',
           size: 1,
           default: {
-            config: {
-              names: 'mapNames',
-              colors: 'mapColors',
-              size: 'coreSize',
-            },
             emptyItem: '0',
             grid: [],
           },
           domain: {
             dynamic: true,
-            external: ['coreSize', 'mapNames', 'mapColors'],
+            external: 'viz',
           },
         },
       ],
