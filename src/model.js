@@ -91,18 +91,8 @@ module.exports = {
       hooks: [
         {
           type: 'copyToExternal',
-          src: 'data.Specifications.0.assemblySpec.grid.value.0',
-          dst: 'assemblySize',
-        },
-        {
-          type: 'copyToExternal',
           src: 'data.Specifications.0.assemblySpec.pitch.value.0',
-          dst: 'assemblyPitch',
-        },
-        {
-          type: 'copyToExternal',
-          src: 'data.Specifications.0.coreSpec.grid.value.0',
-          dst: 'coreSize',
+          dst: 'viz.cellPitch',
         },
       ],
     },
@@ -349,7 +339,7 @@ module.exports = {
           },
           domain: {
             dynamic: true,
-            external: 'materials',
+            external: 'viz',
           },
           label: 'Cell',
         },
@@ -405,7 +395,7 @@ module.exports = {
           },
           domain: {
             dynamic: true,
-            external: ['cells', 'materials', 'assemblyPitch'],
+            external: 'viz',
           },
           label: 'Rod',
         },
