@@ -104,6 +104,11 @@ module.exports = {
           src: 'data.Specifications.0.coreSpec.grid.value.0',
           dst: 'viz.coreGridSize',
         },
+        {
+          type: 'copyToExternal',
+          src: 'data.Specifications.0.coreSpec.height.value.0',
+          dst: 'viz.core.height',
+        },
       ],
     },
     Materials: {
