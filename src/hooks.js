@@ -11,6 +11,9 @@ function getExternal(dataModel) {
   if (!dataModel.external.viz.colors) {
     dataModel.external.viz.colors = {};
   }
+  if (!dataModel.external.viz.types) {
+    dataModel.external.viz.types = {};
+  }
 
   // Provide name for 0
   dataModel.external.viz.names[0] = '-';
@@ -26,11 +29,13 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
   if (dataModel.data.Materials) {
     const mats = dataModel.data.Materials;
     external.materialEnum = {};
+    external.viz.types.materials = [];
     for (let i = 0; i < mats.length; i++) {
       const { id, name, material } = mats[i];
 
       if (material) {
         // save to external
+        external.viz.types.materials.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = material.color.value;
         external.materialEnum[name] = id;
@@ -46,6 +51,7 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
   if (dataModel.data.Cells) {
     const cells = dataModel.data.Cells;
     external.viz.cells = {};
+    external.viz.types.cells = [];
     for (let i = 0; i < cells.length; i++) {
       const { id, name, cell } = cells[i];
 
@@ -62,6 +68,7 @@ function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
         }
 
         // save to external
+        external.viz.types.cells.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = cells[i].cell.color.value;
         external.viz.cells[id] = layers;
@@ -77,10 +84,12 @@ function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
   if (dataModel.data.Rods) {
     const rods = dataModel.data.Rods;
     external.viz.rods = {};
+    external.viz.types.rods = [];
     for (let i = 0; i < rods.length; i++) {
       const { id, name, rodInfo, rodStack } = rods[i];
 
       if (rodInfo && rodStack) {
+        external.viz.types.rods.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = rodInfo.color.value;
         external.viz.rods[id] = {
@@ -102,11 +111,13 @@ function mapsToExternal(hookConfig, dataModel, currentViewData) {
   if (dataModel.data.Maps) {
     const maps = dataModel.data.Maps;
     external.viz.assembly = {};
+    external.viz.types.assembly = [];
     for (let i = 0; i < maps.length; i++) {
       const { id, name, rodMap, mapInfo } = maps[i];
       if (mapInfo && rodMap) {
         const { grid } = rodMap.map.value[0];
 
+        external.viz.types.assembly.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = mapInfo.color.value;
         external.viz.assembly[id] = { grid, size, pitch };
