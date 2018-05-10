@@ -130,7 +130,11 @@ function coreToExternal(hookConfig, dataModel, currentViewData) {
   const external = getExternal(dataModel);
   const pitch = dataModel.data.Specifications[0].coreSpec.apitch.value[0];
   const size = dataModel.data.Specifications[0].coreSpec.grid.value[0];
-  external.viz.core = { size, pitch };
+  if (!external.viz.core) {
+    external.viz.core = {};
+  }
+  external.viz.core.size = size;
+  external.viz.core.pitch = pitch;
 
   // Fill maps
   if (dataModel.data.CoreAssemblyMap) {
