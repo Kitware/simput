@@ -94,6 +94,16 @@ module.exports = {
           src: 'data.Specifications.0.assemblySpec.pitch.value.0',
           dst: 'viz.cellPitch',
         },
+        {
+          type: 'copyToExternal',
+          src: 'data.Specifications.0.assemblySpec.grid.value.0',
+          dst: 'viz.assemblyGridSize',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.Specifications.0.coreSpec.grid.value.0',
+          dst: 'viz.coreGridSize',
+        },
       ],
     },
     Materials: {
@@ -162,14 +172,17 @@ module.exports = {
     CoreAssemblyMap: {
       label: 'Assemblies',
       attributes: ['coreMap'],
+      hooks: [{ type: 'coreToExternal' }],
     },
     CoreControlInsertMap: {
       label: 'Controls and Inserts',
       attributes: ['coreMap'],
+      hooks: [{ type: 'coreToExternal' }],
     },
     CoreDetectorMap: {
       label: 'Detectors',
       attributes: ['coreMap'],
+      hooks: [{ type: 'coreToExternal' }],
     },
   },
   definitions: {
