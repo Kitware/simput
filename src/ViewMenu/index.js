@@ -86,7 +86,12 @@ export default class ViewMenu extends React.Component {
     this.setState({ editingIndex: -1 });
   }
 
-  activateSection(viewId, index) {
+  activateSection(viewIdParam, indexParam) {
+    // if has sub-views, then focus first sub-view
+    const children = this.props.model.views[viewIdParam].children || [];
+    const viewId = children.length ? children[0] : viewIdParam;
+    const index = children.length ? 0 : indexParam;
+
     let { nextViewId } = this.state;
     const viewList = this.props.data.data[viewId] || [];
     while (viewList.length <= index) {
