@@ -88,7 +88,7 @@ export default class ViewMenu extends React.Component {
 
   activateSection(viewIdParam, indexParam) {
     // if has sub-views, then focus first sub-view
-    const children = this.props.model.views[viewIdParam].children || [];
+    const children = (this.props.model.views[viewIdParam] || {}).children || [];
     const viewId = children.length ? children[0] : viewIdParam;
     const index = children.length ? 0 : indexParam;
 
