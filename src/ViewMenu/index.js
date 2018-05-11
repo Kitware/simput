@@ -301,15 +301,18 @@ export default class ViewMenu extends React.Component {
                           : style.listItem
                       }
                     >
-                      <span
-                        onClick={this.activateSection.bind(
-                          this,
-                          subViewId,
-                          subIdx
-                        )}
-                      >
-                        {this.props.labels.getView(subViewId)}
-                      </span>
+                      <div className={style.listRow}>
+                        <span
+                          className={style.listRowName}
+                          onClick={this.activateSection.bind(
+                            this,
+                            subViewId,
+                            subIdx
+                          )}
+                        >
+                          {this.props.labels.getView(subViewId)}
+                        </span>
+                      </div>
                     </li>
                   ))}
                 </ul>
