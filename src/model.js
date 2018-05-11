@@ -176,17 +176,17 @@ module.exports = {
     },
     CoreAssemblyMap: {
       label: 'Assemblies',
-      attributes: ['coreMap'],
+      attributes: ['coreMapInfo', 'coreMap'],
       hooks: [{ type: 'coreToExternal' }],
     },
     CoreControlInsertMap: {
       label: 'Controls and Inserts',
-      attributes: ['coreMap'],
+      attributes: ['coreMapInfo', 'coreMap'],
       hooks: [{ type: 'coreToExternal' }],
     },
     CoreDetectorMap: {
       label: 'Detectors',
-      attributes: ['coreMap'],
+      attributes: ['coreMapInfo', 'coreMap'],
       hooks: [{ type: 'coreToExternal' }],
     },
   },
@@ -456,6 +456,17 @@ module.exports = {
             external: 'viz',
           },
           label: 'Rod Map',
+        },
+      ],
+    },
+    coreMapInfo: {
+      label: 'Core map description',
+      parameters: [
+        {
+          id: 'title',
+          type: 'string',
+          size: 1,
+          label: 'Title',
         },
       ],
     },

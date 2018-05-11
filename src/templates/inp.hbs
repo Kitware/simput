@@ -27,18 +27,25 @@
   bc_bot reflecting
 
 [ASSEMBLY]
-  title  "pin cell"
+{{#if assembly.title}}
+  title  {{assembly.title}}
+{{/if}}
   npin   {{assembly.npin}}
   ppitch {{assembly.ppitch}}
 
   fuel U31 10.257 94.5 / 3.1 u-234=0.026347
 
-  cell PIN1 0.4096 0.418 0.475 / U31 he zirc4
+{{#each assembly.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
 
-  lattice LAT1
-     PIN1
+ {{#each assembly.lattices}}
+  lattice {{name}}
+    {{cellMap}}
 
-  axial ASSY1 0.0 LAT1 1.0
+{{/each}}
 
-
+{{#each assembly.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
 
