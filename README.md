@@ -125,8 +125,9 @@ A recent version Firefox is preferred for debugging. Errors in Chrome do not alw
 In a separate location create a folder for your type:
 
 ```sh
-mkdir mytype
-cd mytype
+# Replace [mytype] with your type name.
+mkdir [mytype]
+cd [mytype]
 git init
 ```
 
@@ -154,12 +155,13 @@ For examples of each take a look at `types/demo`
 __It's critical that these are executed in order__
 
 ```sh
+# start in the [mytype] directory from above. Replace [mytype] with your type name below.
 git checkout -b type-[mytype] #replace 'mytype' with the name of the new type
 git commit -m "initial commit"
 git remote add origin https://github.com/Kitware/simput.git
-git push origin [mytype-branch] # where 'mytype-branch' is the current branch name
-cd [your simput repo]
-git submodule add -b [mytype-branch] https://github.com/kitware/simput types/[mytype]
+git push origin type-[mytype] # where 'mytype-branch' is the current branch name
+cd [your simput repo] # usually cd ../..
+git submodule add -b type-[mytype] https://github.com/kitware/simput types/[mytype]
 git add .gitmodules types/
 git commit -m "added [mytype]"
 git push
