@@ -10,22 +10,6 @@ function materialIdToName(dataModel, id) {
   return null;
 }
 
-function fillCore(model, dataModel) {
-  model.core = {};
-  const { coreSpec, baffleSpec } = dataModel.data.Specifications[0];
-  model.core.title = coreSpec.title.value[0];
-  model.core.size = coreSpec.grid.value[0];
-  model.core.apitch = coreSpec.apitch.value[0];
-  model.core.height = coreSpec.height.value[0];
-  if (baffleSpec.thick > 0) {
-    model.core.baffle = [
-      baffleSpec.material.value[0],
-      baffleSpec.gap.value[0],
-      baffleSpec.thick.value[0],
-    ];
-  }
-}
-
 // from a grid array, extract IDs of all used items, except the emptyItem
 function extractUsedItems(itemMap) {
   const usedMap = {};
@@ -61,6 +45,71 @@ function getSymmetricMap(cellMap, symmetry) {
     }
   );
 }
+// get a text map, but stripped of empty items where coreTextMap is '0'
+function getStrippedSymmetricMap(cellMap, symmetry, coreTextMap) {
+  const InpHelper = window.Simput.types.vera.helper.InpHelper;
+  let textMap = getSymmetricMap(cellMap, symmetry);
+  textMap = InpHelper.stripCoreZeros(textMap, coreTextMap, '    ');
+  return textMap;
+}
+
+function fillCoreMaps(model, dataModel) {
+  const InpHelper = window.Simput.types.vera.helper.InpHelper;
+  const assemblyMap = dataModel.data.CoreAssemblyMap[0];
+  // const title = assemblyMap.coreMapInfo.title.value[0];
+  const itemMap = assemblyMap.coreMap.map.value[0];
+  const usedAssemblies = extractUsedItems(itemMap);
+  const rodMaps = dataModel.data.Maps;
+  rodMaps.forEach((map) => {
+    if (usedAssemblies[map.id]) {
+      // convert to a lookup.
+      usedAssemblies[map.id] = map.name;
+    }
+  });
+  usedAssemblies[+itemMap.emptyItem] = '-';
+  const labeledMap = itemMap.grid.map((id) => {
+    const name = usedAssemblies[+id];
+    return name !== undefined ? name : '-';
+  });
+  // assembly map defines the core_shape map. Always saved without symmetry.
+  const coreShape = InpHelper.getCoreShape([{ cell_map: labeledMap }]);
+  model.core.core_shape = getSymmetricMap(
+    coreShape.cell_map,
+    InpHelper.SymmetryModes.NONE
+  );
+
+  const coreTextMaps = {
+    [InpHelper.SymmetryModes.NONE]: model.core.core_shape,
+  };
+
+  // TODO call stripCoreZeros, with core map reduced by symmetry.
+  if (!coreTextMaps[itemMap.symmetry]) {
+    coreTextMaps[itemMap.symmetry] =
+      getSymmetricMap(coreShape.cell_map, itemMap.symmetry);
+  }
+  model.core.assm_map = getStrippedSymmetricMap(
+    labeledMap,
+    itemMap.symmetry,
+    coreTextMaps[itemMap.symmetry]
+  );
+}
+
+function fillCore(model, dataModel) {
+  model.core = {};
+  const { coreSpec, baffleSpec } = dataModel.data.Specifications[0];
+  model.core.title = coreSpec.title.value[0];
+  model.core.size = coreSpec.grid.value[0];
+  model.core.apitch = coreSpec.apitch.value[0];
+  model.core.height = coreSpec.height.value[0];
+  if (baffleSpec.thick > 0) {
+    model.core.baffle = [
+      baffleSpec.material.value[0],
+      baffleSpec.gap.value[0],
+      baffleSpec.thick.value[0],
+    ];
+  }
+  fillCoreMaps(model, dataModel);
+}
 
 function getLatticeMaps(name, rodMap, usedRods, usedCellMap) {
   const lattices = [];
@@ -86,7 +135,6 @@ function getLatticeMaps(name, rodMap, usedRods, usedCellMap) {
     let currIndex = 0;
     while (elevations[currIndex] < currentHeight) currIndex += 1;
     rod.rodStack.rod.value[0].stack.forEach((item) => {
-      // elevationCellMaps[currIndex][rod.id] = usedCellMap[+item.cell];
       currentHeight += item.length;
       while (elevations[currIndex] < currentHeight) {
         elevationCellMaps[currIndex][rod.id] = usedCellMap[+item.cell];

@@ -13,14 +13,18 @@
 [CORE]
   size   {{core.size}}
   apitch {{core.apitch}}
-  rated  0.000183 0.01   ! MW, Mlbs/hr
+  rated  {{#each rated}}{{this}} {{/each}}  ! MW, Mlbs/hr
   height {{core.height}}
 
+{{#if core.core_shape}}
   core_shape
-    1
+    {{core.core_shape}}
+{{/if}}
 
+{{#if core.assm_map}}
   assm_map
-    ASSY1
+    {{core.assm_map}}
+{{/if}}
 
   bc_rad reflecting
   bc_top reflecting
