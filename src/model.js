@@ -83,7 +83,7 @@ module.exports = {
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'Materials'],
+  order: ['Specifications', 'Materials', 'Grids'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -166,8 +166,20 @@ module.exports = {
         { type: 'updateRodUsed' },
         { type: 'mapsToExternal' },
         { type: 'copyParameterToViewName', attribute: 'mapInfo.name' },
-        { type: 'addNextView', viewName: 'Maps', nextViewName: 'Core' },
+        {
+          type: 'addNextView',
+          viewName: 'Maps',
+          insertAfter: 'Grids',
+          nextViewName: 'Core',
+        },
       ],
+    },
+    Grids: {
+      label: 'Grids',
+      attributes: ['spacer'],
+      size: -1,
+      readOnly: true,
+      hooks: [{ type: 'copyParameterToViewName', attribute: 'spacer.name' }],
     },
     Core: {
       label: 'Core map',
@@ -456,6 +468,45 @@ module.exports = {
             external: 'viz',
           },
           label: 'Rod Map',
+        },
+      ],
+    },
+    spacer: {
+      label: 'Spacer grid',
+      parameters: [
+        {
+          id: 'name',
+          type: 'string',
+          size: 1,
+          label: 'Name',
+        },
+        {
+          id: 'height',
+          type: 'float',
+          size: 1,
+          default: 3.8,
+          label: 'Height',
+        },
+        {
+          id: 'mass',
+          type: 'float',
+          size: 1,
+          default: 1000,
+          label: 'Mass',
+        },
+        {
+          id: 'loss',
+          type: 'float',
+          size: 1,
+          default: 0.9,
+          label: 'Loss',
+        },
+        {
+          id: 'axisPositions',
+          type: 'float',
+          layout: '-1',
+          default: 0,
+          label: 'Axial positions',
         },
       ],
     },

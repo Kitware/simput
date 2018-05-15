@@ -219,10 +219,10 @@ function updateRodUsed(hookConfig, dataModel, currentViewData) {
 }
 
 function addNextView(hookConfig, dataModel, currentViewData, model) {
-  const { viewName, nextViewName } = hookConfig;
+  const { viewName, nextViewName, insertAfter } = hookConfig;
   if (dataModel.data[viewName].length) {
     if (model.order.indexOf(nextViewName) === -1) {
-      const insertIndex = 1 + model.order.indexOf(viewName);
+      const insertIndex = 1 + model.order.indexOf(insertAfter || viewName);
       model.order.splice(insertIndex, 0, nextViewName);
     }
   } else {
