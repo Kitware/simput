@@ -87,7 +87,7 @@ module.exports = {
   views: {
     Specifications: {
       label: 'Specifications',
-      attributes: ['coreSpec', 'assemblySpec', 'baffleSpec'],
+      attributes: ['coreSpec', 'assemblySpec'],
       hooks: [
         {
           type: 'copyToExternal',
@@ -170,7 +170,7 @@ module.exports = {
           type: 'addNextView',
           viewName: 'Maps',
           insertAfter: 'Grids',
-          nextViewName: 'Core',
+          nextViewName: 'CoreMap',
         },
       ],
     },
@@ -181,7 +181,7 @@ module.exports = {
       readOnly: true,
       hooks: [{ type: 'copyParameterToViewName', attribute: 'spacer.name' }],
     },
-    Core: {
+    CoreMap: {
       label: 'Core map',
       children: ['CoreAssemblyMap', 'CoreControlInsertMap', 'CoreDetectorMap'],
       hooks: [{ type: 'coreToExternal' }],
@@ -189,7 +189,15 @@ module.exports = {
     CoreAssemblyMap: {
       label: 'Assemblies',
       attributes: ['coreMapInfo', 'coreMap'],
-      hooks: [{ type: 'coreToExternal' }],
+      hooks: [
+        { type: 'coreToExternal' },
+        {
+          type: 'addNextView',
+          viewName: 'CoreAssemblyMap',
+          insertAfter: 'CoreMap',
+          nextViewName: 'CoreDefinition',
+        },
+      ],
     },
     CoreControlInsertMap: {
       label: 'Controls and Inserts',
@@ -200,6 +208,10 @@ module.exports = {
       label: 'Detectors',
       attributes: ['coreMapInfo', 'coreMap'],
       hooks: [{ type: 'coreToExternal' }],
+    },
+    CoreDefinition: {
+      label: 'Core definition',
+      attributes: ['baffleSpec'],
     },
   },
   definitions: {
