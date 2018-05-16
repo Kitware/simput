@@ -82,10 +82,11 @@ function fillCoreMaps(model, dataModel) {
     [InpHelper.SymmetryModes.NONE]: model.core.core_shape,
   };
 
-  // TODO call stripCoreZeros, with core map reduced by symmetry.
   if (!coreTextMaps[itemMap.symmetry]) {
-    coreTextMaps[itemMap.symmetry] =
-      getSymmetricMap(coreShape.cell_map, itemMap.symmetry);
+    coreTextMaps[itemMap.symmetry] = getSymmetricMap(
+      coreShape.cell_map,
+      itemMap.symmetry
+    );
   }
   model.core.assm_map = getStrippedSymmetricMap(
     labeledMap,
@@ -96,17 +97,27 @@ function fillCoreMaps(model, dataModel) {
 
 function fillCore(model, dataModel) {
   model.core = {};
-  const { coreSpec, baffleSpec } = dataModel.data.Specifications[0];
+  const { coreSpec, baffleSpec, padSpec } = dataModel.data.Specifications[0];
   model.core.title = coreSpec.title.value[0];
   model.core.size = coreSpec.grid.value[0];
   model.core.apitch = coreSpec.apitch.value[0];
   model.core.height = coreSpec.height.value[0];
-  if (baffleSpec.thick > 0) {
+  if (baffleSpec.thick.value[0] > 0) {
     model.core.baffle = [
-      baffleSpec.material.value[0],
+      materialIdToName(dataModel, +baffleSpec.material.value[0]),
       baffleSpec.gap.value[0],
       baffleSpec.thick.value[0],
     ];
+  }
+  if (
+    padSpec.params.value[0] > 0 &&
+    padSpec.params.value[1] > 0 &&
+    padSpec.params.value[2] > 0
+  ) {
+    model.core.pad = [materialIdToName(dataModel, +padSpec.material.value[0])].concat(
+      padSpec.params.value,
+      padSpec.positions.value
+    );
   }
   fillCoreMaps(model, dataModel);
 }

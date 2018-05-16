@@ -13,7 +13,7 @@
 [CORE]
   size   {{core.size}}
   apitch {{core.apitch}}
-  rated  {{#each rated}}{{this}} {{/each}}  ! MW, Mlbs/hr
+  rated {{#each core.rated}} {{this}}{{/each}}  ! MW, Mlbs/hr
   height {{core.height}}
 
 {{#if core.core_shape}}
@@ -26,9 +26,28 @@
     {{core.assm_map}}
 {{/if}}
 
-  bc_rad reflecting
-  bc_top reflecting
-  bc_bot reflecting
+{{#if core.baffle}}
+  baffle {{#each core.baffle}} {{this}}{{/each}} ! mat, gap (cm), thickness (cm)
+{{/if}}
+
+{{#if core.vessel}}
+  vessel  mod 187.96        ! barrel IR (cm)
+           ss 193.68        ! barrel OR (cm)
+          mod 219.15        ! vessel liner IR (cm)
+           ss 219.71        ! vessel liner OR / vessel IR (cm)
+           cs 241.70        ! vessel OR (cm)
+{{/if}}
+
+{{#if core.pad}}
+  pad {{#each core.pad}} {{this}}{{/each}}  ! neutron pad ID,OD arc lenth (degrees), and angular positions (degrees)
+{{/if}}
+
+{{#if core.lower_plate}}
+  lower_plate {{#each core.lower_plate}} {{this}}{{/each}} ! mat, thickness, vol frac
+{{/if}}
+{{#if core.upper_plate}}
+  upper_plate {{#each core.upper_plate}} {{this}}{{/each}} ! mat, thickness, vol frac
+{{/if}}
 
 [ASSEMBLY]
 {{#if assembly.title}}

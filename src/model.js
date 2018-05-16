@@ -76,6 +76,35 @@ const mapPalette = [
 // ----------------------------------------------------------------------------
 // Model definition
 // ----------------------------------------------------------------------------
+const nozzleList = [
+        {
+          id: 'material',
+          type: 'int',
+          size: 1,
+          ui: 'enum',
+          domain: {
+            dynamic: true,
+            external: 'materialEnum',
+          },
+          label: 'Material',
+        },
+        {
+          id: 'height',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Height',
+          help: 'cm',
+        },
+        {
+          id: 'mass',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Mass',
+          help: 'g',
+        },
+      ];
 
 module.exports = {
   scripts: [
@@ -87,7 +116,7 @@ module.exports = {
   views: {
     Specifications: {
       label: 'Specifications',
-      attributes: ['coreSpec', 'assemblySpec'],
+      attributes: ['coreSpec', 'assemblySpec', 'baffleSpec', 'padSpec'],
       hooks: [
         {
           type: 'copyToExternal',
@@ -188,7 +217,7 @@ module.exports = {
     },
     CoreAssemblyMap: {
       label: 'Assemblies',
-      attributes: ['coreMapInfo', 'coreMap'],
+      attributes: ['coreMapInfo', 'lowerNozzleSpec', 'upperNozzleSpec', 'coreMap'],
       hooks: [
         { type: 'coreToExternal' },
         {
@@ -201,7 +230,7 @@ module.exports = {
     },
     CoreControlInsertMap: {
       label: 'Controls and Inserts',
-      attributes: ['coreMapInfo', 'coreMap'],
+      attributes: ['coreMapInfo', 'controlMapInfo', 'coreMap'],
       hooks: [{ type: 'coreToExternal' }],
     },
     CoreDetectorMap: {
@@ -248,6 +277,15 @@ module.exports = {
           label: 'Core height',
           help: 'Height of the core, in cm.',
         },
+        {
+          id: 'rated',
+          type: 'float',
+          size: 2,
+          layout: "2",
+          default: [0, 0],
+          label: 'Rated',
+          help: 'MW, Mlbs/hr'
+        },
       ],
     },
     assemblySpec: {
@@ -275,6 +313,17 @@ module.exports = {
       label: 'Baffle Specifications',
       parameters: [
         {
+          id: 'material',
+          type: 'int',
+          size: 1,
+          ui: 'enum',
+          domain: {
+            dynamic: true,
+            external: 'materialEnum',
+          },
+          label: 'Material',
+        },
+        {
           id: 'thick',
           type: 'float',
           size: 1,
@@ -288,6 +337,11 @@ module.exports = {
           default: 0,
           label: 'Gap',
         },
+      ],
+    },
+    padSpec: {
+      label: 'Pad Specifications',
+      parameters: [
         {
           id: 'material',
           type: 'int',
@@ -299,7 +353,32 @@ module.exports = {
           },
           label: 'Material',
         },
+        {
+          id: 'params',
+          type: 'float',
+          size: 3,
+          layout: '3',
+          default: [0, 0, 0],
+          label: 'Inner diameter, Outer diameter, Arc length',
+          help: 'cm, cm, deg'
+        },
+        {
+          id: 'positions',
+          type: 'float',
+          layout: '-1',
+          default: 0,
+          label: 'Angular positions',
+          help: 'deg'
+        },
       ],
+    },
+    lowerNozzleSpec: {
+      label: 'Lower Nozzle Specifications',
+      parameters: nozzleList,
+    },
+    upperNozzleSpec: {
+      label: 'Upper Nozzle Specifications',
+      parameters: nozzleList,
     },
     material: {
       label: 'Material definition',
@@ -531,6 +610,21 @@ module.exports = {
           size: 1,
           label: 'Title',
         },
+      ],
+    },
+    controlMapInfo: {
+      label: 'Control map parameters',
+      parameters: [
+        {
+          id: 'stroke',
+          type: 'float',
+          size: 2,
+          layout: "2",
+          default: [400, 230],
+          label: 'Stroke',
+          help: 'total travel (cm) and number of steps',
+        },
+        // TODO complex 'blade' structure - need an example .inp file
       ],
     },
     coreMap: {
