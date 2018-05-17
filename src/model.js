@@ -77,34 +77,34 @@ const mapPalette = [
 // Model definition
 // ----------------------------------------------------------------------------
 const nozzleList = [
-        {
-          id: 'material',
-          type: 'int',
-          size: 1,
-          ui: 'enum',
-          domain: {
-            dynamic: true,
-            external: 'materialEnum',
-          },
-          label: 'Material',
-        },
-        {
-          id: 'height',
-          type: 'float',
-          size: 1,
-          default: 0,
-          label: 'Height',
-          help: 'cm',
-        },
-        {
-          id: 'mass',
-          type: 'float',
-          size: 1,
-          default: 0,
-          label: 'Mass',
-          help: 'g',
-        },
-      ];
+  {
+    id: 'material',
+    type: 'int',
+    size: 1,
+    ui: 'enum',
+    domain: {
+      dynamic: true,
+      external: 'materialEnum',
+    },
+    label: 'Material',
+  },
+  {
+    id: 'height',
+    type: 'float',
+    size: 1,
+    default: 0,
+    label: 'Height',
+    help: 'cm',
+  },
+  {
+    id: 'mass',
+    type: 'float',
+    size: 1,
+    default: 0,
+    label: 'Mass',
+    help: 'g',
+  },
+];
 
 module.exports = {
   scripts: [
@@ -217,7 +217,12 @@ module.exports = {
     },
     CoreAssemblyMap: {
       label: 'Assemblies',
-      attributes: ['coreMapInfo', 'lowerNozzleSpec', 'upperNozzleSpec', 'coreMap'],
+      attributes: [
+        'coreMapInfo',
+        'lowerNozzleSpec',
+        'upperNozzleSpec',
+        'coreMap',
+      ],
       hooks: [
         { type: 'coreToExternal' },
         {
@@ -281,10 +286,10 @@ module.exports = {
           id: 'rated',
           type: 'float',
           size: 2,
-          layout: "2",
+          layout: '2',
           default: [0, 0],
           label: 'Rated',
-          help: 'MW, Mlbs/hr'
+          help: 'MW, Mlbs/hr',
         },
       ],
     },
@@ -360,7 +365,7 @@ module.exports = {
           layout: '3',
           default: [0, 0, 0],
           label: 'Inner diameter, Outer diameter, Arc length',
-          help: 'cm, cm, deg'
+          help: 'cm, cm, deg',
         },
         {
           id: 'positions',
@@ -368,7 +373,7 @@ module.exports = {
           layout: '-1',
           default: 0,
           label: 'Angular positions',
-          help: 'deg'
+          help: 'deg',
         },
       ],
     },
@@ -502,6 +507,20 @@ module.exports = {
           default: 0,
           label: 'Rod offset',
         },
+        {
+          id: 'type',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 0,
+          label: 'Usage',
+          domain: {
+            Assembly: 'assembly',
+            Control: 'control',
+            Insert: 'insert',
+            Detector: 'detector',
+          },
+        },
       ],
     },
     rodStack: {
@@ -539,6 +558,20 @@ module.exports = {
           default: [204 / 255, 235 / 255, 197 / 255],
           domain: {
             palette: mapPalette,
+          },
+        },
+        {
+          id: 'type',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 0,
+          label: 'Usage',
+          domain: {
+            Assembly: 'assembly',
+            Control: 'control',
+            Insert: 'insert',
+            Detector: 'detector',
           },
         },
       ],
@@ -619,7 +652,7 @@ module.exports = {
           id: 'stroke',
           type: 'float',
           size: 2,
-          layout: "2",
+          layout: '2',
           default: [400, 230],
           label: 'Stroke',
           help: 'total travel (cm) and number of steps',

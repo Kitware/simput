@@ -95,6 +95,7 @@ function pushRodsToExternalHook(hookConfig, dataModel, currentViewData) {
         external.viz.rods[id] = {
           offset: rodInfo.offset.value[0],
           length: rodInfo.height.value[0],
+          type: rodInfo.type.value[0],
           cells: rodStack.rod.value[0].stack,
         };
       }
@@ -116,11 +117,12 @@ function mapsToExternal(hookConfig, dataModel, currentViewData) {
       const { id, name, rodMap, mapInfo } = maps[i];
       if (mapInfo && rodMap) {
         const { grid } = rodMap.map.value[0];
+        const type = mapInfo.type.value[0];
 
         external.viz.types.assembly.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = mapInfo.color.value;
-        external.viz.assembly[id] = { grid, size, pitch };
+        external.viz.assembly[id] = { grid, size, pitch, type };
       }
     }
   }
@@ -135,17 +137,28 @@ function coreToExternal(hookConfig, dataModel, currentViewData) {
   }
   external.viz.core.size = size;
   external.viz.core.pitch = pitch;
+  external.viz.core.types = {};
 
   // Fill maps
   if (dataModel.data.CoreAssemblyMap) {
+    external.viz.core.types[dataModel.data.CoreAssemblyMap[0].id] = [
+      'assembly',
+    ];
     external.viz.core[dataModel.data.CoreAssemblyMap[0].id] =
       dataModel.data.CoreAssemblyMap[0].coreMap.map.value[0].grid;
   }
   if (dataModel.data.CoreControlInsertMap) {
+    external.viz.core.types[dataModel.data.CoreControlInsertMap[1].id] = [
+      'control',
+      'insert',
+    ];
     external.viz.core[dataModel.data.CoreControlInsertMap[1].id] =
       dataModel.data.CoreControlInsertMap[1].coreMap.map.value[0].grid;
   }
   if (dataModel.data.CoreDetectorMap) {
+    external.viz.core.types[dataModel.data.CoreDetectorMap[2].id] = [
+      'detector',
+    ];
     external.viz.core[dataModel.data.CoreDetectorMap[2].id] =
       dataModel.data.CoreDetectorMap[2].coreMap.map.value[0].grid;
   }
