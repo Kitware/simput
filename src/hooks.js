@@ -118,11 +118,15 @@ function mapsToExternal(hookConfig, dataModel, currentViewData) {
       if (mapInfo && rodMap) {
         const { grid } = rodMap.map.value[0];
         const type = mapInfo.type.value[0];
+        const labels =
+          mapInfo.stateLabels && mapInfo.stateLabels.value
+            ? mapInfo.stateLabels.value.filter((l) => l.length)
+            : [];
 
         external.viz.types.assembly.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = mapInfo.color.value;
-        external.viz.assembly[id] = { grid, size, pitch, type };
+        external.viz.assembly[id] = { grid, size, pitch, type, labels };
       }
     }
   }
