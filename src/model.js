@@ -105,6 +105,35 @@ const nozzleList = [
     help: 'g',
   },
 ];
+const plateList = [
+  {
+    id: 'material',
+    type: 'int',
+    size: 1,
+    ui: 'enum',
+    domain: {
+      dynamic: true,
+      external: 'materialEnum',
+    },
+    label: 'Material',
+  },
+  {
+    id: 'thick',
+    type: 'float',
+    size: 1,
+    default: 0,
+    label: 'Thickness',
+    help: 'cm',
+  },
+  {
+    id: 'volfrac',
+    type: 'float',
+    size: 1,
+    default: 0,
+    label: 'Volume fraction',
+    help: 'Percent, 0 -> 1',
+  },
+];
 
 module.exports = {
   scripts: [
@@ -116,7 +145,7 @@ module.exports = {
   views: {
     Specifications: {
       label: 'Specifications',
-      attributes: ['coreSpec', 'assemblySpec', 'baffleSpec', 'padSpec'],
+      attributes: ['coreSpec', 'assemblySpec'],
       hooks: [
         {
           type: 'copyToExternal',
@@ -240,7 +269,13 @@ module.exports = {
     },
     CoreDefinition: {
       label: 'Core definition',
-      attributes: ['baffleSpec'],
+      attributes: [
+        'baffleSpec',
+        'padSpec',
+        'lowerPlateSpec',
+        'upperPlateSpec',
+        'vesselSpec',
+      ],
     },
   },
   definitions: {
@@ -371,6 +406,34 @@ module.exports = {
           help: 'deg',
         },
       ],
+    },
+    vesselSpec: {
+      label: 'Vessel Specifications',
+      parameters: [
+        {
+          id: 'cell',
+          propType: 'CellEditor',
+          size: 1,
+          default: {
+            name: 'Vessel name',
+            radii: [],
+            mats: [],
+          },
+          domain: {
+            dynamic: true,
+            external: 'viz',
+          },
+          label: 'Vessel',
+        },
+      ],
+    },
+    lowerPlateSpec: {
+      label: 'Lower Plate Specifications',
+      parameters: plateList,
+    },
+    upperPlateSpec: {
+      label: 'Upper Plate Specifications',
+      parameters: plateList,
     },
     lowerNozzleSpec: {
       label: 'Lower Nozzle Specifications',
@@ -569,7 +632,7 @@ module.exports = {
             Detector: 'detector',
           },
         },
-        ['lowerNozzleSpec', 'upperNozzleSpec' ],
+        ['lowerNozzleSpec', 'upperNozzleSpec'],
       ],
       children: {
         lowerNozzleSpec: 'mapInfo.type[0] === "assembly"',

@@ -31,11 +31,7 @@
 {{/if}}
 
 {{#if core.vessel}}
-  vessel  mod 187.96        ! barrel IR (cm)
-           ss 193.68        ! barrel OR (cm)
-          mod 219.15        ! vessel liner IR (cm)
-           ss 219.71        ! vessel liner OR / vessel IR (cm)
-           cs 241.70        ! vessel OR (cm)
+  vessel {{#each radiiMats}} {{this}}{{/each}}
 {{/if}}
 
 {{#if core.pad}}
@@ -72,3 +68,9 @@
   axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
 {{/each}}
 
+{{#if assembly.lower_nozzle}}
+  lower_nozzle {{#each assembly.lower_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
+{{/if}}
+{{#if assembly.upper_nozzle}}
+  upper_nozzle {{#each assembly.upper_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
+{{/if}}
