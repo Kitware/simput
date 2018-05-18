@@ -291,11 +291,13 @@ function getShowFunction(model, attrName, orAttr) {
 function getShowParamFunction(model, attrName, boolExpr) {
   const funcTemplate = [];
   model.definitions[attrName].parameters.forEach((param) => {
-    funcTemplate.push(
-      `var ${param.id.replace(/-|\./g, '')} = viewData['${attrName}']['${
-        param.id
-      }'].value`
-    );
+    if (!Array.isArray(param)) {
+      funcTemplate.push(
+        `var ${param.id.replace(/-|\./g, '')} = viewData['${attrName}']['${
+          param.id
+        }'].value`
+      );
+    }
   });
 
   funcTemplate.push(`return ${boolExpr};`);
@@ -324,10 +326,23 @@ export default function generateDataModel(
         : model.definitions[attrName].label,
     };
     const contents = [];
+    const attrChildren = [];
     model.definitions[attrName].parameters.forEach((paramAttr, idx) => {
       if (Array.isArray(paramAttr)) {
         // OR prop
         paramAttr.forEach((orAttr) => {
+          const keepTitle =
+            model.definitions[attrName].parameters.length - 1 === idx;
+          const orCtx = {
+            show: getShowFunction(model, attrName, orAttr),
+            contents,
+            title: labels
+              ? labels[orAttr].title
+              : model.definitions[orAttr].label,
+          };
+          if (keepTitle) {
+            orCtx.contents = [];
+          }
           model.definitions[orAttr].parameters.forEach((param) => {
             const prop = getParameterData(
               model,
@@ -341,10 +356,14 @@ export default function generateDataModel(
             );
             prop.viewData = viewData;
             if (model.definitions[attrName].children[orAttr]) {
-              prop.show = getShowFunction(model, attrName, orAttr);
+              prop.show = orCtx.show;
             }
-            contents.push(prop);
+            orCtx.contents.push(prop);
           });
+
+          if (keepTitle) {
+            attrChildren.push(orCtx);
+          }
         });
       } else {
         const prop = getParameterData(
@@ -366,6 +385,10 @@ export default function generateDataModel(
     });
     attr.contents = contents;
     propertyList.push(attr);
+
+    for (let i = 0; i < attrChildren.length; i++) {
+      propertyList.push(attrChildren[i]);
+    }
   });
 
   return propertyList;
