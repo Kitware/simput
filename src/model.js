@@ -217,12 +217,7 @@ module.exports = {
     },
     CoreAssemblyMap: {
       label: 'Assemblies',
-      attributes: [
-        'coreMapInfo',
-        'lowerNozzleSpec',
-        'upperNozzleSpec',
-        'coreMap',
-      ],
+      attributes: ['coreMapInfo', 'coreMap'],
       hooks: [
         { type: 'coreToExternal' },
         {
@@ -574,7 +569,12 @@ module.exports = {
             Detector: 'detector',
           },
         },
+        ['lowerNozzleSpec', 'upperNozzleSpec' ],
       ],
+      children: {
+        lowerNozzleSpec: 'mapInfo.type[0] === "assembly"',
+        upperNozzleSpec: 'mapInfo.type[0] === "assembly"',
+      },
     },
     rodMap: {
       label: 'Layout definition',
