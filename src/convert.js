@@ -96,44 +96,45 @@ function fillCoreMaps(model, dataModel) {
 }
 
 function fillCore(model, dataModel) {
-  model.core = {};
-  const { coreSpec, baffleSpec, padSpec, lowerPlateSpec, upperPlateSpec } = dataModel.data.Specifications[0];
-  model.core.title = coreSpec.title.value[0];
-  model.core.size = coreSpec.grid.value[0];
-  model.core.apitch = coreSpec.apitch.value[0];
-  model.core.height = coreSpec.height.value[0];
-  if (baffleSpec.thick.value[0] > 0) {
-    model.core.baffle = [
-      materialIdToName(dataModel, +baffleSpec.material.value[0]),
-      baffleSpec.gap.value[0],
-      baffleSpec.thick.value[0],
-    ];
-  }
-  if (
-    padSpec.params.value[0] > 0 &&
-    padSpec.params.value[1] > 0 &&
-    padSpec.params.value[2] > 0
-  ) {
-    model.core.pad = [materialIdToName(dataModel, +padSpec.material.value[0])].concat(
-      padSpec.params.value,
-      padSpec.positions.value
-    );
-  }
-    if (lowerPlateSpec.thick.value[0] > 0) {
-      model.core.lower_plate = [
-        materialIdToName(dataModel, lowerPlateSpec.material.value[0]),
-        lowerPlateSpec.thick.value[0],
-        lowerPlateSpec.volfrac.value[0],
-      ];
-    }
-    if (upperPlateSpec.thick.value[0] > 0) {
-      model.core.upper_plate = [
-        materialIdToName(dataModel, upperPlateSpec.material.value[0]),
-        upperPlateSpec.thick.value[0],
-        upperPlateSpec.volfrac.value[0],
-      ];
-    }
-  fillCoreMaps(model, dataModel);
+  // FIXME broken (baffleSpec, padSpec, lowerPlateSpec, upperPlateSpec) are not in "Specifications"
+  // model.core = {};
+  // const { coreSpec, baffleSpec, padSpec, lowerPlateSpec, upperPlateSpec } = dataModel.data.Specifications[0];
+  // model.core.title = coreSpec.title.value[0];
+  // model.core.size = coreSpec.grid.value[0];
+  // model.core.apitch = coreSpec.apitch.value[0];
+  // model.core.height = coreSpec.height.value[0];
+  // if (baffleSpec.thick.value[0] > 0) {
+  //   model.core.baffle = [
+  //     materialIdToName(dataModel, +baffleSpec.material.value[0]),
+  //     baffleSpec.gap.value[0],
+  //     baffleSpec.thick.value[0],
+  //   ];
+  // }
+  // if (
+  //   padSpec.params.value[0] > 0 &&
+  //   padSpec.params.value[1] > 0 &&
+  //   padSpec.params.value[2] > 0
+  // ) {
+  //   model.core.pad = [materialIdToName(dataModel, +padSpec.material.value[0])].concat(
+  //     padSpec.params.value,
+  //     padSpec.positions.value
+  //   );
+  // }
+  //   if (lowerPlateSpec.thick.value[0] > 0) {
+  //     model.core.lower_plate = [
+  //       materialIdToName(dataModel, lowerPlateSpec.material.value[0]),
+  //       lowerPlateSpec.thick.value[0],
+  //       lowerPlateSpec.volfrac.value[0],
+  //     ];
+  //   }
+  //   if (upperPlateSpec.thick.value[0] > 0) {
+  //     model.core.upper_plate = [
+  //       materialIdToName(dataModel, upperPlateSpec.material.value[0]),
+  //       upperPlateSpec.thick.value[0],
+  //       upperPlateSpec.volfrac.value[0],
+  //     ];
+  //   }
+  // fillCoreMaps(model, dataModel);
 }
 
 function getLatticeMaps(name, rodMap, usedRods, usedCellMap) {
@@ -234,8 +235,7 @@ function fillAssembly(model, dataModel) {
   // grab the core map, see which assemblies are used
   if (dataModel.data.CoreAssemblyMap && dataModel.data.Maps) {
     const assemblyMap = dataModel.data.CoreAssemblyMap[0];
-    model.assembly.title =
-      assemblyMap.coreMapInfo.title.value[0];
+    model.assembly.title = assemblyMap.coreMapInfo.title.value[0];
     const coreMap = assemblyMap.coreMap.map.value[0];
     const usedAssemblies = extractUsedItems(coreMap);
     const rodMaps = dataModel.data.Maps;
@@ -247,20 +247,27 @@ function fillAssembly(model, dataModel) {
       }
     });
 
-    if (assemblyMap.lowerNozzleSpec.height.value[0] > 0) {
-      model.assembly.lower_nozzle = [
-        materialIdToName(dataModel, assemblyMap.lowerNozzleSpec.material.value[0]),
-        assemblyMap.lowerNozzleSpec.height.value[0],
-        assemblyMap.lowerNozzleSpec.mass.value[0],
-      ];
-    }
-    if (assemblyMap.upperNozzleSpec.height.value[0] > 0) {
-      model.assembly.upper_nozzle = [
-        materialIdToName(dataModel, assemblyMap.upperNozzleSpec.material.value[0]),
-        assemblyMap.upperNozzleSpec.height.value[0],
-        assemblyMap.upperNozzleSpec.mass.value[0],
-      ];
-    }
+    // FIXME Nozzle not part of assemblyMap
+    // if (assemblyMap.lowerNozzleSpec.height.value[0] > 0) {
+    //   model.assembly.lower_nozzle = [
+    //     materialIdToName(
+    //       dataModel,
+    //       assemblyMap.lowerNozzleSpec.material.value[0]
+    //     ),
+    //     assemblyMap.lowerNozzleSpec.height.value[0],
+    //     assemblyMap.lowerNozzleSpec.mass.value[0],
+    //   ];
+    // }
+    // if (assemblyMap.upperNozzleSpec.height.value[0] > 0) {
+    //   model.assembly.upper_nozzle = [
+    //     materialIdToName(
+    //       dataModel,
+    //       assemblyMap.upperNozzleSpec.material.value[0]
+    //     ),
+    //     assemblyMap.upperNozzleSpec.height.value[0],
+    //     assemblyMap.upperNozzleSpec.mass.value[0],
+    //   ];
+    // }
   }
 }
 

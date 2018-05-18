@@ -241,7 +241,12 @@ module.exports = {
     },
     CoreMap: {
       label: 'Core map',
-      children: ['CoreAssemblyMap', 'CoreControlInsertMap', 'CoreDetectorMap', 'LabelMap'],
+      children: [
+        'CoreAssemblyMap',
+        'CoreControlInsertMap',
+        'CoreDetectorMap',
+        'LabelMap',
+      ],
       hooks: [{ type: 'coreToExternal' }],
     },
     CoreAssemblyMap: {
@@ -636,7 +641,6 @@ module.exports = {
             Detector: 'detector',
           },
         },
-        ['lowerNozzleSpec', 'upperNozzleSpec'],
         {
           id: 'stateLabels',
           type: 'string',
@@ -645,6 +649,7 @@ module.exports = {
           label: 'Labels for state',
           show: 'type[0] === "control"',
         },
+        ['lowerNozzleSpec', 'upperNozzleSpec'],
       ],
       children: {
         lowerNozzleSpec: 'mapInfo.type[0] === "assembly"',
