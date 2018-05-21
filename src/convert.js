@@ -96,45 +96,49 @@ function fillCoreMaps(model, dataModel) {
 }
 
 function fillCore(model, dataModel) {
-  // FIXME broken (baffleSpec, padSpec, lowerPlateSpec, upperPlateSpec) are not in "Specifications"
-  // model.core = {};
-  // const { coreSpec, baffleSpec, padSpec, lowerPlateSpec, upperPlateSpec } = dataModel.data.Specifications[0];
-  // model.core.title = coreSpec.title.value[0];
-  // model.core.size = coreSpec.grid.value[0];
-  // model.core.apitch = coreSpec.apitch.value[0];
-  // model.core.height = coreSpec.height.value[0];
-  // if (baffleSpec.thick.value[0] > 0) {
-  //   model.core.baffle = [
-  //     materialIdToName(dataModel, +baffleSpec.material.value[0]),
-  //     baffleSpec.gap.value[0],
-  //     baffleSpec.thick.value[0],
-  //   ];
-  // }
-  // if (
-  //   padSpec.params.value[0] > 0 &&
-  //   padSpec.params.value[1] > 0 &&
-  //   padSpec.params.value[2] > 0
-  // ) {
-  //   model.core.pad = [materialIdToName(dataModel, +padSpec.material.value[0])].concat(
-  //     padSpec.params.value,
-  //     padSpec.positions.value
-  //   );
-  // }
-  //   if (lowerPlateSpec.thick.value[0] > 0) {
-  //     model.core.lower_plate = [
-  //       materialIdToName(dataModel, lowerPlateSpec.material.value[0]),
-  //       lowerPlateSpec.thick.value[0],
-  //       lowerPlateSpec.volfrac.value[0],
-  //     ];
-  //   }
-  //   if (upperPlateSpec.thick.value[0] > 0) {
-  //     model.core.upper_plate = [
-  //       materialIdToName(dataModel, upperPlateSpec.material.value[0]),
-  //       upperPlateSpec.thick.value[0],
-  //       upperPlateSpec.volfrac.value[0],
-  //     ];
-  //   }
-  // fillCoreMaps(model, dataModel);
+  model.core = {};
+  const { coreSpec } = dataModel.data.Specifications[0];
+  const {
+    baffleSpec,
+    padSpec,
+    lowerPlateSpec,
+    upperPlateSpec,
+  } = dataModel.data.CoreDefinition[0];
+  model.core.title = coreSpec.title.value[0];
+  model.core.size = coreSpec.grid.value[0];
+  model.core.apitch = coreSpec.apitch.value[0];
+  model.core.height = coreSpec.height.value[0];
+  if (baffleSpec.thick.value[0] > 0) {
+    model.core.baffle = [
+      materialIdToName(dataModel, +baffleSpec.material.value[0]),
+      baffleSpec.gap.value[0],
+      baffleSpec.thick.value[0],
+    ];
+  }
+  if (
+    padSpec.params.value[0] > 0 &&
+    padSpec.params.value[1] > 0 &&
+    padSpec.params.value[2] > 0
+  ) {
+    model.core.pad = [
+      materialIdToName(dataModel, +padSpec.material.value[0]),
+    ].concat(padSpec.params.value, padSpec.positions.value);
+  }
+  if (lowerPlateSpec.thick.value[0] > 0) {
+    model.core.lower_plate = [
+      materialIdToName(dataModel, lowerPlateSpec.material.value[0]),
+      lowerPlateSpec.thick.value[0],
+      lowerPlateSpec.volfrac.value[0],
+    ];
+  }
+  if (upperPlateSpec.thick.value[0] > 0) {
+    model.core.upper_plate = [
+      materialIdToName(dataModel, upperPlateSpec.material.value[0]),
+      upperPlateSpec.thick.value[0],
+      upperPlateSpec.volfrac.value[0],
+    ];
+  }
+  fillCoreMaps(model, dataModel);
 }
 
 function getLatticeMaps(name, rodMap, usedRods, usedCellMap) {
@@ -224,6 +228,32 @@ function fillAssemblyMap(model, dataModel, map) {
     if (lattices[i]) elevationMats.push(lattices[i].name);
   }
   model.assembly.axials.push({ name: map.name, elevationMats });
+  if (
+    map.lowerNozzleSpec &&
+    map.lowerNozzleSpec.height.value[0] > 0
+  ) {
+    model.assembly.lower_nozzle = [
+      materialIdToName(
+        dataModel,
+        map.lowerNozzleSpec.material.value[0]
+      ),
+      map.lowerNozzleSpec.height.value[0],
+      map.lowerNozzleSpec.mass.value[0],
+    ];
+  }
+  if (
+    map.upperNozzleSpec &&
+    map.upperNozzleSpec.height.value[0] > 0
+  ) {
+    model.assembly.upper_nozzle = [
+      materialIdToName(
+        dataModel,
+        map.upperNozzleSpec.material.value[0]
+      ),
+      map.upperNozzleSpec.height.value[0],
+      map.upperNozzleSpec.mass.value[0],
+    ];
+  }
 }
 
 function fillAssembly(model, dataModel) {
@@ -246,28 +276,6 @@ function fillAssembly(model, dataModel) {
         fillAssemblyMap(model, dataModel, map);
       }
     });
-
-    // FIXME Nozzle not part of assemblyMap
-    // if (assemblyMap.lowerNozzleSpec.height.value[0] > 0) {
-    //   model.assembly.lower_nozzle = [
-    //     materialIdToName(
-    //       dataModel,
-    //       assemblyMap.lowerNozzleSpec.material.value[0]
-    //     ),
-    //     assemblyMap.lowerNozzleSpec.height.value[0],
-    //     assemblyMap.lowerNozzleSpec.mass.value[0],
-    //   ];
-    // }
-    // if (assemblyMap.upperNozzleSpec.height.value[0] > 0) {
-    //   model.assembly.upper_nozzle = [
-    //     materialIdToName(
-    //       dataModel,
-    //       assemblyMap.upperNozzleSpec.material.value[0]
-    //     ),
-    //     assemblyMap.upperNozzleSpec.height.value[0],
-    //     assemblyMap.upperNozzleSpec.mass.value[0],
-    //   ];
-    // }
   }
 }
 
