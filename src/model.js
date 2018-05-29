@@ -733,7 +733,7 @@ module.exports = {
           type: 'float',
           size: 2,
           layout: '2',
-          default: [400, 230],
+          default: [0, 0],
           label: 'Stroke',
           help: 'total travel (cm) and number of steps',
         },

@@ -19,30 +19,51 @@
 {{#if core.core_shape}}
   core_shape
     {{core.core_shape}}
-{{/if}}
 
+{{/if}}
 {{#if core.assm_map}}
   assm_map
     {{core.assm_map}}
+
+{{/if}}
+{{#if core.insert_map}}
+  insert_map
+    {{core.insert_map}}
+
+{{/if}}
+{{#if core.crd_map}}
+  crd_map
+    {{core.crd_map}}
+
+{{/if}}
+{{#if core.crd_bank}}
+  crd_bank
+    {{core.crd_bank}}
+
+{{/if}}
+{{#if core.det_map}}
+  det_map
+    {{core.det_map}}
+
 {{/if}}
 
 {{#if core.baffle}}
   baffle {{#each core.baffle}} {{this}}{{/each}} ! mat, gap (cm), thickness (cm)
-{{/if}}
 
+{{/if}}
 {{#if core.vessel}}
-  vessel {{#each radiiMats}} {{this}}{{/each}}
-{{/if}}
+  vessel {{#each core.vessel}} {{this}}{{/each}}
 
+{{/if}}
 {{#if core.pad}}
-  pad {{#each core.pad}} {{this}}{{/each}}  ! neutron pad ID,OD arc lenth (degrees), and angular positions (degrees)
-{{/if}}
+  pad {{#each core.pad}} {{this}}{{/each}}  ! neutron pad ID, OD (cm), arc lenth (degrees), and angular positions (degrees)
 
+{{/if}}
 {{#if core.lower_plate}}
-  lower_plate {{#each core.lower_plate}} {{this}}{{/each}} ! mat, thickness, vol frac
+  lower_plate {{#each core.lower_plate}} {{this}}{{/each}} ! mat, thickness (cm), vol frac
 {{/if}}
 {{#if core.upper_plate}}
-  upper_plate {{#each core.upper_plate}} {{this}}{{/each}} ! mat, thickness, vol frac
+  upper_plate {{#each core.upper_plate}} {{this}}{{/each}} ! mat, thickness (cm), vol frac
 {{/if}}
 
 [ASSEMBLY]
@@ -58,7 +79,7 @@
   cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
 {{/each}}
 
- {{#each assembly.lattices}}
+{{#each assembly.lattices}}
   lattice {{name}}
     {{cellMap}}
 
@@ -73,4 +94,73 @@
 {{/if}}
 {{#if assembly.upper_nozzle}}
   upper_nozzle {{#each assembly.upper_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
+{{/if}}
+
+{{#if insert}}
+[INSERT]
+{{#if insert.title}}
+  title  {{insert.title}}
+{{/if}}
+  npin   {{insert.npin}}
+
+{{#each insert.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
+
+ {{#each insert.lattices}}
+  rodmap {{name}}
+    {{cellMap}}
+
+{{/each}}
+
+{{#each insert.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
+
+{{/if}}
+{{#if control}}
+[CONTROL]
+{{#if control.title}}
+  title  {{control.title}}
+{{/if}}
+  npin   {{control.npin}}
+{{#if control.stroke}}
+  stroke {{#each control.stroke}} {{this}}{{/each}}  ! full stroke height, num steps
+{{/if}}
+
+{{#each control.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
+
+{{#each control.lattices}}
+  rodmap {{name}}
+    {{cellMap}}
+
+{{/each}}
+
+{{#each control.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
+
+{{/if}}
+{{#if detector}}
+[DETECTOR]
+{{#if detector.title}}
+  title  {{detector.title}}
+{{/if}}
+  npin   {{detector.npin}}
+
+{{#each detector.cells}}
+  cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}
+{{/each}}
+
+ {{#each detector.lattices}}
+  rodmap {{name}}
+    {{cellMap}}
+
+{{/each}}
+
+{{#each detector.axials}}
+  axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
 {{/if}}

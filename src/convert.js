@@ -53,46 +53,83 @@ function getStrippedSymmetricMap(cellMap, symmetry, coreTextMap) {
   return textMap;
 }
 
+const mapConfig = [
+  {
+    type: 'assembly',
+    coreMapKey: 'CoreAssemblyMap',
+    coreMapName: 'assm_map',
+    index: 0,
+  },
+  {
+    type: 'insert',
+    coreMapKey: 'CoreControlInsertMap',
+    coreMapName: 'insert_map',
+    index: 1,
+  },
+  {
+    type: 'control',
+    coreMapKey: 'CoreControlInsertMap',
+    coreMapName: 'crd_map',
+    index: 1,
+  },
+  {
+    type: 'detector',
+    coreMapKey: 'CoreDetectorMap',
+    coreMapName: 'det_map',
+    index: 2,
+  },
+];
+
 function fillCoreMaps(model, dataModel) {
   const InpHelper = window.Simput.types.vera.helper.InpHelper;
-  const assemblyMap = dataModel.data.CoreAssemblyMap[0];
-  // const title = assemblyMap.coreMapInfo.title.value[0];
-  const itemMap = assemblyMap.coreMap.map.value[0];
-  const usedAssemblies = extractUsedItems(itemMap);
-  const rodMaps = dataModel.data.Maps;
-  rodMaps.forEach((map) => {
-    if (usedAssemblies[map.id]) {
-      // convert to a lookup.
-      usedAssemblies[map.id] = map.name;
+  let coreShape = null;
+  const coreTextMaps = {};
+  mapConfig.forEach(config => {
+    const assemblyMap = dataModel.data[config.coreMapKey][config.index];
+    // const title = assemblyMap.coreMapInfo.title.value[0];
+    const itemMap = assemblyMap.coreMap.map.value[0];
+    const usedAssemblies = extractUsedItems(itemMap);
+    const rodMaps = dataModel.data.Maps;
+    let emptyMap = true;
+    rodMaps.forEach((map) => {
+      if (usedAssemblies[map.id]) {
+        const mapType = map.mapInfo.type.value[0];
+        // convert to a lookup.
+        // control/insert needs to filter the other types of rod out.
+        usedAssemblies[map.id] = mapType === config.type ? map.name : '-';
+        if (mapType === config.type) emptyMap = false;
+      }
+    });
+    if (emptyMap) return;
+
+    usedAssemblies[+itemMap.emptyItem] = '-';
+    const labeledMap = itemMap.grid.map((id) => {
+      const name = usedAssemblies[+id];
+      return name !== undefined ? name : '-';
+    });
+    // assembly map is first,
+    // defines the core_shape map. Always saved without symmetry.
+    if (!coreShape) {
+      coreShape = InpHelper.getCoreShape([{ cell_map: labeledMap }]);
+      model.core.core_shape = getSymmetricMap(
+        coreShape.cell_map,
+        InpHelper.SymmetryModes.NONE
+      );
+      coreTextMaps[InpHelper.SymmetryModes.NONE] = model.core.core_shape;
     }
-  });
-  usedAssemblies[+itemMap.emptyItem] = '-';
-  const labeledMap = itemMap.grid.map((id) => {
-    const name = usedAssemblies[+id];
-    return name !== undefined ? name : '-';
-  });
-  // assembly map defines the core_shape map. Always saved without symmetry.
-  const coreShape = InpHelper.getCoreShape([{ cell_map: labeledMap }]);
-  model.core.core_shape = getSymmetricMap(
-    coreShape.cell_map,
-    InpHelper.SymmetryModes.NONE
-  );
 
-  const coreTextMaps = {
-    [InpHelper.SymmetryModes.NONE]: model.core.core_shape,
-  };
-
-  if (!coreTextMaps[itemMap.symmetry]) {
-    coreTextMaps[itemMap.symmetry] = getSymmetricMap(
-      coreShape.cell_map,
-      itemMap.symmetry
+    if (!coreTextMaps[itemMap.symmetry]) {
+      coreTextMaps[itemMap.symmetry] = getSymmetricMap(
+        coreShape.cell_map,
+        itemMap.symmetry
+      );
+    }
+    model.core[config.coreMapName] = getStrippedSymmetricMap(
+      labeledMap,
+      itemMap.symmetry,
+      coreTextMaps[itemMap.symmetry]
     );
-  }
-  model.core.assm_map = getStrippedSymmetricMap(
-    labeledMap,
-    itemMap.symmetry,
-    coreTextMaps[itemMap.symmetry]
-  );
+  });
 }
 
 function fillCore(model, dataModel) {
@@ -103,6 +140,7 @@ function fillCore(model, dataModel) {
     padSpec,
     lowerPlateSpec,
     upperPlateSpec,
+    vesselSpec,
   } = dataModel.data.CoreDefinition[0];
   model.core.title = coreSpec.title.value[0];
   model.core.size = coreSpec.grid.value[0];
@@ -137,6 +175,14 @@ function fillCore(model, dataModel) {
       upperPlateSpec.thick.value[0],
       upperPlateSpec.volfrac.value[0],
     ];
+  }
+  if (vesselSpec.cell.value[0].radii.length) {
+    model.core.vessel = [];
+    const spec = vesselSpec.cell.value[0];
+    spec.radii.forEach((radius, index) => {
+      model.core.vessel.push(materialIdToName(dataModel, +spec.mats[index]));
+      model.core.vessel.push(radius);
+    });
   }
   fillCoreMaps(model, dataModel);
 }
@@ -192,7 +238,8 @@ function getLatticeMaps(name, rodMap, usedRods, usedCellMap) {
 }
 
 // each rodmap represents a single axial card, comprised of several lattice maps.
-function fillAssemblyMap(model, dataModel, map) {
+function fillAssemblyMap(model, dataModel, map, config) {
+  const { type } = config;
   // given a map, get used fuels, cells, rods
   const usedRodMap = extractUsedItems(map.rodMap.map.value[0]);
   // console.log('rods', usedRodMap);
@@ -206,7 +253,7 @@ function fillAssemblyMap(model, dataModel, map) {
   usedCells.forEach((cell) => {
     usedCellMap[cell.id] = cell.name;
   });
-  model.assembly.cells = usedCells.map((item) => ({
+  model[type].cells = usedCells.map((item) => ({
     name: item.name,
     radii: item.cell.cell.value[0].radii,
     mats: item.cell.cell.value[0].mats.map((id) =>
@@ -221,59 +268,50 @@ function fillAssemblyMap(model, dataModel, map) {
     usedRods,
     usedCellMap
   );
-  model.assembly.lattices = model.assembly.lattices.concat(lattices);
+  model[type].lattices = model[type].lattices.concat(lattices);
   const elevationMats = [];
   for (let i = 0; i < elevations.length; ++i) {
     elevationMats.push(elevations[i]);
     if (lattices[i]) elevationMats.push(lattices[i].name);
   }
-  model.assembly.axials.push({ name: map.name, elevationMats });
-  if (
-    map.lowerNozzleSpec &&
-    map.lowerNozzleSpec.height.value[0] > 0
-  ) {
-    model.assembly.lower_nozzle = [
-      materialIdToName(
-        dataModel,
-        map.lowerNozzleSpec.material.value[0]
-      ),
+  model[type].axials.push({ name: map.name, elevationMats });
+
+  // specific to assembly maps.
+  if (map.lowerNozzleSpec && map.lowerNozzleSpec.height.value[0] > 0) {
+    model[type].lower_nozzle = [
+      materialIdToName(dataModel, map.lowerNozzleSpec.material.value[0]),
       map.lowerNozzleSpec.height.value[0],
       map.lowerNozzleSpec.mass.value[0],
     ];
   }
-  if (
-    map.upperNozzleSpec &&
-    map.upperNozzleSpec.height.value[0] > 0
-  ) {
-    model.assembly.upper_nozzle = [
-      materialIdToName(
-        dataModel,
-        map.upperNozzleSpec.material.value[0]
-      ),
+  if (map.upperNozzleSpec && map.upperNozzleSpec.height.value[0] > 0) {
+    model[type].upper_nozzle = [
+      materialIdToName(dataModel, map.upperNozzleSpec.material.value[0]),
       map.upperNozzleSpec.height.value[0],
       map.upperNozzleSpec.mass.value[0],
     ];
   }
 }
 
-function fillAssembly(model, dataModel) {
-  model.assembly = {};
+function fillAssembly(model, dataModel, config) {
+  const { type, coreMapKey, index } = config;
+  model[type] = {};
   const assemblySpec = dataModel.data.Specifications[0].assemblySpec;
-  model.assembly.npin = assemblySpec.grid.value[0];
-  model.assembly.ppitch = assemblySpec.pitch.value[0];
+  model[type].npin = assemblySpec.grid.value[0];
+  model[type].ppitch = assemblySpec.pitch.value[0];
 
   // grab the core map, see which assemblies are used
-  if (dataModel.data.CoreAssemblyMap && dataModel.data.Maps) {
-    const assemblyMap = dataModel.data.CoreAssemblyMap[0];
-    model.assembly.title = assemblyMap.coreMapInfo.title.value[0];
+  if (dataModel.data[coreMapKey] && dataModel.data.Maps) {
+    const assemblyMap = dataModel.data[coreMapKey][index];
+    model[type].title = assemblyMap.coreMapInfo.title.value[0];
     const coreMap = assemblyMap.coreMap.map.value[0];
     const usedAssemblies = extractUsedItems(coreMap);
     const rodMaps = dataModel.data.Maps;
-    model.assembly.lattices = [];
-    model.assembly.axials = [];
+    model[type].lattices = [];
+    model[type].axials = [];
     rodMaps.forEach((map) => {
       if (usedAssemblies[map.id]) {
-        fillAssemblyMap(model, dataModel, map);
+        fillAssemblyMap(model, dataModel, map, config);
       }
     });
   }
@@ -283,7 +321,7 @@ module.exports = function convert(dataModel) {
   const results = {};
   const model = {};
   fillCore(model, dataModel);
-  fillAssembly(model, dataModel);
+  mapConfig.forEach((config) => fillAssembly(model, dataModel, config));
 
   results['simput.inp'] = inpTemplate(model);
   return { results, model: dataModel };
