@@ -78,35 +78,62 @@ const mapConfig = [
     coreMapName: 'det_map',
     index: 2,
   },
+  {
+    type: 'label',
+    coreMapKey: 'LabelMap',
+    coreMapName: 'crd_bank',
+    index: 3,
+  },
 ];
+
+function getCrdBankMap(assemblyMap) {
+  const itemMap = assemblyMap.stateLabels.labels.value;
+  if (itemMap.every((item) => item === '')) return null;
+  return itemMap.map((item) => (item === '' ? '-' : item));
+}
 
 function fillCoreMaps(model, dataModel) {
   const InpHelper = window.Simput.types.vera.helper.InpHelper;
   let coreShape = null;
   const coreTextMaps = {};
-  mapConfig.forEach(config => {
+  mapConfig.forEach((config) => {
     const assemblyMap = dataModel.data[config.coreMapKey][config.index];
     // const title = assemblyMap.coreMapInfo.title.value[0];
-    const itemMap = assemblyMap.coreMap.map.value[0];
-    const usedAssemblies = extractUsedItems(itemMap);
-    const rodMaps = dataModel.data.Maps;
-    let emptyMap = true;
-    rodMaps.forEach((map) => {
-      if (usedAssemblies[map.id]) {
-        const mapType = map.mapInfo.type.value[0];
-        // convert to a lookup.
-        // control/insert needs to filter the other types of rod out.
-        usedAssemblies[map.id] = mapType === config.type ? map.name : '-';
-        if (mapType === config.type) emptyMap = false;
-      }
-    });
-    if (emptyMap) return;
+    let labeledMap = null;
+    let symmetry = 'none';
+    if (config.type === 'label') {
+      labeledMap = getCrdBankMap(assemblyMap);
+      const newMap = {
+        cell_map: labeledMap,
+      };
+      InpHelper.setSymmetry(newMap, {
+        numPins: Math.sqrt(labeledMap.length),
+      });
+      symmetry = newMap.symmetry;
+    } else {
+      const itemMap = assemblyMap.coreMap.map.value[0];
+      symmetry = itemMap.symmetry;
+      const usedAssemblies = extractUsedItems(itemMap);
+      const rodMaps = dataModel.data.Maps;
+      let emptyMap = true;
+      rodMaps.forEach((map) => {
+        if (usedAssemblies[map.id]) {
+          const mapType = map.mapInfo.type.value[0];
+          // convert to a lookup.
+          // control/insert needs to filter the other types of rod out.
+          usedAssemblies[map.id] = mapType === config.type ? map.name : '-';
+          if (mapType === config.type) emptyMap = false;
+        }
+      });
+      if (emptyMap) return;
 
-    usedAssemblies[+itemMap.emptyItem] = '-';
-    const labeledMap = itemMap.grid.map((id) => {
-      const name = usedAssemblies[+id];
-      return name !== undefined ? name : '-';
-    });
+      usedAssemblies[+itemMap.emptyItem] = '-';
+      labeledMap = itemMap.grid.map((id) => {
+        const name = usedAssemblies[+id];
+        return name !== undefined ? name : '-';
+      });
+    }
+    if (!labeledMap) return;
     // assembly map is first,
     // defines the core_shape map. Always saved without symmetry.
     if (!coreShape) {
@@ -118,16 +145,13 @@ function fillCoreMaps(model, dataModel) {
       coreTextMaps[InpHelper.SymmetryModes.NONE] = model.core.core_shape;
     }
 
-    if (!coreTextMaps[itemMap.symmetry]) {
-      coreTextMaps[itemMap.symmetry] = getSymmetricMap(
-        coreShape.cell_map,
-        itemMap.symmetry
-      );
+    if (!coreTextMaps[symmetry]) {
+      coreTextMaps[symmetry] = getSymmetricMap(coreShape.cell_map, symmetry);
     }
     model.core[config.coreMapName] = getStrippedSymmetricMap(
       labeledMap,
-      itemMap.symmetry,
-      coreTextMaps[itemMap.symmetry]
+      symmetry,
+      coreTextMaps[symmetry]
     );
   });
 }
@@ -295,6 +319,7 @@ function fillAssemblyMap(model, dataModel, map, config) {
 
 function fillAssembly(model, dataModel, config) {
   const { type, coreMapKey, index } = config;
+  if (type === 'label') return;
   model[type] = {};
   const assemblySpec = dataModel.data.Specifications[0].assemblySpec;
   model[type].npin = assemblySpec.grid.value[0];
