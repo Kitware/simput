@@ -141,7 +141,7 @@ module.exports = {
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'Materials', 'Grids'],
+  order: ['Specifications', 'Materials', 'Grids', 'States'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -284,7 +284,12 @@ module.exports = {
     },
     LabelMap: {
       label: 'Labels',
-      attributes: ['stateLabels'],
+      attributes: ['stateMapLabels'],
+    },
+    States: {
+      label: 'State',
+      attributes: ['stateInfo', 'stateLabelPositions'],
+      size: -1,
     },
   },
   definitions: {
@@ -642,7 +647,7 @@ module.exports = {
           },
         },
         {
-          id: 'stateLabels',
+          id: 'stateMapLabels',
           type: 'string',
           layout: '-1',
           default: '',
@@ -758,8 +763,8 @@ module.exports = {
         },
       ],
     },
-    stateLabels: {
-      label: 'Labels',
+    stateMapLabels: {
+      label: 'Rodbank Labels',
       parameters: [
         {
           id: 'labels',
@@ -769,6 +774,108 @@ module.exports = {
             dynamic: true,
             external: 'viz',
           },
+        },
+      ],
+    },
+    stateLabelPositions: {
+      label: 'Rodbank Positions',
+      parameters: [
+        {
+          id: 'rodbank',
+          propType: 'StateLabelEditor',
+          size: 1,
+          default: { },
+          domain: {
+            dynamic: true,
+            external: 'viz',
+          },
+        },
+      ]
+    },
+    stateInfo: {
+      label: 'State',
+      parameters: [
+        {
+          id: 'title',
+          type: 'string',
+          size: 1,
+          label: 'Title',
+        },
+        {
+          id: 'pressure',
+          type: 'float',
+          size: 1,
+          label: 'Pressure (psia)',
+        },
+        {
+          id: 'symmetry',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 0,
+          label: 'Symmetry',
+          domain: {
+            Quarter: 'qtr',
+            Full: 'full',
+          },
+        },
+        {
+          id: 'feedback',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 0,
+          label: 'Feedback',
+          domain: {
+            Off: 'off',
+            On: 'on',
+          },
+        },
+        {
+          id: 'tinlet',
+          type: 'float',
+          size: 1,
+          label: 'Inlet Temperature',
+        },
+        {
+          id: 'tinletUnits',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 'C',
+          label: 'Inlet Temperature Units',
+          domain: {
+            Farenheit: 'F',
+            Celcius: 'C',
+            Kelvin: 'K',
+          },
+        },
+        {
+          id: 'tfuel',
+          type: 'float',
+          size: 1,
+          label: 'Fuel Temperature',
+          // show: 'feedback[0] === "off"',
+        },
+        {
+          id: 'tfuelUnits',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 'C',
+          label: 'Fuel Temperature Units',
+          // show: 'feedback[0] === "off"',
+          domain: {
+            Farenheit: 'F',
+            Celcius: 'C',
+            Kelvin: 'K',
+          },
+        },
+        {
+          id: 'power',
+          type: 'float',
+          size: 1,
+          label: 'Power (%)',
         },
       ],
     },

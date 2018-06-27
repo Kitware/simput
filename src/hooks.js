@@ -119,8 +119,8 @@ function mapsToExternal(hookConfig, dataModel, currentViewData) {
         const { grid } = rodMap.map.value[0];
         const type = mapInfo.type.value[0];
         const labels =
-          mapInfo.stateLabels && mapInfo.stateLabels.value
-            ? mapInfo.stateLabels.value.filter((l) => l.length)
+          mapInfo.stateMapLabels && mapInfo.stateMapLabels.value
+            ? mapInfo.stateMapLabels.value.filter((l) => l.length)
             : [];
 
         external.viz.types.assembly.push(id);

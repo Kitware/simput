@@ -87,7 +87,7 @@ const mapConfig = [
 ];
 
 function getCrdBankMap(assemblyMap) {
-  const itemMap = assemblyMap.stateLabels.labels.value;
+  const itemMap = assemblyMap.stateMapLabels.labels.value;
   if (itemMap.every((item) => item === '')) return null;
   return itemMap.map((item) => (item === '' ? '-' : item));
 }
@@ -342,11 +342,52 @@ function fillAssembly(model, dataModel, config) {
   }
 }
 
+function fillState(model, dataModel) {
+  model.state = [];
+  const stateList = dataModel.data.States;
+  stateList.forEach(item => {
+    const info = item.stateInfo;
+    const labelPos = item.stateLabelPositions;
+    if (!info) return;
+    const state = {};
+    if (info.title.value[0]) state.title = info.title.value[0];
+    if (info.pressure.value[0]) state.pressure = info.pressure.value[0];
+    if (info.symmetry.value[0]) state.symmetry = info.symmetry.value[0];
+    if (info.feedback.value[0]) state.feedback = info.feedback.value[0];
+    // 0 is a valid power
+    if (info.power.value[0] !== undefined) state.power = info.power.value[0];
+    if (info.tinlet.value[0] !== undefined) {
+      state.tinlet = info.tinlet.value[0];
+      state.tinlet_units = info.tinletUnits.value[0];
+    }
+    if (info.tfuel.value[0] !== undefined) {
+      state.tfuel = info.tfuel.value[0];
+      state.tfuel_units = info.tfuelUnits.value[0];
+    }
+    if (labelPos && labelPos.rodbank.value[0]) {
+      // a list of label, position pairs.
+      const vals = labelPos.rodbank.value[0];
+      const rodbank = [];
+      Object.keys(vals).forEach((label) => {
+        rodbank.push(label);
+        rodbank.push(vals[label]);
+      });
+      if (rodbank.length) state.rodbank = rodbank;
+    }
+
+    // did we find anything?
+    if (Object.keys(state).length > 0) {
+      model.state.push(state);
+    }
+  });
+}
+
 module.exports = function convert(dataModel) {
   const results = {};
   const model = {};
   fillCore(model, dataModel);
   mapConfig.forEach((config) => fillAssembly(model, dataModel, config));
+  fillState(model, dataModel);
 
   results['simput.inp'] = inpTemplate(model);
   return { results, model: dataModel };

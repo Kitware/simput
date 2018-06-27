@@ -1,14 +1,39 @@
 [CASEID]
   title "{{core.title}}"
 
+{{#each state}}
 [STATE]
-  power    0.0
-  tinlet   565 K
-  tfuel    565 K
-  modden   0.743         ! g/cc
-  boron    1300          ! ppm
-  sym      full          ! full symmetry
-  feedback off
+{{#if title}}
+  title "{{title}}"
+{{/if}}
+{{#if pressure}}
+  pressure {{pressure}}
+{{/if}}
+{{#if tinlet includeZero=true}}
+  tinlet   {{tinlet}} {{tinlet_units}}
+{{/if}}
+{{#if tfuel includeZero=true}}
+  tfuel    {{tfuel}} {{tfuel_units}}
+{{/if}}
+{{#if modden}}
+  modden   {{modden}}         ! g/cc
+{{/if}}
+{{#if boron}}
+  boron    {{boron}}          ! ppm
+{{/if}}
+{{#if symmetry}}
+  sym      {{symmetry}}          ! qtr/full symmetry
+{{/if}}
+{{#if feedback}}
+  feedback {{feedback}}
+{{/if}}
+{{#if power includeZero=true}}
+  power    {{power}}
+{{/if}}
+{{#if rodbank}}
+  rodbank {{#each rodbank}} {{this}}{{/each}}
+{{/if}}
+{{/each}}
 
 [CORE]
   size   {{core.size}}
