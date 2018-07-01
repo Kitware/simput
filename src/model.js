@@ -141,7 +141,7 @@ module.exports = {
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'Materials', 'Grids', 'States'],
+  order: ['Specifications', 'Materials', 'Grids', 'StateInitialization','States'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -286,10 +286,21 @@ module.exports = {
       label: 'Labels',
       attributes: ['stateMapLabels'],
     },
+    StateInitialization: {
+      label: 'State Initialization',
+      attributes: ['stateInit'],
+    },
     States: {
       label: 'State',
       attributes: ['stateInfo', 'stateLabelPositions'],
       size: -1,
+      hooks: [
+        {
+          type: 'copy',
+          src: 'data.StateInitialization.0.stateInit.feedback.value.0',
+          dst: 'stateInfo.feedback',
+        },
+      ],
     },
   },
   definitions: {
@@ -792,20 +803,14 @@ module.exports = {
         },
       ]
     },
-    stateInfo: {
-      label: 'State',
+    stateInit: {
+      label: 'State Initialization',
       parameters: [
         {
           id: 'title',
           type: 'string',
           size: 1,
           label: 'Title',
-        },
-        {
-          id: 'pressure',
-          type: 'float',
-          size: 1,
-          label: 'Pressure (psia)',
         },
         {
           id: 'symmetry',
@@ -832,13 +837,78 @@ module.exports = {
           },
         },
         {
+          id: 'xenon',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 0,
+          label: 'Xenon option',
+          domain: {
+            zero: 'zero',
+            dep: 'dep',
+            equil: 'equil',
+          },
+        },
+        {
+          id: 'samar',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 0,
+          label: 'Samarium option',
+          domain: {
+            zero: 'zero',
+            dep: 'dep',
+            equil: 'equil',
+            peak: 'peak',
+          },
+        },
+      ],
+    },
+    stateInfo: {
+      label: 'State',
+      parameters: [
+        {
+          // copied from stateInit, only needed for item viz below.
+          id: 'feedback',
+          type: 'string',
+          size: 1,
+          default: 'off',
+          label: 'Feedback',
+          show: 'false',
+        },
+        {
+          id: 'power',
+          type: 'float',
+          size: 1,
+          label: 'Power (%)',
+        },
+        {
+          id: 'pressure',
+          type: 'float',
+          size: 1,
+          label: 'Pressure (psia)',
+        },
+        {
+          id: 'flow',
+          type: 'float',
+          size: 1,
+          label: 'Flow (% rated)',
+        },
+        {
+          id: 'bypass',
+          type: 'float',
+          size: 1,
+          label: 'Bypass flow (% rated)',
+        },
+        {
           id: 'tinlet',
           type: 'float',
           size: 1,
           label: 'Inlet Temperature',
         },
         {
-          id: 'tinletUnits',
+          id: 'tinlet_units',
           type: 'string',
           ui: 'enum',
           size: 1,
@@ -855,16 +925,16 @@ module.exports = {
           type: 'float',
           size: 1,
           label: 'Fuel Temperature',
-          // show: 'feedback[0] === "off"',
+          show: 'feedback[0] !== "on"',
         },
         {
-          id: 'tfuelUnits',
+          id: 'tfuel_units',
           type: 'string',
           ui: 'enum',
           size: 1,
           default: 'C',
           label: 'Fuel Temperature Units',
-          // show: 'feedback[0] === "off"',
+          show: 'feedback[0] !== "on"',
           domain: {
             Farenheit: 'F',
             Celcius: 'C',
@@ -872,10 +942,54 @@ module.exports = {
           },
         },
         {
-          id: 'power',
+          id: 'modden',
           type: 'float',
           size: 1,
-          label: 'Power (%)',
+          label: 'Moderator density (g/cc)',
+          show: 'feedback[0] !== "on"',
+        },
+        {
+          id: 'boron',
+          type: 'float',
+          size: 1,
+          label: 'Boron (ppm)',
+        },
+        {
+          id: 'b10',
+          type: 'float',
+          size: 1,
+          label: 'Boron-10 fraction in coolant (atom percent)',
+        },
+        {
+          id: 'b10_depl',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 'off',
+          label: 'Boron-10 depletion in coolant',
+          domain: {
+            Off: 'off',
+            On: 'on',
+          },
+        },
+        {
+          id: 'search',
+          type: 'string',
+          ui: 'enum',
+          size: 1,
+          default: 0,
+          label: 'Search option',
+          domain: {
+            keff: 'keff',
+            boron: 'boron',
+          },
+        },
+        {
+          id: 'kcrit',
+          type: 'float',
+          size: 1,
+          label: 'Critical eigenvalue for boron search',
+          show: 'search[0] === "boron"',
         },
       ],
     },

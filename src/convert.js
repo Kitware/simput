@@ -1,4 +1,5 @@
 import inpTemplate from './templates/inp.hbs';
+// import mpact from './MPACT';
 
 // given a numeric ID, return the name of the material
 function materialIdToName(dataModel, id) {
@@ -343,27 +344,50 @@ function fillAssembly(model, dataModel, config) {
 }
 
 function fillState(model, dataModel) {
-  model.state = [];
+  model.states = [];
   const stateList = dataModel.data.States;
-  stateList.forEach(item => {
+  const stateInit = dataModel.data.StateInitialization[0].stateInit;
+  stateList.forEach((item, i) => {
     const info = item.stateInfo;
     const labelPos = item.stateLabelPositions;
     if (!info) return;
-    const state = {};
-    if (info.title.value[0]) state.title = info.title.value[0];
-    if (info.pressure.value[0]) state.pressure = info.pressure.value[0];
-    if (info.symmetry.value[0]) state.symmetry = info.symmetry.value[0];
-    if (info.feedback.value[0]) state.feedback = info.feedback.value[0];
+    const state = { cards: [], cardsWithZero: [] };
+    const addCard = (dataIn, name, comment = '') => {
+      if (dataIn[name].value[0]) {
+        state.cards.push({ name, params: [dataIn[name].value[0], comment] });
+      }
+    };
+    const addCardZero = (dataIn, name, units = '', comment = '') => {
+      if (dataIn[name].value[0] !== undefined) {
+        const params = [dataIn[name].value[0]];
+        if (units) params.push(dataIn[units].value[0]);
+        if (comment) params.push(comment);
+        state.cardsWithZero.push({
+          name,
+          params,
+        });
+      }
+    };
+    if (i === 0) {
+      // title is separate because it needs quotes
+      if (stateInit.title.value[0]) state.title = stateInit.title.value[0];
+      addCard(stateInit, 'symmetry', '   ! qtr/full symmetry');
+      addCard(stateInit, 'feedback');
+      addCard(stateInit, 'xenon');
+      addCard(stateInit, 'samar');
+    }
+    addCardZero(info, 'pressure', '', '   ! psia');
     // 0 is a valid power
-    if (info.power.value[0] !== undefined) state.power = info.power.value[0];
-    if (info.tinlet.value[0] !== undefined) {
-      state.tinlet = info.tinlet.value[0];
-      state.tinlet_units = info.tinletUnits.value[0];
-    }
-    if (info.tfuel.value[0] !== undefined) {
-      state.tfuel = info.tfuel.value[0];
-      state.tfuel_units = info.tfuelUnits.value[0];
-    }
+    addCardZero(info, 'power', '', '   ! % rated');
+    addCardZero(info, 'flow', '', '   ! % rated');
+    addCardZero(info, 'bypass', '', '   ! % rated');
+    addCardZero(info, 'tinlet', 'tinlet_units', '   ! K/C/F');
+    addCardZero(info, 'tfuel', 'tfuel_units', '   ! K/C/F');
+    addCard(info, 'modden', '   ! g/cc');
+    addCard(info, 'boron', '   ! ppm');
+    addCardZero(info, 'b10', 'b10_depl', '   ! atom percent, on/off');
+    addCard(info, 'search', '   ! keff or boron');
+    addCard(info, 'kcrit', '   ! eigenvalue for boron search');
     if (labelPos && labelPos.rodbank.value[0]) {
       // a list of label, position pairs.
       const vals = labelPos.rodbank.value[0];
@@ -376,8 +400,12 @@ function fillState(model, dataModel) {
     }
 
     // did we find anything?
-    if (Object.keys(state).length > 0) {
-      model.state.push(state);
+    if (
+      Object.keys(state).length > 2 ||
+      state.cards.length ||
+      state.cardsWithZero.length
+    ) {
+      model.states.push(state);
     }
   });
 }

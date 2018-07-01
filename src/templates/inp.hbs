@@ -1,35 +1,17 @@
 [CASEID]
   title "{{core.title}}"
 
-{{#each state}}
+{{#each states}}
 [STATE]
 {{#if title}}
   title "{{title}}"
 {{/if}}
-{{#if pressure}}
-  pressure {{pressure}}
-{{/if}}
-{{#if tinlet includeZero=true}}
-  tinlet   {{tinlet}} {{tinlet_units}}
-{{/if}}
-{{#if tfuel includeZero=true}}
-  tfuel    {{tfuel}} {{tfuel_units}}
-{{/if}}
-{{#if modden}}
-  modden   {{modden}}         ! g/cc
-{{/if}}
-{{#if boron}}
-  boron    {{boron}}          ! ppm
-{{/if}}
-{{#if symmetry}}
-  sym      {{symmetry}}          ! qtr/full symmetry
-{{/if}}
-{{#if feedback}}
-  feedback {{feedback}}
-{{/if}}
-{{#if power includeZero=true}}
-  power    {{power}}
-{{/if}}
+{{#each cards}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
+{{#each cardsWithZero includeZero=true}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
 {{#if rodbank}}
   rodbank {{#each rodbank}} {{this}}{{/each}}
 {{/if}}
@@ -38,7 +20,9 @@
 [CORE]
   size   {{core.size}}
   apitch {{core.apitch}}
+{{#if core.rated}}
   rated {{#each core.rated}} {{this}}{{/each}}  ! MW, Mlbs/hr
+{{/if}}
   height {{core.height}}
 
 {{#if core.core_shape}}
