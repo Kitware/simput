@@ -1,3 +1,5 @@
+import simModel from './simModel';
+
 // ----------------------------------------------------------------------------
 // Color palettes
 // ----------------------------------------------------------------------------
@@ -135,13 +137,13 @@ const plateList = [
   },
 ];
 
-module.exports = {
+const model = {
   scripts: [
     // 'https://unpkg.com/@doe-casl/verain-view@1.1.1/dist/simput-external-vera.js',
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'Materials', 'Grids', 'StateInitialization','States'],
+  order: ['Specifications', 'Materials', 'Grids', 'StateInitialization', 'States', 'Simulations'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -995,3 +997,6 @@ module.exports = {
     },
   },
 };
+simModel.addSimulationDefinitions(model);
+
+module.exports = model;

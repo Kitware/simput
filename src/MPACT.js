@@ -5,8 +5,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "copy_value",
         }
       ]
@@ -16,8 +14,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "copy_value",
         }
       ]
@@ -27,8 +23,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -38,8 +32,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -49,8 +41,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -60,8 +50,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -71,8 +59,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "bool",
-
-
           "_value": "copy_value",
         }
       ]
@@ -82,8 +68,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -93,8 +77,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -104,8 +86,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -115,8 +95,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -126,8 +104,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "bool",
-
-
           "_value": "copy_value",
         }
       ]
@@ -137,8 +113,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -148,8 +122,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -159,8 +131,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -179,8 +149,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -190,8 +158,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -201,8 +167,6 @@ module.exports = {
         {
           "_pltype": "array",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -212,8 +176,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -223,8 +185,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -234,8 +194,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "bool",
-
-
           "_value": "copy_value",
         }
       ]
@@ -245,8 +203,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -256,8 +212,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "copy_value",
         }
       ]
@@ -267,8 +221,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "bool",
-
-
           "_value": "copy_value",
         }
       ]
@@ -279,8 +231,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "copy_value",
         }
       ]
@@ -291,8 +241,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "copy_value",
         }
       ]
@@ -303,8 +251,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "copy_value",
         }
       ]
@@ -316,16 +262,12 @@ module.exports = {
           "_name": "flag",
           "_pltype": "parameter",
           "_type": "bool",
-
-
           "_value": "[copy_value, 0]",
         },
         {
           "_name": "crud_depfrac",
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "[copy_value, 1]",
         }
       ]
@@ -338,8 +280,6 @@ module.exports = {
         "[is_literal, '/', 1]",
         "[is_literal, '/', 3]",
       ],
-
-
       "_output": [
 
 
@@ -364,8 +304,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -376,8 +314,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -388,8 +324,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "int",
-
-
           "_value": "copy_value",
         }
       ]
@@ -400,8 +334,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "int",
-
-
           "_value": "copy_value",
         }
       ]
@@ -412,8 +344,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "int",
-
-
           "_value": "copy_value",
         }
       ]
@@ -424,8 +354,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "int",
-
-
           "_value": "copy_value",
         }
       ]
@@ -440,8 +368,6 @@ module.exports = {
           "_name": "label",
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "[copy_value, 0]",
         },
         {
@@ -466,16 +392,12 @@ module.exports = {
               "_name": "automesh_bounds_min",
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "[copy_value, 0]",
             },
             {
               "_name": "automesh_bounds_max",
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "[copy_value, 1]",
             }
           ]
@@ -486,8 +408,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -498,8 +418,6 @@ module.exports = {
             {
               "_pltype": "array",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -510,8 +428,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -522,8 +438,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -534,8 +448,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -546,8 +458,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -559,8 +469,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -571,8 +479,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -583,8 +489,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -595,8 +499,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -608,8 +510,6 @@ module.exports = {
               "_name": "method",
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -621,8 +521,6 @@ module.exports = {
               "_name": "filename",
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -633,8 +531,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -645,8 +541,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -657,8 +551,6 @@ module.exports = {
             {
               "_pltype": "array",
               "_type": "int",
-
-
               "_value": "copy_array",
             }
           ]
@@ -671,8 +563,6 @@ module.exports = {
                   "_name": "decomposition",
                   "_pltype": "array",
                   "_type": "string",
-
-
                   "_value": "copy_array",
                 }
               ]
@@ -684,8 +574,6 @@ module.exports = {
                   "_name": "refinement",
                   "_pltype": "array",
                   "_type": "string",
-
-
                   "_value": "copy_array",
                 }
               ]
@@ -697,8 +585,6 @@ module.exports = {
                   "_name": "conditions",
                   "_pltype": "array",
                   "_type": "int",
-
-
                   "_value": "copy_array",
                 }
               ]
@@ -710,8 +596,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -722,8 +606,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -734,8 +616,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -746,8 +626,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -758,8 +636,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -770,8 +646,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -782,8 +656,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -794,8 +666,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -806,8 +676,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -819,8 +687,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -831,8 +697,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -843,8 +707,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -855,8 +717,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -867,8 +727,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -879,8 +737,6 @@ module.exports = {
             {
               "_pltype": "array",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -891,8 +747,6 @@ module.exports = {
             {
               "_pltype": "array",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -904,8 +758,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -916,8 +768,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -928,8 +778,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -940,8 +788,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -952,8 +798,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -964,8 +808,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -976,8 +818,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -989,24 +829,18 @@ module.exports = {
               "_name": "depthAnderson",
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "[copy_value, 0]",
             },
             {
               "_name": "mixAnderson",
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "[copy_value, 1]",
             },
             {
               "_name": "startAnderson",
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "[copy_value, 2]",
             }
           ]
@@ -1017,8 +851,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1029,8 +861,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1041,8 +871,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1053,8 +881,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1065,8 +891,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1077,8 +901,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1089,8 +911,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1101,14 +921,10 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
         },
-
-
             "temptable_qprime": {
               "_inlist": "TH,temptable",
               "_output": [
@@ -1116,8 +932,6 @@ module.exports = {
                   "_name": "qprime",
                   "_pltype": "parameter",
                   "_type": "double",
-
-
                   "_value": "copy_value",
                 }
               ]
@@ -1129,24 +943,18 @@ module.exports = {
                   "_name": "burnup",
                   "_pltype": "array",
                   "_type": "double",
-
-
                   "_value": "[copy_array, slice(0, None, 3)]",
                 },
                 {
                   "_name": "a_linear",
                   "_pltype": "array",
                   "_type": "double",
-
-
                   "_value": "[copy_array, slice(1, None, 3)]",
                 },
                 {
                   "_name": "b_quadratic",
                   "_pltype": "array",
                   "_type": "double",
-
-
                   "_value": "[copy_array, slice(2, None, 3)]",
                 }
               ]
@@ -1158,8 +966,6 @@ module.exports = {
                   "_name": "boundary",
                   "_pltype": "parameter",
                   "_type": "string",
-
-
                   "_value": "copy_value",
                 }
               ]
@@ -1170,8 +976,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1182,8 +986,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1195,8 +997,6 @@ module.exports = {
               "_name": "solver",
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1208,8 +1008,6 @@ module.exports = {
               "_name": "linear_solver",
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1220,8 +1018,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1232,8 +1028,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1245,8 +1039,6 @@ module.exports = {
               "_name": "eigen_solver",
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1257,8 +1049,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1269,8 +1059,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1281,8 +1069,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1293,8 +1079,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1305,8 +1089,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1317,8 +1099,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1329,8 +1109,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1341,8 +1119,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1353,8 +1129,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1366,8 +1140,6 @@ module.exports = {
               "_name": "num_outers",
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1379,8 +1151,6 @@ module.exports = {
               "_name": "num_inners",
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1392,8 +1162,6 @@ module.exports = {
               "_name": "num_inners_1G",
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1405,8 +1173,6 @@ module.exports = {
               "_name": "up_scatter",
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1418,8 +1184,6 @@ module.exports = {
               "_name": "angle_decomp",
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1430,8 +1194,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1442,8 +1204,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1454,8 +1214,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1466,8 +1224,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1479,8 +1235,6 @@ module.exports = {
           "_name": "splitTL",
           "_pltype": "parameter",
           "_type": "bool",
-
-
           "_value": "copy_value",
         }
       ]
@@ -1492,8 +1246,6 @@ module.exports = {
           "_name": "TLtreatment",
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -1504,8 +1256,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "string",
-
-
           "_value": "copy_value",
         }
       ]
@@ -1516,8 +1266,6 @@ module.exports = {
         {
           "_pltype": "parameter",
           "_type": "double",
-
-
           "_value": "copy_value",
         }
       ]
@@ -1529,8 +1277,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1541,8 +1287,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1553,8 +1297,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1565,8 +1307,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1577,8 +1317,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1589,8 +1327,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1601,8 +1337,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1613,8 +1347,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1625,8 +1357,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1637,8 +1367,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1649,8 +1377,6 @@ module.exports = {
             {
               "_pltype": "array",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1661,8 +1387,6 @@ module.exports = {
             {
               "_pltype": "array",
               "_type": "int",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1673,8 +1397,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1687,56 +1409,42 @@ module.exports = {
               "_name": "perturb_time_start",
               "_pltype": "array",
               "_type": "double",
-
-
               "_value": "[copy_array, slice(0, None, 7)]",
             },
             {
               "_name": "perturb_time_stop",
               "_pltype": "array",
               "_type": "double",
-
-
               "_value": "[copy_array, slice(1, None, 7)]",
             },
             {
               "_name": "perturb_time_step",
               "_pltype": "array",
               "_type": "double",
-
-
               "_value": "[copy_array, slice(2, None, 7)]",
             },
             {
               "_name": "perturb_type",
               "_pltype": "array",
               "_type": "string",
-
-
               "_value": "[copy_array, slice(3, None, 7)]",
             },
             {
               "_name": "perturb_mat_init",
               "_pltype": "array",
               "_type": "string",
-
-
               "_value": "[copy_array, slice(4, None, 7)]",
             },
             {
               "_name": "perturb_mat_start",
               "_pltype": "array",
               "_type": "string",
-
-
               "_value": "[copy_array, slice(5, None, 7)]",
             },
             {
               "_name": "perturb_mat_stop",
               "_pltype": "array",
               "_type": "string",
-
-
               "_value": "[copy_array, slice(6, None, 7)]",
             }
           ]
@@ -1748,24 +1456,18 @@ module.exports = {
               "_name": "timestep_dt",
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "[copy_value, 0]",
             },
             {
               "_name": "timestep_dt_min",
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "[copy_value, 1]",
             },
             {
               "_name": "timestep_dt_max",
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "[copy_value, 2]",
             }
           ]
@@ -1776,8 +1478,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1788,8 +1488,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1800,8 +1498,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1812,8 +1508,6 @@ module.exports = {
             {
               "_pltype": "parameter",
               "_type": "bool",
-
-
               "_value": "copy_value",
             }
           ]
@@ -1825,16 +1519,12 @@ module.exports = {
               "_name": "transmethod",
               "_pltype": "parameter",
               "_type": "string",
-
-
               "_value": "[copy_value, 0]",
             },
             {
               "_name": "theta_order",
               "_pltype": "parameter",
               "_type": "double",
-
-
               "_value": "[copy_value, 1]",
             }
           ]

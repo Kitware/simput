@@ -1,5 +1,5 @@
 import inpTemplate from './templates/inp.hbs';
-// import mpact from './MPACT';
+import { fillSimulations } from './simModel';
 
 // given a numeric ID, return the name of the material
 function materialIdToName(dataModel, id) {
@@ -416,6 +416,7 @@ module.exports = function convert(dataModel) {
   fillCore(model, dataModel);
   mapConfig.forEach((config) => fillAssembly(model, dataModel, config));
   fillState(model, dataModel);
+  fillSimulations(model, dataModel);
 
   results['simput.inp'] = inpTemplate(model);
   return { results, model: dataModel };
