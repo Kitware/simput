@@ -1,0 +1,805 @@
+{
+  "_content": {
+    "transport": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "problem_mode": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "mode": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "celib_file": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "transfer": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "temp_transfer": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "global_log": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "local_log": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "do_micro_tally": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "output_geometry": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "output_micro_tally": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "output_fission_source": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "thermal_energy_cutoff": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "excore_filename": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "core_translate": {
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "create_unique_pins": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "track_isotopes": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Np": {
+      "_inlist": "kcode_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_notInList": true,
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_cycles": {
+      "_inlist": "kcode_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_inactive_cycles": {
+      "_inlist": "kcode_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "dbrc": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "broaden_xs": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "temperature_tol": {
+      "_inlist": "broaden_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "union_energy": {
+      "_inlist": "broaden_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "delta_t": {
+      "_inlist": "broaden_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "energy_tol": {
+      "_inlist": "broaden_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "radial_mesh": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_theta": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_axial": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "n_bounds": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "p_bounds": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "micro_zaids": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "micro_rxns": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "gamma_flux": {
+      "_inlist": "tally_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "bc_bnd_mesh": {
+      "_inlist": "boundary_mesh_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "x_bnd_mesh": {
+      "_inlist": "boundary_mesh_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "y_bnd_mesh": {
+      "_inlist": "boundary_mesh_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "z_bnd_mesh": {
+      "_inlist": "boundary_mesh_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "problem_name": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "xs_library": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "mesh": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_notInList": true,
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "dimension": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "do_transport": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_notInList": true,
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "do_output": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_notInList": true,
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "output_adjoint": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "adjoint": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_blocks_i": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_blocks_j": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_z_blocks": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_sets": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_groups": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "max_delta_z": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "store_fulcrum_string": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "downscatter": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Pn_order": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "eq_set": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "new_grp_bounds": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "grp_collapse_src": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "cell_homogenize": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "SPN_matrix_type": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_name": "spn_matrix_type",
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "SPN_order": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "quad_type": {
+      "_inlist": "hybrid_db,quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "polars_octant": {
+      "_inlist": "hybrid_db,quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "azimuthals_octant": {
+      "_inlist": "hybrid_db,quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Sn_order": {
+      "_inlist": "hybrid_db,quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "solver": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "tolerance": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "k_tolerance": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "subspace_size": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "max_itr": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "verbosity": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "energy_dep_ev": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "partition_upscatter": {
+      "_inlist": "hybrid_db,solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_tolerance": {
+      "_inlist": "hybrid_db,solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "tolerance",
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_solver": {
+      "_inlist": "hybrid_db,solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "solver",
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_max_itr": {
+      "_inlist": "hybrid_db,solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "max_itr",
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_subspace_size": {
+      "_inlist": "hybrid_db,solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "subspace_size",
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_verbosity": {
+      "_inlist": "hybrid_db,solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "verbosity",
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "iterate_downscatter": {
+      "_inlist": "hybrid_db,solver_db,upscatter_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Pn_correction": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "pin_partitioning": {
+      "_inlist": "hybrid_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    }
+  }
+}

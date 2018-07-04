@@ -1,12 +1,23 @@
-import mpact from './MPACT';
-const simulationList = [{ sim: 'MPACT', pyvera: mpact }];
+import MPACT from './MPACT';
+import SHIFT from './SHIFT';
+import INSILICO from './INSILICO';
+import COBRATF from './COBRATF';
 
 // Simulations have a large number of individual parameters that can be set
-// but most of which can be left at defaults.
-// The parameter list can be derived from VERAin python templates, which are
-// almost a json object, except for the "_value" and "_check" fields.
-// We use some regexp/script to convert to js, then import here, and derive our
-// lists from that struct.
+// but most of which can be left unset or at defaults.
+// The parameter lists are derived from VERAin python templates, which are
+// dictionaries that are almost a json object, except for the "_value" and "_check" fields.
+// Conversion is performed by verain/python/template2json.py, then imported here.
+// Fork at https://github.com/aronhelser/VERAin
+// Derive our lists from that struct.
+
+const simulationList = [
+  { sim: 'MPACT', pyvera: MPACT },
+  { sim: 'SHIFT', pyvera: SHIFT },
+  { sim: 'INSILICO', pyvera: INSILICO },
+  { sim: 'COBRATF', pyvera: COBRATF },
+];
+
 function addSimulationDefinitions(model) {
   model.views.Simulations = {
     label: 'Simulations',
@@ -39,6 +50,7 @@ function addSimulationDefinitions(model) {
       const output = veraDef._output;
       let type = output[0]._type;
       if (type === 'double') type = 'float';
+      // basic template for a single parameter input
       const item = {
         id: key,
         label: key,
@@ -50,7 +62,7 @@ function addSimulationDefinitions(model) {
         item.default = '';
       }
       if (veraDef._listName) {
-        console.log('list', key);
+        // console.log('list', key);
         // MPACT mesh, db_entry - allow freeform string
         item.size = -1;
         item.layout = '-1';
@@ -62,17 +74,15 @@ function addSimulationDefinitions(model) {
           // single input, single output, we are good
           params.push(item);
         } else if (output[0]._value === 'copy_array') {
-          // item.propType = 'cell';
           item.size = -1;
           item.layout = '-1';
-          // item.default = [];
-          console.log('array', key);
+          // console.log('array', key);
           params.push(item);
         } else {
           console.log('Unhandled single', key);
         }
       } else if (output.length > 1) {
-        if (output.every((item) => item._value.startsWith('[copy_value,'))) {
+        if (output.every((item) => item._value[0] === 'copy_value')) {
           // multiple output
           // all the same type? If no, allow any input.
           if (!output.every((item) => item._type === output[0]._type)) {
@@ -82,26 +92,27 @@ function addSimulationDefinitions(model) {
             item.ui = 'checkbox';
           }
           item.size = output.length;
+          // always 2 or 3 so far, may need to add layouts for 4, 5 later.
           item.layout = `${output.length}`;
           item.default = output.map(() => '');
-          console.log('multiple', key);
+          // console.log('multiple', key);
           params.push(item);
         } else if (
           output.every(
             (item) =>
-              item._value.startsWith('[copy_value,') ||
-              item._value.startsWith('[copy_array,')
+              item._value[0] === 'copy_value' || item._value[0] === 'copy_array'
           )
         ) {
           // all the same type? If no, allow any input.
           if (!output.every((item) => item._type === output[0]._type)) {
             item.type = 'string';
-            // item.default = '';
+            // item.default = ''; // causes a blank item to be added automatically
           }
           // unpredictable size, allow user to append values.
+          // User must know correct length
           item.size = -1;
           item.layout = '-1';
-          console.log('multiple array', key);
+          // console.log('multiple array', key);
           params.push(item);
         } else {
           console.log('Unhandled multiple', key);
@@ -130,12 +141,13 @@ function fillSimulations(model, dataModel) {
       }
     });
   };
-  simulationList.forEach((info) => {
+  simulationList.forEach((info, i) => {
     const { sim, pyvera } = info;
 
-    const simInfo = dataModel.data[sim][0][`${sim}Info`];
+    if (!dataModel.data[sim]) return;
+    const simInfo = dataModel.data[sim][i][`${sim}Info`];
     // user must enable this simulation block for it to be output.
-    if (!simInfo.enabled.value[0]) return;
+    if (!simInfo || !simInfo.enabled.value[0]) return;
     const currSim = { name: sim, cards: [], cardsWithZero: [] };
     Object.keys(simInfo).forEach((key) => {
       if (key === 'enabled') return;

@@ -1,0 +1,535 @@
+{
+  "_content": {
+    "nfuel": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "imox": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "nc": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "chf": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "debug": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "irfc": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "dhfrac": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "beta_htc": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "hgap": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "epso": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "oitmax": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "iitmax": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "dtmin": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "dtmax": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "tend": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "rtwfp": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "maxits": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "courant": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "maps_filename": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "heated_elements_type": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "heater_tube_id": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "heater_tube_od": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "heater_tube_pitch": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "solver": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "parallel": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "global_energy_balance": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "global_mass_balance": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "fluid_energy_storage": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "solid_energy_storage": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "mass_storage": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Tcool_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Tsolid_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "void_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "pressure_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "vliq_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "vvap_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "vdrop_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Tcoola_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Tsolida_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "pressurea_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "vliqa_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "vvapa_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "vdropa_criteria": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "use_sol_stop_crit": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_gaps": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_channels": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_rods": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_dnb": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_convergence": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_hdf5": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_fluid_vtk": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "edit_rod_vtk": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "proc_per_assem": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "gap_model": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "boil_ht_cor": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "property_evaluations": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "k_void_drift": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "beta_sp": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "crud": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    }
+  }
+}

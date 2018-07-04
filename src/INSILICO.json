@@ -1,0 +1,477 @@
+{
+  "_content": {
+    "problem_name": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "xs_library": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "temp_correction": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "global_log": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "local_log": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "mesh": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "dimension": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "use_symmetry": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "do_transport": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "do_output": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "geometry_output": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_blocks_i": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_blocks_j": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_z_blocks": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_sets": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "num_groups": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "radial_geom_eps": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "axial_geom_eps": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "max_delta_z": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "store_fulcrum_string": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "downscatter": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Pn_order": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "cell_broadcast_size": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "eq_set": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "new_grp_bounds": {
+      "_output": [
+        {
+          "_pltype": "array",
+          "_type": "double",
+          "_value": "copy_array"
+        }
+      ]
+    },
+    "cell_homogenize": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "SPN_matrix_type": {
+      "_output": [
+        {
+          "_name": "spn_matrix_type",
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "SPN_order": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "quadrature_db": {
+      "_output": [
+        {
+          "_pltype": "list",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "quad_type": {
+      "_inlist": "quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "polars_octant": {
+      "_inlist": "quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "azimuthals_octant": {
+      "_inlist": "quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Sn_order": {
+      "_inlist": "quadrature_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "solver": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "tolerance": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "k_tolerance": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "subspace_size": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "max_itr": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "verbosity": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "energy_dep_ev": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "partition_upscatter": {
+      "_inlist": "solver_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_tolerance": {
+      "_inlist": "solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "tolerance",
+          "_pltype": "parameter",
+          "_type": "double",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_solver": {
+      "_inlist": "solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "solver",
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_max_itr": {
+      "_inlist": "solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "max_itr",
+          "_pltype": "parameter",
+          "_type": "int",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "upscatter_verbosity": {
+      "_inlist": "solver_db,upscatter_db",
+      "_output": [
+        {
+          "_name": "verbosity",
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "iterate_downscatter": {
+      "_inlist": "solver_db,upscatter_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "silo_output": {
+      "_inlist": "silo_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "string",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "mixing_table": {
+      "_inlist": "silo_db",
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "Pn_correction": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    },
+    "pin_partitioning": {
+      "_output": [
+        {
+          "_pltype": "parameter",
+          "_type": "bool",
+          "_value": "copy_value"
+        }
+      ]
+    }
+  }
+}
