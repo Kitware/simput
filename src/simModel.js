@@ -50,10 +50,15 @@ function addSimulationDefinitions(model) {
       const output = veraDef._output;
       let type = output[0]._type;
       if (type === 'double') type = 'float';
+      let label = key;
+      if (veraDef._inlist) {
+        // param belongs to a list, give user some additional info
+        label = `${key} (${veraDef._inlist.replace(',', ' => ')})`
+      }
       // basic template for a single parameter input
       const item = {
         id: key,
-        label: key,
+        label,
         size: 1,
         type,
       };
