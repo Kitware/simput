@@ -353,14 +353,19 @@ function fillState(model, dataModel) {
     if (!info) return;
     const state = { cards: [], cardsWithZero: [] };
     const addCard = (dataIn, name, comment = '') => {
-      if (dataIn[name].value[0]) {
-        state.cards.push({ name, params: [dataIn[name].value[0], comment] });
+      if (dataIn[name] && dataIn[name].value[0]) {
+        state.cards.push({ name, params: [...dataIn[name].value, comment] });
       }
     };
     const addCardZero = (dataIn, name, units = '', comment = '') => {
-      if (dataIn[name].value[0] !== undefined) {
-        const params = [dataIn[name].value[0]];
-        if (units) params.push(dataIn[units].value[0]);
+      if (
+        dataIn[name] &&
+        dataIn[name].value[0] !== undefined &&
+        (!units || (dataIn[units] && dataIn[units].value[0] !== undefined))
+      ) {
+        // allow multiple values.
+        const params = [...dataIn[name].value];
+        if (units) params.push(...dataIn[units].value);
         if (comment) params.push(comment);
         state.cardsWithZero.push({
           name,
@@ -371,10 +376,14 @@ function fillState(model, dataModel) {
     if (i === 0) {
       // title is separate because it needs quotes
       if (stateInit.title.value[0]) state.title = stateInit.title.value[0];
-      addCard(stateInit, 'symmetry', '   ! qtr/full symmetry');
+      addCard(stateInit, 'sym', '   ! qtr/full symmetry');
       addCard(stateInit, 'feedback');
       addCard(stateInit, 'xenon');
       addCard(stateInit, 'samar');
+      addCard(stateInit, 'thexp');
+      addCardZero(stateInit, 'thexp_tfuel', 'thexp_tfuel_units', '   ! K/C/F');
+      addCardZero(stateInit, 'thexp_tclad', 'thexp_tclad_units', '   ! K/C/F');
+      addCardZero(stateInit, 'thexp_tmod', 'thexp_tmod_units', '   ! K/C/F');
     }
     addCardZero(info, 'pressure', '', '   ! psia');
     // 0 is a valid power
@@ -384,10 +393,31 @@ function fillState(model, dataModel) {
     addCardZero(info, 'tinlet', 'tinlet_units', '   ! K/C/F');
     addCardZero(info, 'tfuel', 'tfuel_units', '   ! K/C/F');
     addCard(info, 'modden', '   ! g/cc');
+    addCard(info, 'rlx_xesm');
     addCard(info, 'boron', '   ! ppm');
     addCardZero(info, 'b10', 'b10_depl', '   ! atom percent, on/off');
     addCard(info, 'search', '   ! keff or boron');
+    addCard(info, 'search_bank');
     addCard(info, 'kcrit', '   ! eigenvalue for boron search');
+    // deplete, edit, restart_shuffle can have multiple values.
+    addCardZero(info, 'deplete', 'deplete_vals');
+    addCard(info, 'edit');
+    // addCard(info, 'restart_shuffle');
+    // custom handling for ui: map
+    if (info.restart_shuffle && info.restart_shuffle.value[0]) {
+      const val = info.restart_shuffle.value;
+      const params = [];
+      info.restart_shuffle.value.forEach((val) => {
+        params.push(val.name, val.value);
+      });
+      state.cards.push({
+        name: 'restart_shuffle',
+        params,
+      });
+    }
+    addCard(info, 'restart_write');
+    addCard(info, 'restart_read');
+
     if (labelPos && labelPos.rodbank.value[0]) {
       // a list of label, position pairs.
       const vals = labelPos.rodbank.value[0];
