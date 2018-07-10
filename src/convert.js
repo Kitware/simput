@@ -98,19 +98,22 @@ function fillCoreMaps(model, dataModel) {
   let coreShape = null;
   const coreTextMaps = {};
   mapConfig.forEach((config) => {
+    if (!dataModel.data[config.coreMapKey]) return;
     const assemblyMap = dataModel.data[config.coreMapKey][config.index];
     // const title = assemblyMap.coreMapInfo.title.value[0];
     let labeledMap = null;
     let symmetry = 'none';
     if (config.type === 'label') {
       labeledMap = getCrdBankMap(assemblyMap);
-      const newMap = {
-        cell_map: labeledMap,
-      };
-      InpHelper.setSymmetry(newMap, {
-        numPins: Math.sqrt(labeledMap.length),
-      });
-      symmetry = newMap.symmetry;
+      if (labeledMap) {
+        const newMap = {
+          cell_map: labeledMap,
+        };
+        InpHelper.setSymmetry(newMap, {
+          numPins: Math.sqrt(labeledMap.length),
+        });
+        symmetry = newMap.symmetry;
+      }
     } else {
       const itemMap = assemblyMap.coreMap.map.value[0];
       symmetry = itemMap.symmetry;
@@ -156,58 +159,144 @@ function fillCoreMaps(model, dataModel) {
     );
   });
 }
+function fillMaterials(model, dataModel) {
+  const matSpec = dataModel.data.Materials;
+  if (!matSpec || !matSpec.length) return;
+  const materials = matSpec.map((item) => {
+    const spec = item.material;
+    const mat = {
+      name: spec.name.value[0],
+      density: spec.density.value[0],
+    };
+    if (!mat.name || !mat.density) return null;
+    // thermal expansion, option, zero not valid.
+    if (spec.thexp && spec.thexp.value[0]) {
+      mat.thexp = spec.thexp.value[0];
+    }
+    if (spec.fractions && spec.fractions.value.length) {
+      mat.fractions = [];
+      spec.fractions.value.forEach((frac) => {
+        mat.fractions.push(frac.name);
+        if (frac.value) mat.fractions.push(frac.value);
+      });
+    }
+    return mat;
+  });
+  model.core.materials = materials;
+}
+
+// Fuels are specific to the assembly block.
+function fillFuels(model, dataModel, block) {
+  const fueLspec = dataModel.data.Fuels;
+  if (!fueLspec || !fueLspec.length) return;
+  const fuels = fueLspec.map((item) => {
+    const spec = item.fuel;
+    const fuel = {
+      name: spec.name.value[0],
+      density: spec.density.value[0],
+      thden: spec.thden.value[0],
+      u235_enrichment: spec.u235_enrichment.value[0],
+    };
+    if (!fuel.name || !fuel.density || !fuel.thden || !fuel.u235_enrichment)
+      return null;
+    // gadolina oxide, option, zero not valid.
+    if (
+      spec.gad_material &&
+      spec.gad_material.value[0] &&
+      spec.gad_fraction &&
+      spec.gad_fraction.value[0]
+    ) {
+      fuel.gad_material = materialIdToName(dataModel, +spec.gad_material.value[0]);
+      fuel.gad_fraction = spec.gad_fraction.value[0];
+    }
+    if (spec.enrichments && spec.enrichments.value.length) {
+      fuel.enrichments = spec.enrichments.value.slice();
+    }
+    return fuel;
+  });
+  block.fuels = fuels.filter((f) => f !== null);
+}
 
 function fillCore(model, dataModel) {
-  model.core = {};
+  model.core = { cards: [] };
   const { coreSpec } = dataModel.data.Specifications[0];
-  const {
-    baffleSpec,
-    padSpec,
-    lowerPlateSpec,
-    upperPlateSpec,
-    vesselSpec,
-  } = dataModel.data.CoreDefinition[0];
+  const addCard = (dataIn, name, comment = '') => {
+    if (dataIn[name] && dataIn[name].value[0]) {
+      model.core.cards.push({ name, params: [...dataIn[name].value, comment] });
+    }
+  };
+  // global materials are part of the core section
+  fillMaterials(model, dataModel);
+
   model.core.title = coreSpec.title.value[0];
   model.core.size = coreSpec.grid.value[0];
   model.core.apitch = coreSpec.apitch.value[0];
   model.core.height = coreSpec.height.value[0];
-  if (baffleSpec.thick.value[0] > 0) {
-    model.core.baffle = [
-      materialIdToName(dataModel, +baffleSpec.material.value[0]),
-      baffleSpec.gap.value[0],
-      baffleSpec.thick.value[0],
-    ];
-  }
-  if (
-    padSpec.params.value[0] > 0 &&
-    padSpec.params.value[1] > 0 &&
-    padSpec.params.value[2] > 0
-  ) {
-    model.core.pad = [
-      materialIdToName(dataModel, +padSpec.material.value[0]),
-    ].concat(padSpec.params.value, padSpec.positions.value);
-  }
-  if (lowerPlateSpec.thick.value[0] > 0) {
-    model.core.lower_plate = [
-      materialIdToName(dataModel, lowerPlateSpec.material.value[0]),
-      lowerPlateSpec.thick.value[0],
-      lowerPlateSpec.volfrac.value[0],
-    ];
-  }
-  if (upperPlateSpec.thick.value[0] > 0) {
-    model.core.upper_plate = [
-      materialIdToName(dataModel, upperPlateSpec.material.value[0]),
-      upperPlateSpec.thick.value[0],
-      upperPlateSpec.volfrac.value[0],
-    ];
-  }
-  if (vesselSpec.cell.value[0].radii.length) {
-    model.core.vessel = [];
-    const spec = vesselSpec.cell.value[0];
-    spec.radii.forEach((radius, index) => {
-      model.core.vessel.push(materialIdToName(dataModel, +spec.mats[index]));
-      model.core.vessel.push(radius);
-    });
+  addCard(coreSpec, 'reactor_type');
+  addCard(coreSpec, 'rated');
+  if (dataModel.data.CoreDefinition) {
+    const {
+      coreAdvancedSpec: advSpec,
+      baffleSpec,
+      padSpec,
+      lowerPlateSpec,
+      upperPlateSpec,
+      vesselSpec,
+    } = dataModel.data.CoreDefinition[0];
+    addCard(advSpec, 'rcs_volume');
+    addCard(advSpec, 'op_date');
+    addCard(advSpec, 'unit');
+    addCard(advSpec, 'cycle');
+    addCard(advSpec, 'hole');
+    addCard(advSpec, 'bc_sym', '   ! mir, rot');
+    addCard(advSpec, 'bc_bot', '   ! reflecting, vacuum');
+    addCard(advSpec, 'bc_top', '   ! reflecting, vacuum');
+    addCard(advSpec, 'bc_rad', '   ! reflecting, vacuum');
+    addCard(advSpec, 'label_format', '   ! x-y, y-x');
+    addCard(advSpec, 'xlabel');
+    addCard(advSpec, 'ylabel');
+    addCard(advSpec, 'upper_ref');
+    addCard(advSpec, 'lower_ref');
+    addCard(advSpec, 'rotate_map');
+
+    if (baffleSpec.thick.value[0] > 0) {
+      model.core.baffle = [
+        materialIdToName(dataModel, +baffleSpec.material.value[0]),
+        baffleSpec.gap.value[0],
+        baffleSpec.thick.value[0],
+      ];
+    }
+    if (
+      padSpec.params.value[0] > 0 &&
+      padSpec.params.value[1] > 0 &&
+      padSpec.params.value[2] > 0
+    ) {
+      model.core.pad = [
+        materialIdToName(dataModel, +padSpec.material.value[0]),
+      ].concat(padSpec.params.value, padSpec.positions.value);
+    }
+    if (lowerPlateSpec.thick.value[0] > 0) {
+      model.core.lower_plate = [
+        materialIdToName(dataModel, lowerPlateSpec.material.value[0]),
+        lowerPlateSpec.thick.value[0],
+        lowerPlateSpec.volfrac.value[0],
+      ];
+    }
+    if (upperPlateSpec.thick.value[0] > 0) {
+      model.core.upper_plate = [
+        materialIdToName(dataModel, upperPlateSpec.material.value[0]),
+        upperPlateSpec.thick.value[0],
+        upperPlateSpec.volfrac.value[0],
+      ];
+    }
+    if (vesselSpec.cell.value[0].radii.length) {
+      model.core.vessel = [];
+      const spec = vesselSpec.cell.value[0];
+      spec.radii.forEach((radius, index) => {
+        model.core.vessel.push(materialIdToName(dataModel, +spec.mats[index]));
+        model.core.vessel.push(radius);
+      });
+    }
   }
   fillCoreMaps(model, dataModel);
 }
@@ -321,17 +410,20 @@ function fillAssemblyMap(model, dataModel, map, config) {
 function fillAssembly(model, dataModel, config) {
   const { type, coreMapKey, index } = config;
   if (type === 'label') return;
-  model[type] = {};
+  const newAssem = {};
   const assemblySpec = dataModel.data.Specifications[0].assemblySpec;
-  model[type].npin = assemblySpec.grid.value[0];
-  model[type].ppitch = assemblySpec.pitch.value[0];
+  newAssem.npin = assemblySpec.grid.value[0];
+  newAssem.ppitch = assemblySpec.pitch.value[0];
 
   // grab the core map, see which assemblies are used
   if (dataModel.data[coreMapKey] && dataModel.data.Maps) {
     const assemblyMap = dataModel.data[coreMapKey][index];
-    model[type].title = assemblyMap.coreMapInfo.title.value[0];
+    newAssem.title = assemblyMap.coreMapInfo.title.value[0];
     const coreMap = assemblyMap.coreMap.map.value[0];
     const usedAssemblies = extractUsedItems(coreMap);
+    // empty map means no section.
+    if (Object.keys(usedAssemblies).length === 0) return;
+    model[type] = newAssem;
     const rodMaps = dataModel.data.Maps;
     model[type].lattices = [];
     model[type].axials = [];
@@ -340,12 +432,16 @@ function fillAssembly(model, dataModel, config) {
         fillAssemblyMap(model, dataModel, map, config);
       }
     });
+    if (type === 'assembly') {
+      fillFuels(model, dataModel, model[type]);
+    }
   }
 }
 
 function fillState(model, dataModel) {
   model.states = [];
   const stateList = dataModel.data.States;
+  if (!dataModel.data.StateInitialization) return;
   const stateInit = dataModel.data.StateInitialization[0].stateInit;
   stateList.forEach((item, i) => {
     const info = item.stateInfo;

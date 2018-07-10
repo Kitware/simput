@@ -24,6 +24,15 @@
   rated {{#each core.rated}} {{this}}{{/each}}  ! MW, Mlbs/hr
 {{/if}}
   height {{core.height}} ! cm
+{{#each core.cards}}
+  {{name}} {{#each params}} {{this}}{{/each}}
+{{/each}}
+{{#each core.materials}}
+{{#if name}}
+  mat {{name}} {{density}} {{#each fractions}} {{this}}{{/each}}{{#if thexp}}
+      / thexp={{thexp}}{{/if}}
+{{/if}}
+{{/each}}
 
 {{#if core.core_shape}}
   core_shape
@@ -82,7 +91,12 @@
   npin   {{assembly.npin}}
   ppitch {{assembly.ppitch}}
 
-  fuel U31 10.257 94.5 / 3.1 u-234=0.026347
+{{#each assembly.fuels}}
+{{#if name}}
+  fuel {{name}} {{density}} {{thden}} / {{u235_enrichment}}{{#each enrichments}} {{name}}={{value}}{{/each}}{{#if gad_material}}
+      / {{gad_material}}={{gad_fraction}}{{/if}}
+{{/if}}
+{{/each}}
 
 {{#each assembly.cells}}
   cell {{name}}  {{#each radii}}{{this}} {{/each}}/{{#each mats}} {{this}}{{/each}}

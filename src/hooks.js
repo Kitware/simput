@@ -44,6 +44,28 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
   }
 }
 
+function pushFuelsToExternalHook(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+
+  // Fill materials
+  if (dataModel.data.Fuels) {
+    const mats = dataModel.data.Fuels;
+    // external.materialEnum = {};
+    external.viz.types.fuels = [];
+    for (let i = 0; i < mats.length; i++) {
+      const { id, name, fuel } = mats[i];
+
+      if (fuel) {
+        // save to external
+        external.viz.types.fuels.push(id);
+        external.viz.names[id] = name;
+        external.viz.colors[id] = fuel.color.value;
+        // external.materialEnum[name] = id;
+      }
+    }
+  }
+}
+
 function pushCellsToExternalHook(hookConfig, dataModel, currentViewData) {
   const external = getExternal(dataModel);
 
@@ -170,6 +192,7 @@ function coreToExternal(hookConfig, dataModel, currentViewData) {
 
 function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   const mats = dataModel.data.Materials;
+  const fuels = dataModel.data.Fuels;
   const usedMats = {};
 
   if (dataModel.data.Cells) {
@@ -190,6 +213,9 @@ function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
 
   for (let i = 0; i < mats.length; i++) {
     mats[i].noDelete = mats[i].id in usedMats;
+  }
+  for (let i = 0; i < fuels.length; i++) {
+    fuels[i].noDelete = fuels[i].id in usedMats;
   }
 }
 
@@ -253,6 +279,7 @@ function addNextView(hookConfig, dataModel, currentViewData, model) {
 
 module.exports = function initialize() {
   Simput.registerHook('materialsToExternal', pushMaterialsToExternalHook);
+  Simput.registerHook('fuelsToExternal', pushFuelsToExternalHook);
   Simput.registerHook('cellsToExternal', pushCellsToExternalHook);
   Simput.registerHook('updateMaterialUsed', updateMaterialUsed);
   Simput.registerHook('updateCellUsed', updateCellUsed);
