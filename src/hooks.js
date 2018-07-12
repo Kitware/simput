@@ -241,8 +241,10 @@ function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   for (let i = 0; i < mats.length; i++) {
     mats[i].noDelete = mats[i].id in usedMats;
   }
-  for (let i = 0; i < fuels.length; i++) {
-    fuels[i].noDelete = fuels[i].id in usedMats;
+  if (fuels) {
+    for (let i = 0; i < fuels.length; i++) {
+      fuels[i].noDelete = fuels[i].id in usedMats;
+    }
   }
 }
 

@@ -56,6 +56,21 @@ function extractUsedCells(rodList) {
   return usedMap;
 }
 
+function extractUsedAssemblies(itemMap, rodMaps, type) {
+  const usedAssemblies = extractUsedItems(itemMap);
+  let emptyMap = true;
+  rodMaps.forEach((map) => {
+    if (usedAssemblies[map.id]) {
+      const mapType = map.mapInfo.type.value[0];
+      // convert to a lookup.
+      // control/insert needs to filter the other types of rod out.
+      usedAssemblies[map.id] = mapType === type ? map.name : '-';
+      if (mapType === type) emptyMap = false;
+    }
+  });
+  return { emptyMap, usedAssemblies };
+}
+
 function getSymmetricMap(cellMap, symmetry) {
   const InpHelper = window.Simput.types.vera.helper.InpHelper;
 
@@ -141,18 +156,8 @@ function fillCoreMaps(model, dataModel) {
     } else {
       const itemMap = assemblyMap.coreMap.map.value[0];
       symmetry = itemMap.symmetry;
-      const usedAssemblies = extractUsedItems(itemMap);
       const rodMaps = dataModel.data.Maps;
-      let emptyMap = true;
-      rodMaps.forEach((map) => {
-        if (usedAssemblies[map.id]) {
-          const mapType = map.mapInfo.type.value[0];
-          // convert to a lookup.
-          // control/insert needs to filter the other types of rod out.
-          usedAssemblies[map.id] = mapType === config.type ? map.name : '-';
-          if (mapType === config.type) emptyMap = false;
-        }
-      });
+      const { emptyMap, usedAssemblies } = extractUsedAssemblies(itemMap, rodMaps, config.type);
       if (emptyMap) return;
 
       usedAssemblies[+itemMap.emptyItem] = '-';
@@ -444,15 +449,15 @@ function fillAssembly(model, dataModel, config) {
     const assemblyMap = dataModel.data[coreMapKey][index];
     newAssem.title = assemblyMap.coreMapInfo.title.value[0];
     const coreMap = assemblyMap.coreMap.map.value[0];
-    const usedAssemblies = extractUsedItems(coreMap);
-    // empty map means no section.
-    if (Object.keys(usedAssemblies).length === 0) return;
-    model[type] = newAssem;
     const rodMaps = dataModel.data.Maps;
+    const { emptyMap, usedAssemblies } = extractUsedAssemblies(coreMap, rodMaps, type);
+    // empty map means no section.
+    if (emptyMap) return;
+    model[type] = newAssem;
     model[type].lattices = [];
     model[type].axials = [];
     rodMaps.forEach((map) => {
-      if (usedAssemblies[map.id]) {
+      if (usedAssemblies[map.id] && usedAssemblies[map.id] !== '-') {
         fillAssemblyMap(model, dataModel, map, config);
       }
     });
