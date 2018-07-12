@@ -1,13 +1,37 @@
 import inpTemplate from './templates/inp.hbs';
 import { fillSimulations } from './simModel';
+import { defaultMaterialNameFromId } from './matModel';
 
-// given a numeric ID, return the name of the material
+// given an ID, return the name of the material
 function materialIdToName(dataModel, id) {
   const materials = dataModel.data.Materials;
   let count = materials.length;
   while (count--) {
-    if (materials[count].id === id) return materials[count].name;
+    if (materials[count].id === id || materials[count].id === +id) {
+      return materials[count].name;
+    }
   }
+  if (dataModel.data.DefaultMaterials) {
+    const defaultMaterials = dataModel.data.DefaultMaterials[0].defaultMaterial;
+    const defaultMaterialsNames = Object.keys(defaultMaterials);
+    let count = defaultMaterialsNames.length;
+    while(count--) {
+      if (defaultMaterials[defaultMaterialsNames[count]].id === id) {
+        return defaultMaterialNameFromId(defaultMaterialsNames[count]);
+      }
+    }
+  }
+  if (dataModel.data.Fuels) {
+    const fuels = dataModel.data.Fuels;
+    let count = fuels.length;
+    while (count--) {
+      if (fuels[count].id === id || fuels[count].id === +id) {
+        return fuels[count].name;
+      }
+    }
+  }
+
+  console.log('Missing material id', id);
   return null;
 }
 
@@ -206,7 +230,7 @@ function fillFuels(model, dataModel, block) {
       spec.gad_fraction &&
       spec.gad_fraction.value[0]
     ) {
-      fuel.gad_material = materialIdToName(dataModel, +spec.gad_material.value[0]);
+      fuel.gad_material = materialIdToName(dataModel, spec.gad_material.value[0]);
       fuel.gad_fraction = spec.gad_fraction.value[0];
     }
     if (spec.enrichments && spec.enrichments.value.length) {
@@ -261,7 +285,7 @@ function fillCore(model, dataModel) {
 
     if (baffleSpec.thick.value[0] > 0) {
       model.core.baffle = [
-        materialIdToName(dataModel, +baffleSpec.material.value[0]),
+        materialIdToName(dataModel, baffleSpec.material.value[0]),
         baffleSpec.gap.value[0],
         baffleSpec.thick.value[0],
       ];
@@ -272,7 +296,7 @@ function fillCore(model, dataModel) {
       padSpec.params.value[2] > 0
     ) {
       model.core.pad = [
-        materialIdToName(dataModel, +padSpec.material.value[0]),
+        materialIdToName(dataModel, padSpec.material.value[0]),
       ].concat(padSpec.params.value, padSpec.positions.value);
     }
     if (lowerPlateSpec.thick.value[0] > 0) {
@@ -293,7 +317,7 @@ function fillCore(model, dataModel) {
       model.core.vessel = [];
       const spec = vesselSpec.cell.value[0];
       spec.radii.forEach((radius, index) => {
-        model.core.vessel.push(materialIdToName(dataModel, +spec.mats[index]));
+        model.core.vessel.push(materialIdToName(dataModel, spec.mats[index]));
         model.core.vessel.push(radius);
       });
     }
@@ -371,7 +395,7 @@ function fillAssemblyMap(model, dataModel, map, config) {
     name: item.name,
     radii: item.cell.cell.value[0].radii,
     mats: item.cell.cell.value[0].mats.map((id) =>
-      materialIdToName(dataModel, +id)
+      materialIdToName(dataModel, id)
     ),
   }));
 

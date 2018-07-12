@@ -1,4 +1,5 @@
 import simModel from './simModel';
+import matModel from './matModel';
 
 // ----------------------------------------------------------------------------
 // Color palettes
@@ -143,7 +144,7 @@ const model = {
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'Fuels', 'Materials', 'Grids', 'StateInitialization', 'States', 'Simulations'],
+  order: ['Specifications', 'Fuels', 'DefaultMaterials', 'Materials', 'Grids', 'StateInitialization', 'States', 'Simulations'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -171,6 +172,14 @@ const model = {
         },
       ],
     },
+    DefaultMaterials: {
+      label: 'Default Materials',
+      attributes: ['defaultMaterial'],
+      readOnly: true,
+      hooks: [
+        { type: 'materialsToExternal' },
+      ],
+    },
     Materials: {
       label: 'Materials',
       attributes: ['material'],
@@ -178,7 +187,7 @@ const model = {
       readOnly: true,
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'material.name' },
-        { type: 'specsToExternal' },
+        // { type: 'specsToExternal' },
         { type: 'materialsToExternal' },
         { type: 'addNextView', viewName: 'Materials', nextViewName: 'Cells' },
       ],
@@ -190,7 +199,7 @@ const model = {
       readOnly: true,
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'fuel.name' },
-        { type: 'specsToExternal' },
+        // { type: 'specsToExternal' },
         { type: 'fuelsToExternal' },
         // { type: 'addNextView', viewName: 'Fuels', nextViewName: 'Cells' },
       ],
@@ -648,7 +657,7 @@ const model = {
           id: 'thexp',
           type: 'float',
           size: 1,
-          label: 'Thermal Expansion Coefficient [thexp]',
+          label: 'Thermal expansion coefficient [thexp]',
         },
         {
           id: 'fractions',
@@ -657,6 +666,10 @@ const model = {
           componentLabels: ['Material', 'Fraction (0 to 1)'],
         },
       ],
+    },
+    defaultMaterial: {
+      label: 'Enable default materials',
+      parameters: [], // filled in by matModel.js
     },
     fuel: {
       label: 'Fuel definition',
@@ -1335,5 +1348,6 @@ const model = {
   },
 };
 simModel.addSimulationDefinitions(model);
+matModel.addDefaultMaterials(model, materialPalette);
 
 module.exports = model;

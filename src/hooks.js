@@ -1,3 +1,5 @@
+import { defaultMaterialNameFromId } from './matModel';
+
 function getExternal(dataModel) {
   if (!dataModel.external) {
     dataModel.external = {};
@@ -41,6 +43,31 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
         external.materialEnum[name] = id;
       }
     }
+  }
+  // defaults come from a standard library in VERAin
+  if (dataModel.data.DefaultMaterials) {
+    const mats = dataModel.data.DefaultMaterials[0].defaultMaterial;
+    if (!dataModel.data.Materials) {
+      external.materialEnum = {};
+      external.viz.types.materials = [];
+    }
+    Object.keys(mats).forEach((key) => {
+      if (key.endsWith('_color')) return;
+      const { id, value } = mats[key];
+
+      // true if the material is enabled.
+      if (value[0]) {
+        const name = defaultMaterialNameFromId(key);
+        const color = mats[`${key}_color`]
+          ? mats[`${key}_color`].value
+          : [204 / 255, 235 / 255, 197 / 255];
+        // save to external
+        external.viz.types.materials.push(id);
+        external.viz.names[id] = name;
+        external.viz.colors[id] = color;
+        external.materialEnum[name] = id;
+      }
+    });
   }
 }
 
