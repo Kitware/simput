@@ -82,7 +82,7 @@ const mapPalette = [
 const nozzleList = [
   {
     id: 'material',
-    type: 'int',
+    type: 'string',
     size: 1,
     ui: 'enum',
     domain: {
@@ -96,7 +96,7 @@ const nozzleList = [
     type: 'float',
     size: 1,
     default: 0,
-    label: 'Height',
+    label: 'Height (cm)',
     help: 'cm',
   },
   {
@@ -104,14 +104,14 @@ const nozzleList = [
     type: 'float',
     size: 1,
     default: 0,
-    label: 'Mass',
+    label: 'Mass (g)',
     help: 'g',
   },
 ];
 const plateList = [
   {
     id: 'material',
-    type: 'int',
+    type: 'string',
     size: 1,
     ui: 'enum',
     domain: {
@@ -125,7 +125,7 @@ const plateList = [
     type: 'float',
     size: 1,
     default: 0,
-    label: 'Thickness',
+    label: 'Thickness (cm)',
     help: 'cm',
   },
   {
@@ -133,7 +133,7 @@ const plateList = [
     type: 'float',
     size: 1,
     default: 0,
-    label: 'Volume fraction',
+    label: 'Volume fraction (0 to 1)',
     help: 'Percent, 0 -> 1',
   },
 ];
@@ -144,7 +144,7 @@ const model = {
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'Fuels', 'DefaultMaterials', 'Materials', 'Grids', 'StateInitialization', 'States', 'Simulations'],
+  order: ['Specifications', 'Fuels', 'DefaultMaterials', 'Materials', 'Grids', 'StateInitialization', 'States', 'Edits', 'Simulations'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -325,6 +325,11 @@ const model = {
           dst: 'stateInfo.feedback',
         },
       ],
+    },
+    Edits: {
+      label: 'Edits',
+      attributes: ['edits'],
+      readOnly: true,
     },
   },
   definitions: {
@@ -517,7 +522,7 @@ const model = {
           type: 'int',
           size: 1,
           default: 17,
-          label: 'Size',
+          label: 'Size (rods across assembly)',
           help: 'Size of the grid for an assembly',
         },
         {
@@ -525,8 +530,8 @@ const model = {
           type: 'float',
           size: 1,
           default: 1.26,
-          label: 'Cell pitch',
-          help: 'Default cell pitch in assemblies, in cm',
+          label: 'Rod pitch (cm)',
+          help: 'Default rod pitch in assemblies, in cm',
         },
       ],
     },
@@ -535,7 +540,7 @@ const model = {
       parameters: [
         {
           id: 'material',
-          type: 'int',
+          type: 'string',
           size: 1,
           ui: 'enum',
           domain: {
@@ -565,7 +570,7 @@ const model = {
       parameters: [
         {
           id: 'material',
-          type: 'int',
+          type: 'string',
           size: 1,
           ui: 'enum',
           domain: {
@@ -662,7 +667,7 @@ const model = {
         {
           id: 'fractions',
           ui: 'map',
-          label: 'Material fractions (material:fraction)',
+          label: 'Material fractions (material, fraction)',
           componentLabels: ['Material', 'Fraction (0 to 1)'],
         },
       ],
@@ -710,12 +715,12 @@ const model = {
         {
           id: 'enrichments',
           ui: 'map',
-          label: 'Heavy metal enrichment (material:enrichment (weight %))',
+          label: 'Heavy metal enrichment (material, enrichment (weight %))',
           componentLabels: ['Material', 'Enrichment (weight %)'],
         },
         {
           id: 'gad_material',
-          type: 'int',
+          type: 'string',
           size: 1,
           ui: 'enum',
           domain: {
@@ -747,7 +752,7 @@ const model = {
           type: 'float',
           size: 1,
           default: 0,
-          label: 'Contact radius/pitch',
+          label: 'Contact radius/pitch (cm)',
           domain: {
             readOnly: true,
           },
@@ -802,7 +807,7 @@ const model = {
           type: 'string',
           size: 1,
           default: '',
-          label: 'Rod height',
+          label: 'Rod height (cm)',
           domain: {
             readOnly: true,
           },
@@ -812,14 +817,14 @@ const model = {
           type: 'float',
           size: 1,
           default: 0,
-          label: 'Rod offset',
+          label: 'Rod offset (cm)',
         },
         {
           id: 'type',
           type: 'string',
           ui: 'enum',
           size: 1,
-          default: 0,
+          default: 'assembly',
           label: 'Usage',
           domain: {
             Assembly: 'assembly',
@@ -827,6 +832,7 @@ const model = {
             Insert: 'insert',
             Detector: 'detector',
           },
+          noEmpty: true,
         },
       ],
     },
@@ -872,7 +878,7 @@ const model = {
           type: 'string',
           ui: 'enum',
           size: 1,
-          default: 0,
+          default: 'assembly',
           label: 'Usage',
           domain: {
             Assembly: 'assembly',
@@ -880,6 +886,7 @@ const model = {
             Insert: 'insert',
             Detector: 'detector',
           },
+          noEmpty: true,
         },
         {
           id: 'stateMapLabels',
@@ -925,18 +932,29 @@ const model = {
           label: 'Name',
         },
         {
+          id: 'material',
+          type: 'string',
+          size: 1,
+          ui: 'enum',
+          domain: {
+            dynamic: true,
+            external: 'materialEnum',
+          },
+          label: 'Material',
+        },
+        {
           id: 'height',
           type: 'float',
           size: 1,
           default: 3.8,
-          label: 'Height',
+          label: 'Height (cm)',
         },
         {
           id: 'mass',
           type: 'float',
           size: 1,
           default: 1000,
-          label: 'Mass',
+          label: 'Mass (g)',
         },
         {
           id: 'loss',
@@ -946,11 +964,17 @@ const model = {
           label: 'Loss',
         },
         {
+          id: 'blockage',
+          type: 'float',
+          size: 1,
+          label: 'Blockage',
+        },
+        {
           id: 'axisPositions',
           type: 'float',
           layout: '-1',
           default: 0,
-          label: 'Axial positions',
+          label: 'Axial positions (cm)',
         },
       ],
     },
@@ -1342,6 +1366,31 @@ const model = {
           layout: '2',
           default: ['', ''],
           label: 'Restart Read (file, label)',
+        },
+      ],
+    },
+    edits: {
+      label: 'Edits',
+      parameters: [
+        {
+          id: 'axial_edit_bounds',
+          type: 'float',
+          size: -1,
+          layout: '-1',
+          label: 'Axial edit bounds (cm)',
+        },
+        {
+          id: 'axial_edit_mesh_delta',
+          type: 'float',
+          size: 1,
+          label: 'Axial edit mesh delta (cm)',
+        },
+        {
+          id: 'edit_group',
+          type: 'string',
+          size: -1,
+          layout: '-1',
+          label: 'Edit group (name, var1, var2...)',
         },
       ],
     },

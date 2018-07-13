@@ -74,7 +74,7 @@
 
 {{/if}}
 {{#if core.pad}}
-  pad {{#each core.pad}} {{this}}{{/each}}  ! neutron pad ID, OD (cm), arc lenth (degrees), and angular positions (degrees)
+  pad {{#each core.pad}} {{this}}{{/each}}  ! neutron pad ID, OD (cm), arc length (degrees), and angular positions (degrees)
 
 {{/if}}
 {{#if core.lower_plate}}
@@ -118,6 +118,18 @@
 {{#if assembly.upper_nozzle}}
   upper_nozzle {{#each assembly.upper_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
 {{/if}}
+
+{{#each assembly.grids}}
+  grid {{name}} {{material}} {{height}} {{mass}} / loss={{loss}}{{#if blockage}} blockage={{blockage}}{{/if}} ! grid height (cm), mass (g), loss coef
+{{/each}}
+{{#if assembly.grid_axial}}
+
+  grid_axial
+{{#each assembly.grid_axial}}
+      {{name}} {{height}}
+{{/each}}
+{{/if}}
+
 
 {{#if insert}}
 [INSERT]
@@ -185,6 +197,13 @@
 
 {{#each detector.axials}}
   axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
+{{/each}}
+{{/if}}
+
+{{#if edits}}
+[EDITS]
+{{#each edits.cards includeZero=true}}
+  {{name}} {{#each params}} {{this}}{{/each}}
 {{/each}}
 {{/if}}
 

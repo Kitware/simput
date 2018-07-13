@@ -216,9 +216,9 @@ function fillMaterials(model, dataModel) {
 
 // Fuels are specific to the assembly block.
 function fillFuels(model, dataModel, block) {
-  const fueLspec = dataModel.data.Fuels;
-  if (!fueLspec || !fueLspec.length) return;
-  const fuels = fueLspec.map((item) => {
+  const fuelSpec = dataModel.data.Fuels;
+  if (!fuelSpec || !fuelSpec.length) return;
+  const fuels = fuelSpec.map((item) => {
     const spec = item.fuel;
     const fuel = {
       name: spec.name.value[0],
@@ -226,8 +226,9 @@ function fillFuels(model, dataModel, block) {
       thden: spec.thden.value[0],
       u235_enrichment: spec.u235_enrichment.value[0],
     };
-    if (!fuel.name || !fuel.density || !fuel.thden || !fuel.u235_enrichment)
+    if (!fuel.name || !fuel.density || !fuel.thden || !fuel.u235_enrichment) {
       return null;
+    }
     // gadolina oxide, option, zero not valid.
     if (
       spec.gad_material &&
@@ -244,6 +245,39 @@ function fillFuels(model, dataModel, block) {
     return fuel;
   });
   block.fuels = fuels.filter((f) => f !== null);
+}
+
+// Grids are specific to the assembly block.
+function fillGrids(model, dataModel, block) {
+  const gridSpec = dataModel.data.Grids;
+  if (!gridSpec || !gridSpec.length) return;
+  const gridAxial = [];
+  const grids = gridSpec.map((item) => {
+    const spec = item.spacer;
+    const grid = {
+      name: spec.name.value[0],
+      material: materialIdToName(dataModel, spec.material.value[0]),
+      height: spec.height.value[0],
+      mass: spec.mass.value[0],
+      loss: spec.loss.value[0],
+    };
+    if (!grid.name || !grid.height || !grid.mass || !grid.loss) {
+      return null;
+    }
+    if (spec.blockage && spec.blockage.value[0]) {
+      grid.blockage = spec.blockage.value[0];
+    }
+    // add to gridAxial each elevation.
+    spec.axisPositions.value.forEach((val) => {
+      gridAxial.push({ name: grid.name, height: val });
+    });
+    return grid;
+  });
+  block.grids = grids.filter((f) => f !== null);
+  if (gridAxial.length) {
+    gridAxial.sort((a,b) => a.height - b.height);
+    block.grid_axial = gridAxial;
+  }
 }
 
 function fillCore(model, dataModel) {
@@ -463,7 +497,24 @@ function fillAssembly(model, dataModel, config) {
     });
     if (type === 'assembly') {
       fillFuels(model, dataModel, model[type]);
+      fillGrids(model, dataModel, model[type]);
     }
+  }
+}
+
+function fillEdits(model, dataModel) {
+  const newEdits = { cards: [] };
+  const { edits } = dataModel.data.Edits[0];
+  const addCardZero = (dataIn, name, comment = '') => {
+    if (dataIn[name] && dataIn[name].value[0] !== undefined) {
+      newEdits.cards.push({ name, params: [...dataIn[name].value, comment] });
+    }
+  };
+  addCardZero(edits, 'axial_edit_bounds');
+  addCardZero(edits, 'axial_edit_mesh_delta');
+  addCardZero(edits, 'edit_group');
+  if (newEdits.cards.length) {
+    model.edits = newEdits;
   }
 }
 
@@ -571,6 +622,7 @@ module.exports = function convert(dataModel) {
   fillCore(model, dataModel);
   mapConfig.forEach((config) => fillAssembly(model, dataModel, config));
   fillState(model, dataModel);
+  fillEdits(model, dataModel);
   fillSimulations(model, dataModel);
 
   results['simput.inp'] = inpTemplate(model);

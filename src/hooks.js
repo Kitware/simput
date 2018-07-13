@@ -40,7 +40,8 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
         external.viz.types.materials.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = material.color.value;
-        external.materialEnum[name] = id;
+        // must be a string, so default material string IDs are OK in ui: enum.
+        external.materialEnum[name] = String(id);
       }
     }
   }
