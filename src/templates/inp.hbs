@@ -112,13 +112,6 @@
   axial {{name}} {{#each elevationMats}} {{this}}{{/each}}
 {{/each}}
 
-{{#if assembly.lower_nozzle}}
-  lower_nozzle {{#each assembly.lower_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
-{{/if}}
-{{#if assembly.upper_nozzle}}
-  upper_nozzle {{#each assembly.upper_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
-{{/if}}
-
 {{#each assembly.grids}}
   grid {{name}} {{material}} {{height}} {{mass}} / loss={{loss}}{{#if blockage}} blockage={{blockage}}{{/if}} ! grid height (cm), mass (g), loss coef
 {{/each}}
@@ -130,6 +123,12 @@
 {{/each}}
 {{/if}}
 
+{{#if assembly.lower_nozzle}}
+  lower_nozzle {{#each assembly.lower_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
+{{/if}}
+{{#if assembly.upper_nozzle}}
+  upper_nozzle {{#each assembly.upper_nozzle}} {{this}}{{/each}} ! mat, height, mass (g)
+{{/if}}
 
 {{#if insert}}
 [INSERT]

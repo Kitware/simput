@@ -274,7 +274,7 @@ const model = {
     },
     CoreAssemblyMap: {
       label: 'Assemblies',
-      attributes: ['coreMapInfo', 'coreMap'],
+      attributes: ['coreMapInfo', 'lowerNozzleSpec', 'upperNozzleSpec', 'coreMap'],
       hooks: [
         { type: 'coreToExternal' },
         {
@@ -902,12 +902,7 @@ const model = {
           label: 'Labels for state',
           show: 'type[0] === "control"',
         },
-        ['lowerNozzleSpec', 'upperNozzleSpec'],
       ],
-      children: {
-        lowerNozzleSpec: 'mapInfo.type[0] === "assembly"',
-        upperNozzleSpec: 'mapInfo.type[0] === "assembly"',
-      },
     },
     rodMap: {
       label: 'Layout definition',

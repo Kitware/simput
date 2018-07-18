@@ -286,7 +286,24 @@ function fillGrids(model, dataModel, block) {
     block.grid_axial = gridAxial;
   }
 }
-
+// nozzles are specific to the assembly block
+function fillNozzles(map, dataModel, block) {
+  // specific to assembly maps.
+  if (map.lowerNozzleSpec && map.lowerNozzleSpec.height.value[0] > 0) {
+    block.lower_nozzle = [
+      materialIdToName(dataModel, map.lowerNozzleSpec.material.value[0]),
+      map.lowerNozzleSpec.height.value[0],
+      map.lowerNozzleSpec.mass.value[0],
+    ];
+  }
+  if (map.upperNozzleSpec && map.upperNozzleSpec.height.value[0] > 0) {
+    block.upper_nozzle = [
+      materialIdToName(dataModel, map.upperNozzleSpec.material.value[0]),
+      map.upperNozzleSpec.height.value[0],
+      map.upperNozzleSpec.mass.value[0],
+    ];
+  }
+}
 function fillCore(model, dataModel) {
   model.core = { cards: [] };
   const { coreSpec } = dataModel.data.Specifications[0];
@@ -473,21 +490,6 @@ function fillAssemblyMap(model, dataModel, map, config) {
   }
   model[type].axials.push({ name: map.name, elevationMats });
 
-  // specific to assembly maps.
-  if (map.lowerNozzleSpec && map.lowerNozzleSpec.height.value[0] > 0) {
-    model[type].lower_nozzle = [
-      materialIdToName(dataModel, map.lowerNozzleSpec.material.value[0]),
-      map.lowerNozzleSpec.height.value[0],
-      map.lowerNozzleSpec.mass.value[0],
-    ];
-  }
-  if (map.upperNozzleSpec && map.upperNozzleSpec.height.value[0] > 0) {
-    model[type].upper_nozzle = [
-      materialIdToName(dataModel, map.upperNozzleSpec.material.value[0]),
-      map.upperNozzleSpec.height.value[0],
-      map.upperNozzleSpec.mass.value[0],
-    ];
-  }
 }
 
 function fillAssembly(model, dataModel, config) {
@@ -520,6 +522,14 @@ function fillAssembly(model, dataModel, config) {
     if (type === 'assembly') {
       fillFuels(model, dataModel, model[type]);
       fillGrids(model, dataModel, model[type]);
+      fillNozzles(assemblyMap, dataModel, model[type]);
+    } else if (type === 'control') {
+      if (assemblyMap.controlMapInfo.stroke) {
+        const strokeVal = assemblyMap.controlMapInfo.stroke.value;
+        if (strokeVal[0] && strokeVal[1]) {
+          newAssem.stroke = strokeVal;
+        }
+      }
     }
   }
 }
