@@ -15,7 +15,7 @@ function materialIdToName(dataModel, id) {
     const defaultMaterials = dataModel.data.DefaultMaterials[0].defaultMaterial;
     const defaultMaterialsNames = Object.keys(defaultMaterials);
     let count = defaultMaterialsNames.length;
-    while(count--) {
+    while (count--) {
       if (defaultMaterials[defaultMaterialsNames[count]].id === id) {
         return defaultMaterialNameFromId(defaultMaterialsNames[count]);
       }
@@ -157,7 +157,11 @@ function fillCoreMaps(model, dataModel) {
       const itemMap = assemblyMap.coreMap.map.value[0];
       symmetry = itemMap.symmetry;
       const rodMaps = dataModel.data.Maps;
-      const { emptyMap, usedAssemblies } = extractUsedAssemblies(itemMap, rodMaps, config.type);
+      const { emptyMap, usedAssemblies } = extractUsedAssemblies(
+        itemMap,
+        rodMaps,
+        config.type
+      );
       if (emptyMap) return;
 
       usedAssemblies[+itemMap.emptyItem] = '-';
@@ -236,7 +240,10 @@ function fillFuels(model, dataModel, block) {
       spec.gad_fraction &&
       spec.gad_fraction.value[0]
     ) {
-      fuel.gad_material = materialIdToName(dataModel, spec.gad_material.value[0]);
+      fuel.gad_material = materialIdToName(
+        dataModel,
+        spec.gad_material.value[0]
+      );
       fuel.gad_fraction = spec.gad_fraction.value[0];
     }
     if (spec.enrichments && spec.enrichments.value.length) {
@@ -275,7 +282,7 @@ function fillGrids(model, dataModel, block) {
   });
   block.grids = grids.filter((f) => f !== null);
   if (gridAxial.length) {
-    gridAxial.sort((a,b) => a.height - b.height);
+    gridAxial.sort((a, b) => a.height - b.height);
     block.grid_axial = gridAxial;
   }
 }
@@ -296,7 +303,7 @@ function fillCore(model, dataModel) {
   model.core.apitch = coreSpec.apitch.value[0];
   model.core.height = coreSpec.height.value[0];
   addCard(coreSpec, 'reactor_type');
-  addCard(coreSpec, 'rated');
+  addCard(coreSpec, 'rated', '   ! MW, Mlbs/hr');
   if (dataModel.data.CoreDefinition) {
     const {
       coreAdvancedSpec: advSpec,
@@ -306,6 +313,7 @@ function fillCore(model, dataModel) {
       upperPlateSpec,
       vesselSpec,
     } = dataModel.data.CoreDefinition[0];
+    addCard(advSpec, 'name');
     addCard(advSpec, 'rcs_volume');
     addCard(advSpec, 'op_date');
     addCard(advSpec, 'unit');
@@ -379,7 +387,11 @@ function getLatticeMaps(name, rodMap, usedRods, usedCellMap) {
   });
 
   elevations.sort((a, b) => a - b);
-  elevations = elevations.filter((v, i, a) => a[i - 1] !== v);
+  const epsilon = 0.00001;
+  elevations = elevations.filter(
+    (v, i, a) => i === 0 || Math.abs(a[i - 1] - v) > epsilon
+  );
+  // elevations = elevations.filter((v, i, a) => a[i - 1] !== v);
 
   // for each rod at each elevation, save which cell name it contains.
   const elevationCellMaps = elevations.map(() => ({}));
@@ -430,7 +442,7 @@ function fillAssemblyMap(model, dataModel, map, config) {
   usedCells.forEach((cell) => {
     usedCellMap[cell.id] = cell.name;
   });
-  model[type].cells = usedCells.map((item) => ({
+  const newCells = usedCells.map((item) => ({
     name: item.name,
     radii: item.cell.cell.value[0].radii,
     mats: item.cell.cell.value[0].mats.map((id) =>
@@ -438,6 +450,14 @@ function fillAssemblyMap(model, dataModel, map, config) {
     ),
   }));
 
+  // cells come from a single list, so check for unique name.
+  model[type].cells = model[type].cells.concat(
+    newCells.filter(
+      (cell) =>
+        model[type].cells.findIndex((oldCell) => oldCell.name === cell.name) ===
+        -1
+    )
+  );
   // extract a lattice for each layer in the rods
   const { lattices, elevations } = getLatticeMaps(
     map.name,
@@ -473,7 +493,7 @@ function fillAssemblyMap(model, dataModel, map, config) {
 function fillAssembly(model, dataModel, config) {
   const { type, coreMapKey, index } = config;
   if (type === 'label') return;
-  const newAssem = {};
+  const newAssem = { cells: [], lattices: [], axials: [] };
   const assemblySpec = dataModel.data.Specifications[0].assemblySpec;
   newAssem.npin = assemblySpec.grid.value[0];
   newAssem.ppitch = assemblySpec.pitch.value[0];
@@ -484,12 +504,14 @@ function fillAssembly(model, dataModel, config) {
     newAssem.title = assemblyMap.coreMapInfo.title.value[0];
     const coreMap = assemblyMap.coreMap.map.value[0];
     const rodMaps = dataModel.data.Maps;
-    const { emptyMap, usedAssemblies } = extractUsedAssemblies(coreMap, rodMaps, type);
+    const { emptyMap, usedAssemblies } = extractUsedAssemblies(
+      coreMap,
+      rodMaps,
+      type
+    );
     // empty map means no section.
     if (emptyMap) return;
     model[type] = newAssem;
-    model[type].lattices = [];
-    model[type].axials = [];
     rodMaps.forEach((map) => {
       if (usedAssemblies[map.id] && usedAssemblies[map.id] !== '-') {
         fillAssemblyMap(model, dataModel, map, config);
@@ -503,6 +525,7 @@ function fillAssembly(model, dataModel, config) {
 }
 
 function fillEdits(model, dataModel) {
+  if (!dataModel.data.Edits) return;
   const newEdits = { cards: [] };
   const { edits } = dataModel.data.Edits[0];
   const addCardZero = (dataIn, name, comment = '') => {
@@ -593,6 +616,7 @@ function fillState(model, dataModel) {
     }
     addCard(info, 'restart_write');
     addCard(info, 'restart_read');
+    addCard(info, 'op_date');
 
     if (labelPos && labelPos.rodbank.value[0]) {
       // a list of label, position pairs.

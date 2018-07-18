@@ -144,7 +144,7 @@ const model = {
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'Fuels', 'DefaultMaterials', 'Materials', 'Grids', 'StateInitialization', 'States', 'Edits', 'Simulations'],
+  order: ['Specifications', 'DefaultMaterials', 'Materials', 'Fuels', 'Cells', 'Grids', 'StateInitialization', 'States', 'Edits', 'Simulations'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -189,7 +189,7 @@ const model = {
         { type: 'copyParameterToViewName', attribute: 'material.name' },
         // { type: 'specsToExternal' },
         { type: 'materialsToExternal' },
-        { type: 'addNextView', viewName: 'Materials', nextViewName: 'Cells' },
+        // { type: 'addNextView', viewName: 'Materials', nextViewName: 'Cells' },
       ],
     },
     Fuels: {
@@ -392,6 +392,12 @@ const model = {
       label: 'Advanced Core Specifications',
       parameters: [
         {
+          id: 'name',
+          type: 'string',
+          size: 1,
+          label: 'Name',
+        },
+        {
           id: 'rcs_volume',
           type: 'float',
           size: 1,
@@ -550,18 +556,18 @@ const model = {
           label: 'Material',
         },
         {
-          id: 'thick',
-          type: 'float',
-          size: 1,
-          default: 0,
-          label: 'Thickness',
-        },
-        {
           id: 'gap',
           type: 'float',
           size: 1,
           default: 0,
-          label: 'Gap',
+          label: 'Gap (cm)',
+        },
+        {
+          id: 'thick',
+          type: 'float',
+          size: 1,
+          default: 0,
+          label: 'Thickness (cm)',
         },
       ],
     },
@@ -585,7 +591,7 @@ const model = {
           size: 3,
           layout: '3',
           default: [0, 0, 0],
-          label: 'Inner diameter, Outer diameter, Arc length',
+          label: 'Inner diameter (cm), Outer diameter (cm), Arc length (deg)',
           help: 'cm, cm, deg',
         },
         {
@@ -593,7 +599,7 @@ const model = {
           type: 'float',
           layout: '-1',
           default: 0,
-          label: 'Angular positions',
+          label: 'Angular positions (deg)',
           help: 'deg',
         },
       ],
@@ -828,8 +834,8 @@ const model = {
           label: 'Usage',
           domain: {
             Assembly: 'assembly',
-            Control: 'control',
             Insert: 'insert',
+            Control: 'control',
             Detector: 'detector',
           },
           noEmpty: true,
@@ -882,8 +888,8 @@ const model = {
           label: 'Usage',
           domain: {
             Assembly: 'assembly',
-            Control: 'control',
             Insert: 'insert',
+            Control: 'control',
             Detector: 'detector',
           },
           noEmpty: true,
@@ -1366,6 +1372,12 @@ const model = {
           layout: '2',
           default: ['', ''],
           label: 'Restart Read (file, label)',
+        },
+        {
+          id: 'op_date',
+          type: 'string',
+          size: 1,
+          label: 'Operation date',
         },
       ],
     },

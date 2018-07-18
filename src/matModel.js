@@ -478,7 +478,7 @@ function addDefaultMaterials(model, materialPalette) {
       type: 'bool',
       size: 1,
       ui: 'checkbox',
-      default: false,
+      default: (mat.label === 'ss' || mat.label === 'mod'),
       label: `Enable ${mat.label}`,
     });
     matList.push({

@@ -42,6 +42,13 @@ function addSimulationDefinitions(model) {
           default: false,
           label: 'Enabled',
         },
+        {
+          id: 'include',
+          type: 'string',
+          size: -1,
+          layout: '-1',
+          label: 'Include (file path)',
+        },
       ],
     };
     const params = model.definitions[`${sim}Info`].parameters;
@@ -156,6 +163,10 @@ function fillSimulations(model, dataModel) {
     const currSim = { name: sim, cards: [], cardsWithZero: [] };
     Object.keys(simInfo).forEach((key) => {
       if (key === 'enabled') return;
+      else if (key === 'include') {
+        addCardList(currSim, simInfo, key);
+        return;
+      }
       const veraDef = pyvera._content[key];
       if (veraDef._listName) {
         addCardList(currSim, simInfo, key);
