@@ -1,3 +1,6 @@
 .DS_Store
 node_modules
 npm-debug.log
+# ignore dist files, except index.html and types/ sub-directory
+dist/*.*
+!dist/index.html
