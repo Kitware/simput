@@ -18,12 +18,12 @@
 {{/each}}
 
 [CORE]
-  size   {{core.size}}   ! number of assemblies across core
-  apitch {{core.apitch}} ! assembly spacing, cm
+  size   {{core.size}}     ! number of assemblies across core
+  apitch {{core.apitch}}   ! assembly spacing, cm
 {{#if core.rated}}
   rated {{#each core.rated}} {{this}}{{/each}}  ! MW, Mlbs/hr
 {{/if}}
-  height {{core.height}} ! cm
+  height {{core.height}}   ! cm
 {{#each core.cards}}
   {{name}} {{#each params}} {{this}}{{/each}}
 {{/each}}

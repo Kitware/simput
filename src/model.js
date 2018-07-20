@@ -1,5 +1,5 @@
 import simModel from './simModel';
-import matModel from './matModel';
+// import matModel from './matModel';
 
 // ----------------------------------------------------------------------------
 // Color palettes
@@ -144,7 +144,7 @@ const model = {
     'simput-external-vera.js',
   ],
   defaultActiveView: 'Specifications',
-  order: ['Specifications', 'DefaultMaterials', 'Materials', 'Fuels', 'Cells', 'Grids', 'StateInitialization', 'States', 'Edits', 'Simulations'],
+  order: ['Specifications', 'Materials', 'Fuels', 'Cells', 'Grids', 'StateInitialization', 'States', 'Edits', 'Simulations'],
   views: {
     Specifications: {
       label: 'Specifications',
@@ -170,14 +170,7 @@ const model = {
           src: 'data.Specifications.0.coreSpec.height.value.0',
           dst: 'viz.core.height',
         },
-      ],
-    },
-    DefaultMaterials: {
-      label: 'Default Materials',
-      attributes: ['defaultMaterial'],
-      readOnly: true,
-      hooks: [
-        { type: 'materialsToExternal' },
+        { type: 'checkDefaultMaterials' },
       ],
     },
     Materials: {
@@ -677,10 +670,6 @@ const model = {
           componentLabels: ['Material', 'Fraction (0 to 1)'],
         },
       ],
-    },
-    defaultMaterial: {
-      label: 'Enable default materials',
-      parameters: [], // filled in by matModel.js
     },
     fuel: {
       label: 'Fuel definition',
@@ -1404,6 +1393,6 @@ const model = {
   },
 };
 simModel.addSimulationDefinitions(model);
-matModel.addDefaultMaterials(model, materialPalette);
+// matModel.addDefaultMaterials(model, materialPalette);
 
 module.exports = model;

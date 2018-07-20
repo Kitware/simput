@@ -1,14 +1,16 @@
 import inpTemplate from './templates/inp.hbs';
 import { fillSimulations } from './simModel';
-import { defaultMaterialNameFromId } from './matModel';
+import { defaultMaterialNameFromId, materialIsDefault } from './matModel';
 
 // given an ID, return the name of the material
 function materialIdToName(dataModel, id) {
   const materials = dataModel.data.Materials;
-  let count = materials.length;
-  while (count--) {
-    if (materials[count].id === id || materials[count].id === +id) {
-      return materials[count].name;
+  if (materials) {
+    let count = materials.length;
+    while (count--) {
+      if (materials[count].id === id || materials[count].id === +id) {
+        return materials[count].name;
+      }
     }
   }
   if (dataModel.data.DefaultMaterials) {
@@ -197,6 +199,7 @@ function fillMaterials(model, dataModel) {
   if (!matSpec || !matSpec.length) return;
   const materials = matSpec.map((item) => {
     const spec = item.material;
+    if (materialIsDefault(item.material)) return null;
     const mat = {
       name: spec.name.value[0],
       density: spec.density.value[0],
@@ -215,7 +218,7 @@ function fillMaterials(model, dataModel) {
     }
     return mat;
   });
-  model.core.materials = materials;
+  model.core.materials = materials.filter((m) => m !== null);
 }
 
 // Fuels are specific to the assembly block.

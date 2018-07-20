@@ -1,5 +1,40 @@
 // no vtkjs: import vtkMath from 'vtk.js/Sources/Common/Core/Math';
 // no react: import { hex2float } from 'paraviewweb/src/React/Properties/ColorProperty';
+const materialPalette = [
+  '#8dd3c7',
+  '#ffffb3',
+  '#bebada',
+  '#fb8072',
+  '#80b1d3',
+  '#fdb462',
+  '#b3de69',
+  '#fccde5',
+  '#d9d9d9',
+  '#bc80bd',
+  '#ccebc5',
+  '#ffed6f',
+  '#51574a',
+  '#447c69',
+  '#74c493',
+  '#8e8c6d',
+  '#e4bf80',
+  '#e9d78e',
+  '#e2975d',
+  '#f19670',
+  '#e16552',
+  '#c94a53',
+  '#be5168',
+  '#a34974',
+  '#993767',
+  '#65387d',
+  '#4e2472',
+  '#9163b6',
+  '#e279a3',
+  '#e0598b',
+  '#7c9fb0',
+  '#5698c4',
+  '#9abf88',
+];
 
 // so copy:
 function hex2float(hexStr, outFloatArray = [0, 0.5, 1]) {
@@ -468,32 +503,91 @@ const materials = [
   },
 ];
 
-function addDefaultMaterials(model, materialPalette) {
-  // const VeraMaterials = window.Simput.types.vera.helper.Materials;
+// function addDefaultMaterials(model, materialPalette) {
+// const VeraMaterials = window.Simput.types.vera.helper.Materials;
 
-  const matList = model.definitions.defaultMaterial.parameters;
-  materials.forEach((mat, index) => {
-    matList.push({
-      id: `defaultMat${index}`,
-      type: 'bool',
-      size: 1,
-      ui: 'checkbox',
-      default: (mat.label === 'ss' || mat.label === 'mod'),
-      label: `Enable ${mat.label}`,
-    });
-    matList.push({
-      id: `defaultMat${index}_color`,
-      propType: 'Color',
-      label: 'Associated color',
-      default: hex2float(materialPalette[index % materialPalette.length]),
-      domain: {
-        palette: materialPalette,
+// const matList = model.definitions.defaultMaterial.parameters;
+// materials.forEach((mat, index) => {
+//   matList.push({
+//     id: `defaultMat${index}`,
+//     type: 'bool',
+//     size: 1,
+//     ui: 'checkbox',
+//     default: (mat.label === 'ss' || mat.label === 'mod'),
+//     label: `Enable ${mat.label}`,
+//   });
+//   matList.push({
+//     id: `defaultMat${index}_color`,
+//     propType: 'Color',
+//     label: 'Associated color',
+//     default: hex2float(materialPalette[index % materialPalette.length]),
+//     domain: {
+//       palette: materialPalette,
+//     },
+//     // using the mat.label doesn't work, because some have dashes, so can't be variables.
+//     show: `defaultMat${index}[0] === true`,
+//   });
+
+// });
+// }
+function addDefaultMaterials(dataModel) {
+  if (dataModel.data.Materials && dataModel.data.Materials.length) return;
+  dataModel.data.Materials = materials.map((mat, index) => ({
+    name: mat.label,
+    id: `mat${index}`,
+    material: {
+      name: {
+        id: 'material.name',
+        value: [mat.label],
       },
-      // using the mat.label doesn't work, because some have dashes, so can't be variables.
-      show: `defaultMat${index}[0] === true`,
-    });
+      color: {
+        id: 'material.color',
+        value: hex2float(materialPalette[index % materialPalette.length]),
+      },
+      density: {
+        id: 'material.density',
+        value: [mat.density],
+      },
+      thexp: mat.thexp
+        ? {
+            id: 'material.thexp',
+            value: [mat.thexp],
+          }
+        : undefined,
+      fractions: {
+        id: 'material.fractions',
+        value: mat.fracs.map((f, i) => ({
+          name: mat.names[i],
+          value: f,
+        })),
+      },
+    },
+  }));
+}
 
+const epsilon = 1.0e-13; //smallest specified number is 1e-12
+function materialIsDefault(mat) {
+  let ok = true;
+  // 'thexp' is allowed to be missing.
+  ['name', 'color', 'density', 'fractions'].forEach(key => {
+    if (mat[key] && (!mat[key].value || mat[key].value.length === 0)) ok = false;
   });
+  if (!ok) return false;
+  const defMat = materials.find((m) => m.label === mat.name.value[0]);
+  if (!defMat) return false;
+  ['density', 'thexp'].forEach(key => {
+    if (!defMat[key]) {
+      if (mat[key] && mat[key].value && mat[key].value.length > 0) ok = false;
+    } else {
+      if (Math.abs(mat[key].value[0] - defMat[key]) > epsilon) ok = false;
+    }
+  });
+  if (!ok) return false;
+  mat.fractions.value.forEach((frac, i) => {
+    if (frac.name !== defMat.names[i]) ok = false;
+    if (Math.abs(frac.value - defMat.fracs[i]) > epsilon) ok = false;
+  });
+  return ok;
 }
 
 function defaultMaterialNameFromId(id) {
@@ -505,6 +599,7 @@ function defaultMaterialNameFromId(id) {
 }
 
 module.exports = {
+  materialIsDefault,
   addDefaultMaterials,
   defaultMaterialNameFromId,
 };

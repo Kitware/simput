@@ -1,4 +1,4 @@
-import { defaultMaterialNameFromId } from './matModel';
+import { defaultMaterialNameFromId, addDefaultMaterials } from './matModel';
 
 function getExternal(dataModel) {
   if (!dataModel.external) {
@@ -22,6 +22,10 @@ function getExternal(dataModel) {
   dataModel.external.viz.colors[0] = [1, 1, 1];
 
   return dataModel.external;
+}
+
+function checkDefaultMaterials(hookConfig, dataModel, currentViewData) {
+  addDefaultMaterials(dataModel);
 }
 
 function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
@@ -219,7 +223,7 @@ function coreToExternal(hookConfig, dataModel, currentViewData) {
 }
 
 function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
-  const mats = dataModel.data.Materials;
+  const mats = dataModel.data.Materials || [];
   const fuels = dataModel.data.Fuels;
   const usedMats = {};
 
@@ -240,7 +244,8 @@ function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   }
 
   for (let i = 0; i < mats.length; i++) {
-    mats[i].noDelete = mats[i].id in usedMats;
+    // Moderator is special, always mark.
+    mats[i].noDelete = mats[i].id in usedMats || mats[i].name === 'mod';
   }
   if (fuels) {
     for (let i = 0; i < fuels.length; i++) {
@@ -308,6 +313,7 @@ function addNextView(hookConfig, dataModel, currentViewData, model) {
 }
 
 module.exports = function initialize() {
+  Simput.registerHook('checkDefaultMaterials', checkDefaultMaterials);
   Simput.registerHook('materialsToExternal', pushMaterialsToExternalHook);
   Simput.registerHook('fuelsToExternal', pushFuelsToExternalHook);
   Simput.registerHook('cellsToExternal', pushCellsToExternalHook);

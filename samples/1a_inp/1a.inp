@@ -1,0 +1,48 @@
+[CASEID]
+  title 'CASL AMA Benchmark Problem 1A - Pin Cell- Public'
+
+[STATE]
+  power    0.0
+  tinlet   565 K
+  tfuel    565 K 
+  modden   0.743         ! g/cc
+  boron    1300          ! ppm
+  sym      full          ! full symmetry
+  feedback off
+
+[CORE]
+  size   1
+  apitch 1.26
+  rated  0.000183 0.01
+  height 1.0
+
+  core_shape
+    1
+
+  assm_map
+    ASSY1
+
+  bc_rad reflecting
+  bc_top reflecting
+  bc_bot reflecting
+
+[ASSEMBLY]
+  title "pin cell"
+  npin 1
+  ppitch 1.26
+
+  fuel U31 10.257 94.5 / 3.1 u-234=0.026347
+
+  cell PIN1 0.4096 0.418 0.475 / U31 he zirc4
+
+  lattice LAT1
+     PIN1
+
+  axial ASSY1 0.0 LAT1 1.0
+
+[MPACT]
+
+[SHIFT]
+  num_cycles           1100
+  num_inactive_cycles  100
+  Np                   100000  
