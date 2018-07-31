@@ -296,6 +296,50 @@ function updateRodUsed(hookConfig, dataModel, currentViewData) {
   }
 }
 
+const mapConfig = [
+  {
+    type: 'assembly',
+    coreMapKey: 'CoreAssemblyMap',
+    coreMapName: 'assm_map',
+    index: 0,
+  },
+  {
+    type: 'insert',
+    coreMapKey: 'CoreControlInsertMap',
+    coreMapName: 'insert_map',
+    index: 1,
+  },
+  // {
+  //   type: 'control',
+  //   coreMapKey: 'CoreControlInsertMap',
+  //   coreMapName: 'crd_map',
+  //   index: 1,
+  // },
+  {
+    type: 'detector',
+    coreMapKey: 'CoreDetectorMap',
+    coreMapName: 'det_map',
+    index: 2,
+  },
+];
+
+function updateRodmapUsed(hookConfig, dataModel, currentViewData) {
+  const rodmaps = dataModel.data.Maps;
+  const usedRodmaps = {};
+
+  mapConfig.forEach((config) => {
+    if (dataModel.data[config.coreMapKey]) {
+    const map = dataModel.data[config.coreMapKey];
+      map[config.index].coreMap.map.value[0].grid.forEach((id) => {
+        usedRodmaps[id] = true;
+      });
+    }
+  });
+  for (let i = 0; i < rodmaps.length; i++) {
+    rodmaps[i].noDelete = rodmaps[i].id in usedRodmaps;
+  }
+}
+
 function addNextView(hookConfig, dataModel, currentViewData, model) {
   const { viewName, nextViewName, insertAfter } = hookConfig;
   if (dataModel.data[viewName].length) {
@@ -320,6 +364,7 @@ module.exports = function initialize() {
   Simput.registerHook('updateMaterialUsed', updateMaterialUsed);
   Simput.registerHook('updateCellUsed', updateCellUsed);
   Simput.registerHook('updateRodUsed', updateRodUsed);
+  Simput.registerHook('updateRodmapUsed', updateRodmapUsed);
   Simput.registerHook('addNextView', addNextView);
   Simput.registerHook('rodsToExternal', pushRodsToExternalHook);
   Simput.registerHook('mapsToExternal', mapsToExternal);

@@ -263,12 +263,15 @@ const model = {
         'CoreDetectorMap',
         'LabelMap',
       ],
-      hooks: [{ type: 'coreToExternal' }],
+      hooks: [
+        { type: 'coreToExternal' }
+      ],
     },
     CoreAssemblyMap: {
       label: 'Assemblies',
       attributes: ['coreMapInfo', 'lowerNozzleSpec', 'upperNozzleSpec', 'coreMap'],
       hooks: [
+        { type: 'updateRodmapUsed' },
         { type: 'coreToExternal' },
         {
           type: 'addNextView',
@@ -281,12 +284,18 @@ const model = {
     CoreControlInsertMap: {
       label: 'Controls and Inserts',
       attributes: ['coreMapInfo', 'controlMapInfo', 'coreMap'],
-      hooks: [{ type: 'coreToExternal' }],
+      hooks: [
+        { type: 'updateRodmapUsed' },
+        { type: 'coreToExternal' },
+      ],
     },
     CoreDetectorMap: {
       label: 'Detectors',
       attributes: ['coreMapInfo', 'coreMap'],
-      hooks: [{ type: 'coreToExternal' }],
+      hooks: [
+        { type: 'updateRodmapUsed' },
+        { type: 'coreToExternal' },
+      ],
     },
     CoreDefinition: {
       label: 'Core definition',
