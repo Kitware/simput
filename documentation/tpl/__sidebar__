@@ -1,0 +1,7 @@
+docs:
+  getting_started:
+    overview: index.html
+    model: model.html
+    convert: convert.html
+  example:
+    vcard: vcard.html

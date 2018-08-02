@@ -1,0 +1,13 @@
+<v-tabs
+  :class="$style.tabs"
+  v-model="activeTab"
+>
+  <v-tab>Workflow</v-tab>
+  <v-tab>Options</v-tab>
+  <v-tab-item>
+    <workflow-menu />
+  </v-tab-item>
+  <v-tab-item>
+    <global-settings />
+  </v-tab-item>
+</v-tabs>

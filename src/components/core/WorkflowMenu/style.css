@@ -1,0 +1,143 @@
+.container {
+  flex: none;
+  padding-left: 18px;
+  padding-right: 15px;
+  margin-right: 12px;
+  min-width: 250px;
+  max-width: 400px;
+  width: 20%;
+}
+
+.hidden {
+  display: none;
+}
+
+.list {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.rootList {
+  composes: list;
+  padding-left: 0px;
+}
+
+.listItem {
+  cursor: pointer;
+  max-width: 30vw;
+  padding-top: 2px 0;
+  user-select: none;
+}
+
+.listRow {
+  display: flex;
+  flex-flow: row;
+}
+
+.listRow:hover {
+  background: #eee;
+}
+
+.listRowName {
+  flex: 2;
+}
+
+.nestedList {
+  composes: list;
+  padding-left: 10px;
+  border-left: solid 1px #aaa;
+  margin-left: 4px;
+}
+
+.activeListItem {
+  composes: listItem;
+  font-weight: bold;
+}
+
+.button {
+  display: inline-block;
+  /*composes: fa from 'font-awesome/css/font-awesome.css';*/
+  /*composes: fa-fw from 'font-awesome/css/font-awesome.css';*/
+}
+
+.addButton {
+  composes: button;
+  /*composes: fa-plus from 'font-awesome/css/font-awesome.css';*/
+  content: '+';
+}
+
+.deleteButton {
+  composes: button;
+  /*composes: fa-trash from 'font-awesome/css/font-awesome.css';*/
+  content: 'x';
+}
+
+.editButton {
+  composes: button;
+  /*composes: fa-pencil from 'font-awesome/css/font-awesome.css';*/
+  content: '~';
+}
+
+.validIcon {
+  /*composes: fa from 'font-awesome/css/font-awesome.css';*/
+  /*composes: fa-fw from 'font-awesome/css/font-awesome.css';*/
+  /*composes: fa-check from 'font-awesome/css/font-awesome.css';*/
+  content: 'OK';
+}
+
+.invalidIcon {
+  /*composes: fa from 'font-awesome/css/font-awesome.css';*/
+  /*composes: fa-exclamation-triangle from 'font-awesome/css/font-awesome.css';*/
+  content: 'error';
+}
+
+.editable {
+  margin-right: 4px;
+}
+
+.inLineBlock {
+  display: inline-block;
+}
+
+.bullet {
+  position: relative;
+  width: 15px;
+  left: -2px;
+}
+
+.caret {
+  position: relative;
+  left: 0;
+  top: 2px;
+}
+
+.bullet svg.caret path {
+  fill: none;
+  stroke: #777;
+  stroke-linecap: round;
+  stroke-width: 2;
+  stroke-dasharray: 29 40;
+  transition: stroke-dashoffset 0.3s;
+}
+
+.collapsedBullet {
+  composes: bullet;
+}
+
+.collapsedBullet path {
+  stroke-dashoffset: 0;
+}
+
+.expendedBullet {
+  composes: bullet;
+}
+
+.expendedBullet path {
+  stroke-dashoffset: -15;
+}
+
+.noBullet {
+  composes: bullet;
+  display: none;
+}
+

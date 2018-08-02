@@ -1,0 +1,68 @@
+{
+  "name": "simput",
+  "description": "Provide a simple way to write input simulation files.",
+  "version": "0.0.0-semantically-release",
+  "keywords": [
+    "forms",
+    "input",
+    "simulation",
+    "template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitware/simput.git"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/kitware/simput/issues"
+  },
+  "homepage": "https://github.com/kitware/simput#readme",
+  "scripts": {
+    "validate": "prettier --config ./prettier.config.js --list-different \"src/**/*.js\"",
+    "reformat": "prettier --config ./prettier.config.js --write \"src/**/*.js\"",
+    "doc": "kw-doc -c ./documentation/config.js",
+    "doc:www": "kw-doc -c ./documentation/config.js -s",
+    "doc:publish": "kw-doc -c ./documentation/config.js -mp",
+    "build": "webpack --config build/webpack.dev.config.js",
+    "build:release": "webpack --config build/webpack.prod.config.js -p",
+    "version": "node ./build/writeVersion.js",
+    "dev": "webpack-dev-server --config build/webpack.dev.config.js",
+    "bundle": "inline-source --compress false --root ./dist ./dist/index.html ./dist/ParaViewGlance.html",
+    "commit": "git cz",
+    "semantic-release": "semantic-release",
+    "prepublishOnly": "npm run version && npm run bundle"
+  },
+  "author": "Kitware",
+  "dependencies": {
+    "material-design-icons-iconfont": "3.0.3",
+    "mousetrap": "1.6.2",
+    "typeface-roboto": "0.0.54",
+    "vue": "2.5.16",
+    "vuetify": "1.0.19",
+    "vuex": "3.0.1",
+    "jszip": "3.1.5",
+    "handlebars": "4.0.11",
+    "handlebars-loader": "1.7.0",
+    "vtk.js": "7.4.10",
+    "kw-web-suite": "6.2.0"
+  },
+  "devDependencies": {
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
+    "eslint-plugin-vue": "4.5.0",
+    "kw-doc": "1.2.0",
+    "vue-loader": "15.2.4",
+    "vue-style-loader": "4.1.0",
+    "vue-template-compiler": "2.5.16",
+    "webpack-merge": "4.1.2",
+    "write-file-webpack-plugin": "4.3.2"
+  },
+  "bin": {
+    "Simput": "./src/cli/simput-cli.js"
+  },
+  "preferGlobal": true,
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  }
+}
