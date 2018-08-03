@@ -177,6 +177,9 @@ export default class ModelManager {
         // Children
         const nodeChildren = [];
         if (node.addChildButton) {
+          if (!(id in this.data)) {
+            this.addView(id);
+          }
           this.data[id].forEach((viewItem, idx) => {
             const child = {
               id,
