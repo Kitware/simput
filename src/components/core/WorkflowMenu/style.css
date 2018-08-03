@@ -1,11 +1,6 @@
 .container {
   flex: none;
-  padding-left: 18px;
-  padding-right: 15px;
-  margin-right: 12px;
   min-width: 250px;
-  max-width: 400px;
-  width: 20%;
 }
 
 .hidden {
