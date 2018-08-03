@@ -1,59 +1,63 @@
 <div :class="$style.container" v-if="dataModel">
-  <ul :class="$style.rootList">
-    <li
-      v-for="node in dataModel.getMenuList()"
-      :class="node.active ? $style.activeListItem : $style.listItem"
+  <v-list dense expand>
+    <v-list-group
+      v-for="(node,i) in dataModel.getMenuList()"
+      :key="i"
+      sub-group
+      no-action
+      :value="!dataModel.isCollapsed(node.id, 0)"
+      :class="$style.group"
     >
-      <div :class="$style.listRow">
-        <span
-          :class="$style[node.bullet]"
-          v-on:click.stop="dataModel.toggleCollapse(node.id, node.index)"
-        >
-          <svg
-            :class="$style.caret"
-            width="15"
-            height="15"
-            viewBox="0 0 26 26"
-          >
-            <path d="M11,1 L21,11 L11,21 L1,11" />
-          </svg>
-        </span>
-        <span
-          :class="$style.listRowName"
-          v-on:click.stop="dataModel.activateView(node.id, node.index)"
-        >
-          {{node.label}}
-        </span>
-        <i
-          :class="node.addChildButton ? $style.addButton : $style.hidden"
-          v-on:click.stop="dataModel.addView(node.id)"
-        />
-      </div>
-      <ul
-        :class="node.children && !dataModel.isCollapsed(node.id, 0) ? $style.nestedList : $style.hidden"
-      >
-        <li
-          v-for="child in node.children"
-          :class="child.active ? $style.activeListItem : $style.listItem"
-        >
-          <div :class="$style.listRow">
-            <span
-              :class="$style.listRowName"
-              v-on:click.stop="dataModel.activateView(child.id, child.index)"
+      <v-list-tile slot="activator">
+        <v-list-tile-content>
+          <v-list-tile-title :class="$style.listRow">
+            <span>{{ node.label }}</span>
+            <v-spacer />
+            <v-btn
+              v-if="node.addChildButton"
+              key="if-add-button"
+              icon
+              small
+              :class="$style.listButton"
+              v-on:click.stop="dataModel.addView(node.id)"
             >
-              {{child.label}}
-            </span>
-            <i
-              :class="node.invalid ? $style.invalidIcon : $style.hidden"
-              title={node.invalid}
-            />
-            <i
-              :class="child.noDelete ? $style.hidden : $style.deleteButton"
-              v-on:click.stop="dataModel.deleteView(child.id, child.index)"
-            />
-          </div>
-        </li>
-      </ul>
-    </li>
-  </ul>
+              <i :class="$style.addButton" />
+            </v-btn>
+          </v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <template v-for="child in node.children">
+        <v-list-tile
+          @click.stop="dataModel.activateView(child.id, child.index)"
+        >
+          <v-list-tile-content>
+            <v-list-tile-title :class="$style.listRow">
+              <span
+                :class="child.active ? $style.activeListItem : null"
+              >
+                {{ child.label }}
+              </span>
+              <v-spacer />
+              <i
+                v-if="node.invalid"
+                key="if-node-invalid"
+                :class="$style.invalidIcon"
+                title={node.invalid}
+              />
+              <v-btn
+                v-if="!child.noDelete"
+                key="if-no-delete"
+                icon
+                small
+                :class="$style.listButton"
+                v-on:click.stop="dataModel.deleteView(child.id, child.index)"
+              >
+                <i :class="$style.deleteButton" />
+              </v-btn>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </template>
+    </v-list-group>
+  </v-list>
 </div>

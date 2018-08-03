@@ -17,9 +17,14 @@
   padding-left: 20px;
 }
 
-.rootList {
-  composes: list;
-  padding-left: 0px;
+/* override vuetify */
+.group :global(.list__group__header__prepend-icon) {
+  padding: 0;
+  min-width: 0;
+}
+
+.group :global(.list__tile) {
+  padding-left: 32px;
 }
 
 .listItem {
@@ -32,10 +37,13 @@
 .listRow {
   display: flex;
   flex-flow: row;
+  align-items: center;
 }
 
-.listRow:hover {
-  background: #eee;
+.listButton {
+  margin: 0;
+  height: 20px !important;
+  width: 20px !important;
 }
 
 .listRowName {
@@ -50,12 +58,13 @@
 }
 
 .activeListItem {
-  composes: listItem;
   font-weight: bold;
 }
 
 .button {
   display: inline-block;
+  font-style: normal;
+  font-weight: bold;
   /*composes: fa from 'font-awesome/css/font-awesome.css';*/
   /*composes: fa-fw from 'font-awesome/css/font-awesome.css';*/
 }
@@ -63,11 +72,17 @@
 .addButton {
   composes: button;
   /*composes: fa-plus from 'font-awesome/css/font-awesome.css';*/
+}
+
+.addButton:after {
   content: '+';
 }
 
 .deleteButton {
   composes: button;
+}
+
+.deleteButton:after {
   /*composes: fa-trash from 'font-awesome/css/font-awesome.css';*/
   content: 'x';
 }
@@ -85,7 +100,7 @@
   content: 'OK';
 }
 
-.invalidIcon {
+.invalidIcon:after {
   /*composes: fa from 'font-awesome/css/font-awesome.css';*/
   /*composes: fa-exclamation-triangle from 'font-awesome/css/font-awesome.css';*/
   content: 'error';
