@@ -81,7 +81,8 @@ export default class ModelManager {
 
     if (this.activeViewName === viewName) {
       if (this.data[viewName].length) {
-        this.activateView(viewName, index >= 0 ? index - 1 : index);
+        const newIndex = this.activeViewIndex === index ? index - 1 : index;
+        this.activateView(viewName, newIndex);
       } else {
         this.activateView(null, -1);
       }
