@@ -70,7 +70,7 @@ export default class ModelManager {
     const name = `${this.localizedData.getView(viewName)} ${index}`;
 
     viewList.push({ name });
-    this.data[viewName] = viewList;
+    this.data = Object.assign({}, this.data, { [viewName]: viewList });
     this.activateView(viewName, index);
   }
 
