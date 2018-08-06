@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
 
 export default {
-  name: 'LayoutView',
+  name: 'WorkflowContent',
 };

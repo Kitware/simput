@@ -7,8 +7,8 @@ import ControlsDrawer from 'simput/src/components/core/ControlsDrawer';
 import DragAndDrop from 'simput/src/components/widgets/DragAndDrop';
 import ErrorBox from 'simput/src/components/core/ErrorBox';
 import Landing from 'simput/src/components/core/Landing';
-import LayoutView from 'simput/src/components/core/LayoutView';
 import SvgIcon from 'simput/src/components/widgets/SvgIcon';
+import WorkflowContent from 'simput/src/components/core/WorkflowContent';
 import { Actions, Mutations } from 'simput/src/stores/types';
 import shortcuts from 'simput/src/shortcuts';
 
@@ -25,8 +25,8 @@ export default {
     DragAndDrop,
     ErrorBox,
     Landing,
-    LayoutView,
     SvgIcon,
+    WorkflowContent,
   },
   props: {},
   data() {
