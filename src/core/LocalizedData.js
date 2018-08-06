@@ -30,21 +30,32 @@ export default class LocalizedLabels {
     return this.model.views[name].label || 'No label in model';
   }
 
-  // FIXME...
-
   getAttribute(name) {
-    // ? labels[attrName].title
-    // : model.definitions[attrName].label,
-    return `L) ${name}`;
+    const fromLabel =
+      this.activeLabels &&
+      this.activeLabels.attributes[name] &&
+      this.activeLabels.attributes[name].title;
+    return fromLabel || this.model.definitions[name].label || 'No label';
   }
 
   getParameter(attributeName, parameterId) {
-    return [attributeName, parameterId].join('_');
+    const fromLabel =
+      this.activeLabels &&
+      this.activeLabels.attributes[attributeName] &&
+      this.activeLabels.attributes[attributeName].parameters &&
+      this.activeLabels.attributes[attributeName].parameters[parameterId];
+    return (
+      fromLabel ||
+      this.model.definitions[attributeName].parameters.find(
+        (p) => p.id === parameterId
+      ) ||
+      'No label'
+    );
   }
 
   getHelp(attributeName, parameterId) {
     if (this.lang in this.allLanguages) {
-      return this.allLanguages[this.lang][attributeName][parameterId];
+      return this.allLanguages[this.lang].help[attributeName][parameterId];
     }
     return `No help for ${attributeName}`;
   }
