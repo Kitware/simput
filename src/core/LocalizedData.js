@@ -43,6 +43,9 @@ export default class LocalizedLabels {
   }
 
   getHelp(attributeName, parameterId) {
-    return this.lang[this.lang][attributeName][parameterId];
+    if (this.lang in this.allLanguages) {
+      return this.allLanguages[this.lang][attributeName][parameterId];
+    }
+    return `No help for ${attributeName}`;
   }
 }

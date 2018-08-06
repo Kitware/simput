@@ -22,6 +22,7 @@ const UI_KEYS = [
 export default class ModelManager {
   constructor(module, simputModel) {
     this.module = module;
+    this.model = module.model;
 
     this.hideViews = simputModel.hideViews || [];
     this.data = simputModel.data;
@@ -95,8 +96,13 @@ export default class ModelManager {
 
   getPropertyList() {
     const propertyList = [];
+
+    if (!this.activeViewName || this.activeViewIndex === -1) {
+      return propertyList;
+    }
+
     const viewData = this.data[this.activeViewName][this.activeViewIndex];
-    const viewAttrs = this.module.views[this.activeViewName].attributes || [];
+    const viewAttrs = this.model.views[this.activeViewName].attributes || [];
 
     // FIXME should add attribute separator + or management
     viewAttrs.forEach((attrName) => {
@@ -105,12 +111,12 @@ export default class ModelManager {
       };
       const contents = [];
       const attrChildren = [];
-      this.module.definitions[attrName].parameters.forEach((paramAttr, idx) => {
+      this.model.definitions[attrName].parameters.forEach((paramAttr, idx) => {
         if (Array.isArray(paramAttr)) {
           // OR prop
           paramAttr.forEach((orAttr) => {
             const keepTitle =
-              this.module.definitions[attrName].parameters.length - 1 === idx;
+              this.model.definitions[attrName].parameters.length - 1 === idx;
             const orCtx = {
               show: this.getShowFunction(attrName, orAttr),
               contents,
@@ -119,10 +125,10 @@ export default class ModelManager {
             if (keepTitle) {
               orCtx.contents = [];
             }
-            this.module.definitions[orAttr].parameters.forEach((param) => {
+            this.model.definitions[orAttr].parameters.forEach((param) => {
               const prop = this.getParameterData(orAttr, param.id);
               prop.viewData = viewData;
-              if (this.module.definitions[attrName].children[orAttr]) {
+              if (this.model.definitions[attrName].children[orAttr]) {
                 prop.show = orCtx.show;
               }
               orCtx.contents.push(prop);
@@ -156,7 +162,7 @@ export default class ModelManager {
 
   getMenuList() {
     const menu = [];
-    this.module.model.order.forEach((id) => {
+    this.model.order.forEach((id) => {
       if (this.hideViews.indexOf(id) === -1) {
         const node = {
           id,
@@ -166,7 +172,7 @@ export default class ModelManager {
             : 'expendedBullet',
           index: 0,
         };
-        const { size, children } = this.module.model.views[id];
+        const { size, children } = this.model.views[id];
         const childCount = this.data[id] && this.data[id].length;
 
         // Flags
@@ -190,10 +196,8 @@ export default class ModelManager {
               index: idx,
               active:
                 this.activeViewName === id && this.activeViewIndex === idx,
-              noDelete:
-                this.module.model.views[id].noDelete || viewItem.noDelete,
-              readOnly:
-                this.module.model.views[id].readOnly || viewItem.readOnly,
+              noDelete: this.model.views[id].noDelete || viewItem.noDelete,
+              readOnly: this.model.views[id].readOnly || viewItem.readOnly,
             };
             nodeChildren.push(child);
           });
@@ -235,7 +239,7 @@ export default class ModelManager {
       this.cache.parameter[attributeName] = {};
     }
     if (!this.cache.parameter[attributeName][parameterId]) {
-      this.module.definitions[attributeName].parameters.forEach((param) => {
+      this.model.definitions[attributeName].parameters.forEach((param) => {
         this.cache.parameter[attributeName][param.id] = param;
       });
     }
@@ -441,9 +445,9 @@ export default class ModelManager {
 
     if (!this.cache.show[attributeName][orAttribute]) {
       const attrList = [attributeName].concat(
-        Object.keys(this.module.definitions[attributeName].children)
+        Object.keys(this.model.definitions[attributeName].children)
       );
-      const boolExpr = this.module.definitions[attributeName].children[
+      const boolExpr = this.model.definitions[attributeName].children[
         orAttribute
       ];
       const funcTemplate = [
@@ -480,7 +484,7 @@ export default class ModelManager {
 
   getShowParamFunction(attributeName, boolExpr) {
     const funcTemplate = [];
-    this.module.definitions[attributeName].parameters.forEach((param) => {
+    this.model.definitions[attributeName].parameters.forEach((param) => {
       if (!Array.isArray(param)) {
         funcTemplate.push(
           `var ${param.id.replace(
