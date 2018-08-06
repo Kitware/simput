@@ -23,5 +23,8 @@ export default {
       const alwaysShow = () => true;
       return (property.show || alwaysShow)(this.viewData) ? 'block' : 'none';
     },
+    updateViewData(newData) {
+      this.$store.state.templates.dataManager.updateViewData(newData);
+    },
   },
 };

@@ -28,9 +28,4 @@ export default {
       dataManager: (state) => state.templates.dataManager,
     })
   ),
-  methods: {
-    onChange(data) {
-      this.dataManager.updateViewData(data);
-    },
-  },
 };
