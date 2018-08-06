@@ -83,7 +83,6 @@ if (program.input && program.output && !program.gui) {
       open(`http://localhost:${program.port}`);
     }
   });
-
 } else if (program.add) {
   simputManager.add(program.add);
 } else if (program.list) {

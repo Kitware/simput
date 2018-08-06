@@ -41,7 +41,12 @@ module.exports = function convertGenerator(directory, modelFileName) {
           `output['${fileName}'] = (m) => JSON.stringify(m, null, 2);`
         );
       } else {
-        console.log('skip output of type', model.output[fileName].type, 'for file', fileName);
+        console.log(
+          'skip output of type',
+          model.output[fileName].type,
+          'for file',
+          fileName
+        );
       }
     });
   } else {
