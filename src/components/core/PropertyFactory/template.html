@@ -1,0 +1,10 @@
+<component
+  v-if="prop"
+  :is="component"
+  :key="prop.data.id"
+  :data="prop.data"
+  :ui="prop.ui"
+  :viewData="viewData"
+  :show="prop.show"
+  @change="$emit('change', arguments[0])"
+/>

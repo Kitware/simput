@@ -1,0 +1,20 @@
+<section :class="$style.propertyPanel">
+  <template v-for="property in input">
+    <div
+      :key="property.title"
+      :style="{ display: getPropertyDisplay(property) }"
+    >
+      <div :class="$style.propertyHeader">
+        <span class="font-weight-bold">{{ property.title }}</span>
+      </div>
+      <template v-for="(content, i) in property.contents">
+        <property-factory
+          :key="i"
+          :prop="content"
+          :viewData="viewData"
+          @change="$emit('change', arguments[0])"
+        />
+      </template>
+    </div>
+  </template>
+</section>

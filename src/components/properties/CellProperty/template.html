@@ -1,0 +1,11 @@
+<div
+  v-if="isVisible"
+  key="if-visible"
+  :class="$style.container"
+>
+  <v-text-field
+    :label="ui.label"
+    :value="data.value[0]"
+    @input="onChange"
+  />
+</div>
