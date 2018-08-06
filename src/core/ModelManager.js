@@ -94,6 +94,30 @@ export default class ModelManager {
 
   // --------
 
+  getActiveViewData() {
+    if (this.activeViewName && this.activeViewIndex > -1) {
+      return this.data[this.activeViewName][this.activeViewIndex];
+    }
+    return {};
+  }
+
+  // --------
+
+  updateViewData(newData) {
+    if (this.activeViewName && this.activeViewIndex > -1) {
+      const viewData = this.data[this.activeViewName][this.activeViewIndex];
+      const keypath = newData.id.split('.');
+      const attrName = keypath.shift();
+      viewData[attrName][keypath.join('.')] = Object.assign(
+        {},
+        viewData[attrName][keypath.join('.')],
+        { value: newData.value }
+      );
+    }
+  }
+
+  // --------
+
   getPropertyList() {
     const propertyList = [];
 

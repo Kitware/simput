@@ -1,3 +1,7 @@
 <v-container fluid :class="$style.container">
-  Hello world...
+  <property-panel
+    :input="panelData"
+    :viewData="viewData"
+    @change="onChange"
+  />
 </v-container>
