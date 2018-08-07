@@ -1,0 +1,17 @@
+{
+  "views": {
+    "oscillators": "Oscillator list",
+  },
+  "attributes": {
+    "oscillator": {
+      "title": "Oscillator",
+      "parameters": {
+        "type": "Type",
+        "center": "Center",
+        "radius": "Radius",
+        "omega": "Omega 0",
+        "zeta": "Zeta"
+      }
+    }
+  }
+}
