@@ -57,6 +57,11 @@ export default {
           commit(Mutations.SET_DATAMANAGER, dataManager);
           commit(Mutations.SHOW_APP);
         });
+      } else if (state.loaded[type] === 'loaded') {
+        const module = window.Simput.types[type];
+        const dataManager = new ModelManager(module, state.model);
+        commit(Mutations.SET_DATAMANAGER, dataManager);
+        commit(Mutations.SHOW_APP);
       }
     },
   },
