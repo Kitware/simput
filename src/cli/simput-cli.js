@@ -11,7 +11,7 @@ const simputCompiler = require('./compile');
 const simputManager = require('./manager');
 const simputConverter = require('./converter');
 const toAbsolutePath = require('./utils').toAbsolutePath;
-const pkg = require('../package.json');
+const pkg = require('../../package.json');
 
 const home = process.env.HOME;
 const simputFolder = path.join(home, '.Simput/');

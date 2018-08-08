@@ -38,4 +38,20 @@ export default [
     description: 'Click here to learn how to create your own type.',
     goTo: 'http://kitware.github.io/simput/docs/vcard.html'
   },
+  {
+    label: 'Demo',
+    icon: 'bug_report',
+    model: {
+      type: 'demo',
+      data: {},
+    },
+  },
+  {
+    label: 'Test',
+    icon: 'bug_report',
+    model: {
+      type: 'test',
+      data: {},
+    },
+  },
 ];

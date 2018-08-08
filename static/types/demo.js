@@ -81,20 +81,196 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./types/oscillator/src/index.js-exposed");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../simput/types/demo/src/index.js-exposed");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!./types/oscillator/src/index.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--12-0!./types/oscillator/src/index.js ***!
-  \**********************************************************************************/
+/***/ "../simput/types/demo/src/convert.js":
+/*!*******************************************!*\
+  !*** ../simput/types/demo/src/convert.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n    type: 'oscillator',\n    model: __webpack_require__(/*! ./model.js */ \"./types/oscillator/src/model.js\"),\n    lang: __webpack_require__(/*! ./lang */ \"./types/oscillator/src/lang/index.js\"),\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/oscillator/src/convert.js\"),\n    hooks: null,\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
+eval("\n\nvar template = __webpack_require__(/*! ./templates/demo.hbs */ \"../simput/types/demo/src/templates/demo.hbs\");\n\nmodule.exports = function (dataModel) {\n    var results = {\n        wow: 'this is a wow file. very magic',\n        bar: 'bar far mar gar har har har !'\n    },\n        error = null;\n\n    // FIXME\n\n    return { results: results, error: error };\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/convert.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/index.js-exposed":
+/*!*************************************************!*\
+  !*** ../simput/types/demo/src/index.js-exposed ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"demo\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!../simput/types/demo/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../simput2/node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///../simput/types/demo/src/index.js-exposed?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/attr1/index.js":
+/*!************************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/attr1/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"a\": __webpack_require__(/*! html-loader!./a */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/a\"),\n  \"b\": __webpack_require__(/*! html-loader!./b */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/b\"),\n  \"c\": __webpack_require__(/*! html-loader!./c */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/c\"),\n  \"d\": __webpack_require__(/*! html-loader!./d */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/d\"),\n  \"e\": __webpack_require__(/*! html-loader!./e */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/e\"),\n  \"f\": __webpack_require__(/*! html-loader!./f */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/f\"),\n  \"g\": __webpack_require__(/*! html-loader!./g */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/g\"),\n  \"h\": __webpack_require__(/*! html-loader!./h */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/h\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/attr3/index.js":
+/*!************************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/attr3/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"a\": __webpack_require__(/*! html-loader!./a */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr3/a\"),\n  \"b\": __webpack_require__(/*! html-loader!./b */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr3/b\"),\n  \"c\": __webpack_require__(/*! html-loader!./c */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr3/c\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr3/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/attr4/index.js":
+/*!************************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/attr4/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"f\": __webpack_require__(/*! html-loader!./f */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr4/f\"),\n  \"g\": __webpack_require__(/*! html-loader!./g */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr4/g\"),\n  \"h\": __webpack_require__(/*! html-loader!./h */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr4/h\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr4/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/attrOr/index.js":
+/*!*************************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/attrOr/index.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"a\": __webpack_require__(/*! html-loader!./a */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attrOr/a\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attrOr/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/double/index.js":
+/*!*************************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/double/index.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"h\": __webpack_require__(/*! html-loader!./h */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/double/h\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/double/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/index.js":
+/*!******************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"attr1\": __webpack_require__(/*! ./attr1 */ \"../simput/types/demo/src/lang/en/help/attr1/index.js\"),\n  \"attr3\": __webpack_require__(/*! ./attr3 */ \"../simput/types/demo/src/lang/en/help/attr3/index.js\"),\n  \"attr4\": __webpack_require__(/*! ./attr4 */ \"../simput/types/demo/src/lang/en/help/attr4/index.js\"),\n  \"attrOr\": __webpack_require__(/*! ./attrOr */ \"../simput/types/demo/src/lang/en/help/attrOr/index.js\"),\n  \"double\": __webpack_require__(/*! ./double */ \"../simput/types/demo/src/lang/en/help/double/index.js\"),\n  \"integers\": __webpack_require__(/*! ./integers */ \"../simput/types/demo/src/lang/en/help/integers/index.js\"),\n  \"strings\": __webpack_require__(/*! ./strings */ \"../simput/types/demo/src/lang/en/help/strings/index.js\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/integers/index.js":
+/*!***************************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/integers/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"h\": __webpack_require__(/*! html-loader!./h */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/integers/h\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/integers/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/help/strings/index.js":
+/*!**************************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/help/strings/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"a\": __webpack_require__(/*! html-loader!./a */ \"./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/strings/a\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/strings/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/index.js":
+/*!*************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"help\": __webpack_require__(/*! ./help */ \"../simput/types/demo/src/lang/en/help/index.js\"),\n  \"label.json\": __webpack_require__(/*! ./label.json */ \"../simput/types/demo/src/lang/en/label.json\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/en/label.json":
+/*!***************************************************!*\
+  !*** ../simput/types/demo/src/lang/en/label.json ***!
+  \***************************************************/
+/*! exports provided: views, attributes, default */
+/***/ (function(module) {
+
+eval("module.exports = {\"views\":{\"SingleView\":\"Single View\",\"ViewWithChildren\":\"View with children\",\"MultiView\":\"Multi-view\",\"ViewWithOr\":\"View with attribute selection\",\"AllTypes\":\"All types\",\"SubView1\":\"Sub-view a\",\"SubView2\":\"Sub-view b\",\"SubView3\":\"Sub-view c\"},\"attributes\":{\"attr1\":{\"title\":\"Attribute 1\",\"parameters\":{\"a\":\"a\",\"b\":\"b\",\"c\":\"c\",\"d\":\"d\",\"e\":\"e\",\"f\":\"f\",\"g\":\"g\",\"h\":\"h\"}},\"attr2\":{\"title\":\"Attribute 2\"},\"attr3\":{\"title\":\"Attribute 3\",\"parameters\":{\"a\":\"a\",\"b\":\"b\",\"c\":\"c\"}},\"attr4\":{\"title\":\"Attribute 4\",\"parameters\":{\"f\":\"f\",\"g\":\"g\",\"h\":\"h\"}},\"attrOr\":{\"title\":\"Or Attribute\",\"parameters\":{\"a\":\"a\"}},\"strings\":{\"title\":\"Strings\",\"parameters\":{\"a\":\"a\"}},\"integers\":{\"title\":\"Integers\",\"parameters\":{\"h\":\"h\"}},\"double\":{\"title\":\"Double\",\"parameters\":{\"h\":\"H\"}}}};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/label.json?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/lang/index.js":
+/*!**********************************************!*\
+  !*** ../simput/types/demo/src/lang/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"en\": __webpack_require__(/*! ./en */ \"../simput/types/demo/src/lang/en/index.js\")\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/index.js?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/model.json":
+/*!*******************************************!*\
+  !*** ../simput/types/demo/src/model.json ***!
+  \*******************************************/
+/*! exports provided: order, views, definitions, default */
+/***/ (function(module) {
+
+eval("module.exports = {\"order\":[\"SingleView\",\"ViewWithChildren\",\"MultiView\",\"ViewWithOr\",\"AllTypes\"],\"views\":{\"SingleView\":{\"attributes\":[\"attr1\"]},\"ViewWithChildren\":{\"children\":[\"SubView1\",\"SubView2\",\"SubView3\"]},\"MultiView\":{\"size\":-1,\"attributes\":[\"attr1\"]},\"ViewWithOr\":{\"attributes\":[\"attrOr\"]},\"AllTypes\":{\"attributes\":[\"strings\",\"integers\",\"double\"]},\"SubView1\":{\"attributes\":[\"attr1\"]},\"SubView2\":{\"attributes\":[\"attr2\"],\"size\":-1},\"SubView3\":{\"attributes\":[\"attr3\"]}},\"definitions\":{\"attr1\":{\"parameters\":[{\"id\":\"a\",\"type\":\"int\",\"size\":1,\"default\":0},{\"id\":\"b\",\"type\":\"string\",\"size\":2,\"layout\":\"2\",\"default\":[\"x\",\"y\"],\"show\":\"a[0] > 5\"},{\"id\":\"c\",\"type\":\"string\",\"size\":3,\"layout\":\"3\",\"default\":[\"x\",\"y\",\"z\"]},{\"id\":\"d\",\"type\":\"string\",\"size\":4,\"default\":[\"1\",\"2\",\"3\",\"4\"]},{\"id\":\"e\",\"type\":\"string\",\"size\":5,\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\"]},{\"id\":\"f\",\"type\":\"string\",\"size\":6,\"layout\":\"m6\",\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]},{\"id\":\"g\",\"type\":\"string\",\"size\":6,\"layout\":\"2x3\",\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]},{\"id\":\"h\",\"type\":\"string\",\"size\":6,\"layout\":\"3x2\",\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]}]},\"attr2\":{\"parameters\":[{\"id\":\"a\",\"type\":\"int\",\"size\":1,\"ui\":\"enum\",\"default\":[3],\"domain\":{\"Choice 1\":0,\"Choice 2\":1,\"Choice 3\":2,\"Choice 4\":3,\"Choice 5\":4}},{\"id\":\"b\",\"type\":\"int\",\"size\":-1,\"ui\":\"enum\",\"default\":[0,3,4],\"domain\":{\"Choice 1\":0,\"Choice 2\":1,\"Choice 3\":2,\"Choice 4\":3,\"Choice 5\":4}}]},\"attr3\":{\"parameters\":[{\"id\":\"a\",\"type\":\"bool\",\"size\":2,\"ui\":\"checkbox\",\"default\":[true,false]},{\"id\":\"b\",\"type\":\"string\",\"size\":2,\"default\":[\"x\",\"y\"]},{\"id\":\"c\",\"type\":\"string\",\"size\":3,\"default\":[\"x\",\"y\",\"z\"]}]},\"attr4\":{\"parameters\":[{\"id\":\"f\",\"type\":\"string\",\"size\":6,\"layout\":\"m6\",\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]},{\"id\":\"g\",\"type\":\"string\",\"size\":6,\"layout\":\"2x3\",\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]},{\"id\":\"h\",\"type\":\"string\",\"size\":6,\"layout\":\"3x2\",\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]}]},\"attrOr\":{\"parameters\":[{\"id\":\"a\",\"type\":\"int\",\"size\":1,\"ui\":\"enum\",\"default\":[3],\"domain\":{\"Choice 1\":1,\"Choice 2\":2,\"Choice 3\":3,\"Choice 4\":4,\"Choice 5\":5},\"help\":[\"_self\",\"attr1\",\"attr2\"]},[\"attr1\",\"attr2\",\"attr3\"]],\"children\":{\"attr1\":\"attrOr.a[0] >= 1\",\"attr2\":\"attrOr.a[0] === 2\",\"attr3\":\"attrOr.a[0] === 3\"}},\"strings\":{\"parameters\":[{\"id\":\"a\",\"type\":\"string\",\"size\":6,\"layout\":\"m6\",\"default\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]}]},\"integers\":{\"parameters\":[{\"id\":\"h\",\"type\":\"int\",\"size\":6,\"layout\":\"3x2\",\"default\":[1,2,3,4,5,6]}]},\"double\":{\"parameters\":[{\"id\":\"h\",\"type\":\"float\",\"size\":6,\"layout\":\"3x2\",\"default\":[1,2,3,4,5,6]}]}}};\n\n//# sourceURL=webpack:///../simput/types/demo/src/model.json?");
+
+/***/ }),
+
+/***/ "../simput/types/demo/src/templates/demo.hbs":
+/*!***************************************************!*\
+  !*** ../simput/types/demo/src/templates/demo.hbs ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"Just need to fill with some data...\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/demo/src/templates/demo.hbs?");
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!../simput/types/demo/src/index.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--12-0!../simput/types/demo/src/index.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n    type: 'demo',\n    model: __webpack_require__(/*! ./model.json */ \"../simput/types/demo/src/model.json\"),\n    lang: __webpack_require__(/*! ./lang */ \"../simput/types/demo/src/lang/index.js\"),\n    convert: __webpack_require__(/*! ./convert.js */ \"../simput/types/demo/src/convert.js\"),\n    hooks: null,\n    parse: null\n};\n\n//# sourceURL=webpack:///../simput/types/demo/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
 
 /***/ }),
 
@@ -326,58 +502,201 @@ eval("\n\n// Create a simple path alias to allow browserify to resolve\n// the r
 
 /***/ }),
 
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/center":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/center ***!
-  \****************************************************************************************/
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/a":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/a ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"i, j, k indexes of the oscillator center.\\n\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/center?./node_modules/html-loader");
+eval("module.exports = \"<p>This is parameter A</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/a?./node_modules/html-loader");
 
 /***/ }),
 
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/omega":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/omega ***!
-  \***************************************************************************************/
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/b":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/b ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"omega\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/omega?./node_modules/html-loader");
+eval("module.exports = \"<p>This is parameter B</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/b?./node_modules/html-loader");
 
 /***/ }),
 
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/radius":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/radius ***!
-  \****************************************************************************************/
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/c":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/c ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"Radius of the oscillator.\\n\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/radius?./node_modules/html-loader");
+eval("module.exports = \"<p>This is parameter Charlie</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/c?./node_modules/html-loader");
 
 /***/ }),
 
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/type":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/type ***!
-  \**************************************************************************************/
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/d":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/d ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"Kind of oscillator which can be either <b>Periodic</b>, <b>Damped</b> or <b>Decaying</b>.\\nOnly Decaying oscillator will have to provide the zeta information.\\n\\n<div class=\\\"mw-parser-output\\\"><div role=\\\"note\\\" class=\\\"hatnote navigation-not-searchable\\\">This article is about the harmonic oscillator in classical mechanics. For its uses in <a href=\\\"/wiki/Quantum_mechanics\\\" title=\\\"Quantum mechanics\\\">quantum mechanics</a>, see <a href=\\\"/wiki/Quantum_harmonic_oscillator\\\" title=\\\"Quantum harmonic oscillator\\\">quantum harmonic oscillator</a>.</div>\\n<table class=\\\"vertical-navbox nowraplinks\\\" style=\\\"float:right;clear:right;width:22.0em;margin:0 0 1.0em 1.0em;background:#f9f9f9;border:1px solid #aaa;padding:0.2em;border-spacing:0.4em 0;text-align:center;line-height:1.4em;font-size:88%\\\"><tbody><tr><td style=\\\"padding-top:0.4em;line-height:1.2em\\\">Part of a series of articles about</td></tr><tr><th style=\\\"padding:0.2em 0.4em 0.2em;padding-top:0;font-size:145%;line-height:1.2em;padding-left:0.9em;padding-right:0.9em;\\\"><a href=\\\"/wiki/Classical_mechanics\\\" title=\\\"Classical mechanics\\\">Classical mechanics</a></th></tr><tr><td style=\\\"padding:0.2em 0 0.4em\\\"><span class=\\\"mwe-math-element\\\"><span class=\\\"mwe-math-mathml-inline mwe-math-mathml-a11y\\\" style=\\\"display: none;\\\"><math xmlns=\\\"http://www.w3.org/1998/Math/MathML\\\" alttext=\\\"{\\\\displaystyle {\\\\vec {F}}=m{\\\\vec {a}}}\\\">\\n  <semantics>\\n    <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n      <mstyle displaystyle=\\\"true\\\" scriptlevel=\\\"0\\\">\\n        <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n          <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n            <mover>\\n              <mi>F</mi>\\n              <mo stretchy=\\\"false\\\">→<!-- → --></mo>\\n            </mover>\\n          </mrow>\\n        </mrow>\\n        <mo>=</mo>\\n        <mi>m</mi>\\n        <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n          <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n            <mover>\\n              <mi>a</mi>\\n              <mo stretchy=\\\"false\\\">→<!-- → --></mo>\\n            </mover>\\n          </mrow>\\n        </mrow>\\n      </mstyle>\\n    </mrow>\\n    <annotation encoding=\\\"application/x-tex\\\">{\\\\displaystyle {\\\\vec {F}}=m{\\\\vec {a}}}</annotation>\\n  </semantics>\\n</math></span><img src=\\\"https://wikimedia.org/api/rest_v1/media/math/render/svg/f7b202a8eaba4b424be52bcbaa043727b6ad9860\\\" class=\\\"mwe-math-fallback-image-inline\\\" aria-hidden=\\\"true\\\" style=\\\"vertical-align: -0.338ex; width:8.14ex; height:2.843ex;\\\" alt=\\\"{\\\\vec {F}}=m{\\\\vec {a}}\\\"></span><div style=\\\"padding-top:0.2em;line-height:1.2em;font-size:90%;padding:0.6em 0;font-style:italic;\\\"><a href=\\\"/wiki/Second_law_of_motion\\\" class=\\\"mw-redirect\\\" title=\\\"Second law of motion\\\">Second law of motion</a></div></td></tr><tr><th style=\\\"padding:0.1em;background:#ddf; display:block;margin-bottom:1.0em;\\\">\\n<div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/History_of_classical_mechanics\\\" title=\\\"History of classical mechanics\\\">History</a></li>\\n<li><a href=\\\"/wiki/Timeline_of_classical_mechanics\\\" title=\\\"Timeline of classical mechanics\\\">Timeline</a></li></ul>\\n</div></th></tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame collapsed\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame1\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Branches<a class=\\\"NavToggle\\\" id=\\\"NavToggle1\\\" href=\\\"#\\\">[show]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size: 105%; padding: 0.35em 0px 0.4em; text-align: center; display: none;\\\"><div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/Applied_mechanics\\\" title=\\\"Applied mechanics\\\">Applied</a></li>\\n<li><a href=\\\"/wiki/Celestial_mechanics\\\" title=\\\"Celestial mechanics\\\">Celestial</a></li>\\n<li><a href=\\\"/wiki/Continuum_mechanics\\\" title=\\\"Continuum mechanics\\\">Continuum</a></li>\\n<li><a href=\\\"/wiki/Analytical_dynamics\\\" title=\\\"Analytical dynamics\\\">Dynamics</a></li>\\n<li><a href=\\\"/wiki/Kinematics\\\" title=\\\"Kinematics\\\">Kinematics</a></li>\\n<li><a href=\\\"/wiki/Kinetics_(physics)\\\" title=\\\"Kinetics (physics)\\\">Kinetics</a></li>\\n<li><a href=\\\"/wiki/Statics\\\" title=\\\"Statics\\\">Statics</a></li>\\n<li><a href=\\\"/wiki/Statistical_mechanics\\\" title=\\\"Statistical mechanics\\\">Statistical</a></li></ul>\\n</div></div></div></td>\\n</tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame collapsed\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame2\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Fundamentals<a class=\\\"NavToggle\\\" id=\\\"NavToggle2\\\" href=\\\"#\\\">[show]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size: 105%; padding: 0.35em 0px 0.4em; text-align: center; display: none;\\\"><div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/Acceleration\\\" title=\\\"Acceleration\\\">Acceleration</a></li>\\n<li><a href=\\\"/wiki/Angular_momentum\\\" title=\\\"Angular momentum\\\">Angular momentum</a></li>\\n<li><a href=\\\"/wiki/Couple_(mechanics)\\\" title=\\\"Couple (mechanics)\\\">Couple</a></li>\\n<li><a href=\\\"/wiki/D%27Alembert%27s_principle\\\" title=\\\"D'Alembert's principle\\\">D'Alembert's principle</a></li>\\n<li><a href=\\\"/wiki/Energy\\\" title=\\\"Energy\\\">Energy</a>\\n<ul><li><a href=\\\"/wiki/Kinetic_energy#Newtonian_kinetic_energy\\\" title=\\\"Kinetic energy\\\">kinetic</a></li>\\n<li><a href=\\\"/wiki/Potential_energy\\\" title=\\\"Potential energy\\\">potential</a></li></ul></li>\\n<li><a href=\\\"/wiki/Force\\\" title=\\\"Force\\\">Force</a></li>\\n<li><a href=\\\"/wiki/Frame_of_reference\\\" title=\\\"Frame of reference\\\">Frame of reference</a></li>\\n<li><a href=\\\"/wiki/Inertial_frame_of_reference\\\" title=\\\"Inertial frame of reference\\\">Inertial frame of reference</a></li>\\n<li><a href=\\\"/wiki/Impulse_(physics)\\\" title=\\\"Impulse (physics)\\\">Impulse</a></li>\\n<li><span class=\\\"nowrap\\\"><a href=\\\"/wiki/Inertia\\\" title=\\\"Inertia\\\">Inertia</a>&nbsp;/ <a href=\\\"/wiki/Moment_of_inertia\\\" title=\\\"Moment of inertia\\\">Moment of inertia</a></span></li>\\n<li><a href=\\\"/wiki/Mass\\\" title=\\\"Mass\\\">Mass</a></li>\\n<li><br><a href=\\\"/wiki/Power_(physics)\\\" title=\\\"Power (physics)\\\">Mechanical power</a></li>\\n<li><a href=\\\"/wiki/Work_(physics)\\\" title=\\\"Work (physics)\\\">Mechanical work</a></li>\\n<li><br><a href=\\\"/wiki/Moment_(physics)\\\" title=\\\"Moment (physics)\\\">Moment</a></li>\\n<li><a href=\\\"/wiki/Momentum\\\" title=\\\"Momentum\\\">Momentum</a></li>\\n<li><a href=\\\"/wiki/Space\\\" title=\\\"Space\\\">Space</a></li>\\n<li><a href=\\\"/wiki/Speed\\\" title=\\\"Speed\\\">Speed</a></li>\\n<li><a href=\\\"/wiki/Time\\\" title=\\\"Time\\\">Time</a></li>\\n<li><a href=\\\"/wiki/Torque\\\" title=\\\"Torque\\\">Torque</a></li>\\n<li><a href=\\\"/wiki/Velocity\\\" title=\\\"Velocity\\\">Velocity</a></li>\\n<li><a href=\\\"/wiki/Virtual_work\\\" title=\\\"Virtual work\\\">Virtual work</a></li></ul>\\n</div></div></div></td>\\n</tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame collapsed\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame3\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Formulations<a class=\\\"NavToggle\\\" id=\\\"NavToggle3\\\" href=\\\"#\\\">[show]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size: 105%; padding: 0.35em 0px 0.4em; text-align: center; display: none;\\\">\\n<ul><li><div style=\\\"padding:0.1em 0;line-height:1.2em;\\\"><b><a href=\\\"/wiki/Newton%27s_laws_of_motion\\\" title=\\\"Newton's laws of motion\\\">Newton's laws of motion</a></b></div></li>\\n<li><div style=\\\"padding:0.1em 0;line-height:1.2em;\\\"><b><a href=\\\"/wiki/Analytical_mechanics\\\" title=\\\"Analytical mechanics\\\">Analytical mechanics</a></b> <div class=\\\"plainlist\\\"><ul><li><a href=\\\"/wiki/Lagrangian_mechanics\\\" title=\\\"Lagrangian mechanics\\\">Lagrangian mechanics</a></li><li><a href=\\\"/wiki/Hamiltonian_mechanics\\\" title=\\\"Hamiltonian mechanics\\\">Hamiltonian mechanics</a></li><li><a href=\\\"/wiki/Routhian_mechanics\\\" title=\\\"Routhian mechanics\\\">Routhian mechanics</a></li><li><a href=\\\"/wiki/Hamilton%E2%80%93Jacobi_equation\\\" title=\\\"Hamilton–Jacobi equation\\\">Hamilton–Jacobi equation</a></li><li><a href=\\\"/wiki/Appell%27s_equation_of_motion\\\" title=\\\"Appell's equation of motion\\\">Appell's equation of motion</a></li><li><a href=\\\"/wiki/Udwadia%E2%80%93Kalaba_equation\\\" title=\\\"Udwadia–Kalaba equation\\\">Udwadia–Kalaba equation</a></li><li><a href=\\\"/wiki/Koopman%E2%80%93von_Neumann_classical_mechanics\\\" title=\\\"Koopman–von Neumann classical mechanics\\\">Koopman–von Neumann mechanics</a></li></ul></div></div></li></ul></div></div></td>\\n</tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame4\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Core topics<a class=\\\"NavToggle\\\" id=\\\"NavToggle4\\\" href=\\\"#\\\">[hide]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size:105%;padding:0.2em 0 0.4em;text-align:center;padding-top:0.35em;\\\"><div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/Damping\\\" class=\\\"mw-redirect\\\" title=\\\"Damping\\\">Damping</a>&nbsp;(<a href=\\\"/wiki/Damping_ratio\\\" title=\\\"Damping ratio\\\">ratio</a>)</li>\\n<li><a href=\\\"/wiki/Displacement_(vector)\\\" title=\\\"Displacement (vector)\\\">Displacement</a></li>\\n<li><a href=\\\"/wiki/Equations_of_motion\\\" title=\\\"Equations of motion\\\">Equations of motion</a></li>\\n<li><a href=\\\"/wiki/Euler%27s_laws_of_motion\\\" title=\\\"Euler's laws of motion\\\"><span class=\\\"wrap\\\">Euler's laws of motion</span></a></li>\\n<li><a href=\\\"/wiki/Fictitious_force\\\" title=\\\"Fictitious force\\\">Fictitious force</a></li>\\n<li><a href=\\\"/wiki/Friction\\\" title=\\\"Friction\\\">Friction</a></li>\\n<li><a class=\\\"mw-selflink selflink\\\">Harmonic oscillator</a></li></ul>\\n</div>\\n</div>\\n\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/type?./node_modules/html-loader");
+eval("module.exports = \"<p>This is parameter Delta (∆)</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/d?./node_modules/html-loader");
 
 /***/ }),
 
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/zeta":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/zeta ***!
-  \**************************************************************************************/
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/e":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/e ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"zeta\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/zeta?./node_modules/html-loader");
+eval("module.exports = \"<p>This is parameter Echo</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/e?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/f":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/f ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter Foxtrot</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/f?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/g":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/g ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter <a href=\\\"http://www.vw.com/models/golf/\\\" target=\\\"_blank\\\">Golf</a></p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/g?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr1/h":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr1/h ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter H</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr1/h?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr3/a":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr3/a ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter A</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr3/a?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr3/b":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr3/b ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter B</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr3/b?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr3/c":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr3/c ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter Charlie</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr3/c?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr4/f":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr4/f ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter Foxtrot</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr4/f?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr4/g":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr4/g ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter <a href=\\\"http://www.vw.com/models/golf/\\\" target=\\\"_blank\\\">Golf</a></p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr4/g?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attr4/h":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attr4/h ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter H</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attr4/h?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/attrOr/a":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/attrOr/a ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is an Or parameter. The choices you make here will determine what inputs appear below. It will also determine the course of the <em>rest of your life</em>, choose wisely.</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/attrOr/a?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/double/h":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/double/h ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter H, it is a double</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/double/h?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/integers/h":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/integers/h ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter H it is an integer</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/integers/h?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!../simput/types/demo/src/lang/en/help/strings/a":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/html-loader!../simput/types/demo/src/lang/en/help/strings/a ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p>This is parameter Alpha (α) it is a string</p>\\n\";\n\n//# sourceURL=webpack:///../simput/types/demo/src/lang/en/help/strings/a?./node_modules/html-loader");
 
 /***/ }),
 
@@ -390,111 +709,6 @@ eval("module.exports = \"zeta\";\n\n//# sourceURL=webpack:///./types/oscillator/
 
 "use strict";
 eval("\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; };\n\nvar g;\n\n// This works in non-strict mode\ng = function () {\n\treturn this;\n}();\n\ntry {\n\t// This works if eval is allowed (see CSP)\n\tg = g || Function(\"return this\")() || (1, eval)(\"this\");\n} catch (e) {\n\t// This works if the window reference is available\n\tif ((typeof window === \"undefined\" ? \"undefined\" : _typeof(window)) === \"object\") g = window;\n}\n\n// g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\nmodule.exports = g;\n\n//# sourceURL=webpack:///(webpack)/buildin/global.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/convert.js":
-/*!*****************************************!*\
-  !*** ./types/oscillator/src/convert.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nvar outputTemplate = __webpack_require__(/*! ./output.hbs */ \"./types/oscillator/src/output.hbs\");\n\nmodule.exports = function convert(dataModel) {\n  var results = {};\n  var oscillatorsList = [];\n\n  dataModel.data.oscillators.forEach(function (attributes) {\n    var oscillator = {};\n    Object.keys(attributes.oscillator).forEach(function (fieldName) {\n      oscillator[fieldName] = attributes.oscillator[fieldName].value[0];\n    });\n    oscillatorsList.push(oscillator);\n  });\n\n  results['sample.osc'] = outputTemplate(oscillatorsList);\n\n  return { results: results, model: dataModel };\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/convert.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/index.js-exposed":
-/*!***********************************************!*\
-  !*** ./types/oscillator/src/index.js-exposed ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"oscillator\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!./types/oscillator/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/oscillator/src/index.js-exposed?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/help/index.js":
-/*!****************************************************!*\
-  !*** ./types/oscillator/src/lang/en/help/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"oscillator\": __webpack_require__(/*! ./oscillator */ \"./types/oscillator/src/lang/en/help/oscillator/index.js\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/help/oscillator/index.js":
-/*!***************************************************************!*\
-  !*** ./types/oscillator/src/lang/en/help/oscillator/index.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"center\": __webpack_require__(/*! html-loader!./center */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/center\"),\n  \"omega\": __webpack_require__(/*! html-loader!./omega */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/omega\"),\n  \"radius\": __webpack_require__(/*! html-loader!./radius */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/radius\"),\n  \"type\": __webpack_require__(/*! html-loader!./type */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/type\"),\n  \"zeta\": __webpack_require__(/*! html-loader!./zeta */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/zeta\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/index.js":
-/*!***********************************************!*\
-  !*** ./types/oscillator/src/lang/en/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"help\": __webpack_require__(/*! ./help */ \"./types/oscillator/src/lang/en/help/index.js\"),\n  \"label.json\": __webpack_require__(/*! ./label.json */ \"./types/oscillator/src/lang/en/label.json\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/label.json":
-/*!*************************************************!*\
-  !*** ./types/oscillator/src/lang/en/label.json ***!
-  \*************************************************/
-/*! exports provided: views, attributes, default */
-/***/ (function(module) {
-
-eval("module.exports = {\"views\":{\"oscillators\":\"Oscillator list\"},\"attributes\":{\"oscillator\":{\"title\":\"Oscillator\",\"parameters\":{\"type\":\"Type\",\"center\":\"Center\",\"radius\":\"Radius\",\"omega\":\"Omega 0\",\"zeta\":\"Zeta\"}}}};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/label.json?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/index.js":
-/*!********************************************!*\
-  !*** ./types/oscillator/src/lang/index.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"en\": __webpack_require__(/*! ./en */ \"./types/oscillator/src/lang/en/index.js\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/model.js":
-/*!***************************************!*\
-  !*** ./types/oscillator/src/model.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  order: ['oscillators'],\n  views: {\n    oscillators: {\n      size: -1,\n      attributes: ['oscillator']\n    }\n  },\n  definitions: {\n    oscillator: {\n      parameters: [{\n        id: 'type',\n        type: 'enum',\n        size: 1,\n        default: 'periodic',\n        domain: {\n          Periodic: 'periodic',\n          Damped: 'damped',\n          Decaying: 'decaying'\n        }\n      }, {\n        id: 'center',\n        type: 'int',\n        size: 3,\n        layout: '3',\n        default: [0, 0, 0]\n      }, {\n        id: 'radius',\n        type: 'double',\n        size: 1,\n        default: [1]\n      }, {\n        id: 'omega',\n        type: 'double',\n        size: 1,\n        default: [0]\n      }, {\n        id: 'zeta',\n        type: 'double',\n        size: 1,\n        show: \"type[0] === 'decaying'\"\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/model.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/output.hbs":
-/*!*****************************************!*\
-  !*** ./types/oscillator/src/output.hbs ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"1\":function(container,depth0,helpers,partials,data) {\n    var stack1, alias1=container.lambda, alias2=container.escapeExpression;\n\n  return alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.type : stack1), depth0))\n    + \"   \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.center : stack1), depth0))\n    + \"   \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.radius : stack1), depth0))\n    + \"   \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.omega : stack1), depth0))\n    + \"  \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.zeta : stack1), depth0))\n    + \"\\n\";\n},\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1;\n\n  return \"# type      center          r       omega0      zeta\\n\"\n    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.oscillator : depth0),{\"name\":\"each\",\"hash\":{},\"fn\":container.program(1, data, 0),\"inverse\":container.noop,\"data\":data})) != null ? stack1 : \"\");\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/oscillator/src/output.hbs?");
 
 /***/ })
 

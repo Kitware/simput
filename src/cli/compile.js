@@ -13,7 +13,7 @@ const fileToDelete = [];
 function buildWebpackConfiguration(name, basepath, outputPath, compress) {
   const plugins = [];
   const entry = path.join(basepath, 'index.js');
-  const simputNodeModules = path.join(__dirname, '../node_modules');
+  const simputNodeModules = path.join(__dirname, '../../node_modules');
   return {
     mode: compress ? 'production' : 'development',
     entry,

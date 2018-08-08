@@ -30,7 +30,8 @@
     "bundle": "inline-source --compress false --root ./dist ./dist/index.html ./dist/ParaViewGlance.html",
     "commit": "git cz",
     "semantic-release": "semantic-release",
-    "prepublishOnly": "npm run version && npm run bundle"
+    "prepublishOnly": "npm run version && npm run bundle",
+    "update:test": "node ./src/cli/simput-cli.js -c ./types/test/src -o ./static/types -t test"
   },
   "author": "Kitware",
   "dependencies": {
@@ -45,6 +46,7 @@
     "handlebars-loader": "1.7.0",
     "vtk.js": "7.4.10",
     "kw-web-suite": "6.2.0",
+    "open": "0.0.5",
     "serve-handler": "3.6.1"
   },
   "devDependencies": {

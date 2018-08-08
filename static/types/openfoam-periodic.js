@@ -81,20 +81,199 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./types/oscillator/src/index.js-exposed");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../simput/types/openfoam-periodic/src/index.js-exposed");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!./types/oscillator/src/index.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--12-0!./types/oscillator/src/index.js ***!
-  \**********************************************************************************/
+/***/ "../simput/types/openfoam-periodic/src/convert.js":
+/*!********************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/convert.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n    type: 'oscillator',\n    model: __webpack_require__(/*! ./model.js */ \"./types/oscillator/src/model.js\"),\n    lang: __webpack_require__(/*! ./lang */ \"./types/oscillator/src/lang/index.js\"),\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/oscillator/src/convert.js\"),\n    hooks: null,\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
+eval("\n\nvar templates = {\n  '/0/p': __webpack_require__(/*! ./templates/0/p.hbs */ \"../simput/types/openfoam-periodic/src/templates/0/p.hbs\"),\n  '/0/U': __webpack_require__(/*! ./templates/0/U.hbs */ \"../simput/types/openfoam-periodic/src/templates/0/U.hbs\"),\n  '/constant/transportProperties': __webpack_require__(/*! ./templates/constant/transportProperties.hbs */ \"../simput/types/openfoam-periodic/src/templates/constant/transportProperties.hbs\"),\n  '/constant/turbulenceProperties': __webpack_require__(/*! ./templates/constant/turbulenceProperties.hbs */ \"../simput/types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs\"),\n  '/constant/postChannelDict': __webpack_require__(/*! ./templates/constant/postChannelDict.hbs */ \"../simput/types/openfoam-periodic/src/templates/constant/postChannelDict.hbs\"),\n  '/constant/fvOptions': __webpack_require__(/*! ./templates/constant/fvOptions.hbs */ \"../simput/types/openfoam-periodic/src/templates/constant/fvOptions.hbs\"),\n  '/system/blockMeshDict': __webpack_require__(/*! ./templates/system/blockMeshDict.hbs */ \"../simput/types/openfoam-periodic/src/templates/system/blockMeshDict.hbs\"),\n  '/system/controlDict': __webpack_require__(/*! ./templates/system/controlDict.hbs */ \"../simput/types/openfoam-periodic/src/templates/system/controlDict.hbs\"),\n  '/system/decomposeParDict': __webpack_require__(/*! ./templates/system/decomposeParDict.hbs */ \"../simput/types/openfoam-periodic/src/templates/system/decomposeParDict.hbs\"),\n  '/system/fvSchemes': __webpack_require__(/*! ./templates/system/fvSchemes.hbs */ \"../simput/types/openfoam-periodic/src/templates/system/fvSchemes.hbs\"),\n  '/system/fvSolution': __webpack_require__(/*! ./templates/system/fvSolution.hbs */ \"../simput/types/openfoam-periodic/src/templates/system/fvSolution.hbs\"),\n  '/inputs': __webpack_require__(/*! ./templates/inputs.hbs */ \"../simput/types/openfoam-periodic/src/templates/inputs.hbs\")\n};\n\nmodule.exports = function convert(dataModel) {\n  var results = {};\n\n  dataModel.data.CaseBook.forEach(function (attributes) {\n    var mycase = {};\n    Object.keys(attributes.inputs).forEach(function (fieldName) {\n      mycase[fieldName] = attributes.inputs[fieldName].value[0];\n    });\n\n    Object.keys(templates).forEach(function (path) {\n      results[attributes.other.name.value[0].concat(path)] = templates[path](mycase);\n    });\n  });\n\n  return { results: results, model: dataModel };\n};\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/convert.js?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/hooks.js":
+/*!******************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/hooks.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nfunction updateToViewName(hookConfig, dataModel, currentViewData) {\n  currentViewData.name = [currentViewData.other.name.value[0]].join(' ');\n}\n\nmodule.exports = function initialize() {\n  Simput.registerHook('caseNameToView', updateToViewName);\n};\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/hooks.js?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/index.js-exposed":
+/*!**************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/index.js-exposed ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"openfoam-periodic\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!../simput/types/openfoam-periodic/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../simput2/node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/index.js-exposed?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/model.js":
+/*!******************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/model.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  order: ['General', 'CaseBook'],\n  views: {\n    General: {\n      id: 'General',\n      label: 'General',\n      attributes: [],\n      hooks: [],\n      readOnly: true\n    },\n    CaseBook: {\n      id: 'CaseBook',\n      label: 'Case Book',\n      attributes: ['other', 'inputs'],\n      size: -1,\n      hooks: [{\n        type: 'caseNameToView'\n      }],\n      readOnly: true\n    }\n  },\n  definitions: {\n    other: {\n      label: 'Other',\n      parameters: [{\n        id: 'name',\n        label: 'Name',\n        type: 'string',\n        size: 1,\n        default: 'MyCase'\n      }]\n    },\n    inputs: {\n      label: 'Inputs',\n      parameters: [{\n        id: 'reynolds_number',\n        label: 'Reynolds number',\n        type: 'double',\n        size: 1,\n        default: 1.0\n      }, {\n        id: 'cell_count',\n        label: 'Normal cell count',\n        type: 'integer',\n        size: 1,\n        default: 10\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/model.js?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/0/U.hbs":
+/*!***************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/0/U.hbs ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       volVectorField;\\n    location    \\\"1\\\";\\n    object      U;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\ndimensions      [0 1 -1 0 0 0 0];\\n\\ninternalField   uniform (1.0 0 0);\\n\\nboundaryField\\n{\\n    bottomWall\\n    {\\n        type            noSlip;\\n    }\\n    topWall\\n    {\\n        type            noSlip;\\n    }\\n    sides\\n    {\\n        type            empty;\\n    }\\n    inout1_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout1_half1\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half1\\n    {\\n        type            cyclic;\\n    }\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/0/U.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/0/p.hbs":
+/*!***************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/0/p.hbs ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       volScalarField;\\n    location    \\\"1\\\";\\n    object      p;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\ndimensions      [0 2 -2 0 0 0 0];\\n\\ninternalField   uniform 0;\\n\\nboundaryField\\n{\\n    bottomWall\\n    {\\n        type            zeroGradient;\\n    }\\n    topWall\\n    {\\n        type            zeroGradient;\\n    }\\n    sides\\n    {\\n        type            empty;\\n    }\\n    inout1_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout1_half1\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half1\\n    {\\n        type            cyclic;\\n    }\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/0/p.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/constant/fvOptions.hbs":
+/*!******************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/constant/fvOptions.hbs ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      fvOptions;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nmomentumSource\\n{\\n    type            meanVelocityForce;\\n\\n    selectionMode   all;\\n\\n    fields          (U);\\n    Ubar            (1.0 0 0);\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/constant/fvOptions.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/constant/postChannelDict.hbs":
+/*!************************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/constant/postChannelDict.hbs ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      postChannelDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\n// Seed patches to start layering from\\npatches         ( bottomWall );\\n\\n// Direction in which the layers are\\ncomponent       y;\\n\\n// Is the mesh symmetric? If so average(symmetric fields) or\\n// subtract(asymmetric) contributions from both halves\\nsymmetric       true;\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/constant/postChannelDict.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/constant/transportProperties.hbs":
+/*!****************************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/constant/transportProperties.hbs ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      transportProperties;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\n#include \\\"../inputs\\\"\\n\\ntransportModel  Newtonian;\\n\\nnu              [0 2 -1 0 0 0 0] #calc \\\"1.0 / $Re\\\";\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/constant/transportProperties.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs":
+/*!*****************************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      turbulenceProperties;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nsimulationType laminar;\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/inputs.hbs":
+/*!******************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/inputs.hbs ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1, helper;\n\n  return \"Re \"\n    + ((stack1 = ((helper = (helper = helpers.reynolds_number || (depth0 != null ? depth0.reynolds_number : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === \"function\" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{\"name\":\"reynolds_number\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/inputs.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/system/blockMeshDict.hbs":
+/*!********************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/system/blockMeshDict.hbs ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1, helper;\n\n  return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    object      blockMeshDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nconvertToMeters 1;\\n\\ncell_count \"\n    + ((stack1 = ((helper = (helper = helpers.cell_count || (depth0 != null ? depth0.cell_count : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === \"function\" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{\"name\":\"cell_count\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\\n\\nvertices\\n(\\n    (0 -1 0) //0\\n    (2 -1 0) //1\\n    (0  0 0) //2\\n    (2  0 0) //3\\n    (0  1 0) //4\\n    (2  1 0) //5\\n    (0 -1 2) //6\\n    (2 -1 2) //7\\n    (0  0 2) //8\\n    (2  0 2) //9\\n    (0  1 2) //10\\n    (2  1 2) //11\\n);\\n\\nblocks\\n(\\n    hex (0 1 3 2 6 7 9 8) (1 $cell_count 1) simpleGrading (1 1.0 1)\\n    hex (2 3 5 4 8 9 11 10) (1 $cell_count 1) simpleGrading (1 1.0 1)\\n);\\n\\nedges\\n(\\n);\\n\\nboundary\\n(\\n    bottomWall\\n    {\\n        type            wall;\\n        faces           ((0 1 7 6));\\n    }\\n    topWall\\n    {\\n        type            wall;\\n        faces           ((4 10 11 5));\\n    }\\n\\n    sides\\n    {\\n        type empty;\\n        faces (\\n            (0 2 3 1)\\n            (6 7 9 8)\\n            (2 4 5 3)\\n            (8 9 11 10)\\n        );\\n    }\\n\\n    inout1_half0\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout1_half1;\\n        faces           ((1 3 9 7));\\n    }\\n    inout1_half1\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout1_half0;\\n        faces           ((0 6 8 2));\\n    }\\n\\n    inout2_half0\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout2_half1;\\n        faces           ((3 5 11 9));\\n    }\\n    inout2_half1\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout2_half0;\\n        faces           ((2 8 10 4));\\n    }\\n);\\n\\nmergePatchPairs\\n(\\n);\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/system/blockMeshDict.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/system/controlDict.hbs":
+/*!******************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/system/controlDict.hbs ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"system\\\";\\n    object      controlDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\napplication     pimpleFoam;\\n\\nstartFrom       startTime;\\n\\nstartTime       0;\\n\\nstopAt          endTime;\\n\\nendTime         100;\\n\\ndeltaT          0.1;\\n\\nwriteControl    timeStep;\\n\\nwriteInterval   100;\\n\\npurgeWrite      0;\\n\\nwriteFormat     ascii;\\n\\nwritePrecision  6;\\n\\nwriteCompression off;\\n\\ntimeFormat      general;\\n\\ntimePrecision   6;\\n\\nrunTimeModifiable false;\\n\\nfunctions\\n{\\n}\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/system/controlDict.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/system/decomposeParDict.hbs":
+/*!***********************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/system/decomposeParDict.hbs ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    note        \\\"mesh decomposition control dictionary\\\";\\n    object      decomposeParDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nnumberOfSubdomains  4;\\n\\n//- Keep owner and neighbour on same processor for faces in zones:\\n// preserveFaceZones (heater solid1 solid3);\\n\\n//- Keep owner and neighbour on same processor for faces in patches:\\n//  (makes sense only for cyclic patches)\\n//preservePatches (cyclic_half0 cyclic_half1);\\n\\n//- Keep all of faceSet on a single processor. This puts all cells\\n//  connected with a point, edge or face on the same processor.\\n//  (just having face connected cells might not guarantee a balanced\\n//  decomposition)\\n// The processor can be -1 (the decompositionMethod chooses the processor\\n// for a good load balance) or explicitly provided (upsets balance).\\n//singleProcessorFaceSets ((f0 -1));\\n\\n\\n//- Use the volScalarField named here as a weight for each cell in the\\n//  decomposition.  For example, use a particle population field to decompose\\n//  for a balanced number of particles in a lagrangian simulation.\\n// weightField dsmcRhoNMean;\\n\\n// method          scotch;\\n// method          hierarchical;\\nmethod          simple;\\n// method          metis;\\n// method          manual;\\n// method          multiLevel;\\n// method          structured;  // does 2D decomposition of structured mesh\\n\\nmultiLevelCoeffs\\n{\\n    // Decomposition methods to apply in turn. This is like hierarchical but\\n    // fully general - every method can be used at every level.\\n\\n    level0\\n    {\\n        numberOfSubdomains  64;\\n        // method simple;\\n        // simpleCoeffs\\n        //{\\n        //    n           (2 1 1);\\n        //    delta       0.001;\\n        //}\\n        method scotch;\\n    }\\n    level1\\n    {\\n        numberOfSubdomains  4;\\n        method scotch;\\n    }\\n}\\n\\n// Desired output\\n\\nsimpleCoeffs\\n{\\n    n           (1 2 2);\\n    delta       0.001;\\n}\\n\\nhierarchicalCoeffs\\n{\\n    n           (1 2 1);\\n    delta       0.001;\\n    order       xyz;\\n}\\n\\nmetisCoeffs\\n{\\n /*\\n    processorWeights\\n    (\\n        1\\n        1\\n        1\\n        1\\n    );\\n  */\\n}\\n\\nscotchCoeffs\\n{\\n    // processorWeights\\n    //(\\n    //    1\\n    //    1\\n    //    1\\n    //    1\\n    //);\\n    // writeGraph  true;\\n    // strategy \\\"b\\\";\\n}\\n\\nmanualCoeffs\\n{\\n    dataFile    \\\"decompositionData\\\";\\n}\\n\\nstructuredCoeffs\\n{\\n    // Patches to do 2D decomposition on. Structured mesh only; cells have\\n    // to be in 'columns' on top of patches.\\n    patches     (bottomPatch);\\n}\\n\\n//// Is the case distributed? Note: command-line argument -roots takes\\n//// precedence\\n//distributed     yes;\\n//// Per slave (so nProcs-1 entries) the directory above the case.\\n//roots\\n//(\\n//    \\\"/tmp\\\"\\n//    \\\"/tmp\\\"\\n//);\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/system/decomposeParDict.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/system/fvSchemes.hbs":
+/*!****************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/system/fvSchemes.hbs ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"system\\\";\\n    object      fvSchemes;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nddtSchemes\\n{\\n    default         backward;\\n}\\n\\ngradSchemes\\n{\\n    default         Gauss linear;\\n}\\n\\ndivSchemes\\n{\\n    default         none;\\n    div(phi,U)      Gauss linear;\\n    div(phi,k)      Gauss limitedLinear 1;\\n    div(phi,B)      Gauss limitedLinear 1;\\n    div(B)          Gauss linear;\\n    div(phi,nuTilda) Gauss limitedLinear 1;\\n    div((nuEff*dev2(T(grad(U))))) Gauss linear;\\n}\\n\\nlaplacianSchemes\\n{\\n    default         Gauss linear corrected;\\n}\\n\\ninterpolationSchemes\\n{\\n    default         linear;\\n}\\n\\nsnGradSchemes\\n{\\n    default         corrected;\\n}\\n\\nwallDist\\n{\\n    method meshWave;\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/system/fvSchemes.hbs?");
+
+/***/ }),
+
+/***/ "../simput/types/openfoam-periodic/src/templates/system/fvSolution.hbs":
+/*!*****************************************************************************!*\
+  !*** ../simput/types/openfoam-periodic/src/templates/system/fvSolution.hbs ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"system\\\";\\n    object      fvSolution;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nsolvers\\n{\\n    p\\n    {\\n        solver          GAMG;\\n        tolerance       0;\\n        relTol          0.1;\\n        smoother        GaussSeidel;\\n    }\\n\\n    pFinal\\n    {\\n        $p;\\n        smoother        DICGaussSeidel;\\n        tolerance       1e-06;\\n        relTol          0;\\n    }\\n\\n    \\\"(U|k|nuTilda)\\\"\\n    {\\n        solver          smoothSolver;\\n        smoother        symGaussSeidel;\\n        tolerance       1e-05;\\n        relTol          0.1;\\n    }\\n\\n    \\\"(U|k|nuTilda)Final\\\"\\n    {\\n        $U;\\n        tolerance       1e-05;\\n        relTol          0;\\n    }\\n}\\n\\nPIMPLE\\n{\\n    nOuterCorrectors 1;\\n    nCorrectors     1;\\n    nNonOrthogonalCorrectors 0;\\n    pRefCell        1;\\n    pRefValue       0;\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/templates/system/fvSolution.hbs?");
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!../simput/types/openfoam-periodic/src/index.js":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--12-0!../simput/types/openfoam-periodic/src/index.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n    type: 'openfoam-periodic',\n    model: __webpack_require__(/*! ./model.js */ \"../simput/types/openfoam-periodic/src/model.js\"),\n    lang: {},\n    convert: __webpack_require__(/*! ./convert.js */ \"../simput/types/openfoam-periodic/src/convert.js\"),\n    hooks: __webpack_require__(/*! ./hooks.js */ \"../simput/types/openfoam-periodic/src/hooks.js\"),\n    parse: null\n};\n\n//# sourceURL=webpack:///../simput/types/openfoam-periodic/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
 
 /***/ }),
 
@@ -326,61 +505,6 @@ eval("\n\n// Create a simple path alias to allow browserify to resolve\n// the r
 
 /***/ }),
 
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/center":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/center ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = \"i, j, k indexes of the oscillator center.\\n\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/center?./node_modules/html-loader");
-
-/***/ }),
-
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/omega":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/omega ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = \"omega\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/omega?./node_modules/html-loader");
-
-/***/ }),
-
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/radius":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/radius ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = \"Radius of the oscillator.\\n\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/radius?./node_modules/html-loader");
-
-/***/ }),
-
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/type":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/type ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = \"Kind of oscillator which can be either <b>Periodic</b>, <b>Damped</b> or <b>Decaying</b>.\\nOnly Decaying oscillator will have to provide the zeta information.\\n\\n<div class=\\\"mw-parser-output\\\"><div role=\\\"note\\\" class=\\\"hatnote navigation-not-searchable\\\">This article is about the harmonic oscillator in classical mechanics. For its uses in <a href=\\\"/wiki/Quantum_mechanics\\\" title=\\\"Quantum mechanics\\\">quantum mechanics</a>, see <a href=\\\"/wiki/Quantum_harmonic_oscillator\\\" title=\\\"Quantum harmonic oscillator\\\">quantum harmonic oscillator</a>.</div>\\n<table class=\\\"vertical-navbox nowraplinks\\\" style=\\\"float:right;clear:right;width:22.0em;margin:0 0 1.0em 1.0em;background:#f9f9f9;border:1px solid #aaa;padding:0.2em;border-spacing:0.4em 0;text-align:center;line-height:1.4em;font-size:88%\\\"><tbody><tr><td style=\\\"padding-top:0.4em;line-height:1.2em\\\">Part of a series of articles about</td></tr><tr><th style=\\\"padding:0.2em 0.4em 0.2em;padding-top:0;font-size:145%;line-height:1.2em;padding-left:0.9em;padding-right:0.9em;\\\"><a href=\\\"/wiki/Classical_mechanics\\\" title=\\\"Classical mechanics\\\">Classical mechanics</a></th></tr><tr><td style=\\\"padding:0.2em 0 0.4em\\\"><span class=\\\"mwe-math-element\\\"><span class=\\\"mwe-math-mathml-inline mwe-math-mathml-a11y\\\" style=\\\"display: none;\\\"><math xmlns=\\\"http://www.w3.org/1998/Math/MathML\\\" alttext=\\\"{\\\\displaystyle {\\\\vec {F}}=m{\\\\vec {a}}}\\\">\\n  <semantics>\\n    <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n      <mstyle displaystyle=\\\"true\\\" scriptlevel=\\\"0\\\">\\n        <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n          <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n            <mover>\\n              <mi>F</mi>\\n              <mo stretchy=\\\"false\\\">→<!-- → --></mo>\\n            </mover>\\n          </mrow>\\n        </mrow>\\n        <mo>=</mo>\\n        <mi>m</mi>\\n        <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n          <mrow class=\\\"MJX-TeXAtom-ORD\\\">\\n            <mover>\\n              <mi>a</mi>\\n              <mo stretchy=\\\"false\\\">→<!-- → --></mo>\\n            </mover>\\n          </mrow>\\n        </mrow>\\n      </mstyle>\\n    </mrow>\\n    <annotation encoding=\\\"application/x-tex\\\">{\\\\displaystyle {\\\\vec {F}}=m{\\\\vec {a}}}</annotation>\\n  </semantics>\\n</math></span><img src=\\\"https://wikimedia.org/api/rest_v1/media/math/render/svg/f7b202a8eaba4b424be52bcbaa043727b6ad9860\\\" class=\\\"mwe-math-fallback-image-inline\\\" aria-hidden=\\\"true\\\" style=\\\"vertical-align: -0.338ex; width:8.14ex; height:2.843ex;\\\" alt=\\\"{\\\\vec {F}}=m{\\\\vec {a}}\\\"></span><div style=\\\"padding-top:0.2em;line-height:1.2em;font-size:90%;padding:0.6em 0;font-style:italic;\\\"><a href=\\\"/wiki/Second_law_of_motion\\\" class=\\\"mw-redirect\\\" title=\\\"Second law of motion\\\">Second law of motion</a></div></td></tr><tr><th style=\\\"padding:0.1em;background:#ddf; display:block;margin-bottom:1.0em;\\\">\\n<div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/History_of_classical_mechanics\\\" title=\\\"History of classical mechanics\\\">History</a></li>\\n<li><a href=\\\"/wiki/Timeline_of_classical_mechanics\\\" title=\\\"Timeline of classical mechanics\\\">Timeline</a></li></ul>\\n</div></th></tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame collapsed\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame1\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Branches<a class=\\\"NavToggle\\\" id=\\\"NavToggle1\\\" href=\\\"#\\\">[show]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size: 105%; padding: 0.35em 0px 0.4em; text-align: center; display: none;\\\"><div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/Applied_mechanics\\\" title=\\\"Applied mechanics\\\">Applied</a></li>\\n<li><a href=\\\"/wiki/Celestial_mechanics\\\" title=\\\"Celestial mechanics\\\">Celestial</a></li>\\n<li><a href=\\\"/wiki/Continuum_mechanics\\\" title=\\\"Continuum mechanics\\\">Continuum</a></li>\\n<li><a href=\\\"/wiki/Analytical_dynamics\\\" title=\\\"Analytical dynamics\\\">Dynamics</a></li>\\n<li><a href=\\\"/wiki/Kinematics\\\" title=\\\"Kinematics\\\">Kinematics</a></li>\\n<li><a href=\\\"/wiki/Kinetics_(physics)\\\" title=\\\"Kinetics (physics)\\\">Kinetics</a></li>\\n<li><a href=\\\"/wiki/Statics\\\" title=\\\"Statics\\\">Statics</a></li>\\n<li><a href=\\\"/wiki/Statistical_mechanics\\\" title=\\\"Statistical mechanics\\\">Statistical</a></li></ul>\\n</div></div></div></td>\\n</tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame collapsed\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame2\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Fundamentals<a class=\\\"NavToggle\\\" id=\\\"NavToggle2\\\" href=\\\"#\\\">[show]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size: 105%; padding: 0.35em 0px 0.4em; text-align: center; display: none;\\\"><div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/Acceleration\\\" title=\\\"Acceleration\\\">Acceleration</a></li>\\n<li><a href=\\\"/wiki/Angular_momentum\\\" title=\\\"Angular momentum\\\">Angular momentum</a></li>\\n<li><a href=\\\"/wiki/Couple_(mechanics)\\\" title=\\\"Couple (mechanics)\\\">Couple</a></li>\\n<li><a href=\\\"/wiki/D%27Alembert%27s_principle\\\" title=\\\"D'Alembert's principle\\\">D'Alembert's principle</a></li>\\n<li><a href=\\\"/wiki/Energy\\\" title=\\\"Energy\\\">Energy</a>\\n<ul><li><a href=\\\"/wiki/Kinetic_energy#Newtonian_kinetic_energy\\\" title=\\\"Kinetic energy\\\">kinetic</a></li>\\n<li><a href=\\\"/wiki/Potential_energy\\\" title=\\\"Potential energy\\\">potential</a></li></ul></li>\\n<li><a href=\\\"/wiki/Force\\\" title=\\\"Force\\\">Force</a></li>\\n<li><a href=\\\"/wiki/Frame_of_reference\\\" title=\\\"Frame of reference\\\">Frame of reference</a></li>\\n<li><a href=\\\"/wiki/Inertial_frame_of_reference\\\" title=\\\"Inertial frame of reference\\\">Inertial frame of reference</a></li>\\n<li><a href=\\\"/wiki/Impulse_(physics)\\\" title=\\\"Impulse (physics)\\\">Impulse</a></li>\\n<li><span class=\\\"nowrap\\\"><a href=\\\"/wiki/Inertia\\\" title=\\\"Inertia\\\">Inertia</a>&nbsp;/ <a href=\\\"/wiki/Moment_of_inertia\\\" title=\\\"Moment of inertia\\\">Moment of inertia</a></span></li>\\n<li><a href=\\\"/wiki/Mass\\\" title=\\\"Mass\\\">Mass</a></li>\\n<li><br><a href=\\\"/wiki/Power_(physics)\\\" title=\\\"Power (physics)\\\">Mechanical power</a></li>\\n<li><a href=\\\"/wiki/Work_(physics)\\\" title=\\\"Work (physics)\\\">Mechanical work</a></li>\\n<li><br><a href=\\\"/wiki/Moment_(physics)\\\" title=\\\"Moment (physics)\\\">Moment</a></li>\\n<li><a href=\\\"/wiki/Momentum\\\" title=\\\"Momentum\\\">Momentum</a></li>\\n<li><a href=\\\"/wiki/Space\\\" title=\\\"Space\\\">Space</a></li>\\n<li><a href=\\\"/wiki/Speed\\\" title=\\\"Speed\\\">Speed</a></li>\\n<li><a href=\\\"/wiki/Time\\\" title=\\\"Time\\\">Time</a></li>\\n<li><a href=\\\"/wiki/Torque\\\" title=\\\"Torque\\\">Torque</a></li>\\n<li><a href=\\\"/wiki/Velocity\\\" title=\\\"Velocity\\\">Velocity</a></li>\\n<li><a href=\\\"/wiki/Virtual_work\\\" title=\\\"Virtual work\\\">Virtual work</a></li></ul>\\n</div></div></div></td>\\n</tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame collapsed\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame3\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Formulations<a class=\\\"NavToggle\\\" id=\\\"NavToggle3\\\" href=\\\"#\\\">[show]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size: 105%; padding: 0.35em 0px 0.4em; text-align: center; display: none;\\\">\\n<ul><li><div style=\\\"padding:0.1em 0;line-height:1.2em;\\\"><b><a href=\\\"/wiki/Newton%27s_laws_of_motion\\\" title=\\\"Newton's laws of motion\\\">Newton's laws of motion</a></b></div></li>\\n<li><div style=\\\"padding:0.1em 0;line-height:1.2em;\\\"><b><a href=\\\"/wiki/Analytical_mechanics\\\" title=\\\"Analytical mechanics\\\">Analytical mechanics</a></b> <div class=\\\"plainlist\\\"><ul><li><a href=\\\"/wiki/Lagrangian_mechanics\\\" title=\\\"Lagrangian mechanics\\\">Lagrangian mechanics</a></li><li><a href=\\\"/wiki/Hamiltonian_mechanics\\\" title=\\\"Hamiltonian mechanics\\\">Hamiltonian mechanics</a></li><li><a href=\\\"/wiki/Routhian_mechanics\\\" title=\\\"Routhian mechanics\\\">Routhian mechanics</a></li><li><a href=\\\"/wiki/Hamilton%E2%80%93Jacobi_equation\\\" title=\\\"Hamilton–Jacobi equation\\\">Hamilton–Jacobi equation</a></li><li><a href=\\\"/wiki/Appell%27s_equation_of_motion\\\" title=\\\"Appell's equation of motion\\\">Appell's equation of motion</a></li><li><a href=\\\"/wiki/Udwadia%E2%80%93Kalaba_equation\\\" title=\\\"Udwadia–Kalaba equation\\\">Udwadia–Kalaba equation</a></li><li><a href=\\\"/wiki/Koopman%E2%80%93von_Neumann_classical_mechanics\\\" title=\\\"Koopman–von Neumann classical mechanics\\\">Koopman–von Neumann mechanics</a></li></ul></div></div></li></ul></div></div></td>\\n</tr><tr><td style=\\\"padding:0 0.1em 0.4em\\\">\\n<div class=\\\"NavFrame\\\" style=\\\"border:none;padding:0\\\" id=\\\"NavFrame4\\\"><div class=\\\"NavHead\\\" style=\\\"font-size:105%;background:transparent;text-align:left;background:#ddf;text-align:center;\\\">Core topics<a class=\\\"NavToggle\\\" id=\\\"NavToggle4\\\" href=\\\"#\\\">[hide]</a></div><div class=\\\"NavContent plainlist\\\" style=\\\"font-size:105%;padding:0.2em 0 0.4em;text-align:center;padding-top:0.35em;\\\"><div class=\\\"hlist\\\">\\n<ul><li><a href=\\\"/wiki/Damping\\\" class=\\\"mw-redirect\\\" title=\\\"Damping\\\">Damping</a>&nbsp;(<a href=\\\"/wiki/Damping_ratio\\\" title=\\\"Damping ratio\\\">ratio</a>)</li>\\n<li><a href=\\\"/wiki/Displacement_(vector)\\\" title=\\\"Displacement (vector)\\\">Displacement</a></li>\\n<li><a href=\\\"/wiki/Equations_of_motion\\\" title=\\\"Equations of motion\\\">Equations of motion</a></li>\\n<li><a href=\\\"/wiki/Euler%27s_laws_of_motion\\\" title=\\\"Euler's laws of motion\\\"><span class=\\\"wrap\\\">Euler's laws of motion</span></a></li>\\n<li><a href=\\\"/wiki/Fictitious_force\\\" title=\\\"Fictitious force\\\">Fictitious force</a></li>\\n<li><a href=\\\"/wiki/Friction\\\" title=\\\"Friction\\\">Friction</a></li>\\n<li><a class=\\\"mw-selflink selflink\\\">Harmonic oscillator</a></li></ul>\\n</div>\\n</div>\\n\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/type?./node_modules/html-loader");
-
-/***/ }),
-
-/***/ "./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/zeta":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/html-loader!./types/oscillator/src/lang/en/help/oscillator/zeta ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = \"zeta\";\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/zeta?./node_modules/html-loader");
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -390,111 +514,6 @@ eval("module.exports = \"zeta\";\n\n//# sourceURL=webpack:///./types/oscillator/
 
 "use strict";
 eval("\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; };\n\nvar g;\n\n// This works in non-strict mode\ng = function () {\n\treturn this;\n}();\n\ntry {\n\t// This works if eval is allowed (see CSP)\n\tg = g || Function(\"return this\")() || (1, eval)(\"this\");\n} catch (e) {\n\t// This works if the window reference is available\n\tif ((typeof window === \"undefined\" ? \"undefined\" : _typeof(window)) === \"object\") g = window;\n}\n\n// g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\nmodule.exports = g;\n\n//# sourceURL=webpack:///(webpack)/buildin/global.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/convert.js":
-/*!*****************************************!*\
-  !*** ./types/oscillator/src/convert.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nvar outputTemplate = __webpack_require__(/*! ./output.hbs */ \"./types/oscillator/src/output.hbs\");\n\nmodule.exports = function convert(dataModel) {\n  var results = {};\n  var oscillatorsList = [];\n\n  dataModel.data.oscillators.forEach(function (attributes) {\n    var oscillator = {};\n    Object.keys(attributes.oscillator).forEach(function (fieldName) {\n      oscillator[fieldName] = attributes.oscillator[fieldName].value[0];\n    });\n    oscillatorsList.push(oscillator);\n  });\n\n  results['sample.osc'] = outputTemplate(oscillatorsList);\n\n  return { results: results, model: dataModel };\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/convert.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/index.js-exposed":
-/*!***********************************************!*\
-  !*** ./types/oscillator/src/index.js-exposed ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"oscillator\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!./types/oscillator/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/oscillator/src/index.js-exposed?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/help/index.js":
-/*!****************************************************!*\
-  !*** ./types/oscillator/src/lang/en/help/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"oscillator\": __webpack_require__(/*! ./oscillator */ \"./types/oscillator/src/lang/en/help/oscillator/index.js\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/help/oscillator/index.js":
-/*!***************************************************************!*\
-  !*** ./types/oscillator/src/lang/en/help/oscillator/index.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"center\": __webpack_require__(/*! html-loader!./center */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/center\"),\n  \"omega\": __webpack_require__(/*! html-loader!./omega */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/omega\"),\n  \"radius\": __webpack_require__(/*! html-loader!./radius */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/radius\"),\n  \"type\": __webpack_require__(/*! html-loader!./type */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/type\"),\n  \"zeta\": __webpack_require__(/*! html-loader!./zeta */ \"./node_modules/html-loader/index.js!./types/oscillator/src/lang/en/help/oscillator/zeta\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/help/oscillator/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/index.js":
-/*!***********************************************!*\
-  !*** ./types/oscillator/src/lang/en/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"help\": __webpack_require__(/*! ./help */ \"./types/oscillator/src/lang/en/help/index.js\"),\n  \"label.json\": __webpack_require__(/*! ./label.json */ \"./types/oscillator/src/lang/en/label.json\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/en/label.json":
-/*!*************************************************!*\
-  !*** ./types/oscillator/src/lang/en/label.json ***!
-  \*************************************************/
-/*! exports provided: views, attributes, default */
-/***/ (function(module) {
-
-eval("module.exports = {\"views\":{\"oscillators\":\"Oscillator list\"},\"attributes\":{\"oscillator\":{\"title\":\"Oscillator\",\"parameters\":{\"type\":\"Type\",\"center\":\"Center\",\"radius\":\"Radius\",\"omega\":\"Omega 0\",\"zeta\":\"Zeta\"}}}};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/en/label.json?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/lang/index.js":
-/*!********************************************!*\
-  !*** ./types/oscillator/src/lang/index.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  \"en\": __webpack_require__(/*! ./en */ \"./types/oscillator/src/lang/en/index.js\")\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/lang/index.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/model.js":
-/*!***************************************!*\
-  !*** ./types/oscillator/src/model.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n\nmodule.exports = {\n  order: ['oscillators'],\n  views: {\n    oscillators: {\n      size: -1,\n      attributes: ['oscillator']\n    }\n  },\n  definitions: {\n    oscillator: {\n      parameters: [{\n        id: 'type',\n        type: 'enum',\n        size: 1,\n        default: 'periodic',\n        domain: {\n          Periodic: 'periodic',\n          Damped: 'damped',\n          Decaying: 'decaying'\n        }\n      }, {\n        id: 'center',\n        type: 'int',\n        size: 3,\n        layout: '3',\n        default: [0, 0, 0]\n      }, {\n        id: 'radius',\n        type: 'double',\n        size: 1,\n        default: [1]\n      }, {\n        id: 'omega',\n        type: 'double',\n        size: 1,\n        default: [0]\n      }, {\n        id: 'zeta',\n        type: 'double',\n        size: 1,\n        show: \"type[0] === 'decaying'\"\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/model.js?");
-
-/***/ }),
-
-/***/ "./types/oscillator/src/output.hbs":
-/*!*****************************************!*\
-  !*** ./types/oscillator/src/output.hbs ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"1\":function(container,depth0,helpers,partials,data) {\n    var stack1, alias1=container.lambda, alias2=container.escapeExpression;\n\n  return alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.type : stack1), depth0))\n    + \"   \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.center : stack1), depth0))\n    + \"   \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.radius : stack1), depth0))\n    + \"   \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.omega : stack1), depth0))\n    + \"  \"\n    + alias2(alias1(((stack1 = (depth0 != null ? depth0.oscillator : depth0)) != null ? stack1.zeta : stack1), depth0))\n    + \"\\n\";\n},\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1;\n\n  return \"# type      center          r       omega0      zeta\\n\"\n    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.oscillator : depth0),{\"name\":\"each\",\"hash\":{},\"fn\":container.program(1, data, 0),\"inverse\":container.noop,\"data\":data})) != null ? stack1 : \"\");\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/oscillator/src/output.hbs?");
 
 /***/ })
 
