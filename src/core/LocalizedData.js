@@ -1,5 +1,7 @@
 /* eslint-disable class-methods-use-this */
 
+const LABEL = (p) => (p && p.label) || 'No Label';
+
 export default class LocalizedLabels {
   constructor(module, defaultLang = 'en') {
     this.allLanguages = module.lang;
@@ -27,7 +29,7 @@ export default class LocalizedLabels {
         'No label in lang or model'
       );
     }
-    return this.model.views[name].label || 'No label in model';
+    return LABEL(this.model.views[name]);
   }
 
   getAttribute(name) {
@@ -35,7 +37,7 @@ export default class LocalizedLabels {
       this.activeLabels &&
       this.activeLabels.attributes[name] &&
       this.activeLabels.attributes[name].title;
-    return fromLabel || this.model.definitions[name].label || 'No label';
+    return fromLabel || LABEL(this.model.definitions[name]);
   }
 
   getParameter(attributeName, parameterId) {
@@ -46,10 +48,11 @@ export default class LocalizedLabels {
       this.activeLabels.attributes[attributeName].parameters[parameterId];
     return (
       fromLabel ||
-      this.model.definitions[attributeName].parameters.find(
-        (p) => p.id === parameterId
-      ) ||
-      'No label'
+      LABEL(
+        this.model.definitions[attributeName].parameters.find(
+          (p) => p.id === parameterId
+        )
+      )
     );
   }
 
