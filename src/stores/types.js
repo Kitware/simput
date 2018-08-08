@@ -51,6 +51,9 @@ export const Mutations = objEnum([
   'SET_DATAMANAGER',
   'REGISTER_TEMPLATE',
   'UPDATE_TYPE_STATUS',
+
+  // properties
+  'ADD_PROPERTY_MAPPING',
 ]);
 
 export default {

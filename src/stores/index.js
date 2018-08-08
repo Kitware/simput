@@ -2,6 +2,7 @@ import Vuex from 'vuex';
 
 import files from 'simput/src/stores/files';
 import templates from 'simput/src/stores/templates';
+import properties from 'simput/src/stores/properties';
 import widgets from 'simput/src/stores/widgets';
 
 function createStore() {
@@ -13,6 +14,7 @@ function createStore() {
     modules: {
       files,
       templates,
+      properties,
       widgets,
     },
     mutations: {

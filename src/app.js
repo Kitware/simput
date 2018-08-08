@@ -12,11 +12,19 @@ import App from 'simput/src/components/core/App';
 import createStore from 'simput/src/stores';
 import { Mutations } from 'simput/src/stores/types';
 
+import CellProperty from 'simput/src/components/properties/CellProperty';
+
 Vue.use(Vuex);
 Vue.use(Vuetify);
 
 export function createViewer() {
   const store = createStore();
+
+  // register Property components
+  store.commit(Mutations.ADD_PROPERTY_MAPPING, {
+    name: 'TextField',
+    component: CellProperty,
+  });
 
   /* eslint-disable no-new */
   new Vue({
