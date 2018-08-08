@@ -85,3 +85,15 @@
 .noSelect {
   user-select: none;
 }
+
+.iconContainer {
+  height: 300px;
+  background: linear-gradient(#bbb, #ddd);
+  text-align: center;
+  padding-top: 50px;
+}
+
+.iconContainer :global(.material-icons) {
+  font-size: 200px;
+  color: #333;
+}

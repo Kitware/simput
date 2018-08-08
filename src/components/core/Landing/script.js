@@ -1,5 +1,6 @@
 import samples from 'simput/src/samples';
 import DragAndDrop from 'simput/src/components/widgets/DragAndDrop';
+import { Mutations, Actions } from 'simput/src/stores/types';
 
 export default {
   name: 'Landing',
@@ -12,14 +13,13 @@ export default {
     };
   },
   methods: {
-    openSample(sample) {
-      const urls = [];
-      const names = [];
-      for (let i = 0; i < sample.datasets.length; ++i) {
-        urls.push(sample.datasets[i].url);
-        names.push(sample.datasets[i].name);
+    openModel(sample) {
+      if (sample.goTo) {
+        window.open(sample.goTo, '_blank');
+      } else {
+        this.$store.commit(Mutations.SET_MODEL, sample.model);
+        this.$store.dispatch(Actions.LOAD_TEMPLATE, sample.model.type);
       }
-      this.$emit('open-urls', urls, names);
     },
   },
 };

@@ -77,16 +77,21 @@
           flat
           tile
         >
+          <div :class="$style.iconContainer" v-if="sample.icon">
+            <v-icon>{{ sample.icon }}</v-icon>
+          </div>
           <v-card-media
+            v-if="sample.image"
             :src="sample.image"
             height="300px"
+            :class="$style.iconContainer"
           />
           <div
             :class="$style.linkOverlay"
-            v-on:click.stop="openSample(sample)"
+            v-on:click.stop="openModel(sample)"
           >
             <div :class="$style.linkOverlayText" class="body-2">
-              {{ sample.label }} ({{ sample.size }})
+              {{ sample.label }}
               <div :class="$style.description" v-if="sample.description">
                 {{ sample.description }}
               </div>
