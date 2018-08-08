@@ -26,3 +26,7 @@
 	path = types/vera
 	url = https://github.com/kitware/simput
 	branch = type-vera
+[submodule "types/openfoam-periodic"]
+	path = types/openfoam-periodic
+	url = https://github.com/kitware/simput
+	branch = type-openfoam-periodic
