@@ -31,16 +31,18 @@ program
 
   // inout
   .option('-i, --input [file|directory]', 'Input file or directory')
-  .option('-o, --output [directory]', 'Output directory to output to')
-  .option('-t, --type [type]', 'Type of input\n')
-
-  .option('-n, --no-gui', 'Just generate output')
   .option('-s, --silent', 'Do not open the browser')
   .option('-p, --port [8080]', 'Server port\n', getPort, 8080)
 
-  // management
+  .option('-n, --no-gui', 'Just generate output')
+
+  // type compilation
   .option('-c, --compile [directory]', 'Directory to compile files')
+  .option('-t, --type [type]', 'Type of input\n')
+  .option('-o, --output [directory]', 'Output directory to output to')
   .option('-m, --minify', 'Minify compiled file')
+
+  // Type handling
   .option('-a, --add [file]', 'Add model to list of available inputs')
   .option('-l, --list', 'List model types of available as inputs')
   .option('-r, --remove [type]', 'Remove model from list of available inputs')
@@ -54,7 +56,7 @@ if (!process.argv.slice(2).length) {
 }
 
 // input
-if (program.input && program.output && !program.gui) {
+if (program.input && program.ouput && !program.gui) {
   shell.mkdir('-p', toAbsolutePath(program.output));
   simputConverter(program.input, program.output);
 } else if (program.compile) {
@@ -72,10 +74,16 @@ if (program.input && program.output && !program.gui) {
     program.minify,
     addFunc
   );
-} else if (program.output) {
+} else if (program.input && !program.output) {
   const handler = require('serve-handler');
   const http = require('http');
-  const server = http.createServer(handler);
+  const config = {
+    public: 'dist',
+    // rewrites: [{ source: 'types/*', destination: simputFolder }],
+  };
+  const server = http.createServer((request, response) =>
+    handler(request, response, config)
+  );
 
   server.listen(Number(program.port), () => {
     console.log(`Simput running at http://localhost:${program.port}`);
