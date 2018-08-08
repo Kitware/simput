@@ -1,0 +1,19 @@
+{
+  "views": {
+    "AddressBook": "Carnet d'adresses"
+  },
+  "attributes": {
+    "person": {
+      "title": "Renseignements",
+      "parameters": {
+        "firstName": "Prénom",
+        "lastName" : "Nom de famille",
+        "street" : "Rue",
+        "city" : "Ville",
+        "state" : "Etat",
+        "zip" : "Code postal",
+        "country": "Pays"
+      }
+    }
+  }
+}
