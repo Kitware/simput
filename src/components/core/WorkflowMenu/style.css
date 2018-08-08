@@ -64,24 +64,6 @@
   /*composes: fa-fw from 'font-awesome/css/font-awesome.css';*/
 }
 
-.addButton {
-  composes: button;
-  /*composes: fa-plus from 'font-awesome/css/font-awesome.css';*/
-}
-
-.addButton:after {
-  content: '+';
-}
-
-.deleteButton {
-  composes: button;
-}
-
-.deleteButton:after {
-  /*composes: fa-trash from 'font-awesome/css/font-awesome.css';*/
-  content: 'x';
-}
-
 .editButton {
   composes: button;
   /*composes: fa-pencil from 'font-awesome/css/font-awesome.css';*/
@@ -93,12 +75,6 @@
   /*composes: fa-fw from 'font-awesome/css/font-awesome.css';*/
   /*composes: fa-check from 'font-awesome/css/font-awesome.css';*/
   content: 'OK';
-}
-
-.invalidIcon:after {
-  /*composes: fa from 'font-awesome/css/font-awesome.css';*/
-  /*composes: fa-exclamation-triangle from 'font-awesome/css/font-awesome.css';*/
-  content: 'error';
 }
 
 .editable {

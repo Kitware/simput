@@ -37,7 +37,7 @@
                 :class="$style.listButton"
                 v-on:click.stop="dataModel.addView(node.id)"
               >
-                <i :class="$style.addButton" />
+                <v-icon small>add</v-icon>
               </v-btn>
             </v-list-tile-title>
           </v-list-tile-content>
@@ -54,12 +54,14 @@
                   {{ child.label }}
                 </span>
                 <v-spacer />
-                <i
+                <v-icon
                   v-if="node.invalid"
                   key="if-node-invalid"
-                  :class="$style.invalidIcon"
+                  small
                   title={node.invalid}
-                />
+                >
+                  warning
+                </v-icon>
                 <v-btn
                   v-if="!child.noDelete"
                   key="if-no-delete"
@@ -68,7 +70,7 @@
                   :class="$style.listButton"
                   v-on:click.stop="dataModel.deleteView(child.id, child.index)"
                 >
-                  <i :class="$style.deleteButton" />
+                  <v-icon small>delete</v-icon>
                 </v-btn>
               </v-list-tile-title>
             </v-list-tile-content>
