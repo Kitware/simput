@@ -25,8 +25,8 @@ export default class ModelManager {
     this.model = module.model;
 
     this.hideViews = simputModel.hideViews || [];
-    this.data = simputModel.data;
-    this.external = simputModel.external;
+    this.data = simputModel.data || {};
+    this.external = simputModel.external || {};
     this.type = simputModel.type;
 
     this.localizedData = new LocalizedData(module); // FIXME should be handled via module
@@ -43,6 +43,23 @@ export default class ModelManager {
   }
 
   // -------- Public methods ------------
+
+  getOutput() {
+    const fullModel = {
+      data: this.data,
+      hideViews: this.hideViews,
+      external: this.external,
+      type: this.type,
+    };
+    const result = this.module.convert(fullModel);
+    if (result.errors) {
+      // FIXME expose errors to UI
+      console.error(result.errors);
+    }
+    return result;
+  }
+
+  // --------
 
   activateView(name, index = 0) {
     this.activeViewName = name;

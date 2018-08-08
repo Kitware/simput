@@ -1,3 +1,4 @@
+import JSZip from 'jszip';
 import Vue from 'vue';
 import { Mutations, Actions } from 'simput/src/stores/types';
 import ModelManager from 'simput/src/core/ModelManager';
@@ -62,6 +63,35 @@ export default {
         const dataManager = new ModelManager(module, state.model);
         commit(Mutations.SET_DATAMANAGER, dataManager);
         commit(Mutations.SHOW_APP);
+      }
+    },
+    SAVE({ state }) {
+      const compressionLevel = 0; // no compression
+      const output = state.dataManager.getOutput();
+      const outputFileName = `generated-output-${output.model.type}.zip`;
+      if (!output.errors) {
+        const zip = new JSZip();
+        zip.file('.simput.model', JSON.stringify(output.model));
+        const files = output.results;
+        Object.keys(files).forEach((fileName) => {
+          zip.file(fileName, files[fileName]);
+        });
+        zip
+          .generateAsync({
+            type: 'blob',
+            compression: 'DEFLATE',
+            compressionOptions: {
+              level: compressionLevel,
+            },
+          })
+          .then((blob) => {
+            const url = URL.createObjectURL(blob);
+            const anchor = document.createElement('a');
+            anchor.setAttribute('href', url);
+            anchor.setAttribute('download', outputFileName);
+            anchor.click();
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+          });
       }
     },
   },

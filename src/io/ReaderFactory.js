@@ -1,5 +1,6 @@
 import vtkHttpDataAccessHelper from 'vtk.js/Sources/IO/Core/DataAccessHelper/HttpDataAccessHelper';
 import JSONModelReader from 'simput/src/io/JSONModelReader';
+import ZipModelReader from 'simput/src/io/ZipModelReader';
 
 const READER_MAPPING = {};
 
@@ -161,6 +162,13 @@ registerReader({
   name: 'JSONSimputReader',
   Reader: JSONModelReader,
   binary: false,
+});
+
+registerReader({
+  extension: 'zip',
+  name: 'ZipSimputModelReader',
+  Reader: ZipModelReader,
+  binary: true,
 });
 
 export default {

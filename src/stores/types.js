@@ -16,6 +16,7 @@ export const Actions = objEnum([
 
   // templates
   'LOAD_TEMPLATE',
+  'SAVE',
 ]);
 
 export const Getters = objEnum([

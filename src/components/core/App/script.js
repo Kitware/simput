@@ -111,6 +111,7 @@ export default {
       },
     }),
     mapActions({
+      save: Actions.SAVE,
       promptUserFiles: Actions.PROMPT_FOR_FILES,
 
       openSample: (dispatch, urls, names) => {
