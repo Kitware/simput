@@ -54,12 +54,24 @@ export default {
         Promise.all(state.types[type].urls.map(loadScript)).then(() => {
           commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'loaded' });
           const module = window.Simput.types[type];
+
+          // Initialize hooks
+          if (module.hooks) {
+            module.hooks();
+          }
+
           const dataManager = new ModelManager(module, state.model);
           commit(Mutations.SET_DATAMANAGER, dataManager);
           commit(Mutations.SHOW_APP);
         });
       } else if (state.loaded[type] === 'loaded') {
         const module = window.Simput.types[type];
+
+        // Initialize hooks
+        if (module.hooks) {
+          module.hooks();
+        }
+
         const dataManager = new ModelManager(module, state.model);
         commit(Mutations.SET_DATAMANAGER, dataManager);
         commit(Mutations.SHOW_APP);
