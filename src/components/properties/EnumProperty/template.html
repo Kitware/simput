@@ -1,14 +1,27 @@
 <v-container
   fluid
   v-show="isVisible()"
+  key="enum-prop"
 >
   <v-layout wrap>
     <v-flex xs12>
       <v-combobox :items="items"
         :label="prop.ui.label"
-        :value="prop.data.value[0]"
-        @input="onChange">
-      </v-combobox>
+        :value="toValue(prop.data.value[0])"
+        @change="onChange"
+        @focus="help = true"
+        @blur="help = false"
+      />
+    </v-flex>
+    <v-flex xs12>
+      <v-alert
+        color="black"
+        v-html="prop.ui.help"
+        :value="help && prop.ui.help"
+        icon="help_outline"
+        :dismissible="true"
+        :outline="true"
+      />
     </v-flex>
   </v-layout>
 </v-container>

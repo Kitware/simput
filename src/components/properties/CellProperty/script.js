@@ -10,6 +10,9 @@ export default {
       required: true,
     },
   },
+  data() {
+    return { help: false };
+  },
   methods: {
     isVisible() {
       return this.prop.show(this.viewData);

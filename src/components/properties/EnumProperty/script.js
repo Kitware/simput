@@ -10,6 +10,9 @@ export default {
       required: true,
     },
   },
+  data() {
+    return { help: false };
+  },
   computed: {
     items() {
       const values = [];
@@ -23,14 +26,18 @@ export default {
     isVisible() {
       return this.prop.show(this.viewData);
     },
-    onChange(value, index = 0) {
-      const newData = Object.assign({}, this.prop.data);
-      if (value === null) {
-        newData.value.splice(index, 1);
-      } else {
-        newData.value[index] = value;
+    toValue(value) {
+      const text = Object.keys(this.prop.ui.domain).find(
+        (i) => this.prop.ui.domain[i] === value
+      );
+      return { value, text };
+    },
+    onChange(item, index = 0) {
+      if (this.prop.data.value[index] === item.value) {
+        return;
       }
-      this.$emit('change', newData);
+      this.prop.data.value[index] = item.value;
+      this.$emit('change', this.prop.data);
     },
   },
   beforeMount() {

@@ -60,6 +60,6 @@ export default class LocalizedLabels {
     if (this.lang in this.allLanguages) {
       return this.allLanguages[this.lang].help[attributeName][parameterId];
     }
-    return `No help for ${attributeName}`;
+    return null; // ignore help
   }
 }

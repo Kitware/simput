@@ -1,67 +1,12 @@
 .container {
-  width: calc(100% - 20px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 10px;
+  position: relative;
 }
 
-@media(screen) and (max-width: 400px) {
-  .container {
-      max-width: 400px;
-  }
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.helpBox {
-  padding: 18px;
-  border: 1px solid #ddd;
-  background-color: #efefef;
-  margin-top: 10px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.inputBlock {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 5px 0;
-}
-
-.inputTable {
-  composes: inputBlock;
-}
-
-.inputRow {
-margin: 0;
-padding: 0;
-}
-
-.inputCell {
-border-bottom: 1px solid gray;
-min-height: 40px;
-margin: 4px 5px;
-padding: 0;
-}
-
-.inputCellLabel {
-display: block;
-min-height: 16px;
-padding: 2px 6px 0;
-font-size: 0.75em;
-color: #555;
-}
-
-.inputCellInput {
-margin: 0;
-padding: 3px 6px;
-width: 100%;
-box-sizing: border-box;
+.labelContainer {
+  position: relative;
+  height: 0px;
+  left: -12.5%;
+  transform: translateY(0.9em) scale(.75);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
