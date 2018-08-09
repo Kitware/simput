@@ -411,7 +411,10 @@ export default class ModelManager {
     }
 
     // Widget selection
-    ui.propType = parameter.ui || parameter.propType || 'TextField';
+    ui.propType = parameter.ui || parameter.propType || 'cell';
+    if (parameter.type === 'enum') {
+      ui.propType = 'enum';
+    }
 
     // Label
     ui.label = parameter.label || parameter.name;

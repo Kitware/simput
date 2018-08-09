@@ -1,0 +1,12 @@
+<div
+  v-show="isVisible()"
+  key="if-visible"
+  :class="$style.container"
+>
+  <v-combobox
+    :items="items"
+    :label="prop.ui.label"
+    :value="prop.data.value[0]"
+    @input="onChange"
+  />
+</div>
