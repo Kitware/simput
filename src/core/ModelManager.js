@@ -46,9 +46,35 @@ export default class ModelManager {
     this.activeViewName = null;
     this.activeViewIndex = 0;
     this.collapseState = {};
+    this.listeners = [];
   }
 
   // -------- Public methods ------------
+
+  subscribe(callback) {
+    const id = this.listeners.length;
+    this.listeners.push(callback);
+    const unsubscribe = () => {
+      this.listeners[id] = null;
+      while (
+        this.listeners.length &&
+        this.listeners[this.listeners.length - 1]
+      ) {
+        this.listeners.pop();
+      }
+    };
+    const run = () => {
+      if (this.listeners[id]) {
+        this.listeners[id]();
+      }
+    };
+    return {
+      unsubscribe,
+      run,
+    };
+  }
+
+  // --------
 
   getOutput() {
     const fullModel = {
@@ -141,6 +167,8 @@ export default class ModelManager {
       hooks.forEach((hook) =>
         HookManager.applyHook(hook, this.fullData, viewData, this.model)
       );
+
+      this.invokeListeners();
     }
   }
 
@@ -293,6 +321,16 @@ export default class ModelManager {
   }
 
   // -------- Internal methods ------------
+
+  invokeListeners() {
+    for (let i = 0; i < this.listeners.length; i++) {
+      if (this.listeners[i]) {
+        this.listeners[i]();
+      }
+    }
+  }
+
+  // --------
 
   getParameter(attributeName, parameterId) {
     if (!this.cache.parameter[attributeName]) {
