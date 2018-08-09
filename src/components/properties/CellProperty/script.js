@@ -14,12 +14,12 @@ export default {
     isVisible() {
       return this.prop.show(this.viewData);
     },
-    onChange(value) {
+    onChange(value, index = 0) {
       const newData = Object.assign({}, this.prop.data);
       if (value === null) {
-        newData.value.splice(0, 1);
+        newData.value.splice(index, 1);
       } else {
-        newData.value[0] = value;
+        newData.value[index] = value;
       }
       this.$emit('change', newData);
     },

@@ -1,11 +1,11 @@
-<div
-  v-show="isVisible()"
-  key="if-visible"
-  :class="$style.container"
->
-  <v-text-field
-    :label="prop.ui.label"
-    :value="prop.data.value[0]"
-    @input="onChange"
-  />
-</div>
+<v-container fluid v-show="isVisible()">
+  <v-layout wrap>
+    <v-flex xs12>
+      <v-text-field
+        :label="prop.ui.label"
+        :value="prop.data.value[0]"
+        @input="onChange"
+      />
+    </v-flex>
+  </v-layout>
+</v-container>

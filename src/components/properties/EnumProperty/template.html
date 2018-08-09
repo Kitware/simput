@@ -1,12 +1,14 @@
-<div
+<v-container
+  fluid
   v-show="isVisible()"
-  key="if-visible"
-  :class="$style.container"
 >
-  <v-combobox
-    :items="items"
-    :label="prop.ui.label"
-    :value="prop.data.value[0]"
-    @input="onChange"
-  />
-</div>
+  <v-layout wrap>
+    <v-flex xs12>
+      <v-combobox :items="items"
+        :label="prop.ui.label"
+        :value="prop.data.value[0]"
+        @input="onChange">
+      </v-combobox>
+    </v-flex>
+  </v-layout>
+</v-container>
