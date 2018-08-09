@@ -10,12 +10,10 @@ export default {
       required: true,
     },
   },
-  computed: {
+  methods: {
     isVisible() {
       return this.prop.show(this.viewData);
     },
-  },
-  methods: {
     onChange(value) {
       const newData = Object.assign({}, this.prop.data);
       if (value === null) {
@@ -25,5 +23,14 @@ export default {
       }
       this.$emit('change', newData);
     },
+  },
+  beforeMount() {
+    const update = () => this.$nextTick(this.$forceUpdate);
+    this.unsubscribe = this.$store.state.templates.dataManager.subscribe(
+      update
+    ).unsubscribe;
+  },
+  beforeDestroy() {
+    this.unsubscribe();
   },
 };
