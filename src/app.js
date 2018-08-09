@@ -13,9 +13,12 @@ import createStore from 'simput/src/stores';
 import { Mutations } from 'simput/src/stores/types';
 
 import CellProperty from 'simput/src/components/properties/CellProperty';
+import HookManager from './core/HookManager';
 
 Vue.use(Vuex);
 Vue.use(Vuetify);
+
+export const { applyHook, registerHook } = HookManager;
 
 export function createViewer() {
   const store = createStore();

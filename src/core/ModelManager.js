@@ -1,6 +1,7 @@
 import clone from 'simput/src/core/clone';
 
 import LocalizedData from 'simput/src/core/LocalizedData';
+import HookManager from 'simput/src/core/HookManager';
 
 const ALWAYS_SHOW = () => true;
 
@@ -25,8 +26,13 @@ export default class ModelManager {
     this.model = module.model;
 
     this.hideViews = simputModel.hideViews || [];
+    // used in hooks
+    this.fullData = simputModel;
+    // convenient access to fullData.data
     this.data = simputModel.data || {};
     this.external = simputModel.external || {};
+    this.data = simputModel.data;
+    this.external = simputModel.external;
     this.type = simputModel.type;
 
     this.localizedData = new LocalizedData(module);
@@ -129,6 +135,11 @@ export default class ModelManager {
         {},
         viewData[attrName][keypath.join('.')],
         { value: newData.value }
+      );
+
+      const hooks = this.model.views[this.activeViewName].hooks || [];
+      hooks.forEach((hook) =>
+        HookManager.applyHook(hook, this.fullData, viewData, this.model)
       );
     }
   }
