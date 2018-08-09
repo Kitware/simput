@@ -141,7 +141,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) glob
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n  order: ['SingleView'],\n  views: {\n    SingleView: {\n      attributes: ['attr1']\n    }\n  },\n  definitions: {\n    attr1: {\n      parameters: [{\n        id: 'a',\n        type: 'int',\n        size: 1,\n        default: 0\n      }, {\n        id: 'b',\n        type: 'string',\n        size: 2,\n        layout: '2',\n        default: ['x', 'y'],\n        show: 'a[0] > 5'\n      }, {\n        id: 'c',\n        type: 'string',\n        size: 3,\n        layout: '3',\n        default: ['x', 'y', 'z']\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///./types/test/src/model.js?");
+eval("\n\nmodule.exports = {\n  order: ['SingleView'],\n  views: {\n    SingleView: {\n      label: 'My view',\n      attributes: ['attr1']\n    }\n  },\n  definitions: {\n    attr1: {\n      label: 'Group 1',\n      parameters: [{\n        id: 'a',\n        label: 'Enter an integer',\n        type: 'int',\n        size: 1,\n        default: 0\n      }, {\n        id: 'b',\n        type: 'string',\n        label: 'Enter 2 strings',\n        help: 'Only show if first field if bigger than 5',\n        size: 2,\n        layout: '2',\n        default: ['x', 'y'],\n        show: 'a[0] > 5'\n      }, {\n        id: 'c',\n        label: 'Enter 3 strings',\n        type: 'string',\n        size: 3,\n        layout: '3',\n        default: ['x', 'y', 'z']\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///./types/test/src/model.js?");
 
 /***/ })
 
