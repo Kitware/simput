@@ -261,7 +261,7 @@ export default class ModelManager {
           index: 0,
         };
         const { size, children } = this.model.views[id];
-        const childCount = this.data[id] && this.data[id].length;
+        const childCount = (this.data[id] && this.data[id].length) || 0;
 
         // Flags
         node.addChildButton = size === -1;
