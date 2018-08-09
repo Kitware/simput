@@ -29,7 +29,7 @@ export default class ModelManager {
     this.external = simputModel.external || {};
     this.type = simputModel.type;
 
-    this.localizedData = new LocalizedData(module); // FIXME should be handled via module
+    this.localizedData = new LocalizedData(module);
 
     this.cache = {
       ui: {},
@@ -140,6 +140,14 @@ export default class ModelManager {
 
     if (!this.activeViewName || this.activeViewIndex === -1) {
       return propertyList;
+    }
+
+    // Create containers if missing
+    if (!this.data[this.activeViewName]) {
+      this.data[this.activeViewName] = [];
+    }
+    if (!this.data[this.activeViewName][this.activeViewIndex]) {
+      this.data[this.activeViewName][this.activeViewIndex] = {};
     }
 
     const viewData = this.data[this.activeViewName][this.activeViewIndex];

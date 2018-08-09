@@ -3,28 +3,21 @@
 export default {
   name: 'CellProperty',
   props: {
-    data: {
+    prop: {
       required: true,
     },
     viewData: {
       required: true,
     },
-    ui: {
-      required: true,
-    },
-    show: {
-      required: true,
-      type: Function,
-    },
   },
   computed: {
     isVisible() {
-      return this.show(this.viewData);
+      return this.prop.show(this.viewData);
     },
   },
   methods: {
     onChange(value) {
-      const newData = Object.assign({}, this.data);
+      const newData = Object.assign({}, this.prop.data);
       if (value === null) {
         newData.value.splice(0, 1);
       } else {

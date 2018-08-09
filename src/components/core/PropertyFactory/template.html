@@ -2,9 +2,7 @@
   v-if="prop"
   :is="component"
   :key="prop.data.id"
-  :data="prop.data"
-  :ui="prop.ui"
+  :prop="prop"
   :viewData="viewData"
-  :show="prop.show"
   @change="$emit('change', arguments[0])"
 />
