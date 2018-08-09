@@ -1,20 +1,28 @@
-<section :class="$style.propertyPanel">
-  <template v-for="property in input">
-    <div
+<v-container
+  grid-list-lg
+  :class="$style.propertyPanel"
+>
+  <v-layout row wrap>
+    <v-flex
+      v-for="property in input"
       :key="property.title"
-      :style="{ display: getPropertyDisplay(property) }"
+      xs12
     >
-      <div :class="$style.propertyHeader">
-        <span class="font-weight-bold">{{ property.title }}</span>
+      <div :style="{ display: getPropertyDisplay(property) }">
+        <v-card>
+          <v-card-title :class="$style.propertyHeader">{{ property.title }}</v-card-title>
+          <v-card-text>
+            <template v-for="(content, i) in property.contents">
+              <property-factory
+                :key="i"
+                :prop="content"
+                :viewData="viewData"
+                @change="updateViewData"
+              />
+            </template>
+          </v-card-text>
+        </v-card>
       </div>
-      <template v-for="(content, i) in property.contents">
-        <property-factory
-          :key="i"
-          :prop="content"
-          :viewData="viewData"
-          @change="updateViewData"
-        />
-      </template>
-    </div>
-  </template>
-</section>
+    </v-flex>
+  </v-layout>
+</v-container>
