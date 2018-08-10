@@ -291,10 +291,10 @@ export default class ModelManager {
           });
         } else if (children) {
           children.forEach((subViewId, idx) => {
-            const viewItem = this.data[subViewId][id] || {};
+            const viewItem = this.model.views[subViewId];
             const child = {
               id: subViewId,
-              label: viewItem.name || node.label,
+              label: viewItem.name || this.localizedData.getView(subViewId),
               bullet: this.isCollapsed(subViewId, idx)
                 ? 'collapsedBullet'
                 : 'expendedBullet',

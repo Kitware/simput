@@ -9,8 +9,9 @@ export default {
     dataModel: Getters.DATAMANAGER,
   }),
   methods: {
-    viewSize(viewId) {
-      return this.dataModel.model.views[viewId].size;
+    viewHasChildren(viewId) {
+      const viewItem = this.dataModel.model.views[viewId];
+      return 'size' in viewItem || 'children' in viewItem;
     },
   },
 };

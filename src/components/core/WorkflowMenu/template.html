@@ -2,7 +2,7 @@
   <v-list dense expand>
     <template v-for="(node,i) in dataModel.getMenuList()">
       <v-list-tile
-        v-if="viewSize(node.id) === undefined"
+        v-if="!viewHasChildren(node.id)"
         :key="i"
         @click.stop="dataModel.activateView(node.id, node.index)"
       >
