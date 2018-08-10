@@ -418,20 +418,17 @@ export default class ModelManager {
 
     // Label
     ui.label = parameter.label || parameter.name;
-    if (
-      this.localizedData &&
-      this.localizedData.getParameter(attributeName, parameter.id)
-    ) {
-      ui.label = this.localizedData.getParameter(attributeName, parameter.id);
+    if (this.localizedData) {
+      ui.label =
+        this.localizedData.getParameter(attributeName, parameter.id) ||
+        ui.label;
     }
 
     // Help
     ui.help = parameter.help;
-    if (
-      this.localizedData &&
-      this.localizedData.getHelp(attributeName, parameter.id)
-    ) {
-      ui.help = this.localizedData.getHelp(attributeName, parameter.id);
+    if (this.localizedData) {
+      ui.help =
+        this.localizedData.getHelp(attributeName, parameter.id) || ui.help;
     }
 
     return ui;
