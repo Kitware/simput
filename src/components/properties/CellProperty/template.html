@@ -1,42 +1,22 @@
 <v-container fluid v-show="isVisible()" key="text-prop" :class="$style.container">
-  <v-layout wrap v-if="prop.ui.size === 1">
-    <v-flex xs12>
+  <v-flex
+    v-if="size > 1"
+    key="if-multicell"
+    xs12
+    :class="$style.labelContainer"
+  >
+    <v-label>{{ prop.ui.label }}</v-label>
+  </v-flex>
+  <v-layout wrap>
+    <v-flex
+      v-for="i in size"
+      :key="i"
+      v-bind="getCellAttrs(i-1)"
+    >
       <v-text-field
-        :label="prop.ui.label"
-        :value="prop.data.value[0]"
-        @input="onChange(arguments[0], 0)"
-        @focus="help = true"
-        @blur="help = false"
-      />
-    </v-flex>
-  </v-layout>
-  <v-layout wrap v-if="prop.ui.size === 3">
-    <v-flex xs12 :class="$style.labelContainer">
-      <v-label>{{ prop.ui.label }}</v-label>
-    </v-flex>
-    <v-flex xs4>
-      <v-text-field
-        :label="prop.ui.components && prop.ui.components[0]"
-        :value="prop.data.value[0]"
-        @input="onChange(arguments[0], 0)"
-        @focus="help = true"
-        @blur="help = false"
-      />
-    </v-flex>
-    <v-flex xs4>
-      <v-text-field
-        :label="prop.ui.components && prop.ui.components[1]"
-        :value="prop.data.value[1]"
-        @input="onChange(arguments[0], 1)"
-        @focus="help = true"
-        @blur="help = false"
-      />
-    </v-flex>
-    <v-flex xs4>
-      <v-text-field
-        :label="prop.ui.components && prop.ui.components[2]"
-        :value="prop.data.value[2]"
-        @input="onChange(arguments[0], 2)"
+        :label="size > 1 ? getCellLabel(i-1) : prop.ui.label"
+        :value="prop.data.value[i-1]"
+        @input="onChange(arguments[0], i-1)"
         @focus="help = true"
         @blur="help = false"
       />
