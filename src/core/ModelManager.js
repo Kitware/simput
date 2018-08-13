@@ -163,6 +163,12 @@ export default class ModelManager {
         { value: newData.value }
       );
 
+      // update viewData for vue
+      this.data[this.activeViewName][this.activeViewIndex] = Object.assign(
+        {},
+        viewData
+      );
+
       const hooks = this.model.views[this.activeViewName].hooks || [];
       hooks.forEach((hook) =>
         HookManager.applyHook(hook, this.fullData, viewData, this.model)
@@ -183,10 +189,18 @@ export default class ModelManager {
 
     // Create containers if missing
     if (!this.data[this.activeViewName]) {
-      this.data[this.activeViewName] = [];
+      this.data = Object.assign({}, this.data, {
+        [this.activeViewName]: [],
+      });
     }
     if (!this.data[this.activeViewName][this.activeViewIndex]) {
-      this.data[this.activeViewName][this.activeViewIndex] = {};
+      this.data[this.activeViewName] = Object.assign(
+        {},
+        this.data[this.activeViewName],
+        {
+          [this.activeViewIndex]: {},
+        }
+      );
     }
 
     const viewData = this.data[this.activeViewName][this.activeViewIndex];
@@ -463,7 +477,9 @@ export default class ModelManager {
 
     // Create active view container if not yet available
     if (!this.data[this.activeViewName]) {
-      this.data[this.activeViewName] = [];
+      this.data = Object.assign({}, this.data, {
+        [this.activeViewName]: [],
+      });
     }
     while (this.data[this.activeViewName].length <= this.activeViewIndex) {
       this.data[this.activeViewName].push({});
@@ -520,6 +536,12 @@ export default class ModelManager {
         };
       }
     }
+
+    // update data for vue
+    this.data[this.activeViewName][this.activeViewIndex] = Object.assign(
+      {},
+      containerData
+    );
 
     return containerData[attributeName][parameterId];
   }
