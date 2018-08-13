@@ -19,7 +19,6 @@ export default {
     },
     onChange(key, value, index = 0) {
       const newData = Object.assign({}, this.prop.data);
-      console.log(newData.value, index, key);
       if (key === value && key === undefined) {
         newData.value.splice(index, 1);
       } else {
@@ -34,6 +33,9 @@ export default {
         value: '',
       });
       this.$emit('change', newData);
+    },
+    removeEntry(index) {
+      this.onChange(undefined, undefined, index);
     },
   },
   beforeMount() {

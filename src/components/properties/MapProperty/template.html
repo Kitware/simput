@@ -11,6 +11,14 @@
       </v-btn>
     </v-flex>
   </v-layout>
+  <v-layout v-if="prop.data.value.length === 0">
+    <v-flex
+      xs12
+      class="text-xs-center grey--text font-italic"
+    >
+      No keys/values
+    </v-flex>
+  </v-layout>
   <v-layout
     v-for="(keypair,i) in prop.data.value"
     :key="i"
@@ -35,7 +43,11 @@
       />
     </v-flex>
     <v-flex xs2>
-      <v-btn icon small>
+      <v-btn
+        icon
+        small
+        @click="removeEntry(i)"
+      >
         <v-icon small>delete</v-icon>
       </v-btn>
     </v-flex>
