@@ -1,0 +1,54 @@
+<v-container fluid v-show="isVisible()" key="text-prop" :class="$style.container">
+  <v-layout wrap align-center>
+    <v-flex xs12 :class="$style.labelContainer">
+      <v-label>{{ prop.ui.label }}</v-label>
+    </v-flex>
+    <v-flex xs5 class="text-xs-center">Name</v-flex>
+    <v-flex xs5 class="text-xs-center">Value</v-flex>
+    <v-flex xs2>
+      <v-btn icon small @click="addEntry">
+        <v-icon small>add</v-icon>
+      </v-btn>
+    </v-flex>
+  </v-layout>
+  <v-layout
+    v-for="(keypair,i) in prop.data.value"
+    :key="i"
+    wrap
+  >
+    <v-flex xs5>
+      <v-text-field
+        hide-details
+        :value="keypair.name"
+        @change="onChange('name', arguments[0], i)"
+        @focus="help = true"
+        @blur="help = false"
+      />
+    </v-flex>
+    <v-flex xs5>
+      <v-text-field
+        hide-details
+        :value="keypair.value"
+        @change="onChange('value', arguments[0], i)"
+        @focus="help = true"
+        @blur="help = false"
+      />
+    </v-flex>
+    <v-flex xs2>
+      <v-btn icon small>
+        <v-icon small>delete</v-icon>
+      </v-btn>
+    </v-flex>
+  </v-layout>
+  <v-layout wrap>
+    <v-flex xs12>
+      <v-alert
+        color="black"
+        v-html="prop.ui.help"
+        :value="help && prop.ui.help"
+        icon="help_outline"
+        :outline="true"
+      />
+    </v-flex>
+  </v-layout>
+</v-container>
