@@ -31,17 +31,17 @@
       simputInstance.processURLArgs();
 
       // Register various template
-      simputInstance.registerType('demo', ['https://unpkg.com/simput@2.2.22/dist/types/demo.js']);
-      simputInstance.registerType('pyfr', ['https://unpkg.com/simput@2.2.22/dist/types/pyfr.js']);
-      simputInstance.registerType('vcard', ['https://unpkg.com/simput@2.2.22/dist/types/vcard.js']);
-      simputInstance.registerType('openfoam-periodic', ['https://unpkg.com/simput@2.2.22/dist/types/openfoam-periodic.js']);
+      Simput.registerType('demo', ['https://unpkg.com/simput@2.2.22/dist/types/demo.js']);
+      Simput.registerType('pyfr', ['https://unpkg.com/simput@2.2.22/dist/types/pyfr.js']);
+      Simput.registerType('vcard', ['https://unpkg.com/simput@2.2.22/dist/types/vcard.js']);
+      Simput.registerType('openfoam-periodic', ['https://unpkg.com/simput@2.2.22/dist/types/openfoam-periodic.js']);
 
-      simputInstance.registerType('oscillator', ['./types/oscillator.js']);
+      Simput.registerType('oscillator', ['./types/oscillator.js']);
 
       // Test / debug --- only for def
-      simputInstance.registerType('addressbook', ['./types/addressbook.js']);
-      simputInstance.registerType('demo', ['./types/demo.js']);
-      simputInstance.registerType('test', ['./types/test.js']);
+      Simput.registerType('addressbook', ['./types/addressbook.js']);
+      Simput.registerType('demo', ['./types/demo.js']);
+      Simput.registerType('test', ['./types/test.js']);
     </script>
   </body>
 </html>
