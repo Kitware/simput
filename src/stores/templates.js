@@ -49,22 +49,7 @@ export default {
 
   actions: {
     LOAD_TEMPLATE({ commit, state }, type) {
-      if (!state.loaded[type] && state.types[type] && state.types[type].urls) {
-        commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'pending' });
-        Promise.all(state.types[type].urls.map(loadScript)).then(() => {
-          commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'loaded' });
-          const module = window.Simput.types[type];
-
-          // Initialize hooks
-          if (module.hooks) {
-            module.hooks();
-          }
-
-          const dataManager = new ModelManager(module, state.model);
-          commit(Mutations.SET_DATAMANAGER, dataManager);
-          commit(Mutations.SHOW_APP);
-        });
-      } else if (state.loaded[type] === 'loaded') {
+      const finishLoad = () => {
         const module = window.Simput.types[type];
 
         // Initialize hooks
@@ -75,6 +60,22 @@ export default {
         const dataManager = new ModelManager(module, state.model);
         commit(Mutations.SET_DATAMANAGER, dataManager);
         commit(Mutations.SHOW_APP);
+      };
+
+      if (!state.loaded[type] && state.types[type] && state.types[type].urls) {
+        commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'pending' });
+        Promise.all(state.types[type].urls.map(loadScript))
+          .then(() => {
+            const module = window.Simput.types[type];
+            const extraScripts = module.model.scripts || [];
+            return Promise.all(extraScripts.map(loadScript));
+          })
+          .then(() => {
+            commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'loaded' });
+            finishLoad();
+          });
+      } else if (state.loaded[type] === 'loaded') {
+        finishLoad();
       }
     },
     SAVE({ state }) {
