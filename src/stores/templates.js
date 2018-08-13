@@ -64,16 +64,10 @@ export default {
 
       if (!state.loaded[type] && state.types[type] && state.types[type].urls) {
         commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'pending' });
-        Promise.all(state.types[type].urls.map(loadScript))
-          .then(() => {
-            const module = window.Simput.types[type];
-            const extraScripts = module.model.scripts || [];
-            return Promise.all(extraScripts.map(loadScript));
-          })
-          .then(() => {
-            commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'loaded' });
-            finishLoad();
-          });
+        Promise.all(state.types[type].urls.map(loadScript)).then(() => {
+          commit(Mutations.UPDATE_TYPE_STATUS, { type, status: 'loaded' });
+          finishLoad();
+        });
       } else if (state.loaded[type] === 'loaded') {
         finishLoad();
       }

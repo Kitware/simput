@@ -8,6 +8,9 @@ import 'typeface-roboto';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
+// global symbol expose/export
+import 'simput/src/expose';
+
 import App from 'simput/src/components/core/App';
 import Store from 'simput/src/stores';
 import { Mutations } from 'simput/src/stores/types';
