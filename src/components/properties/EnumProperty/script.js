@@ -30,7 +30,10 @@ export default {
       const text = Object.keys(this.prop.ui.domain).find(
         (i) => this.prop.ui.domain[i] === value
       );
-      return { value, text };
+      if (value && text !== undefined) {
+        return { value, text };
+      }
+      return null;
     },
     onChange(item, index = 0) {
       if (this.prop.data.value[index] === item.value) {
