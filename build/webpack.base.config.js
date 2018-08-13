@@ -31,6 +31,14 @@ module.exports = {
         loader: 'expose-loader?Simput',
       },
       {
+        test: require.resolve('vue'),
+        loader: 'expose-loader?Vue',
+      },
+      {
+        test: require.resolve('vuex'),
+        loader: 'expose-loader?vuex',
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
