@@ -15,9 +15,12 @@ export default {
   },
   computed: {
     layout() {
-      return this.prop.ui.layout || '1';
+      return String(this.prop.ui.layout) || '1';
     },
     size() {
+      if (this.layout === '-1') {
+        return this.prop.data.value.length;
+      }
       return this.prop.ui.size || 1;
     },
   },
@@ -32,6 +35,33 @@ export default {
       } else {
         newData.value[index] = value;
       }
+      this.$emit('change', newData);
+    },
+    addValue() {
+      const newData = Object.assign({}, this.prop.data);
+      const values = newData.value;
+
+      switch (values.length) {
+        case 0: {
+          values.push(0);
+          break;
+        }
+        case 1: {
+          values.push(values[0]);
+          break;
+        }
+        default: {
+          const last = Number(values[values.length - 1]);
+          const beforeLast = Number(values[values.length - 2]);
+          const newValue = last + (last - beforeLast);
+          if (!Number.isNaN(newValue) && Number.isFinite(newValue)) {
+            values.push(newValue);
+          } else {
+            values.push(values[values.length - 1]);
+          }
+        }
+      }
+
       this.$emit('change', newData);
     },
     getCellLabel(idx) {
@@ -52,6 +82,8 @@ export default {
         } else if (cellIndex === 5) {
           offset = 'offset-xs8';
         }
+      } else if (String(this.layout) === '-1') {
+        size = 'xs11';
       } else if (this.size <= 12) {
         size = `xs${Math.floor(12 / this.size)}`;
       }

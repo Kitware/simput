@@ -4,7 +4,6 @@
 
 .labelContainer {
   position: relative;
-  height: 0px;
   left: -12.5%;
   transform: translateY(0.9em) scale(.75);
   padding-top: 0 !important;

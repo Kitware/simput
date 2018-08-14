@@ -1,26 +1,56 @@
 <v-container fluid v-show="isVisible()" key="text-prop" :class="$style.container">
-  <v-flex
-    v-if="size > 1"
-    key="if-multicell"
-    xs12
-    :class="$style.labelContainer"
-  >
-    <v-label>{{ prop.ui.label }}</v-label>
-  </v-flex>
-  <v-layout wrap>
+  <v-layout>
     <v-flex
-      v-for="i in size"
-      :key="i"
-      v-bind="getCellAttrs(i-1)"
+      v-if="size > 1 || layout === '-1'"
+      key="if-multicell"
+      xs12
+      :class="$style.labelContainer"
     >
-      <v-text-field
-        :label="size > 1 ? getCellLabel(i-1) : prop.ui.label"
-        :value="prop.data.value[i-1]"
-        @input="onChange(arguments[0], i-1)"
-        @focus="help = true"
-        @blur="help = false"
-      />
+      <v-label>{{ prop.ui.label }}</v-label>
     </v-flex>
+    <v-spacer />
+    <v-flex
+      v-if="layout === '-1'"
+      key="if-can-add"
+      xs1
+    >
+      <v-btn
+        icon
+        small
+        @click="addValue"
+      >
+        <v-icon small>add</v-icon>
+      </v-btn>
+    </v-flex>
+  </v-layout>
+  <v-layout wrap align-center>
+    <template v-for="i in size">
+      <v-flex
+        :key="`${i}-input`"
+        v-bind="getCellAttrs(i-1)"
+      >
+        <v-text-field
+          :label="size > 1 || layout === '-1' ? getCellLabel(i-1) : prop.ui.label"
+          :value="prop.data.value[i-1]"
+          @input="onChange(arguments[0], i-1)"
+          @focus="help = true"
+          @blur="help = false"
+        />
+      </v-flex>
+      <v-flex
+        v-if="layout === '-1'"
+        :key="`${i}-delete`"
+        xs1
+      >
+        <v-btn
+          icon
+          small
+          @click="onChange(null, i-1)"
+        >
+          <v-icon small>delete</v-icon>
+        </v-btn>
+      </v-flex>
+    </template>
   </v-layout>
   <v-layout wrap>
     <v-flex xs12>
