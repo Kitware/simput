@@ -1,0 +1,11 @@
+.container {
+  position: relative;
+}
+
+.labelContainer {
+  position: relative;
+  left: -12.5%;
+  transform: translateY(0.9em) scale(.75);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
