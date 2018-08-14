@@ -16,6 +16,11 @@ const UI_KEYS = [
   'propType',
 ];
 
+// used to update vue's reactivity system
+function assignObjKey(obj, key, data) {
+  return Object.assign({}, obj, { [key]: data });
+}
+
 // ----------------------------------------------------------------------------
 // ModelManager
 // ----------------------------------------------------------------------------
@@ -120,7 +125,7 @@ export default class ModelManager {
     const name = `${this.localizedData.getView(viewName)} ${index}`;
 
     viewList.push({ name });
-    this.data = Object.assign({}, this.data, { [viewName]: viewList });
+    this.data = assignObjKey(this.data, viewName, viewList);
     this.activateView(viewName, index);
   }
 
@@ -157,16 +162,10 @@ export default class ModelManager {
       const viewData = this.data[this.activeViewName][this.activeViewIndex];
       const keypath = newData.id.split('.');
       const attrName = keypath.shift();
-      viewData[attrName][keypath.join('.')] = Object.assign(
-        {},
+      viewData[attrName][keypath.join('.')] = assignObjKey(
         viewData[attrName][keypath.join('.')],
-        { value: newData.value }
-      );
-
-      // update viewData for vue
-      this.data[this.activeViewName][this.activeViewIndex] = Object.assign(
-        {},
-        viewData
+        'value',
+        newData.value
       );
 
       const hooks = this.model.views[this.activeViewName].hooks || [];
@@ -189,18 +188,10 @@ export default class ModelManager {
 
     // Create containers if missing
     if (!this.data[this.activeViewName]) {
-      this.data = Object.assign({}, this.data, {
-        [this.activeViewName]: [],
-      });
+      this.data = assignObjKey(this.data, this.activeViewName, []);
     }
     if (!this.data[this.activeViewName][this.activeViewIndex]) {
-      this.data[this.activeViewName] = Object.assign(
-        {},
-        this.data[this.activeViewName],
-        {
-          [this.activeViewIndex]: {},
-        }
-      );
+      this.data[this.activeViewName].splice(this.activeViewIndex, 1, {});
     }
 
     const viewData = this.data[this.activeViewName][this.activeViewIndex];
@@ -477,27 +468,38 @@ export default class ModelManager {
 
     // Create active view container if not yet available
     if (!this.data[this.activeViewName]) {
-      this.data = Object.assign({}, this.data, {
-        [this.activeViewName]: [],
-      });
+      this.data = assignObjKey(this.data, this.activeViewName, []);
     }
     while (this.data[this.activeViewName].length <= this.activeViewIndex) {
       this.data[this.activeViewName].push({});
     }
-    const containerData = this.data[this.activeViewName][this.activeViewIndex];
+
+    const views = this.data[this.activeViewName];
 
     // Fill attribute
-    if (!containerData[attributeName]) {
-      containerData[attributeName] = {};
+    if (!views[this.activeViewIndex][attributeName]) {
+      // let vue's reactivity system do its thing
+      views.splice(
+        this.activeViewIndex,
+        1,
+        assignObjKey(views[this.activeViewIndex], attributeName, {})
+      );
     }
+
+    const containerData = views[this.activeViewIndex];
 
     if (!containerData[attributeName][parameterId]) {
       const paramDef = this.getParameter(attributeName, parameterId);
       if (paramDef.default !== undefined) {
-        containerData[attributeName][parameterId] = {
-          id: `${attributeName}.${parameterId}`,
-          value: [].concat(clone(paramDef.default)),
-        };
+        // let vue's reactivity system work
+        containerData[attributeName] = assignObjKey(
+          containerData[attributeName],
+          parameterId,
+          {
+            id: `${attributeName}.${parameterId}`,
+            value: [].concat(clone(paramDef.default)),
+          }
+        );
       } else if (paramDef.domain && paramDef.domain.external) {
         // external param (no default)
         let externalObj;
@@ -519,27 +521,40 @@ export default class ModelManager {
 
         const val = externalObj[Object.keys(externalObj)[0]];
 
-        containerData[attributeName][parameterId] = {
-          id: `${attributeName}.${parameterId}`,
-          value: [].concat(clone(val)),
-        };
+        containerData[attributeName] = assignObjKey(
+          containerData[attributeName],
+          parameterId,
+          {
+            id: `${attributeName}.${parameterId}`,
+            value: [].concat(clone(val)),
+          }
+        );
       } else if (paramDef.domain) {
         // const val = paramDef.domain[Object.keys(paramDef.domain)[0]];
-        containerData[attributeName][parameterId] = {
-          id: `${attributeName}.${parameterId}`,
-          value: [].concat(clone(null)),
-        };
+        containerData[attributeName] = assignObjKey(
+          containerData[attributeName],
+          parameterId,
+          {
+            id: `${attributeName}.${parameterId}`,
+            value: [].concat(clone(null)),
+          }
+        );
       } else {
-        containerData[attributeName][parameterId] = {
-          id: `${attributeName}.${parameterId}`,
-          value: [],
-        };
+        containerData[attributeName] = assignObjKey(
+          containerData[attributeName],
+          parameterId,
+          {
+            id: `${attributeName}.${parameterId}`,
+            value: [],
+          }
+        );
       }
     }
 
     // update data for vue
-    this.data[this.activeViewName][this.activeViewIndex] = Object.assign(
-      {},
+    this.data[this.activeViewName].splice(
+      this.activeViewIndex,
+      1,
       containerData
     );
 
