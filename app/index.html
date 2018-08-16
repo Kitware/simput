@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google" value="notranslate">
+    <title>Simput</title>
+    <meta name="description" content="Provide a simple way to write input simulation files">
+    <link inline rel="icon" type="image/png" href="Simput.png">
+    <style type="text/css">
+      /* override vuetify */
+      html {
+        overflow: hidden !important;
+      }
+    </style>
+    <script inline type="text/javascript" src="version.js"></script>
+    
+      <script
+         inline 
+        type="text/javascript"
+        src="runtime.js"
+      ></script>
+    
+      <script
+         inline 
+        type="text/javascript"
+        src="vendors.js"
+      ></script>
+    
+      <script
+         inline 
+        type="text/javascript"
+        src="simput.js"
+      ></script>
+    
+  </head>
+  <body>
+    <div id="root-container"></div>
+    <script type="text/javascript">
+      const container = document.querySelector('#root-container');
+      const simputInstance = Simput.createViewer(container);
+      simputInstance.processURLArgs();
+
+      // Register various template
+      Simput.registerType('demo', ['https://unpkg.com/simput@2.2.22/dist/types/demo.js']);
+      Simput.registerType('pyfr', ['https://unpkg.com/simput@2.2.22/dist/types/pyfr.js']);
+      Simput.registerType('vcard', ['https://unpkg.com/simput@2.2.22/dist/types/vcard.js']);
+      Simput.registerType('openfoam-periodic', ['https://unpkg.com/simput@2.2.22/dist/types/openfoam-periodic.js']);
+
+      Simput.registerType('oscillator', ['./types/oscillator.js']);
+
+      // Test / debug --- only for dev
+      Simput.registerType('addressbook', ['./types/addressbook.js']);
+      Simput.registerType('demo', ['./types/demo.js']);
+      Simput.registerType('test', ['./types/test.js']);
+    </script>
+  </body>
+</html>
