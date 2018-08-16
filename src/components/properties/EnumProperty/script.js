@@ -36,7 +36,7 @@ export default {
       return null;
     },
     onChange(item, index = 0) {
-      if (this.prop.data.value[index] === item.value) {
+      if (!item || this.prop.data.value[index] === item.value) {
         return;
       }
       this.prop.data.value[index] = item.value;
