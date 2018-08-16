@@ -1,0 +1,32 @@
+[submodule "types/nwchem"]
+	path = types/nwchem
+	url = https://github.com/kitware/simput
+	branch = type-nwchem
+[submodule "types/nwchem-neb"]
+	path = types/nwchem-neb
+	url = https://github.com/kitware/simput
+	branch = type-nwchem-neb
+[submodule "types/openfoam-periodic"]
+	path = types/openfoam-periodic
+	url = https://github.com/kitware/simput
+	branch = type-openfoam-periodic
+[submodule "types/openfoam-tutorials"]
+	path = types/openfoam-tutorials
+	url = https://github.com/kitware/simput
+	branch = type-openfoam-tutorials
+[submodule "types/openfoam-windtunnel"]
+	path = types/openfoam-windtunnel
+	url = https://github.com/kitware/simput
+	branch = type-openfoam-windtunnel
+[submodule "types/pyfr"]
+	path = types/pyfr
+	url = https://github.com/kitware/simput
+	branch = type-pyfr
+[submodule "types/vcard"]
+	path = types/vcard
+	url = https://github.com/kitware/simput
+	branch = type-vcard
+[submodule "types/vera"]
+	path = types/vera
+	url = https://github.com/kitware/simput
+	branch = type-vera
