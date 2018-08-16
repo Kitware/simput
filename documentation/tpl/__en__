@@ -1,5 +1,6 @@
 menu:
   docs: Docs
+  app: Application
   news: News
   search: Search
 

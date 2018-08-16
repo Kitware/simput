@@ -12,4 +12,10 @@ module.exports = {
     github: 'kitware/simput',
     google_analytics: 'UA-90338862-11',
   },
+  copy: [
+    {
+      src: '../dist/*',
+      dest: './build-tmp/public/app',
+    },
+  ],
 };
