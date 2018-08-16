@@ -81,20 +81,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./types/openfoam-periodic/src/index.js-exposed");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./types/vcard/src/index.js-exposed");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!./types/openfoam-periodic/src/index.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--12-0!./types/openfoam-periodic/src/index.js ***!
-  \*****************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!./types/vcard/src/index.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--12-0!./types/vcard/src/index.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n    type: 'openfoam-periodic',\n    model: __webpack_require__(/*! ./model.js */ \"./types/openfoam-periodic/src/model.js\"),\n    lang: {},\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/openfoam-periodic/src/convert.js\"),\n    hooks: __webpack_require__(/*! ./hooks.js */ \"./types/openfoam-periodic/src/hooks.js\"),\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
+eval("\n\nmodule.exports = {\n    type: 'vcard',\n    model: __webpack_require__(/*! ./model.json */ \"./types/vcard/src/model.json\"),\n    lang: __webpack_require__(/*! ./lang */ \"./types/vcard/src/lang/index.js\"),\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/vcard/src/convert.js\"),\n    hooks: __webpack_require__(/*! ./hooks.js */ \"./types/vcard/src/hooks.js\"),\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/vcard/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
 
 /***/ }),
 
@@ -326,6 +326,160 @@ eval("\n\n// Create a simple path alias to allow browserify to resolve\n// the r
 
 /***/ }),
 
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/city":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/en/help/person/city ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>City</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/city?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/country":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/en/help/person/country ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Country</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/country?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/firstName":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/en/help/person/firstName ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>First name</b> of your contact</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/firstName?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/lastName":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/en/help/person/lastName ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Last name</b> or <b>Sirname</b> of your contact</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/lastName?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/state":
+/*!******************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/en/help/person/state ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>State</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/state?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/street":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/en/help/person/street ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Street</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/street?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/zip":
+/*!****************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/en/help/person/zip ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Zip code</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/zip?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/city":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/fr/help/person/city ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Ville</b> de l'adresse postale</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/city?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/country":
+/*!********************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/fr/help/person/country ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Pays</b> de l'adresse postale</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/country?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/firstName":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/fr/help/person/firstName ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Prénom</b> du contact</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/firstName?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/lastName":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/fr/help/person/lastName ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Nom de famille</b> du contact</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/lastName?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/state":
+/*!******************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/fr/help/person/state ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Etat</b>, <b>Region</b> ou <b>Departement</b> de votre contact</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/state?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/street":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/fr/help/person/street ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Rue</b> de l'adresse postale</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/street?./node_modules/html-loader");
+
+/***/ }),
+
+/***/ "./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/zip":
+/*!****************************************************************************!*\
+  !*** ./node_modules/html-loader!./types/vcard/src/lang/fr/help/person/zip ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<p><b>Code postale</b> de l'adresse</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/zip?./node_modules/html-loader");
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -338,182 +492,166 @@ eval("\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/convert.js":
-/*!************************************************!*\
-  !*** ./types/openfoam-periodic/src/convert.js ***!
-  \************************************************/
+/***/ "./types/vcard/src/convert.js":
+/*!************************************!*\
+  !*** ./types/vcard/src/convert.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nvar templates = {\n  '/0/p': __webpack_require__(/*! ./templates/0/p.hbs */ \"./types/openfoam-periodic/src/templates/0/p.hbs\"),\n  '/0/U': __webpack_require__(/*! ./templates/0/U.hbs */ \"./types/openfoam-periodic/src/templates/0/U.hbs\"),\n  '/constant/transportProperties': __webpack_require__(/*! ./templates/constant/transportProperties.hbs */ \"./types/openfoam-periodic/src/templates/constant/transportProperties.hbs\"),\n  '/constant/turbulenceProperties': __webpack_require__(/*! ./templates/constant/turbulenceProperties.hbs */ \"./types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs\"),\n  '/constant/postChannelDict': __webpack_require__(/*! ./templates/constant/postChannelDict.hbs */ \"./types/openfoam-periodic/src/templates/constant/postChannelDict.hbs\"),\n  '/constant/fvOptions': __webpack_require__(/*! ./templates/constant/fvOptions.hbs */ \"./types/openfoam-periodic/src/templates/constant/fvOptions.hbs\"),\n  '/system/blockMeshDict': __webpack_require__(/*! ./templates/system/blockMeshDict.hbs */ \"./types/openfoam-periodic/src/templates/system/blockMeshDict.hbs\"),\n  '/system/controlDict': __webpack_require__(/*! ./templates/system/controlDict.hbs */ \"./types/openfoam-periodic/src/templates/system/controlDict.hbs\"),\n  '/system/decomposeParDict': __webpack_require__(/*! ./templates/system/decomposeParDict.hbs */ \"./types/openfoam-periodic/src/templates/system/decomposeParDict.hbs\"),\n  '/system/fvSchemes': __webpack_require__(/*! ./templates/system/fvSchemes.hbs */ \"./types/openfoam-periodic/src/templates/system/fvSchemes.hbs\"),\n  '/system/fvSolution': __webpack_require__(/*! ./templates/system/fvSolution.hbs */ \"./types/openfoam-periodic/src/templates/system/fvSolution.hbs\"),\n  '/inputs': __webpack_require__(/*! ./templates/inputs.hbs */ \"./types/openfoam-periodic/src/templates/inputs.hbs\")\n};\n\nmodule.exports = function convert(dataModel) {\n  var results = {};\n\n  dataModel.data.CaseBook.forEach(function (attributes) {\n    var mycase = {};\n    Object.keys(attributes.inputs).forEach(function (fieldName) {\n      mycase[fieldName] = attributes.inputs[fieldName].value[0];\n    });\n\n    Object.keys(templates).forEach(function (path) {\n      results[attributes.other.name.value[0].concat(path)] = templates[path](mycase);\n    });\n  });\n\n  return { results: results, model: dataModel };\n};\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/convert.js?");
+eval("\n\nvar vCardTemplate = __webpack_require__(/*! ./templates/vcard.hbs */ \"./types/vcard/src/templates/vcard.hbs\");\n\nmodule.exports = function convert(dataModel) {\n  var results = {};\n\n  dataModel.data.AddressBook.forEach(function (attributes) {\n    var person = {};\n    Object.keys(attributes.person).forEach(function (fieldName) {\n      person[fieldName] = attributes.person[fieldName].value[0];\n    });\n    results[person.firstName + ' ' + person.lastName + '.vcf'] = vCardTemplate(person);\n  });\n\n  return { results: results, model: dataModel };\n};\n\n//# sourceURL=webpack:///./types/vcard/src/convert.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/hooks.js":
-/*!**********************************************!*\
-  !*** ./types/openfoam-periodic/src/hooks.js ***!
-  \**********************************************/
+/***/ "./types/vcard/src/hooks.js":
+/*!**********************************!*\
+  !*** ./types/vcard/src/hooks.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nfunction updateToViewName(hookConfig, dataModel, currentViewData) {\n  currentViewData.name = [currentViewData.other.name.value[0]].join(' ');\n}\n\nmodule.exports = function initialize() {\n  Simput.registerHook('caseNameToView', updateToViewName);\n};\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/hooks.js?");
+eval("\n\nfunction updateToViewName(hookConfig, dataModel, currentViewData) {\n  currentViewData.name = [currentViewData.person.lastName.value[0], currentViewData.person.firstName.value[0]].join(' ');\n}\n\nmodule.exports = function initialize() {\n  Simput.registerHook('personNameToView', updateToViewName);\n};\n\n//# sourceURL=webpack:///./types/vcard/src/hooks.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/index.js-exposed":
+/***/ "./types/vcard/src/index.js-exposed":
+/*!******************************************!*\
+  !*** ./types/vcard/src/index.js-exposed ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"vcard\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!./types/vcard/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/vcard/src/index.js-exposed?");
+
+/***/ }),
+
+/***/ "./types/vcard/src/lang/en/help/index.js":
+/*!***********************************************!*\
+  !*** ./types/vcard/src/lang/en/help/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nmodule.exports = {\n  \"person\": __webpack_require__(/*! ./person */ \"./types/vcard/src/lang/en/help/person/index.js\")\n};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/index.js?");
+
+/***/ }),
+
+/***/ "./types/vcard/src/lang/en/help/person/index.js":
 /*!******************************************************!*\
-  !*** ./types/openfoam-periodic/src/index.js-exposed ***!
+  !*** ./types/vcard/src/lang/en/help/person/index.js ***!
   \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"openfoam-periodic\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!./types/openfoam-periodic/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/index.js-exposed?");
+"use strict";
+eval("\n\nmodule.exports = {\n  \"city\": __webpack_require__(/*! html-loader!./city */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/city\"),\n  \"country\": __webpack_require__(/*! html-loader!./country */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/country\"),\n  \"firstName\": __webpack_require__(/*! html-loader!./firstName */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/firstName\"),\n  \"lastName\": __webpack_require__(/*! html-loader!./lastName */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/lastName\"),\n  \"state\": __webpack_require__(/*! html-loader!./state */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/state\"),\n  \"street\": __webpack_require__(/*! html-loader!./street */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/street\"),\n  \"zip\": __webpack_require__(/*! html-loader!./zip */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/en/help/person/zip\")\n};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/index.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/model.js":
-/*!**********************************************!*\
-  !*** ./types/openfoam-periodic/src/model.js ***!
-  \**********************************************/
+/***/ "./types/vcard/src/lang/en/index.js":
+/*!******************************************!*\
+  !*** ./types/vcard/src/lang/en/index.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n  order: ['General', 'CaseBook'],\n  views: {\n    General: {\n      id: 'General',\n      label: 'General',\n      attributes: [],\n      hooks: [],\n      readOnly: true\n    },\n    CaseBook: {\n      id: 'CaseBook',\n      label: 'Case Book',\n      attributes: ['other', 'inputs'],\n      size: -1,\n      hooks: [{\n        type: 'caseNameToView'\n      }],\n      readOnly: true\n    }\n  },\n  definitions: {\n    other: {\n      label: 'Other',\n      parameters: [{\n        id: 'name',\n        label: 'Name',\n        type: 'string',\n        size: 1,\n        default: 'MyCase'\n      }]\n    },\n    inputs: {\n      label: 'Inputs',\n      parameters: [{\n        id: 'reynolds_number',\n        label: 'Reynolds number',\n        type: 'double',\n        size: 1,\n        default: 1.0\n      }, {\n        id: 'cell_count',\n        label: 'Normal cell count',\n        type: 'integer',\n        size: 1,\n        default: 10\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/model.js?");
+eval("\n\nmodule.exports = {\n  \"help\": __webpack_require__(/*! ./help */ \"./types/vcard/src/lang/en/help/index.js\"),\n  \"label.json\": __webpack_require__(/*! ./label.json */ \"./types/vcard/src/lang/en/label.json\")\n};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/index.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/0/U.hbs":
-/*!*******************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/0/U.hbs ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./types/vcard/src/lang/en/label.json":
+/*!********************************************!*\
+  !*** ./types/vcard/src/lang/en/label.json ***!
+  \********************************************/
+/*! exports provided: views, attributes, default */
+/***/ (function(module) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       volVectorField;\\n    location    \\\"1\\\";\\n    object      U;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\ndimensions      [0 1 -1 0 0 0 0];\\n\\ninternalField   uniform (1.0 0 0);\\n\\nboundaryField\\n{\\n    bottomWall\\n    {\\n        type            noSlip;\\n    }\\n    topWall\\n    {\\n        type            noSlip;\\n    }\\n    sides\\n    {\\n        type            empty;\\n    }\\n    inout1_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout1_half1\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half1\\n    {\\n        type            cyclic;\\n    }\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/0/U.hbs?");
-
-/***/ }),
-
-/***/ "./types/openfoam-periodic/src/templates/0/p.hbs":
-/*!*******************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/0/p.hbs ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       volScalarField;\\n    location    \\\"1\\\";\\n    object      p;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\ndimensions      [0 2 -2 0 0 0 0];\\n\\ninternalField   uniform 0;\\n\\nboundaryField\\n{\\n    bottomWall\\n    {\\n        type            zeroGradient;\\n    }\\n    topWall\\n    {\\n        type            zeroGradient;\\n    }\\n    sides\\n    {\\n        type            empty;\\n    }\\n    inout1_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half0\\n    {\\n        type            cyclic;\\n    }\\n    inout1_half1\\n    {\\n        type            cyclic;\\n    }\\n    inout2_half1\\n    {\\n        type            cyclic;\\n    }\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/0/p.hbs?");
+eval("module.exports = {\"views\":{\"AddressBook\":\"Address Book\"},\"attributes\":{\"person\":{\"title\":\"Contact Informations\",\"parameters\":{\"firstName\":\"First Name\",\"lastName\":\"Last Name\",\"street\":\"Street\",\"city\":\"City\",\"state\":\"Sate\",\"zip\":\"Zip code\",\"country\":\"Country\"}}}};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/label.json?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/constant/fvOptions.hbs":
-/*!**********************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/constant/fvOptions.hbs ***!
-  \**********************************************************************/
+/***/ "./types/vcard/src/lang/fr/help/index.js":
+/*!***********************************************!*\
+  !*** ./types/vcard/src/lang/fr/help/index.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      fvOptions;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nmomentumSource\\n{\\n    type            meanVelocityForce;\\n\\n    selectionMode   all;\\n\\n    fields          (U);\\n    Ubar            (1.0 0 0);\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/constant/fvOptions.hbs?");
+"use strict";
+eval("\n\nmodule.exports = {\n  \"person\": __webpack_require__(/*! ./person */ \"./types/vcard/src/lang/fr/help/person/index.js\")\n};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/index.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/constant/postChannelDict.hbs":
-/*!****************************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/constant/postChannelDict.hbs ***!
-  \****************************************************************************/
+/***/ "./types/vcard/src/lang/fr/help/person/index.js":
+/*!******************************************************!*\
+  !*** ./types/vcard/src/lang/fr/help/person/index.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      postChannelDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\n// Seed patches to start layering from\\npatches         ( bottomWall );\\n\\n// Direction in which the layers are\\ncomponent       y;\\n\\n// Is the mesh symmetric? If so average(symmetric fields) or\\n// subtract(asymmetric) contributions from both halves\\nsymmetric       true;\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/constant/postChannelDict.hbs?");
+"use strict";
+eval("\n\nmodule.exports = {\n  \"city\": __webpack_require__(/*! html-loader!./city */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/city\"),\n  \"country\": __webpack_require__(/*! html-loader!./country */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/country\"),\n  \"firstName\": __webpack_require__(/*! html-loader!./firstName */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/firstName\"),\n  \"lastName\": __webpack_require__(/*! html-loader!./lastName */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/lastName\"),\n  \"state\": __webpack_require__(/*! html-loader!./state */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/state\"),\n  \"street\": __webpack_require__(/*! html-loader!./street */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/street\"),\n  \"zip\": __webpack_require__(/*! html-loader!./zip */ \"./node_modules/html-loader/index.js!./types/vcard/src/lang/fr/help/person/zip\")\n};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/help/person/index.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/constant/transportProperties.hbs":
-/*!********************************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/constant/transportProperties.hbs ***!
-  \********************************************************************************/
+/***/ "./types/vcard/src/lang/fr/index.js":
+/*!******************************************!*\
+  !*** ./types/vcard/src/lang/fr/index.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      transportProperties;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\n#include \\\"../inputs\\\"\\n\\ntransportModel  Newtonian;\\n\\nnu              [0 2 -1 0 0 0 0] #calc \\\"1.0 / $Re\\\";\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/constant/transportProperties.hbs?");
+"use strict";
+eval("\n\nmodule.exports = {\n  \"help\": __webpack_require__(/*! ./help */ \"./types/vcard/src/lang/fr/help/index.js\"),\n  \"label.json\": __webpack_require__(/*! ./label.json */ \"./types/vcard/src/lang/fr/label.json\")\n};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/index.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs":
-/*!*********************************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs ***!
-  \*********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./types/vcard/src/lang/fr/label.json":
+/*!********************************************!*\
+  !*** ./types/vcard/src/lang/fr/label.json ***!
+  \********************************************/
+/*! exports provided: views, attributes, default */
+/***/ (function(module) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"constant\\\";\\n    object      turbulenceProperties;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nsimulationType laminar;\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/constant/turbulenceProperties.hbs?");
-
-/***/ }),
-
-/***/ "./types/openfoam-periodic/src/templates/inputs.hbs":
-/*!**********************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/inputs.hbs ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1, helper;\n\n  return \"Re \"\n    + ((stack1 = ((helper = (helper = helpers.reynolds_number || (depth0 != null ? depth0.reynolds_number : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === \"function\" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{\"name\":\"reynolds_number\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/inputs.hbs?");
+eval("module.exports = {\"views\":{\"AddressBook\":\"Carnet d'adresses\"},\"attributes\":{\"person\":{\"title\":\"Renseignements\",\"parameters\":{\"firstName\":\"Prénom\",\"lastName\":\"Nom de famille\",\"street\":\"Rue\",\"city\":\"Ville\",\"state\":\"Etat\",\"zip\":\"Code postal\",\"country\":\"Pays\"}}}};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/fr/label.json?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/system/blockMeshDict.hbs":
-/*!************************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/system/blockMeshDict.hbs ***!
-  \************************************************************************/
+/***/ "./types/vcard/src/lang/index.js":
+/*!***************************************!*\
+  !*** ./types/vcard/src/lang/index.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1, helper;\n\n  return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    object      blockMeshDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nconvertToMeters 1;\\n\\ncell_count \"\n    + ((stack1 = ((helper = (helper = helpers.cell_count || (depth0 != null ? depth0.cell_count : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === \"function\" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{\"name\":\"cell_count\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\\n\\nvertices\\n(\\n    (0 -1 0) //0\\n    (2 -1 0) //1\\n    (0  0 0) //2\\n    (2  0 0) //3\\n    (0  1 0) //4\\n    (2  1 0) //5\\n    (0 -1 2) //6\\n    (2 -1 2) //7\\n    (0  0 2) //8\\n    (2  0 2) //9\\n    (0  1 2) //10\\n    (2  1 2) //11\\n);\\n\\nblocks\\n(\\n    hex (0 1 3 2 6 7 9 8) (1 $cell_count 1) simpleGrading (1 1.0 1)\\n    hex (2 3 5 4 8 9 11 10) (1 $cell_count 1) simpleGrading (1 1.0 1)\\n);\\n\\nedges\\n(\\n);\\n\\nboundary\\n(\\n    bottomWall\\n    {\\n        type            wall;\\n        faces           ((0 1 7 6));\\n    }\\n    topWall\\n    {\\n        type            wall;\\n        faces           ((4 10 11 5));\\n    }\\n\\n    sides\\n    {\\n        type empty;\\n        faces (\\n            (0 2 3 1)\\n            (6 7 9 8)\\n            (2 4 5 3)\\n            (8 9 11 10)\\n        );\\n    }\\n\\n    inout1_half0\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout1_half1;\\n        faces           ((1 3 9 7));\\n    }\\n    inout1_half1\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout1_half0;\\n        faces           ((0 6 8 2));\\n    }\\n\\n    inout2_half0\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout2_half1;\\n        faces           ((3 5 11 9));\\n    }\\n    inout2_half1\\n    {\\n        type            cyclic;\\n        neighbourPatch  inout2_half0;\\n        faces           ((2 8 10 4));\\n    }\\n);\\n\\nmergePatchPairs\\n(\\n);\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/system/blockMeshDict.hbs?");
+"use strict";
+eval("\n\nmodule.exports = {\n  \"en\": __webpack_require__(/*! ./en */ \"./types/vcard/src/lang/en/index.js\"),\n  \"fr\": __webpack_require__(/*! ./fr */ \"./types/vcard/src/lang/fr/index.js\")\n};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/index.js?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/system/controlDict.hbs":
-/*!**********************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/system/controlDict.hbs ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./types/vcard/src/model.json":
+/*!************************************!*\
+  !*** ./types/vcard/src/model.json ***!
+  \************************************/
+/*! exports provided: order, views, definitions, default */
+/***/ (function(module) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"system\\\";\\n    object      controlDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\napplication     pimpleFoam;\\n\\nstartFrom       startTime;\\n\\nstartTime       0;\\n\\nstopAt          endTime;\\n\\nendTime         100;\\n\\ndeltaT          0.1;\\n\\nwriteControl    timeStep;\\n\\nwriteInterval   100;\\n\\npurgeWrite      0;\\n\\nwriteFormat     ascii;\\n\\nwritePrecision  6;\\n\\nwriteCompression off;\\n\\ntimeFormat      general;\\n\\ntimePrecision   6;\\n\\nrunTimeModifiable false;\\n\\nfunctions\\n{\\n}\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/system/controlDict.hbs?");
-
-/***/ }),
-
-/***/ "./types/openfoam-periodic/src/templates/system/decomposeParDict.hbs":
-/*!***************************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/system/decomposeParDict.hbs ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    note        \\\"mesh decomposition control dictionary\\\";\\n    object      decomposeParDict;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nnumberOfSubdomains  4;\\n\\n//- Keep owner and neighbour on same processor for faces in zones:\\n// preserveFaceZones (heater solid1 solid3);\\n\\n//- Keep owner and neighbour on same processor for faces in patches:\\n//  (makes sense only for cyclic patches)\\n//preservePatches (cyclic_half0 cyclic_half1);\\n\\n//- Keep all of faceSet on a single processor. This puts all cells\\n//  connected with a point, edge or face on the same processor.\\n//  (just having face connected cells might not guarantee a balanced\\n//  decomposition)\\n// The processor can be -1 (the decompositionMethod chooses the processor\\n// for a good load balance) or explicitly provided (upsets balance).\\n//singleProcessorFaceSets ((f0 -1));\\n\\n\\n//- Use the volScalarField named here as a weight for each cell in the\\n//  decomposition.  For example, use a particle population field to decompose\\n//  for a balanced number of particles in a lagrangian simulation.\\n// weightField dsmcRhoNMean;\\n\\n// method          scotch;\\n// method          hierarchical;\\nmethod          simple;\\n// method          metis;\\n// method          manual;\\n// method          multiLevel;\\n// method          structured;  // does 2D decomposition of structured mesh\\n\\nmultiLevelCoeffs\\n{\\n    // Decomposition methods to apply in turn. This is like hierarchical but\\n    // fully general - every method can be used at every level.\\n\\n    level0\\n    {\\n        numberOfSubdomains  64;\\n        // method simple;\\n        // simpleCoeffs\\n        //{\\n        //    n           (2 1 1);\\n        //    delta       0.001;\\n        //}\\n        method scotch;\\n    }\\n    level1\\n    {\\n        numberOfSubdomains  4;\\n        method scotch;\\n    }\\n}\\n\\n// Desired output\\n\\nsimpleCoeffs\\n{\\n    n           (1 2 2);\\n    delta       0.001;\\n}\\n\\nhierarchicalCoeffs\\n{\\n    n           (1 2 1);\\n    delta       0.001;\\n    order       xyz;\\n}\\n\\nmetisCoeffs\\n{\\n /*\\n    processorWeights\\n    (\\n        1\\n        1\\n        1\\n        1\\n    );\\n  */\\n}\\n\\nscotchCoeffs\\n{\\n    // processorWeights\\n    //(\\n    //    1\\n    //    1\\n    //    1\\n    //    1\\n    //);\\n    // writeGraph  true;\\n    // strategy \\\"b\\\";\\n}\\n\\nmanualCoeffs\\n{\\n    dataFile    \\\"decompositionData\\\";\\n}\\n\\nstructuredCoeffs\\n{\\n    // Patches to do 2D decomposition on. Structured mesh only; cells have\\n    // to be in 'columns' on top of patches.\\n    patches     (bottomPatch);\\n}\\n\\n//// Is the case distributed? Note: command-line argument -roots takes\\n//// precedence\\n//distributed     yes;\\n//// Per slave (so nProcs-1 entries) the directory above the case.\\n//roots\\n//(\\n//    \\\"/tmp\\\"\\n//    \\\"/tmp\\\"\\n//);\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/system/decomposeParDict.hbs?");
+eval("module.exports = {\"order\":[\"AddressBook\"],\"views\":{\"AddressBook\":{\"id\":\"AdressBook\",\"label\":\"Address Book\",\"attributes\":[\"person\"],\"size\":-1,\"hooks\":[{\"type\":\"personNameToView\"}],\"readOnly\":true}},\"definitions\":{\"person\":{\"label\":\"Person\",\"parameters\":[{\"id\":\"firstName\",\"label\":\"First Name\",\"type\":\"string\",\"size\":1},{\"id\":\"lastName\",\"label\":\"Last Name\",\"type\":\"string\",\"size\":1},{\"id\":\"street\",\"label\":\"Street\",\"type\":\"string\",\"size\":1},{\"id\":\"city\",\"label\":\"City\",\"type\":\"string\",\"size\":1},{\"id\":\"state\",\"label\":\"State\",\"type\":\"string\",\"size\":1},{\"id\":\"zip\",\"label\":\"ZIP\",\"type\":\"string\",\"size\":1},{\"id\":\"country\",\"label\":\"Country\",\"type\":\"string\",\"size\":1}]}}};\n\n//# sourceURL=webpack:///./types/vcard/src/model.json?");
 
 /***/ }),
 
-/***/ "./types/openfoam-periodic/src/templates/system/fvSchemes.hbs":
-/*!********************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/system/fvSchemes.hbs ***!
-  \********************************************************************/
+/***/ "./types/vcard/src/templates/vcard.hbs":
+/*!*********************************************!*\
+  !*** ./types/vcard/src/templates/vcard.hbs ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"system\\\";\\n    object      fvSchemes;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nddtSchemes\\n{\\n    default         backward;\\n}\\n\\ngradSchemes\\n{\\n    default         Gauss linear;\\n}\\n\\ndivSchemes\\n{\\n    default         none;\\n    div(phi,U)      Gauss linear;\\n    div(phi,k)      Gauss limitedLinear 1;\\n    div(phi,B)      Gauss limitedLinear 1;\\n    div(B)          Gauss linear;\\n    div(phi,nuTilda) Gauss limitedLinear 1;\\n    div((nuEff*dev2(T(grad(U))))) Gauss linear;\\n}\\n\\nlaplacianSchemes\\n{\\n    default         Gauss linear corrected;\\n}\\n\\ninterpolationSchemes\\n{\\n    default         linear;\\n}\\n\\nsnGradSchemes\\n{\\n    default         corrected;\\n}\\n\\nwallDist\\n{\\n    method meshWave;\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/system/fvSchemes.hbs?");
-
-/***/ }),
-
-/***/ "./types/openfoam-periodic/src/templates/system/fvSolution.hbs":
-/*!*********************************************************************!*\
-  !*** ./types/openfoam-periodic/src/templates/system/fvSolution.hbs ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    return \"/*--------------------------------*- C++ -*----------------------------------*\\\\\\n  =========                 |\\n  \\\\\\\\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox\\n   \\\\\\\\    /   O peration     | Website:  https://openfoam.org\\n    \\\\\\\\  /    A nd           | Version:  6\\n     \\\\\\\\/     M anipulation  |\\n\\\\*---------------------------------------------------------------------------*/\\nFoamFile\\n{\\n    version     2.0;\\n    format      ascii;\\n    class       dictionary;\\n    location    \\\"system\\\";\\n    object      fvSolution;\\n}\\n// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //\\n\\nsolvers\\n{\\n    p\\n    {\\n        solver          GAMG;\\n        tolerance       0;\\n        relTol          0.1;\\n        smoother        GaussSeidel;\\n    }\\n\\n    pFinal\\n    {\\n        $p;\\n        smoother        DICGaussSeidel;\\n        tolerance       1e-06;\\n        relTol          0;\\n    }\\n\\n    \\\"(U|k|nuTilda)\\\"\\n    {\\n        solver          smoothSolver;\\n        smoother        symGaussSeidel;\\n        tolerance       1e-05;\\n        relTol          0.1;\\n    }\\n\\n    \\\"(U|k|nuTilda)Final\\\"\\n    {\\n        $U;\\n        tolerance       1e-05;\\n        relTol          0;\\n    }\\n}\\n\\nPIMPLE\\n{\\n    nOuterCorrectors 1;\\n    nCorrectors     1;\\n    nNonOrthogonalCorrectors 0;\\n    pRefCell        1;\\n    pRefValue       0;\\n}\\n\\n\\n// ************************************************************************* //\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/openfoam-periodic/src/templates/system/fvSolution.hbs?");
+eval("var Handlebars = __webpack_require__(/*! ./node_modules/handlebars/runtime.js */ \"./node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=\"function\";\n\n  return \"BEGIN:VCARD\\nVERSION:3.0\\nN:\"\n    + ((stack1 = ((helper = (helper = helpers.lastName || (depth0 != null ? depth0.lastName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"lastName\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\"\n    + ((stack1 = ((helper = (helper = helpers.firstName || (depth0 != null ? depth0.firstName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"firstName\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";;;\\nFN:\"\n    + ((stack1 = ((helper = (helper = helpers.firstName || (depth0 != null ? depth0.firstName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"firstName\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \" \"\n    + ((stack1 = ((helper = (helper = helpers.lastName || (depth0 != null ? depth0.lastName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"lastName\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \"\\nADR;type=HOME;type=pref:;;\"\n    + ((stack1 = ((helper = (helper = helpers.street || (depth0 != null ? depth0.street : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"street\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\"\n    + ((stack1 = ((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"city\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\"\n    + ((stack1 = ((helper = (helper = helpers.state || (depth0 != null ? depth0.state : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"state\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\"\n    + ((stack1 = ((helper = (helper = helpers.zip || (depth0 != null ? depth0.zip : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"zip\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \";\"\n    + ((stack1 = ((helper = (helper = helpers.country || (depth0 != null ? depth0.country : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"country\",\"hash\":{},\"data\":data}) : helper))) != null ? stack1 : \"\")\n    + \"\\nEND:VCARD\\n\";\n},\"useData\":true});\n\n//# sourceURL=webpack:///./types/vcard/src/templates/vcard.hbs?");
 
 /***/ })
 

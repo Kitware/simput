@@ -30,9 +30,20 @@
     "bundle": "inline-source --compress false --root ./dist ./dist/index.html ./dist/Simput.html",
     "commit": "git cz",
     "semantic-release": "semantic-release",
-    "prepublishOnly": "npm run version && npm run bundle",
+
+    "types": "npm run type:nwchem && npm run type:nwchem-neb && npm run type:openfoam-periodic && npm run type:openfoam-tutorials && npm run type:openfoam-windtunnel && npm run type:oscillator && npm run type:pyfr && npm run type:test && npm run type:vcard && npm run type:vera",
+    "type:nwchem": "node ./src/cli/simput-cli.js -c ./types/nwchem/src -o ./static/types -t nwchem",
+    "type:nwchem-neb": "node ./src/cli/simput-cli.js -c ./types/nwchem-neb/src -o ./static/types -t nwchem-neb",
+    "type:openfoam-periodic": "node ./src/cli/simput-cli.js -c ./types/openfoam-periodic/src -o ./static/types -t openfoam-periodic",
+    "type:openfoam-tutorials": "node ./src/cli/simput-cli.js -c ./types/openfoam-tutorials/src -o ./static/types -t openfoam-tutorials",
+    "type:openfoam-windtunnel": "node ./src/cli/simput-cli.js -c ./types/openfoam-windtunnel/src -o ./static/types -t openfoam-windtunnel",
+    "type:oscillator": "node ./src/cli/simput-cli.js -c ./types/oscillator/src -o ./static/types -t oscillator",
+    "type:pyfr": "node ./src/cli/simput-cli.js -c ./types/pyfr/src -o ./static/types -t pyfr",
     "type:test": "node ./src/cli/simput-cli.js -c ./types/test/src -o ./static/types -t test",
-    "type:oscillator": "node ./src/cli/simput-cli.js -c ./types/oscillator/src -o ./static/types -t oscillator"
+    "type:vcard": "node ./src/cli/simput-cli.js -c ./types/vcard/src -o ./static/types -t vcard",
+    "type:vera": "node ./src/cli/simput-cli.js -c ./types/vera/src -o ./static/types -t vera",
+
+    "prepublishOnly": "npm run version && npm run bundle"
   },
   "author": "Kitware",
   "dependencies": {

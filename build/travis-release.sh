@@ -7,6 +7,7 @@ echo "window.SIMPUT_VERSION = '$NIGHTLY_VERSION';" > dist/version.js
 
 npm run build:release
 npm run validate
+npm run types
 git config --global user.name "Sebastien Jourdain"
 git config --global user.email "sebastien.jourdain@kitware.com"
 export GIT_PUBLISH_URL=https://${GH_TOKEN}@github.com/Kitware/simput.git
