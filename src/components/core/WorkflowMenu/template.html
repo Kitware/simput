@@ -4,6 +4,7 @@
       <v-list-tile
         v-if="!viewHasChildren(node.id)"
         :key="i"
+        :class="$style.group"
         @click.stop="dataModel.activateView(node.id, node.index)"
       >
         <v-list-tile-content>
