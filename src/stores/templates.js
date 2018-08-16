@@ -76,7 +76,12 @@ export default {
       const compressionLevel = 0; // no compression
       const output = state.dataManager.getOutput();
       const outputFileName = `generated-output-${output.model.type}.zip`;
-      if (!output.errors) {
+      const hasError =
+        output.errors && Array.isArray(output.errors)
+          ? output.errors.length
+          : output.errors;
+
+      if (!hasError) {
         const zip = new JSZip();
         zip.file('.simput.model', JSON.stringify(output.model));
         const files = output.results;

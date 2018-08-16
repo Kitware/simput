@@ -89,7 +89,11 @@ export default class ModelManager {
       type: this.type,
     };
     const result = this.module.convert(fullModel);
-    if (result.errors) {
+    if (
+      result.errors && Array.isArray(result.errors)
+        ? result.errors.length
+        : result.errors
+    ) {
       // FIXME expose errors to UI
       console.error(result.errors);
     }

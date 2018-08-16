@@ -31,7 +31,6 @@
     "commit": "git cz",
     "semantic-release": "semantic-release",
     "prepublishOnly": "npm run version && npm run bundle",
-
     "type:test": "node ./src/cli/simput-cli.js -c ./types/test/src -o ./static/types -t test",
     "type:oscillator": "node ./src/cli/simput-cli.js -c ./types/oscillator/src -o ./static/types -t oscillator"
   },
