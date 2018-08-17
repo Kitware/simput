@@ -14,10 +14,38 @@
       "constants"   : { "attributes": [ "Constants" ] },
       "solver"      : { "attributes": [ "Solver-settings", "TimeIntegrator", "ArtificialViscosity", "Solver-source-terms", "Interfaces"] },
       "solver-interfaces": { "attributes": [ "InterfacesOr" ]},
-      "solver-elements":   { "attributes": [ "ElementsOr" ], "size": -1},
-      "solution-bcs":      { "attributes": [ "bcsOr" ], "size": -1},
-      "solution-ff":       { "attributes": [ "PluginFluidforceName" ], "size": -1},
-      "solution":          { "attributes": [ "SolutionOr" ], "size": -1}
+      "solver-elements": {
+        "attributes": [ "ElementsOr" ],
+        "size": -1,
+        "hooks": [{
+          "type": "nameToView",
+          "from": "ElementsOr"
+        }]
+      },
+      "solution-bcs": {
+        "attributes": [ "bcsOr" ],
+        "size": -1,
+        "hooks": [{
+          "type": "nameToView",
+          "from": "bcsOr"
+        }]
+      },
+      "solution-ff": {
+        "attributes": [ "PluginFluidforceName" ],
+        "size": -1,
+        "hooks": [{
+          "type": "nameToView",
+          "from": "PluginFluidforceName"
+        }]
+      },
+      "solution": {
+        "attributes": [ "SolutionOr" ],
+        "size": -1,
+        "hooks": [{
+          "type": "nameToView",
+          "from": "SolutionOr"
+        }]
+      }
    },
    "external": {
       "boundary-names": {
@@ -447,6 +475,12 @@
       "ElementsOr": {
          "parameters": [
             {
+              "id": "name",
+              "label": "Name",
+              "type": "string",
+              "size": "1"
+            },
+            {
                "id": "or",
                "type": "integer",
                "size": 1,
@@ -670,6 +704,12 @@
       "SolutionOr": {
          "parameters": [
             {
+              "id": "name",
+              "label": "Name",
+              "type": "string",
+              "size": "1"
+            },
+            {
                "id": "or",
                "type": "integer",
                "size": 1,
@@ -744,6 +784,12 @@
       },
       "PluginFluidforceName": {
          "parameters":[
+            {
+              "id": "name",
+              "label": "Label",
+              "type": "string",
+              "size": "1"
+            },
             {
                "id": "solution.plugin_fluidforce.name",
                "type": "string",
@@ -850,6 +896,12 @@
       },
       "bcsOr": {
          "parameters": [
+            {
+              "id": "name",
+              "label": "Name",
+              "type": "string",
+              "size": "1"
+            },
             {
                "id": "or",
                "type": "integer",
