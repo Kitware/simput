@@ -6,7 +6,8 @@ module.exports = {
       attributes: ['oscillator'],
       hooks: [
         {
-          type: 'nameToView',
+          type: 'copyParameterToViewName',
+          attribute: 'oscillator.name',
         },
       ],
     },
