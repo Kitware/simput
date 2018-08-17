@@ -39,14 +39,14 @@ export default {
   },
   computed: {
     readableErrors() {
-      const version = window.GLANCE_VERSION || 'not available';
+      const version = window.SIMPUT_VERSION || 'not available';
       const errorStrings = this.errors.map((err) => {
         if (err instanceof ErrorEvent) {
           return err.message;
         }
         return err;
       });
-      return `ParaViewGlance: ${version}\n${
+      return `Simput: ${version}\n${
         navigator.userAgent
       }\n\n\`\`\`\n${errorStrings}\n\`\`\``;
     },
