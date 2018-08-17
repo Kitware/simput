@@ -5,10 +5,12 @@
 >
   <v-layout wrap>
     <v-flex xs12>
-      <v-combobox :items="items"
+      <v-combobox
+        ref="comboBox"
+        :items="items"
         :label="prop.ui.label"
         :value="toValue(prop.data.value[0])"
-        @change="onChange"
+        @input="onChange"
         @focus="help = true"
         @blur="help = false"
       />

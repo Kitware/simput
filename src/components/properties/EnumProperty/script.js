@@ -41,6 +41,7 @@ export default {
       }
       this.prop.data.value[index] = item.value;
       this.$emit('change', this.prop.data);
+      this.$nextTick(this.$refs.comboBox.blur);
     },
   },
   beforeMount() {
