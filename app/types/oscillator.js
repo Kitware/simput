@@ -94,7 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n    type: 'oscillator',\n    model: __webpack_require__(/*! ./model.js */ \"./types/oscillator/src/model.js\"),\n    lang: __webpack_require__(/*! ./lang */ \"./types/oscillator/src/lang/index.js\"),\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/oscillator/src/convert.js\"),\n    hooks: null,\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
+eval("\n\nmodule.exports = {\n    type: 'oscillator',\n    model: __webpack_require__(/*! ./model.js */ \"./types/oscillator/src/model.js\"),\n    lang: __webpack_require__(/*! ./lang */ \"./types/oscillator/src/lang/index.js\"),\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/oscillator/src/convert.js\"),\n    hooks: __webpack_require__(/*! ./hooks.js */ \"./types/oscillator/src/hooks.js\"),\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
 
 /***/ }),
 
@@ -405,6 +405,18 @@ eval("\n\nvar outputTemplate = __webpack_require__(/*! ./output.hbs */ \"./types
 
 /***/ }),
 
+/***/ "./types/oscillator/src/hooks.js":
+/*!***************************************!*\
+  !*** ./types/oscillator/src/hooks.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nfunction updateViewName(hookConfig, dataModel, currentViewData) {\n  currentViewData.name = currentViewData.oscillator.name.value[0];\n}\n\nmodule.exports = function initialize() {\n  Simput.registerHook('nameToView', updateViewName);\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/hooks.js?");
+
+/***/ }),
+
 /***/ "./types/oscillator/src/index.js-exposed":
 /*!***********************************************!*\
   !*** ./types/oscillator/src/index.js-exposed ***!
@@ -483,7 +495,7 @@ eval("\n\nmodule.exports = {\n  \"en\": __webpack_require__(/*! ./en */ \"./type
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n  order: ['oscillators'],\n  views: {\n    oscillators: {\n      size: -1,\n      attributes: ['oscillator']\n    }\n  },\n  definitions: {\n    oscillator: {\n      parameters: [{\n        id: 'type',\n        type: 'enum',\n        size: 1,\n        default: 'periodic',\n        domain: {\n          Periodic: 'periodic',\n          Damped: 'damped',\n          Decaying: 'decaying'\n        }\n      }, {\n        id: 'center',\n        type: 'int',\n        size: 3,\n        layout: '3',\n        default: [0, 0, 0]\n      }, {\n        id: 'radius',\n        type: 'double',\n        size: 1,\n        default: [1]\n      }, {\n        id: 'omega',\n        type: 'double',\n        size: 1,\n        default: [0]\n      }, {\n        id: 'zeta',\n        type: 'double',\n        size: 1,\n        show: \"type[0] === 'decaying'\"\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/model.js?");
+eval("\n\nmodule.exports = {\n  order: ['oscillators'],\n  views: {\n    oscillators: {\n      size: -1,\n      attributes: ['oscillator'],\n      hooks: [{\n        type: 'nameToView'\n      }]\n    }\n  },\n  definitions: {\n    oscillator: {\n      parameters: [{\n        id: 'name',\n        label: 'Name',\n        type: 'string',\n        size: 1\n      }, {\n        id: 'type',\n        type: 'enum',\n        size: 1,\n        default: 'periodic',\n        domain: {\n          Periodic: 'periodic',\n          Damped: 'damped',\n          Decaying: 'decaying'\n        }\n      }, {\n        id: 'center',\n        type: 'int',\n        size: 3,\n        layout: '3',\n        default: [0, 0, 0]\n      }, {\n        id: 'radius',\n        type: 'double',\n        size: 1,\n        default: [1]\n      }, {\n        id: 'omega',\n        type: 'double',\n        size: 1,\n        default: [0]\n      }, {\n        id: 'zeta',\n        type: 'double',\n        size: 1,\n        show: \"type[0] === 'decaying'\"\n      }]\n    }\n  }\n};\n\n//# sourceURL=webpack:///./types/oscillator/src/model.js?");
 
 /***/ }),
 
