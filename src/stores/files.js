@@ -58,6 +58,7 @@ export default {
     stage: 'idle',
     files: [],
     progresses: [],
+    lastLoadedFilename: null,
   },
 
   getters: {
@@ -87,6 +88,8 @@ export default {
       state.stage = 'error';
     },
     FILE_IDLE(state) {
+      // save last loaded file (assuming only 1 file was loaded)
+      state.lastLoadedFilename = state.files[0].name || null;
       state.stage = 'idle';
       state.files = [];
     },
