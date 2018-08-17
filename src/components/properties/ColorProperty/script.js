@@ -11,7 +11,6 @@ function colorHexToFloats(color) {
   for (let i = 0; i < hex.length; i += 2) {
     floats.push(parseInt(hex.substr(i, 2), 16) / 255);
   }
-  debugger;
   return floats;
 }
 

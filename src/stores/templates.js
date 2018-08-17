@@ -75,7 +75,6 @@ export default {
     SAVE({ rootState, state }) {
       const compressionLevel = 0; // no compression
       const output = state.dataManager.getOutput();
-      console.log(state);
       const outputFileName =
         rootState.files.lastLoadedFilename ||
         `generated-output-${output.model.type}.zip`;
