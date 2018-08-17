@@ -4,11 +4,22 @@ module.exports = {
     oscillators: {
       size: -1,
       attributes: ['oscillator'],
+      hooks: [
+        {
+          type: 'nameToView',
+        },
+      ],
     },
   },
   definitions: {
     oscillator: {
       parameters: [
+        {
+          id: 'name',
+          label: 'Name',
+          type: 'string',
+          size: 1,
+        },
         {
           id: 'type',
           type: 'enum',
