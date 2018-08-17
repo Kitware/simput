@@ -10,9 +10,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return { help: false };
-  },
   computed: {
     items() {
       const values = [];
