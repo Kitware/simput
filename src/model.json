@@ -18,32 +18,32 @@
         "attributes": [ "ElementsOr" ],
         "size": -1,
         "hooks": [{
-          "type": "nameToView",
-          "from": "ElementsOr"
+          "type": "copyParameterToViewName",
+          "attribute": "ElementsOr.name"
         }]
       },
       "solution-bcs": {
         "attributes": [ "bcsOr" ],
         "size": -1,
         "hooks": [{
-          "type": "nameToView",
-          "from": "bcsOr"
+          "type": "copyParameterToViewName",
+          "attribute": "bcsOr.name"
         }]
       },
       "solution-ff": {
         "attributes": [ "PluginFluidforceName" ],
         "size": -1,
         "hooks": [{
-          "type": "nameToView",
-          "from": "PluginFluidforceName"
+          "type": "copyParameterToViewName",
+          "attribute": "PluginFluidforceName.name"
         }]
       },
       "solution": {
         "attributes": [ "SolutionOr" ],
         "size": -1,
         "hooks": [{
-          "type": "nameToView",
-          "from": "SolutionOr"
+          "type": "copyParameterToViewName",
+          "attribute": "SolutionOr.name"
         }]
       }
    },
