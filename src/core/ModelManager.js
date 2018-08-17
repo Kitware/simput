@@ -33,11 +33,6 @@ export default class ModelManager {
     this.hideViews = simputModel.hideViews || [];
     // used in hooks
     this.fullData = simputModel;
-    // convenient access to fullData.data
-    this.data = simputModel.data || {};
-    this.external = simputModel.external || {};
-    this.data = simputModel.data;
-    this.external = simputModel.external;
     this.type = simputModel.type;
 
     this.localizedData = new LocalizedData(module);
@@ -52,6 +47,22 @@ export default class ModelManager {
     this.activeViewIndex = 0;
     this.collapseState = {};
     this.listeners = [];
+  }
+
+  get data() {
+    return this.fullData.data;
+  }
+
+  set data(value) {
+    this.fullData.data = value;
+  }
+
+  get external() {
+    return this.fullData.external;
+  }
+
+  set external(value) {
+    this.fullData.external = value;
   }
 
   // -------- Public methods ------------
