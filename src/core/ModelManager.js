@@ -143,6 +143,10 @@ export default class ModelManager {
     viewList.push({ name, id: this.nextViewId++ });
     this.data = assignObjKey(this.data, viewName, viewList);
     this.activateView(viewName, index);
+    // generate data model for new view (...using a get method with side-effects...)
+    this.getPropertyList();
+    this.runHooks();
+    this.invokeListeners();
   }
 
   // --------
@@ -184,13 +188,22 @@ export default class ModelManager {
         newData.value
       );
 
-      const hooks = this.model.views[this.activeViewName].hooks || [];
-      hooks.forEach((hook) =>
-        HookManager.applyHook(hook, this.fullData, viewData, this.model)
-      );
-
+      this.runHooks();
       this.invokeListeners();
     }
+  }
+
+  // --------
+
+  runHooks(viewName = null, viewIndex = null) {
+    const name = viewName || this.activeViewName;
+    const index = viewIndex || this.activeViewIndex;
+
+    const viewData = this.data[name][index];
+    const hooks = this.model.views[name].hooks || [];
+    hooks.forEach((hook) =>
+      HookManager.applyHook(hook, this.fullData, viewData, this.model)
+    );
   }
 
   // --------
