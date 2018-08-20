@@ -47,6 +47,7 @@ export default class ModelManager {
     this.activeViewIndex = 0;
     this.collapseState = {};
     this.listeners = [];
+    this.nextViewId = 0;
   }
 
   get data() {
@@ -139,7 +140,7 @@ export default class ModelManager {
     const index = viewList.length;
     const name = `${this.localizedData.getView(viewName)} ${index}`;
 
-    viewList.push({ name });
+    viewList.push({ name, id: this.nextViewId++ });
     this.data = assignObjKey(this.data, viewName, viewList);
     this.activateView(viewName, index);
   }
