@@ -1,0 +1,11 @@
+#!/bin/bash -l
+
+numranks={{nodes}}
+dt={{dt}}
+endt={{endT}}
+grid={{gridsize}}x{{gridsize}}x{{gridsize}}
+osc=oscillator_list.osc
+xml=analysis_config.xml
+exe=oscillator
+
+mpirun -n $numranks $exe -s $grid --dt $dt --t-end $endt --shortlog -f $xml $osc

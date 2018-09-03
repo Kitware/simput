@@ -1,0 +1,12 @@
+<sensei>
+{{#each histogram}}
+  <analysis type="histogram" mesh="{{mesh}}" array="{{array}}" association="{{association}}"
+    bins="{{bins}}" enabled="1" />
+{{/each}}
+
+{{#each autocorrelation}}
+  <analysis type="autocorrelation" mesh="{{mesh}}" array="data" association="cell"
+    window="{{window}}" k-max="{{kmax}}" enabled="1" />
+{{/each}}
+
+</sensei>
