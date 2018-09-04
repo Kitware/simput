@@ -47,7 +47,10 @@ export default class ModelManager {
     this.activeViewIndex = 0;
     this.collapseState = {};
     this.listeners = [];
-    this.nextViewId = 0;
+
+    if (this.model.defaultActiveView) {
+      this.activateView(this.model.defaultActiveView, 0);
+    }
   }
 
   get data() {
@@ -117,6 +120,11 @@ export default class ModelManager {
   activateView(name, index = 0) {
     this.activeViewName = name;
     this.activeViewIndex = index;
+
+    // getPropertyList() will generate our data model.
+    // Afterwards, we run our hooks.
+    this.getPropertyList();
+    this.runHooks();
   }
 
   // --------
@@ -140,7 +148,7 @@ export default class ModelManager {
     const index = viewList.length;
     const name = `${this.localizedData.getView(viewName)} ${index}`;
 
-    viewList.push({ name, id: this.nextViewId++ });
+    viewList.push({ name, id: this.getNextViewId() });
     this.data = assignObjKey(this.data, viewName, viewList);
     this.activateView(viewName, index);
     // generate data model for new view (...using a get method with side-effects...)
