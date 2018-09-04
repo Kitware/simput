@@ -394,7 +394,7 @@ export default class ModelManager {
     while (viewNames.length) {
       const views = this.data[viewNames.pop()];
       for (let i = 0; i < views.length; i++) {
-        if (views[i].id) {
+        if (views[i].id && Number.isInteger(views[i].id)) {
           nextId = Math.max(nextId, views[i].id);
         }
       }
