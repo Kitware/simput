@@ -4,13 +4,13 @@
   },
   "attributes": {
     "person": {
-      "title": "Contact Informations",
+      "title": "Contact Information",
       "parameters": {
-        "firstName": "First Name",
-        "lastName" : "Last Name",
+        "firstName": "First name",
+        "lastName" : "Last name",
         "street" : "Street",
         "city" : "City",
-        "state" : "Sate",
+        "state" : "State",
         "zip" : "Zip code",
         "country": "Country"
       }

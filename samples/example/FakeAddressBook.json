@@ -1,32 +1,152 @@
 {
-    "type": "vcard",
-    "data": {
-        "AddressBook": [
-            {
-                "firstName": "Sebastien",
-                "lastName": "Jourdain",
-                "street": "Somewhere",
-                "city": "Santa Fe",
-                "state": "NM",
-                "zip": "87507",
-                "country": "USA"
-            },{
-                "firstName": "Tristan",
-                "lastName": "Wright",
-                "street": "Somewhere else",
-                "city": "Santa Fe",
-                "state": "NM",
-                "zip": "87505",
-                "country": "USA"
-            },{
-                "firstName": "Scott",
-                "lastName": "Wittenburg",
-                "street": "Some place else",
-                "city": "Santa Fe",
-                "state": "NM",
-                "zip": "87500",
-                "country": "USA"
-            }
-        ]
-    }
+  "data": {
+    "AddressBook": [
+      {
+        "name": "Jourdain Sebastien",
+        "id": 0,
+        "person": {
+          "firstName": {
+            "id": "person.firstName",
+            "value": [
+              "Sebastien"
+            ]
+          },
+          "lastName": {
+            "id": "person.lastName",
+            "value": [
+              "Jourdain"
+            ]
+          },
+          "street": {
+            "id": "person.street",
+            "value": [
+              "123 4th st"
+            ]
+          },
+          "city": {
+            "id": "person.city",
+            "value": [
+              "Santa Fe"
+            ]
+          },
+          "state": {
+            "id": "person.state",
+            "value": [
+              "NM"
+            ]
+          },
+          "zip": {
+            "id": "person.zip",
+            "value": [
+              "87507"
+            ]
+          },
+          "country": {
+            "id": "person.country",
+            "value": [
+              "USA"
+            ]
+          }
+        }
+      },
+      {
+        "name": "Wright Tristan",
+        "id": 1,
+        "person": {
+          "firstName": {
+            "id": "person.firstName",
+            "value": [
+              "Tristan"
+            ]
+          },
+          "lastName": {
+            "id": "person.lastName",
+            "value": [
+              "Wright"
+            ]
+          },
+          "street": {
+            "id": "person.street",
+            "value": [
+              "Another St."
+            ]
+          },
+          "city": {
+            "id": "person.city",
+            "value": [
+              "Santa Fe"
+            ]
+          },
+          "state": {
+            "id": "person.state",
+            "value": [
+              "NM"
+            ]
+          },
+          "zip": {
+            "id": "person.zip",
+            "value": [
+              "87505"
+            ]
+          },
+          "country": {
+            "id": "person.country",
+            "value": [
+              "USA"
+            ]
+          }
+        }
+      },
+      {
+        "name": "Wittenburg Scott",
+        "id": 2,
+        "person": {
+          "firstName": {
+            "id": "person.firstName",
+            "value": [
+              "Scott"
+            ]
+          },
+          "lastName": {
+            "id": "person.lastName",
+            "value": [
+              "Wittenburg"
+            ]
+          },
+          "street": {
+            "id": "person.street",
+            "value": [
+              "345 6th St."
+            ]
+          },
+          "city": {
+            "id": "person.city",
+            "value": [
+              "Santa Fe"
+            ]
+          },
+          "state": {
+            "id": "person.state",
+            "value": [
+              "NM"
+            ]
+          },
+          "zip": {
+            "id": "person.zip",
+            "value": [
+              "87500"
+            ]
+          },
+          "country": {
+            "id": "person.country",
+            "value": [
+              "NM"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "hideViews": [],
+  "type": "vcard"
 }
