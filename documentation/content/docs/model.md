@@ -11,7 +11,7 @@ SimPut works around a model definition that the user have to define initially. T
 
 ## Format
 
-The model can either be a JSON or a JavaScript file. But we recommend to use the JavaScript syntax as it will allow you to use comment and ignore other restriction that JSON is enforcing.
+The model can either be a JSON or a JavaScript file. We recommend using the JavaScript syntax as it will allow you to use comments and avoid other restrictions that JSON enforces.
 
 ```JavaScript
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
 };
 ```
 
-vs 
+vs
 
 ```JSON
 {
@@ -42,7 +42,7 @@ Let's look closer to the various section that can exist inside a `model.[json/js
 ### Definitions
 
 The definition is the home of the various attributes that regroup parameters that we want the user to input.
-An attribute is defined by a group of parameters with a title. 
+An attribute is defined by a group of parameters with a title.
 Each parameter is listed in an order manner and provide the following set of fields:
 - __id:__ Identifiant that is used inside the attribute map within the view model.
 - __type:__ ['string', 'double', 'int', 'bool', ...] The type is to properly convert user input from standard UI to their actual type.
@@ -53,7 +53,7 @@ Each parameter is listed in an order manner and provide the following set of fie
 ```
 module.exports = {
   definitions: {
-    attributeIdentifiant: {
+    attributeIdentifier: {
       label: 'User friendly string for the attribute section',
       parameters: [
         {
@@ -83,9 +83,9 @@ Attribute rendering example
 
 #### Parameter
 
-##### Layout 
+##### Layout
 
-When size is bigger than 1 it make sense to start providing a layout hint. Below we list known layout.
+When size is bigger than 1 it makes sense to start providing a layout hint. Below we list known layout hints.
 
 ```
 "parameters": [
@@ -146,8 +146,8 @@ Attribute rendering example
 
 ##### Show
 
-An additional field can be provided to dynamically show or hide a given parameter based on a neighbor condition.
-The value set is always capture within an array, which force the expression to be extracted like shown below.
+An additional field can be provided to dynamically show or hide a given parameter based on a neighbor's value.
+The value set is always captured within an array, which force the expression to be extracted like shown below.
 
 ```
 "parameters": [
@@ -169,7 +169,7 @@ The value set is always capture within an array, which force the expression to b
 
 ##### UI
 
-Sometime a single field need to have a custom presentation. A `ui` field is then use to let the user control what *presentation layer* should be used. Below are some existing `ui` implementation:
+Sometimes a single field needs to have a custom presentation. A `ui` field is then used to let the user control what *presentation layer* should be used. Below are some existing `ui` implementations:
 
 ```
 "attr2": {
@@ -226,7 +226,7 @@ Attribute rendering with different ui
 Attribute rendering with different ui
 </center>
 
-The domain in the UI can be filled by some external data. 
+The domain in the UI can be filled by some external data.
 
 ```
 {
@@ -241,7 +241,7 @@ The domain in the UI can be filled by some external data.
 
 ##### Conditional attributes
 
-Parameters can be dynamically composed based on other attribute parameters and conditional expression.
+Parameters can be dynamically composed based on other attribute parameters and conditional expressions.
 
 ```
 "attrOr": {
@@ -273,11 +273,11 @@ Parameters can be dynamically composed based on other attribute parameters and c
 
 ### Views
 
-Views are meant to gather several attribute/parameter into a meaningful pages that get driven based on a side menu.
-The label for a view is what will be display in the side menu for selecting a given view/page.
+Views are meant to gather several attributes/parameters into meaningful pages that get driven based on a side menu.
+The label for a view is what will be displayed in the side menu for selecting a given view/page.
 The content of the page will be defined by the __attributes__ array content that was describe above.
-When no __attributes__ are given, a __children__ should be used to create a nested list of other views.
-The __size__ for a view is used when you want to dynamically create/delete a given view.
+Instead of __attributes__, a __children__ array can be used to create a nested list of other views.
+A __size: -1__ is used for a view when you want to dynamically create/delete views in a list.
 
 ```
 views : {
@@ -309,7 +309,7 @@ views : {
 View menu
 </center>
 
-To a view can be attached hooks to dynamically massage the data between transitions. This allow for instance to copy the dynamic view name into a parameter of a given attribute or expose a set of view data into some external domain so they could be used somewhere else in the input definition.
+Hooks can be attached to a view to dynamically massage the data between transitions. This allows, for instance, copying the dynamic view name into a parameter of a given attribute or exposing a set of view data into some external domain so they can be used somewhere else in the input definition.
 
 ```
 views : {
@@ -326,10 +326,10 @@ views : {
 },
 ```
 
-Note the `readOnly` option disable the view name edition from the side menu which works well if you want to use a parameter to define that view name.
-The `noDelete` option disable the delete action on the view. That flag can either be define at the view definition or inside the `currentViewData` that the hooks are getting passed. The 'readOnly' flag follow the same pattern regarding where its definition can be provided.   
+Note the `readOnly` option disables the view name editing in the side menu which works well if you want to use a parameter to define that view name.
+The `noDelete` option disables the delete action on the view. That flag can either be defined in the view definition or inside the `currentViewData` that the hooks are getting passed. The 'readOnly' flag follows the same pattern regarding where its definition can be provided.
 
-To register your own hooks, you will have to create a `hooks.js` next to your model file. The following listing illustrate what that file should looks like.
+To register your own hooks, you will have to create a `hooks.js` next to your model file. The following listing illustrates what that file should look like.
 
 ```
 function getExternal(dataModel) {
@@ -376,7 +376,7 @@ Hooks can also be used to alter the model definition in order to add or remove v
 
 ### Order
 
-The order is used to define the side menu to provide the list of view in an ordered manner.
+The __order__ list is used to define the side menu, providing the list of views in order. A view will not appear unless it is included in this list.
 
 ```
 order: [
@@ -399,15 +399,15 @@ output: {
 },
 ```
 
-Currently only 2 types are available [__default__ or __template__]:
+Currently 2 types are available [__default__ or __template__]:
 - The __default__ mode is just going to serialize the data model into JSON.
-- The __template__ mode allow the user to define a [*Handlebars*](https://handlebarsjs.com/block_helpers.html) template to convert the JSON structure into any other format. 
+- The __template__ mode allow the user to define a [*Handlebars*](https://handlebarsjs.com/block_helpers.html) template to convert the JSON structure into any other format.
 
-The output section require additional an additional __output__ field inside each `view` definition.
+The output section requires an additional __output__ field inside each `view` definition.
 
 #### Output inside views
 
-On a view which list a set of *attributes*, you'll need to define an __output__ array that will define a mapping between view attributes into output data model.
+On a view which lists a set of *attributes*, you will need to define an __output__ array that defines a mapping between view attributes and the output data model.
 
 Here is an example:
 
@@ -429,12 +429,12 @@ output: [
 
 Each entry in that output array should be composed of:
 - __extract:__ list the parameters that we want to output somewhere in the model.
-- __src:__ Name of the attribute that we want to extract the parameters from 
+- __src:__ Name of the attribute that we want to extract the parameters from
 - __dst:__ List of mapping of where to store the given parameters
 
-The left side of the *dst* entry define the path of where a given parameter should be stored which is provided on the right side of the `=`.
+The left side of the *dst* entry define the path where the parameter on the right side of the `=`should be stored.
 
-When we want to fill an array with object the following pattern can be used:
+When we want to fill an array with objects the following pattern can be used:
 
 ```
 'root.elements[]+=name',
@@ -445,11 +445,10 @@ When we want to fill an array with object the following pattern can be used:
 ```
 
 
-The `.` on the left side are used as nesting structure inside an object.
-The `{xxx}` are automatically replaced on the left side with the actual value of the `xxx` parameter. 
-
+The `.` on the left side define the nesting structure inside an object.
+The `{xxx}` are automatically replaced on the left side with the actual value of the `xxx` parameter.
 
 ### Scripts
 
-External scripts can be loaded for a given type by providing at the root level a `scripts: [],` section with the list of url that the type should load in order to works.
-This can be useful to register custom widgets to edit your custom parameter.
+External scripts can be loaded for a given type by providing at the root level a `scripts: [],` section with the list of url that the type should load.
+This can be useful to register custom widgets to edit your custom parameters.

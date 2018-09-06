@@ -42,8 +42,10 @@ module.exports = function convert(input, outputDirectory) {
 
   // write output
   try {
-    const output = GLOBAL.Simput.types[type].convert(inputContents);
-    const outputPath = toAbsolutePath(outputDirectory);
+    const output = global.Simput.types[type].convert(inputContents);
+    const outputPath = outputDirectory
+      ? toAbsolutePath(outputDirectory)
+      : path.dirname(inputPath);
     Object.keys(output.results).forEach((el) => {
       fs.writeFileSync(path.join(outputPath, el), output.results[el]);
       const size = fs.statSync(path.join(outputPath, el)).size;
