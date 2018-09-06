@@ -333,7 +333,7 @@ eval("\n\n// Create a simple path alias to allow browserify to resolve\n// the r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"<p><b>City</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/city?./node_modules/html-loader");
+eval("module.exports = \"<p><b>City</b> of postal address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/city?./node_modules/html-loader");
 
 /***/ }),
 
@@ -344,7 +344,7 @@ eval("module.exports = \"<p><b>City</b> of postale address</p>\\n\";\n\n//# sour
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"<p><b>Country</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/country?./node_modules/html-loader");
+eval("module.exports = \"<p><b>Country</b> of postal address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/country?./node_modules/html-loader");
 
 /***/ }),
 
@@ -377,7 +377,7 @@ eval("module.exports = \"<p><b>Last name</b> or <b>Sirname</b> of your contact</
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"<p><b>State</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/state?./node_modules/html-loader");
+eval("module.exports = \"<p><b>State</b> of postal address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/state?./node_modules/html-loader");
 
 /***/ }),
 
@@ -388,7 +388,7 @@ eval("module.exports = \"<p><b>State</b> of postale address</p>\\n\";\n\n//# sou
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"<p><b>Street</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/street?./node_modules/html-loader");
+eval("module.exports = \"<p><b>Street</b> of postal address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/street?./node_modules/html-loader");
 
 /***/ }),
 
@@ -399,7 +399,7 @@ eval("module.exports = \"<p><b>Street</b> of postale address</p>\\n\";\n\n//# so
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"<p><b>Zip code</b> of postale address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/zip?./node_modules/html-loader");
+eval("module.exports = \"<p><b>Zip code</b> of postal address</p>\\n\";\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/help/person/zip?./node_modules/html-loader");
 
 /***/ }),
 
@@ -570,7 +570,7 @@ eval("\n\nmodule.exports = {\n  \"help\": __webpack_require__(/*! ./help */ \"./
 /*! exports provided: views, attributes, default */
 /***/ (function(module) {
 
-eval("module.exports = {\"views\":{\"AddressBook\":\"Address Book\"},\"attributes\":{\"person\":{\"title\":\"Contact Informations\",\"parameters\":{\"firstName\":\"First Name\",\"lastName\":\"Last Name\",\"street\":\"Street\",\"city\":\"City\",\"state\":\"Sate\",\"zip\":\"Zip code\",\"country\":\"Country\"}}}};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/label.json?");
+eval("module.exports = {\"views\":{\"AddressBook\":\"Address Book\"},\"attributes\":{\"person\":{\"title\":\"Contact Information\",\"parameters\":{\"firstName\":\"First name\",\"lastName\":\"Last name\",\"street\":\"Street\",\"city\":\"City\",\"state\":\"State\",\"zip\":\"Zip code\",\"country\":\"Country\"}}}};\n\n//# sourceURL=webpack:///./types/vcard/src/lang/en/label.json?");
 
 /***/ }),
 
