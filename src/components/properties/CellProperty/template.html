@@ -32,6 +32,7 @@
         <v-text-field
           :label="size > 1 || layout === '-1' ? getCellLabel(i-1) : prop.ui.label"
           :value="prop.data.value[i-1]"
+          :readonly="prop.ui && prop.ui.domain && prop.ui.domain.readOnly"
           @input="onChange(arguments[0], i-1)"
           @focus="help = true"
           @blur="help = false"
