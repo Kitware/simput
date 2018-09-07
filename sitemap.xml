@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://kitware.github.io/simput/index.html</loc>
+    <loc>https://kitware.github.io/simput/docs/convert.html</loc>
     
-    <lastmod>2018-08-16T21:05:36.794Z</lastmod>
+    <lastmod>2018-09-07T17:33:55.065Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://kitware.github.io/simput/docs/convert.html</loc>
+    <loc>https://kitware.github.io/simput/docs/index.html</loc>
     
-    <lastmod>2018-08-16T18:39:08.742Z</lastmod>
+    <lastmod>2018-09-07T17:33:55.065Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/simput/docs/model.html</loc>
+    
+    <lastmod>2018-09-07T17:33:55.065Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/simput/index.html</loc>
+    
+    <lastmod>2018-08-16T21:05:36.794Z</lastmod>
     
   </url>
   
@@ -24,20 +38,6 @@
   
   <url>
     <loc>https://kitware.github.io/simput/docs/develop_requirement.html</loc>
-    
-    <lastmod>2018-08-16T18:39:08.742Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/simput/docs/index.html</loc>
-    
-    <lastmod>2018-08-16T18:39:08.742Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/simput/docs/model.html</loc>
     
     <lastmod>2018-08-16T18:39:08.742Z</lastmod>
     
