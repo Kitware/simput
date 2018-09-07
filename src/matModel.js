@@ -534,7 +534,7 @@ function addDefaultMaterials(dataModel) {
   if (dataModel.data.Materials && dataModel.data.Materials.length) return;
   dataModel.data.Materials = materials.map((mat, index) => ({
     name: mat.label,
-    id: `mat${index}`,
+    id: index,
     material: {
       name: {
         id: 'material.name',
