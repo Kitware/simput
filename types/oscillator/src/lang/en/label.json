@@ -1,6 +1,8 @@
 {
   "views": {
-    "oscillators": "Oscillator list"
+    "oscillators": "Oscillators",
+    "analyses": "Analyses",
+    "run": "Execution Script"
   },
   "attributes": {
     "oscillator": {
@@ -11,6 +13,36 @@
         "radius": "Radius",
         "omega": "Omega 0",
         "zeta": "Zeta"
+      }
+    },
+    "analysis": {
+      "title": "Analysis",
+      "parameters": {
+        "type": "Type"
+      }
+    },
+    "histogram": {
+      "title": "Histogram",
+      "parameters": {
+        "mesh": "Mesh data",
+        "bins": "Bins"
+      }
+    },
+    "autocorrelation": {
+      "title": "Autocorrelation",
+      "parameters": {
+        "mesh": "Mesh data",
+        "window": "Window",
+        "kmax": "K-max"
+      }
+    },
+    "runParams": {
+      "title": "Execution parameters",
+      "parameters": {
+        "nodes": "Nodes",
+        "gridsize": "Grid size",
+        "dt": "Time step",
+        "endT": "Duration"
       }
     }
   }

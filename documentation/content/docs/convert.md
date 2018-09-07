@@ -1,9 +1,9 @@
-title: Convertion helper
+title: Conversion helper
 ---
 
 Once the view model is filled up by the user, we rely on a function to validate and convert the data into a structure easy to handle within a template.
 
-On the other hand if the proper __output__ annotations have been used in the model definition, such method can be automatically generated for you. 
+On the other hand if the proper __output__ annotations have been used in the model definition, such method can be automatically generated for you.
 
 The function definition is as follow:
 
@@ -39,7 +39,7 @@ module.exports = function (viewModel) {
 
 ## View Model structure
 
-The view model is what you get from the outside world that you need to convert into a set of files. That structure is related to the definition you wrote and what the user trully filled.
+The view model is what you get from the outside world that you need to convert into a set of files. That structure is related to the definition you wrote and what the user actually filled in.
 
 ```model.js
 {
@@ -80,12 +80,12 @@ The view model is what you get from the outside world that you need to convert i
         name: "View 2 - name given by user in menu",
         attributeNameD: {...},
         attributeNameE: {...},
-      }, 
+      },
       {
         name: "View 2 - name given by user in menu",
         attributeNameD: {...},
         attributeNameE: {...},
-      }, 
+      },
       ...
     ],
     viewName3a: [

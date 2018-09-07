@@ -8,7 +8,6 @@ const program = require('commander');
 const open = require('open');
 
 const simputCompiler = require('./compile');
-const simputManager = require('./manager');
 const simputConverter = require('./converter');
 const toAbsolutePath = require('./utils').toAbsolutePath;
 const pkg = require('../../package.json');
@@ -29,12 +28,12 @@ function getPort(val) {
 program
   .version(version)
 
-  // inout
-  .option('-i, --input [file|directory]', 'Input file or directory')
+  // server
   .option('-s, --silent', 'Do not open the browser')
   .option('-p, --port [8080]', 'Server port\n', getPort, 8080)
 
-  .option('-n, --no-gui', 'Just generate output')
+  // type conversion
+  .option('-i, --input [file|directory]', 'Input file or directory')
 
   // type compilation
   .option('-c, --compile [directory]', 'Directory to compile files')
@@ -42,31 +41,26 @@ program
   .option('-o, --output [directory]', 'Output directory to output to')
   .option('-m, --minify', 'Minify compiled file')
 
-  // Type handling
-  .option('-a, --add [file]', 'Add model to list of available inputs')
-  .option('-l, --list', 'List model types of available as inputs')
-  .option('-r, --remove [type]', 'Remove model from list of available inputs')
-  // .option('-g --generate', 'Generate blank language files from the model')
-
   .parse(process.argv);
 
+// console.log(process.argv);
+// console.log(process.argv.slice(2));
 if (!process.argv.slice(2).length) {
   program.outputHelp();
   process.exit(0);
 }
 
 // input
-if (program.input && program.ouput && !program.gui) {
-  shell.mkdir('-p', toAbsolutePath(program.output));
+if (program.input) {
+  if (program.output) shell.mkdir('-p', toAbsolutePath(program.output));
+  // output optional, default is directory of input file.
   simputConverter(program.input, program.output);
 } else if (program.compile) {
   shell.mkdir('-p', toAbsolutePath(program.output));
   let addFunc = null;
-  if (program.add) {
-    addFunc = () => {
-      simputManager.add(`${program.output}/${program.type}.js`);
-    };
-  }
+
+  // default type is last part of compile dir
+  // default output is compile dir.
   simputCompiler(
     toAbsolutePath(program.compile),
     program.type,
@@ -74,9 +68,12 @@ if (program.input && program.ouput && !program.gui) {
     program.minify,
     addFunc
   );
-} else if (program.input && !program.output) {
+} else if (program.port && !program.output) {
   const handler = require('serve-handler');
   const http = require('http');
+  const simputDir = path.join(__dirname, '../..');
+  // server starts from the cwd, need to change so Simput cli works from anywhere.
+  process.chdir(simputDir);
   const config = {
     public: 'dist',
     // rewrites: [{ source: 'types/*', destination: simputFolder }],
@@ -91,10 +88,7 @@ if (program.input && program.ouput && !program.gui) {
       open(`http://localhost:${program.port}`);
     }
   });
-} else if (program.add) {
-  simputManager.add(program.add);
-} else if (program.list) {
-  simputManager.list();
-} else if (program.remove) {
-  simputManager.remove(program.remove);
+} else {
+  program.outputHelp();
+  process.exit(0);
 }

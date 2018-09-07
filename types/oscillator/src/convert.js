@@ -1,4 +1,6 @@
-const outputTemplate = require('./output.hbs');
+const outputTemplate = require('./oscillator_list.hbs');
+const configTemplate = require('./analysis_config.hbs');
+const runTemplate = require('./run_script.hbs');
 
 /*
 # type      center          r       omega0      zeta
@@ -52,7 +54,57 @@ module.exports = function convert(dataModel) {
   }
 
   // Use dummy line writer
-  results['sample.osc'] = outputTemplate({ lines });
+  results['oscillator_list.osc'] = outputTemplate({ lines });
+
+  // analyses, have sub-object matching type, with the attributes.
+  const histogram = [];
+  const autocorrelation = [];
+  dataModel.data.analyses.forEach((attributes) => {
+    const analysis = {};
+    const type = attributes.analysis.type.value[0];
+    Object.keys(attributes[type]).forEach((fieldName) => {
+      const value = attributes[type][fieldName].value;
+      if (value.length === 1) {
+        analysis[fieldName] = value[0];
+      } else {
+        analysis[fieldName] = value;
+      }
+    });
+    console.log(analysis);
+    if (type === 'histogram') {
+      // fill in associated fields.
+      if (analysis.mesh === 'particles') {
+        analysis.array = "velocityMagnitude";
+        analysis.association="point";
+      } else {
+        analysis.array = "data";
+        analysis.association="cell";
+      }
+      histogram.push(analysis);
+    } else if (type === 'autocorrelation') {
+      autocorrelation.push(analysis);
+    }
+  });
+
+  // analysis xml
+  results['analysis_config.xml'] = configTemplate({ histogram, autocorrelation });
+
+
+  const runParams = {};
+  if (dataModel.data.run) {
+    const params = dataModel.data.run[0].runParams;
+    Object.keys(params).forEach((fieldName) => {
+      const value = params[fieldName].value;
+      if (value.length === 1) {
+        runParams[fieldName] = value[0];
+      } else {
+        runParams[fieldName] = value;
+      }
+    });
+  }
+
+  // analysis xml
+  results['run.sh'] = runTemplate(runParams);
 
   return { results, model: dataModel };
 };
