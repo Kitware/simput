@@ -75,9 +75,16 @@ export default {
     SAVE({ rootState, state }) {
       const compressionLevel = 0; // no compression
       const output = state.dataManager.getOutput();
-      const outputFileName =
-        rootState.files.lastLoadedFilename ||
-        `generated-output-${output.model.type}.zip`;
+      let outputFileName = `generated-output-${output.model.type}.zip`;
+      if (rootState.files.lastLoadedFilename) {
+        outputFileName = rootState.files.lastLoadedFilename;
+        const lastDot = outputFileName.lastIndexOf('.');
+        if (lastDot !== -1) {
+          outputFileName = outputFileName.slice(0, lastDot);
+        }
+        outputFileName += '.zip';
+      }
+
       const hasError =
         output.errors && Array.isArray(output.errors)
           ? output.errors.length
