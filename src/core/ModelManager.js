@@ -121,10 +121,12 @@ export default class ModelManager {
     this.activeViewName = name;
     this.activeViewIndex = index;
 
-    // getPropertyList() will generate our data model.
-    // Afterwards, we run our hooks.
-    this.getPropertyList();
-    this.runHooks();
+    if (name && index >= 0) {
+      // getPropertyList() will generate our data model.
+      // Afterwards, we run our hooks.
+      this.getPropertyList();
+      this.runHooks();
+    }
   }
 
   // --------
@@ -162,15 +164,25 @@ export default class ModelManager {
   deleteView(viewName, index) {
     this.data[viewName].splice(index, 1);
 
-    if (this.activeViewName === viewName) {
+    // force change view temporarily
+    // primarily for vue, so vue will update if the active
+    // viewName and index do not change by the end of this method.
+    const activeViewName = this.activeViewName;
+    const activeViewIndex = this.activeViewIndex;
+    this.activateView(null, -1);
+
+    if (activeViewName === viewName) {
       if (this.data[viewName].length) {
-        const newIndex = this.activeViewIndex === index ? index - 1 : index;
-        this.activateView(viewName, newIndex);
-      } else {
-        this.activateView(null, -1);
+        if (activeViewIndex > index) {
+          this.activateView(activeViewName, activeViewIndex - 1);
+        } else if (activeViewIndex === index) {
+          this.activateView(viewName, index);
+        } else {
+          this.activateView(viewName, activeViewIndex);
+        }
       }
     } else {
-      this.activateView(viewName, -1);
+      this.activateView(activeViewName, activeViewIndex);
     }
   }
 
