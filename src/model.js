@@ -171,6 +171,8 @@ const model = {
           dst: 'viz.core.height',
         },
         { type: 'checkDefaultMaterials' },
+        // push mats to external after adding default mats
+        { type: 'materialsToExternal' },
       ],
     },
     Materials: {
