@@ -1,0 +1,9 @@
+<input
+  @input="onChange(item, $event.target.value)"
+  @blur="onBlur"
+  :value="value"
+  :class="$style.radius"
+  type="number"
+  step="0.01"
+  min="0"
+/>

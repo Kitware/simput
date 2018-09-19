@@ -1,0 +1,15 @@
+<select
+  @input="onChange(item, $event.target.value)"
+  :value="value"
+  :class="$style.material"
+  :style="{ backgroundColor: toRGB(viz.colors[value]) }"
+>
+  <option
+    v-for="id in materialIds"
+    :key="id"
+    :value="id"
+    :style="{ backgroundColor: toRGB(viz.colors[id]) }"
+  >
+    {{ viz.names[id] }}
+  </option>
+</select>

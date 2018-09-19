@@ -1,0 +1,52 @@
+<v-container fluid v-show="isVisible()" key="text-prop" :class="$style.container">
+  <v-layout wrap>
+    <v-flex xs12 :class="$style.labelContainer">
+      <v-label>{{ prop.ui.label }}</v-label>
+    </v-flex>
+  </v-layout>
+  <v-layout wrap>
+    <v-flex xs12>
+      <rod-2D-preview
+        :stack="items"
+        :offset="activeRod.offset"
+        :totalLength="activeRod.length"
+      />
+    </v-flex>
+    <v-flex xs12>
+      <viewer-widget
+        :viewer="viewer3d"
+        :viewerData="viewerData"
+      >
+        <three-d-toolbar
+          :viewer="viewer3d"
+          :zRange="[1, 0.01]"
+          :orientation="[0, 1000, 0]"
+          :viewUp="[1, 0, 0]"
+          :zoom="1"
+          zScaling="0.2"
+        />
+      </viewer-widget>
+    </v-flex>
+    <v-flex xs12>
+      <editable-list
+        sortable
+        :columns="columns"
+        :data="items"
+        :onAdd="addLayer"
+        :onDelete="delLayer"
+        :onSortChange="moveLayer"
+      />
+    </v-flex>
+  </v-layout>
+  <v-layout wrap>
+    <v-flex xs12>
+      <v-alert
+        color="black"
+        v-html="prop.ui.help"
+        :value="help && prop.ui.help"
+        icon="help_outline"
+        :outline="true"
+      />
+    </v-flex>
+  </v-layout>
+</v-container>

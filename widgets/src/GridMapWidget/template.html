@@ -1,0 +1,96 @@
+<div :class="$style.container">
+  <div :class="$style.actionGroup">
+    <div
+      :class="[
+        $style.leftBorder,
+        this.gridMap.getSymmetry() === 0 ? $style.activeItem : $style.item,
+      ]"
+      @click="updateMode('symmetry', 0)"
+    >
+      None
+    </div>
+    <div
+      :class="[
+        $style.middleBorder,
+        this.gridMap.getSymmetry() === 1 ? $style.activeItem : $style.item,
+      ]"
+      @click="updateMode('symmetry', 1)"
+    >
+      Quadrant mirror
+    </div>
+    <div
+      :class="[
+        $style.middleBorder,
+        this.gridMap.getSymmetry() === 2 ? $style.activeItem : $style.item,
+      ]"
+      @click="updateMode('symmetry', 2)"
+    >
+      Quadrant rotation
+    </div>
+    <div
+      :class="[
+        $style.rightBorder,
+        this.gridMap.getSymmetry() === 3 ? $style.activeItem : $style.item,
+      ]"
+      @click="updateMode('symmetry', 3)"
+    >
+      Octant
+    </div>
+    <div />
+    <div
+      :class="[
+        $style.leftBorder,
+        this.gridMap.getReplacementMode() === 0 ? $style.activeItem : $style.item,
+      ]"
+      @click="updateMode('replacementMode', 0)"
+    >
+      Single
+    </div>
+    <div
+      :class="[
+        $style.rightBorder,
+        this.gridMap.getReplacementMode() === 1 ? $style.activeItem : $style.item,
+      ]"
+      @click="updateMode('replacementMode', 1)"
+    >
+      All
+    </div>
+  </div>
+  <div :class="$style.legend">
+    <div
+      v-for="item in items"
+      :key="item"
+      :class="item === selected ? $style.selectedLegendItem : $style.legendItem"
+      @click="onSelectItem(item)"
+    >
+      <component
+        :is="itemRenderer"
+        :value="item"
+        v-bind="itemRendererProps"
+      />
+    </div>
+  </div>
+  <div :class="$style.grid" :style="gridStyle">
+    <div
+      v-for="(v, i) in gridMap.getGrid()"
+      :key="i"
+      :class="activeIds.length && activeIds.indexOf(i) === -1 ? $style.inactiveGridItem : $style.gridItem"
+      @click="onClick(i)"
+      @mouseover="onEnter(i)"
+      @mouseleave="onLeave(i)"
+    >
+      <div
+        :class="[
+          $style.inner,
+          gridMap.getSymmetryAxialIndices().indexOf(i) > -1 ? $style.symmetry : null,
+        ]"
+      >
+        <component
+          :is="itemRenderer"
+          :value="activeIds.length && activeIds.indexOf(i) !== -1 ? selected : v"
+          v-bind="itemRendererProps"
+        />
+      </div>
+    </div>
+  </div>
+</div>

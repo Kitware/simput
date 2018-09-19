@@ -1,0 +1,29 @@
+<div
+  :class="$style.container"
+  ref="container"
+>
+  <div
+    :class="dropdownVisible ? $style.box : $style.disableBox"
+    @click="dropdownVisible = !dropdownVisible"
+  >
+    {{ title }}
+  </div>
+  <div :class="dropdownVisible ? $style.menu : $style.hiddenMenu">
+    <template v-if="dropdownVisible && viewer">
+      <div
+        v-for="item in viewer.getVisibiltyOptions()"
+        v-if="!item.type || item.type === type"
+        :key="item.id"
+        :class="$style.menuItem"
+        @click="setVisibility(item)"
+      >
+        <input
+          type="checkbox"
+          :checked="viewer.getObjectVisibility(item.id)"
+          readonly
+        />
+        {{ item.label }}
+      </div>
+    </template>
+  </div>
+</div>

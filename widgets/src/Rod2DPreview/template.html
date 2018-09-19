@@ -1,0 +1,43 @@
+<table :class="$style.container">
+  <tbody>
+    <tr :class="$style.colors">
+      <td
+        v-if="offset"
+        :class="$style.last"
+        :style="{
+          width: `${100 * offset / totalLength}%`,
+          textAlign: 'center',
+        }"
+      />
+      <td
+        v-for="(layer, i) in stack"
+        :key="i"
+        :style="{
+          background: layer.color,
+          width: `${100 * layer.length / totalLength}%`,
+        }"
+      >
+      </td>
+      <td
+        :class="$style.last"
+        :style="{
+          width: `${100 * remaining / totalLength}%`,
+        }"
+      />
+    </tr>
+    <tr :class="$style.labels">
+      <td v-if="offset">
+        <label :class="$style.label" />
+      </td>
+      <td
+        v-for="(layer, i) in stack"
+        :key="i"
+      >
+        <label :class="$style.label">{{ layer.label }}</label>
+      </td>
+      <td :class="$style.last">
+        <label :class="$style.label">{{ remaining }}</label>
+      </td>
+    </tr>
+  </tbody>
+</table>

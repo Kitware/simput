@@ -1,0 +1,84 @@
+<div>
+  <div
+    ref="container"
+    :class="$style.list"
+  >
+    <template v-for="(item, index) in data">
+      <div
+        v-if="index === placeHolderPosition"
+        key="item-placeholder"
+        :style="placeHolderStyles"
+      />
+      <div
+        :key="item.key"
+        v-bind="getRowCSS(item)"
+      >
+        <div
+          v-if="sortable"
+          key="if-sortable"
+          draggrip="true"
+          :class="$style.dragGrip"
+          @mousedown="onDragStart($event, item.key)"
+        >
+          <svg
+            width="14"
+            height="13"
+            viewBox="0 0 14 13"
+            :class="$style.icon"
+          >
+            <path d="M0 1L14 1L14 4L0 4L0 1Z" />
+            <path d="M14 5.45L0 5.45L0 8.45L14 8.45L14 5.45Z" />
+            <path d="M14 10L0 10L0 13L14 13L14 10Z" />
+          </svg>
+        </div>
+        <div :class="$style.rowContent">
+          <div
+            v-for="column in columns"
+            :key="`${column.key}::${item.key}`"
+            :class="[$style.column].concat(column.classNames)"
+          >
+            <div :class="$style.columnVerticalWrapper">
+              <span
+                v-if="column.label"
+                key="if-column-label"
+                :class="$style.colname"
+              >
+                {{ column.label }}
+              </span>
+                <span :class="$style.colcontent">
+                  <component
+                    v-if="column.render && column.render.component"
+                    :is="column.render.component"
+                    :item="item"
+                    :value="item[column.dataKey]"
+                    v-bind="column.render.props || {}"
+                  />
+                  <span v-else>{{ item[column.dataKey] }}</span>
+                </span>
+            </div>
+          </div>
+        </div>
+        <div :class="$style.remove">
+          <button
+            :class="$style.icon"
+            @click="onDelete(item.key)"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16">
+              <path d="M13.3 0L16 2.71L2.71 16L0 13.3L13.3 0Z" />
+              <path d="M16 13.3L13.29 16L0 2.71L2.71 0L16 13.3Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </template>
+  </div>
+  <div :class="$style.row">
+    <button
+      :class="$style.addButton"
+      @click="onAdd(data.length)"
+    >
+      {{ addLabel }}
+    </button>
+  </div>
+</div>
+

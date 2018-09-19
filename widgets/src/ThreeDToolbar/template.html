@@ -1,0 +1,16 @@
+<div :class="$style.line">
+  <input
+    v-if="zRange.length"
+    type="range"
+    min="0"
+    max="100"
+    step="1"
+    :value="zSlider"
+    :class="$style.slider"
+    @input="setSliderZScale(Number($event.target.value))"
+  />
+  <div
+    :class="$style.resetCamera"
+    @click="resetCamera"
+  />
+</div>

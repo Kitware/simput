@@ -1,0 +1,50 @@
+<v-container fluid v-show="isVisible()" key="text-prop" :class="$style.container">
+  <v-layout wrap>
+    <v-flex xs12 :class="$style.labelContainer">
+      <v-label>{{ prop.ui.label }}</v-label>
+    </v-flex>
+  </v-layout>
+  <v-layout wrap>
+    <v-flex xs6>
+      <viewer-widget
+        :viewer="viewer2d"
+        :viewerData="viewerData"
+      >
+         <div :class="$style.imageOverlayText">
+           Contact radius: {{ viewerData.cellPitch }}
+         </div>
+      </viewer-widget>
+    </v-flex>
+    <v-flex xs6>
+      <viewer-widget
+        :viewer="viewer3d"
+        :viewerData="viewerData"
+      >
+        <visibility-toolbar
+          :viewer="viewer3d"
+          type="material"
+        />
+        <three-d-toolbar :viewer="viewer3d" />
+      </viewer-widget>
+    </v-flex>
+    <v-flex xs12>
+      <editable-list
+        :columns="columns"
+        :data="tableData"
+        :onAdd="addMaterial"
+        :onDelete="deleteMaterial"
+      />
+    </v-flex>
+  </v-layout>
+  <v-layout wrap>
+    <v-flex xs12>
+      <v-alert
+        color="black"
+        v-html="prop.ui.help"
+        :value="help && prop.ui.help"
+        icon="help_outline"
+        :outline="true"
+      />
+    </v-flex>
+  </v-layout>
+</v-container>

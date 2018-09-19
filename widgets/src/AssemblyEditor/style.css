@@ -1,0 +1,53 @@
+.container {
+  position: relative;
+}
+
+.switch {
+  position: absolute;
+  top: -48px;
+  right: 5px;
+}
+
+.button {
+  display: inline-block;
+  border: solid 1px #333;
+  padding: 2px 15px;
+  cursor: pointer;
+}
+
+.first {
+  composes: button;
+  border-radius: 5px 0 0 5px;
+}
+
+.last {
+  composes: button;
+  border-radius: 0 5px 5px 0;
+  border-left: none;
+}
+
+.active {
+  background: #ccc;
+}
+
+.activeFirst {
+  composes: active;
+  composes: first;
+}
+
+.activeLast {
+  composes: active;
+  composes: last;
+}
+
+.viewer {
+  margin: 15px;
+  position: relative;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}

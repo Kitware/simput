@@ -1,0 +1,56 @@
+.container {
+  position: relative;
+  margin-right: 10px;
+}
+
+.base {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: white;
+  user-select: none;
+  cursor: pointer;
+}
+
+.box {
+  composes: base;
+  position: relative;
+  padding: 4px;
+  display: inline;
+  border-radius: 2px;
+}
+
+.disableBox {
+  composes: box;
+  opacity: 0.5;
+}
+
+.box:hover {
+  opacity: 1;
+}
+
+.menu {
+  composes: base;
+  position: absolute;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  width: 200%;
+  min-width: 200px;
+  margin-top: 2px;
+  border-radius: 0 2px 2px 2px;
+}
+
+.menuItem {
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.menuItem:hover {
+  background-color: #eee;
+}
+
+.hiddenMenu {
+  composes: menu;
+  display: none;
+}

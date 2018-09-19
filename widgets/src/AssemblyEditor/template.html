@@ -1,0 +1,52 @@
+<v-container fluid v-show="isVisible()" key="text-prop" :class="$style.container">
+  <div :class="$style.switch">
+    <div
+      :class="is2D ? $style.activeFirst : $style.first"
+      @click="onModeChange(true)"
+    >
+      2D
+    </div>
+    <div
+      :class="!is2D ? $style.activeFirst : $style.first"
+      @click="onModeChange(false)"
+    >
+      3D
+    </div>
+  </div>
+  <v-layout wrap>
+    <v-flex xs12>
+      <map-editor
+        v-if="is2D"
+        :data="prop.data"
+        :gridSize="viz.assemblyGridSize"
+        :items="items"
+        :names="viz.names"
+        :colors="convertToRGB(viz.colors)"
+        @change="$emit('change', arguments[0])"
+      />
+      <viewer-widget
+        v-else
+        :viewer="assemblyViewer"
+        :viewerData="viewerData"
+      >
+        <div :class="$style.line">
+          <visibility-toolbar
+            :viewer="assemblyViewer"
+            type="material"
+            title="Materials"
+          />
+          <visibility-toolbar
+            :viewer="assemblyViewer"
+            type="cell"
+            title="Cells"
+          />
+        </div>
+        <three-d-toolbar
+          :viewer="assemblyViewer"
+          :zRange="[1, 0.01]"
+          :zScaling="assemblyViewer.getZScale()"
+        />
+      </viewer-widget>
+    </v-flex>
+  </v-layout>
+</v-container>

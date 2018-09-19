@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  padding: 10px;
+}
+
+.colors {
+  height: 25px;
+}
+
+.labels {
+  height: 25px;
+}
+
+.labels td {
+  text-align: center;
+  position: relative;
+  border-right: 1px solid #aaa;
+  border-left: 1px solid #aaa;
+}
+
+.label {
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  z-index: 1;
+}
+
+.colors .last {
+  background: lightgray;
+}
+
+.last .label {
+  right: 0;
+  top: -50%;
+  transform: translate(-10px, -50%);
+}
+
+td.last {
+  border: 0;
+}
