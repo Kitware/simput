@@ -12,7 +12,7 @@
         :totalLength="activeRod.length"
       />
     </v-flex>
-    <v-flex xs12>
+    <v-flex xs12 :class="$style.preview3d">
       <viewer-widget
         :viewer="viewer3d"
         :viewerData="viewerData"
@@ -22,7 +22,7 @@
           :zRange="[1, 0.01]"
           :orientation="[0, 1000, 0]"
           :viewUp="[1, 0, 0]"
-          :zoom="1"
+          :zoom="6"
           zScaling="0.2"
         />
       </viewer-widget>

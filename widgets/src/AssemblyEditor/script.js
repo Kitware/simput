@@ -42,7 +42,6 @@ export default {
       );
     },
     items() {
-      console.log(this.viz.rods, this.viewData.mapInfo);
       return ['0'].concat(
         Object.keys(this.viz.rods).filter(
           (id) => this.viz.rods[id].type === this.viewData.mapInfo.type.value[0]
