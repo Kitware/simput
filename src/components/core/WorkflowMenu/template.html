@@ -56,10 +56,10 @@
                 </span>
                 <v-spacer />
                 <v-icon
-                  v-if="node.invalid"
-                  key="if-node-invalid"
+                  v-if="child.invalid"
+                  key="if-child-invalid"
                   small
-                  title={node.invalid}
+                  :title="child.invalid"
                 >
                   warning
                 </v-icon>

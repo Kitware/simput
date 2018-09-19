@@ -340,6 +340,7 @@ export default class ModelManager {
                 this.activeViewName === id && this.activeViewIndex === idx,
               noDelete: this.model.views[id].noDelete || viewItem.noDelete,
               readOnly: this.model.views[id].readOnly || viewItem.readOnly,
+              invalid: viewItem.invalid,
             };
             nodeChildren.push(child);
           });
