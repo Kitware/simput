@@ -239,8 +239,11 @@ export default class ModelManager {
     if (!this.data[this.activeViewName]) {
       this.data = assignObjKey(this.data, this.activeViewName, []);
     }
-    if (!this.data[this.activeViewName][this.activeViewIndex]) {
-      this.data[this.activeViewName].splice(this.activeViewIndex, 1, {});
+    while (this.data[this.activeViewName].length < this.activeViewIndex + 1) {
+      this.data[this.activeViewName].push({
+        name: this.localizedData.getView(this.activeViewName),
+        id: this.getNextViewId(),
+      });
     }
 
     const viewData = this.data[this.activeViewName][this.activeViewIndex];
