@@ -6,6 +6,8 @@
   position: absolute;
   top: -48px;
   right: 5px;
+  margin: 0;
+  box-sizing: content-box;
 }
 
 .button {
@@ -24,6 +26,8 @@
   composes: button;
   border-radius: 0 5px 5px 0;
   border-left: none;
+  /* hack to get switch items to line up */
+  margin-left: -4px;
 }
 
 .active {
