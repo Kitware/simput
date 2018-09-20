@@ -1,3 +1,4 @@
+import InpHelper from './widgets/InpHelper';
 import inpTemplate from './templates/inp.hbs';
 import { fillSimulations } from './simModel';
 import { defaultMaterialNameFromId, materialIsDefault } from './matModel';
@@ -74,8 +75,6 @@ function extractUsedAssemblies(itemMap, rodMaps, type) {
 }
 
 function getSymmetricMap(cellMap, symmetry) {
-  const InpHelper = window.Simput.types.vera.helper.InpHelper;
-
   return InpHelper.getTextMap(
     {
       cell_map: cellMap,
@@ -89,7 +88,6 @@ function getSymmetricMap(cellMap, symmetry) {
 }
 // get a text map, but stripped of empty items where coreTextMap is '0'
 function getStrippedSymmetricMap(cellMap, symmetry, coreTextMap) {
-  const InpHelper = window.Simput.types.vera.helper.InpHelper;
   let textMap = getSymmetricMap(cellMap, symmetry);
   textMap = InpHelper.stripCoreZeros(textMap, coreTextMap, '    ');
   return textMap;
@@ -135,7 +133,6 @@ function getCrdBankMap(assemblyMap) {
 }
 
 function fillCoreMaps(model, dataModel) {
-  const InpHelper = window.Simput.types.vera.helper.InpHelper;
   let coreShape = null;
   const coreTextMaps = {};
   mapConfig.forEach((config) => {
