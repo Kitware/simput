@@ -24,6 +24,8 @@
   composes: button;
   border-radius: 0 5px 5px 0;
   border-left: none;
+  /* hack to get switch items to line up */
+  margin-left: -4px;
 }
 
 .active {
