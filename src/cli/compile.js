@@ -22,9 +22,7 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
       path: outputPath,
       filename: `${name}.js`,
     },
-    plugins: [
-      new VueLoaderPlugin(),
-    ],
+    plugins: [new VueLoaderPlugin()],
     resolveLoader: {
       modules: [simputNodeModules],
     },
@@ -91,9 +89,7 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
         {
           test: /\.svg$/,
           include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
-          use: [
-            { loader: 'raw-loader' },
-          ],
+          use: [{ loader: 'raw-loader' }],
         },
       ],
     },
@@ -104,8 +100,8 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
       },
     },
     externals: {
-      'vue': 'Vue',
-      'vuex': 'Vuex',
+      vue: 'Vue',
+      vuex: 'Vuex',
     },
   };
 }
