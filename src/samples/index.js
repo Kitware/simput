@@ -43,6 +43,14 @@ export default [
     },
   },
   {
+    label: 'Vera',
+    icon: 'wb_sunny',
+    model: {
+      type: 'vera',
+      data: {},
+    },
+  },
+  {
     label: 'Create your own model type',
     icon: 'note_add',
     description: 'Click here to learn how to create your own type.',

@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
 
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
 const toAbsolutePath = require('./utils').toAbsolutePath;
 const generateConvertFile = require('./convertFileGenerator');
 
@@ -11,7 +13,6 @@ const fileToDelete = [];
 // ----------------------------------------------------------------------------
 
 function buildWebpackConfiguration(name, basepath, outputPath, compress) {
-  const plugins = [];
   const entry = path.join(basepath, 'index.js');
   const simputNodeModules = path.join(__dirname, '../../node_modules');
   return {
@@ -21,7 +22,9 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
       path: outputPath,
       filename: `${name}.js`,
     },
-    plugins,
+    plugins: [
+      new VueLoaderPlugin(),
+    ],
     resolveLoader: {
       modules: [simputNodeModules],
     },
@@ -33,16 +36,31 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
           test: entry,
           loader: `expose-loader?Simput.types.${name}`,
         },
-        { test: /\.(png|jpg)$/, use: 'url-loader?limit=81920' },
-        { test: /\.html$/, loader: 'html-loader' },
+        { test: /\.(png|jpg|svg)$/, use: 'url-loader?limit=81920' },
         {
           test: /\.css$/,
+          exclude: /node_modules/,
+          use: [
+            'vue-style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[folder]-[local]-[sha512:hash:base32:5]',
+              },
+            },
+          ],
+        },
+        {
+          test: /\.css$/,
+          include: /node_modules/,
           use: ['style-loader', 'css-loader', 'postcss-loader'],
         },
         { test: /\.cjson$/, loader: 'hson-loader' },
         { test: /\.hson$/, loader: 'hson-loader' },
         { test: /\.jade$/i, loader: 'jade-loader' },
         { test: /\.hbs$/i, loader: 'handlebars-loader' },
+        { test: /\.vue$/, loader: 'vue-loader' },
         {
           test: /\.js$/,
           use: [
@@ -64,7 +82,30 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
             },
           ],
         },
+        // vtk.js rules
+        {
+          test: /\.glsl$/i,
+          include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
+          loader: 'shader-loader',
+        },
+        {
+          test: /\.svg$/,
+          include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
+          use: [
+            { loader: 'raw-loader' },
+          ],
+        },
       ],
+    },
+    resolve: {
+      extensions: ['.js', '.vue', '.json'],
+      alias: {
+        vue$: 'vue/dist/vue.esm.js',
+      },
+    },
+    externals: {
+      'vue': 'Vue',
+      'vuex': 'Vuex',
     },
   };
 }
@@ -170,9 +211,16 @@ module.exports = function compile(
   schema = schema.replace('TYPE', modelType);
   schema = schema.replace('LANG', lang);
 
+  let requireWidgets = '';
+
+  if (shell.test('-f', path.join(directory, 'widgets', 'index.js'))) {
+    requireWidgets = 'require("./widgets/index.js")';
+  }
+
   fs.writeFileSync(
     path.join(directory, 'index.js'),
-    `module.exports = ${schema}`
+    `${requireWidgets};
+     module.exports = ${schema}`
   );
   fileToDelete.push(path.join(directory, 'index.js'));
   webpack(
