@@ -51,3 +51,8 @@
   align-items: center;
   justify-content: space-around;
 }
+
+.textbox {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
