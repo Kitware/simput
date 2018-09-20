@@ -41,6 +41,9 @@ export default {
     };
   },
   watch: {
+    prop(prop) {
+      this.color = colorFloatsToHex(prop.data.value || prop.ui.default);
+    },
     color(val) {
       this.onChange(colorHexToFloats(val));
     },
