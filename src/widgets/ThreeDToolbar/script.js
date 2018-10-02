@@ -54,16 +54,19 @@ export default {
       }
     },
     setSliderZScale(value) {
+      this.zSlider = value;
       if (this.viewer) {
         const [start, end] = this.zRange;
         const zScaling = start + ((end - start) * value) / 100;
-        this.zSlider = value;
         this.zScaling = zScaling;
       }
     },
   },
   mounted() {
-    setTimeout(() => this.resetCamera(), 0);
+    setTimeout(() => {
+      this.viewer.setZScale(this.zScaling);
+      this.resetCamera();
+    }, 0);
   },
   updated() {
     if (this.viewer) {
