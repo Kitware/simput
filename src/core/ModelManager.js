@@ -133,6 +133,11 @@ export default class ModelManager {
 
   isCollapsed(viewName, viewIndex) {
     const key = `${viewName}::${viewIndex}`;
+    if (!(key in this.collapseState)) {
+      // default to collapsed state
+      // deferred setting of the collapsed state
+      this.setCollapsed(viewName, viewIndex, true);
+    }
     return this.collapseState[key];
   }
 
@@ -140,7 +145,17 @@ export default class ModelManager {
 
   toggleCollapse(viewName, viewIndex) {
     const key = `${viewName}::${viewIndex}`;
-    this.collapseState[key] = !this.collapseState[key];
+    this.collapseState = assignObjKey(
+      this.collapseState,
+      key,
+      !this.collapseState[key]
+    );
+  }
+
+  // --------
+  setCollapsed(viewName, viewIndex, state) {
+    const key = `${viewName}::${viewIndex}`;
+    this.collapseState = assignObjKey(this.collapseState, key, state);
   }
 
   // --------
@@ -153,6 +168,8 @@ export default class ModelManager {
     viewList.push({ name, id: this.getNextViewId() });
     this.data = assignObjKey(this.data, viewName, viewList);
     this.activateView(viewName, index);
+    // expand menu if not already expanded
+    this.setCollapsed(viewName, 0, false);
     // generate data model for new view (...using a get method with side-effects...)
     this.getPropertyList();
     this.runHooks();

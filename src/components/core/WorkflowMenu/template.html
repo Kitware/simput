@@ -22,8 +22,9 @@
         :key="i"
         sub-group
         no-action
-        :value="!dataModel.isCollapsed(node.id, 0)"
         :class="$style.group"
+        :value="!dataModel.isCollapsed(node.id, 0)"
+        @input="dataModel.setCollapsed(node.id, 0, !arguments[0])"
       >
         <v-list-tile slot="activator">
           <v-list-tile-content>
