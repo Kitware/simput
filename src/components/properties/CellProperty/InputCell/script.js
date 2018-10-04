@@ -27,6 +27,7 @@ export default {
     return {
       editing: false,
       valueRep: this.value,
+      error: false,
     };
   },
   methods: {
@@ -34,6 +35,8 @@ export default {
       this.editing = true;
 
       const isValid = Validate[this.type](value);
+      this.error = !isValid;
+
       if (!this.noEmpty && !value && !isValid) {
         this.$emit('input', undefined);
       } else if (isValid) {

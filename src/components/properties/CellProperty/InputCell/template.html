@@ -2,6 +2,7 @@
   :label="label"
   :value="editing ? valueRep : value"
   :readonly="domain && domain.readOnly"
+  :error="error"
   @input="onChange"
   @blur="editing = false"
 />
