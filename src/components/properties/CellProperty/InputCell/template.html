@@ -1,0 +1,7 @@
+<v-text-field
+  :label="label"
+  :value="editing ? valueRep : value"
+  :readonly="domain && domain.readOnly"
+  @input="onChange"
+  @blur="editing = false"
+/>

@@ -1,3 +1,5 @@
+import InputCell from 'simput/src/components/properties/CellProperty/InputCell';
+
 // ----------------------------------------------------------------------------
 
 export default {
@@ -9,6 +11,9 @@ export default {
     viewData: {
       required: true,
     },
+  },
+  components: {
+    InputCell,
   },
   data() {
     return { help: false };
