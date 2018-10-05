@@ -11,7 +11,7 @@
         "type": "Type",
         "center": "Center",
         "radius": "Radius",
-        "omega": "Omega 0",
+        "omega0": "Omega 0",
         "zeta": "Zeta"
       }
     },

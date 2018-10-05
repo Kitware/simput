@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180px" height="180px" viewBox="0 0 180 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>ResetCamera</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ResetCamera" stroke-width="8" stroke="#9B9B9B">
+            <g id="Group" transform="translate(16.000000, 16.000000)">
+                <polyline id="Path-3" transform="translate(79.000000, 70.000000) rotate(90.000000) translate(-79.000000, -70.000000) " points="9 110 9 140 149 0 119 0"></polyline>
+                <polyline id="Path-3" transform="translate(70.000000, 78.000000) scale(-1, -1) rotate(90.000000) translate(-70.000000, -78.000000) " points="1.42108547e-14 118 1.42108547e-14 148 140 8 110 8"></polyline>
+            </g>
+            <g id="Group" transform="translate(90.500000, 90.000000) rotate(90.000000) translate(-90.500000, -90.000000) translate(16.000000, 16.000000)">
+                <polyline id="Path-3" transform="translate(79.000000, 70.000000) rotate(90.000000) translate(-79.000000, -70.000000) " points="9 110 9 140 149 0 119 0"></polyline>
+                <polyline id="Path-3" transform="translate(70.000000, 78.000000) scale(-1, -1) rotate(90.000000) translate(-70.000000, -78.000000) " points="1.42108547e-14 118 1.42108547e-14 148 140 8 110 8"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

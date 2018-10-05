@@ -1,2 +1,2 @@
-Kind of oscillator which can be either <b>Periodic</b>, <b>Damped</b> or <b>Decaying</b>.
-Only Decaying oscillator will have to provide the zeta information.
+Kind of oscillator, which can be either <b>Periodic</b>, <b>Decaying</b> or <b>Damped</b>.
+Only Damped oscillators have to provide a value for zeta.
