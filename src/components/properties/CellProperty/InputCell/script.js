@@ -30,6 +30,11 @@ export default {
       error: false,
     };
   },
+  watch: {
+    value(val) {
+      this.valueRep = val;
+    },
+  },
   methods: {
     onChange(value) {
       this.editing = true;
