@@ -44,6 +44,9 @@
         "dt": "Time step",
         "endT": "Duration"
       }
+    },
+    "oscillatorView": {
+      "title": "3D view"
     }
   }
 }
