@@ -534,7 +534,7 @@ function addDefaultMaterials(dataModel) {
   if (dataModel.data.Materials && dataModel.data.Materials.length) return;
   dataModel.data.Materials = materials.map((mat, index) => ({
     name: mat.label,
-    id: index,
+    id: index + 1, // start indices at 1 b/c 0 is special in getExternal()
     material: {
       name: {
         id: 'material.name',
