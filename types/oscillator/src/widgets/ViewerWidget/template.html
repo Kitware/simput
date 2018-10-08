@@ -1,0 +1,23 @@
+<div :class="$style.container">
+  <div :class="$style.toolbar">
+    <div :class="$style.line">
+      <input
+        type="range"
+        min="0"
+        :max="endTime"
+        :step="timeStep"
+        :value="timeSlider"
+        :class="$style.slider"
+        @input="setSliderTime(Number($event.target.value))"
+      />
+      <div
+        :class="$style.resetCamera"
+        @click="resetCamera"
+      />
+    </div>
+  </div>
+  <div
+    ref="container"
+    :class="$style.container"
+  />
+</div>

@@ -27,7 +27,7 @@ module.exports = function convert(dataModel) {
       `${oscillator.type}`,
       `${oscillator.center[0]} ${oscillator.center[1]} ${oscillator.center[2]}`,
       `${oscillator.radius}`,
-      `${oscillator.omega}`,
+      `${oscillator.omega0}`,
       `${oscillator.zeta || ''}`,
     ]);
   });

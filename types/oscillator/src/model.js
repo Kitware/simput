@@ -9,6 +9,9 @@ module.exports = {
           type: 'copyParameterToViewName',
           attribute: 'oscillator.name',
         },
+        {
+          type: 'oscillatorsToExternal',
+        },
       ],
     },
     analyses: {
@@ -23,6 +26,23 @@ module.exports = {
     },
     run: {
       attributes: ['runParams'],
+      hooks: [
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.gridsize.value.0',
+          dst: 'viz.gridsize',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.dt.value.0',
+          dst: 'viz.timeStep',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.endT.value.0',
+          dst: 'viz.endTime',
+        },
+      ],
     },
   },
   definitions: {
@@ -41,8 +61,8 @@ module.exports = {
           default: 'periodic',
           domain: {
             Periodic: 'periodic',
-            Damped: 'damped',
             Decaying: 'decaying',
+            Damped: 'damped',
           },
         },
         {
@@ -59,16 +79,16 @@ module.exports = {
           default: [1],
         },
         {
-          id: 'omega',
+          id: 'omega0',
           type: 'double',
           size: 1,
-          default: [0],
+          default: [1],
         },
         {
           id: 'zeta',
           type: 'double',
           size: 1,
-          show: "type[0] === 'decaying'",
+          show: "type[0] === 'damped'",
         },
       ],
     },
@@ -169,6 +189,21 @@ module.exports = {
           type: 'double',
           size: 1,
           default: [10],
+        },
+        {
+          id: 'viz',
+          propType: 'ViewerWidget',
+          size: 1,
+          default: {
+            text: '',
+            radii: [],
+            positions: [],
+          },
+          domain: {
+            dynamic: true,
+            external: 'viz',
+          },
+          label: 'Gaussians',
         },
       ],
     },
