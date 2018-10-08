@@ -180,6 +180,7 @@ const model = {
       attributes: ['material'],
       size: -1,
       readOnly: true,
+      clonable: true,
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'material.name' },
         // { type: 'specsToExternal' },
@@ -192,6 +193,7 @@ const model = {
       attributes: ['fuel'],
       size: -1,
       readOnly: true,
+      clonable: true,
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'fuel.name' },
         // { type: 'specsToExternal' },
@@ -215,12 +217,14 @@ const model = {
       ],
       size: -1,
       readOnly: true,
+      clonable: true,
     },
     Rods: {
       label: 'Rods',
       attributes: ['rodInfo', 'rodStack'],
       size: -1,
       readOnly: true,
+      clonable: true,
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'rodInfo.name' },
         { type: 'updateCellUsed' },
@@ -238,6 +242,7 @@ const model = {
       attributes: ['mapInfo', 'rodMap'],
       size: -1,
       readOnly: true,
+      clonable: true,
       hooks: [
         { type: 'updateRodUsed' },
         { type: 'mapsToExternal' },
@@ -255,6 +260,7 @@ const model = {
       attributes: ['spacer'],
       size: -1,
       readOnly: true,
+      clonable: true,
       hooks: [{ type: 'copyParameterToViewName', attribute: 'spacer.name' }],
     },
     CoreMap: {
