@@ -65,6 +65,17 @@
                   warning
                 </v-icon>
                 <v-btn
+                  v-if="child.clonable"
+                  key="if-child-clonable"
+                  icon
+                  small
+                  title="Clone view"
+                  :class="$style.listButton"
+                  v-on:click.stop="dataModel.cloneView(child.id, child.index)"
+                >
+                  <v-icon small>content_copy</v-icon>
+                </v-btn>
+                <v-btn
                   v-if="!child.noDelete"
                   key="if-no-delete"
                   icon

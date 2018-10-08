@@ -172,9 +172,6 @@ export default class ModelManager {
     this.activateView(viewName, index);
     // expand menu if not already expanded
     this.setCollapsed(viewName, 0, false);
-    // generate data model for new view (...using a get method with side-effects...)
-    this.getPropertyList();
-    this.runHooks();
     this.invokeListeners();
   }
 
@@ -208,6 +205,18 @@ export default class ModelManager {
       this.activateView(activeViewName, activeViewIndex);
       // run deleted view hooks
       this.runHooks(viewName, index);
+    }
+  }
+
+  // --------
+
+  cloneView(viewName, index) {
+    if (this.data[viewName][index]) {
+      const cloned = clone(this.data[viewName][index]);
+      // make new ID
+      cloned.id = this.getNextViewId();
+      this.data[viewName].splice(index + 1, 0, cloned);
+      this.activateView(viewName, index + 1);
     }
   }
 
@@ -381,6 +390,7 @@ export default class ModelManager {
                 this.activeViewName === id && this.activeViewIndex === idx,
               noDelete: this.model.views[id].noDelete || viewItem.noDelete,
               readOnly: this.model.views[id].readOnly || viewItem.readOnly,
+              clonable: this.model.views[id].clonable || viewItem.clonable,
               invalid: viewItem.invalid,
             };
             nodeChildren.push(child);
@@ -400,6 +410,7 @@ export default class ModelManager {
                 this.activeViewIndex === idx,
               noDelete: true,
               readOnly: true,
+              clonable: false,
             };
             nodeChildren.push(child);
           });
