@@ -193,9 +193,13 @@ export default class ModelManager {
     if (activeViewName === viewName) {
       if (this.data[viewName].length) {
         if (activeViewIndex > index) {
-          this.activateView(activeViewName, activeViewIndex - 1);
+          this.activateView(viewName, activeViewIndex - 1);
         } else if (activeViewIndex === index) {
-          this.activateView(viewName, index);
+          if (index === this.data[viewName].length) {
+            this.activateView(viewName, index - 1);
+          } else {
+            this.activateView(viewName, index);
+          }
         } else {
           this.activateView(viewName, activeViewIndex);
         }
