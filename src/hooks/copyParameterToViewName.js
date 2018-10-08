@@ -5,6 +5,10 @@ export default function copyParameterToViewName(
   dataModel,
   currentViewData
 ) {
+  if (!currentViewData) {
+    return;
+  }
+
   const [attributeName, parameterId] = hookConfig.attribute.split('.');
   if (
     currentViewData[attributeName] &&

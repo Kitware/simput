@@ -206,6 +206,8 @@ export default class ModelManager {
       }
     } else {
       this.activateView(activeViewName, activeViewIndex);
+      // run deleted view hooks
+      this.runHooks(viewName, index);
     }
   }
 

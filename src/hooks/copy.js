@@ -1,6 +1,10 @@
 /* eslint-disable no-param-reassign */
 
 export default function copy(hookConfig, dataModel, currentViewData) {
+  if (!currentViewData) {
+    return;
+  }
+
   const { src, dst } = hookConfig;
   let value = dataModel;
   const [attributeName, parameterId] = dst.split('.');

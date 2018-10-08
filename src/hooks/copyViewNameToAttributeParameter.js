@@ -5,6 +5,10 @@ export default function copyViewNameToAttributeParameter(
   fullDataModel,
   localViewDataModel
 ) {
+  if (!localViewDataModel) {
+    return;
+  }
+
   const name = localViewDataModel.name;
   const [attributeName, parameterId] = hookConfiguration.attribute.split('.');
   localViewDataModel[attributeName][parameterId].value = [name];
