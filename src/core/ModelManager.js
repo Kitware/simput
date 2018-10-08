@@ -213,8 +213,13 @@ export default class ModelManager {
   cloneView(viewName, index) {
     if (this.data[viewName][index]) {
       const cloned = clone(this.data[viewName][index]);
+
       // make new ID
       cloned.id = this.getNextViewId();
+      // clear states
+      cloned.noDelete = false;
+      cloned.invalid = null;
+
       this.data[viewName].splice(index + 1, 0, cloned);
       this.activateView(viewName, index + 1);
     }
