@@ -658,6 +658,7 @@ const model = {
           type: 'string',
           size: 1,
           label: 'Name',
+          default: 'Material',
         },
         {
           id: 'color',
@@ -696,6 +697,7 @@ const model = {
           type: 'string',
           size: 1,
           label: 'Name',
+          name: 'Fuel',
         },
         {
           id: 'color',
