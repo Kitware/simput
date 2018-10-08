@@ -48,6 +48,8 @@ export default class ModelManager {
     this.collapseState = {};
     this.listeners = [];
 
+    this.runAllHooks();
+
     if (this.model.defaultActiveView) {
       this.activateView(this.model.defaultActiveView, 0);
     }
@@ -241,6 +243,19 @@ export default class ModelManager {
     hooks.forEach((hook) =>
       HookManager.applyHook(hook, this.fullData, viewData, this.model)
     );
+  }
+
+  // --------
+
+  runAllHooks() {
+    const names = Object.keys(this.data);
+    for (let i = 0; i < names.length; i++) {
+      const name = names[i];
+      const hooks = this.model.views[name].hooks || [];
+      for (let viewIdx = 0; viewIdx < this.data[name].length; viewIdx++) {
+        this.runHooks(name, viewIdx);
+      }
+    }
   }
 
   // --------
