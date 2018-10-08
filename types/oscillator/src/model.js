@@ -3,7 +3,7 @@ module.exports = {
   views: {
     oscillators: {
       size: -1,
-      attributes: ['oscillator'],
+      attributes: ['oscillator', 'oscillatorView'],
       hooks: [
         {
           type: 'copyParameterToViewName',
@@ -182,7 +182,7 @@ module.exports = {
           id: 'dt',
           type: 'double',
           size: 1,
-          default: [0.5],
+          default: [0.1],
         },
         {
           id: 'endT',
@@ -190,14 +190,16 @@ module.exports = {
           size: 1,
           default: [10],
         },
+      ],
+    },
+    oscillatorView: {
+      parameters: [
         {
           id: 'viz',
           propType: 'ViewerWidget',
           size: 1,
           default: {
             text: '',
-            radii: [],
-            positions: [],
           },
           domain: {
             dynamic: true,

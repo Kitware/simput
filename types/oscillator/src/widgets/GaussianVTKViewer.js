@@ -52,7 +52,6 @@ function createCubePipeline() {
 }
 
 function createSpherePipeline(osc) {
-  console.log(osc);
   const source = vtkSphereSource.newInstance();
   const actor = vtkActor.newInstance();
   const mapper = vtkMapper.newInstance();
@@ -209,7 +208,7 @@ function gaussianVTKViewer(publicAPI, model) {
 
   publicAPI.setData = (data) => {
     // convert to integer.
-    if (data.gridsize) data.gridsize = Math.floor(+data.gridsize) || 0;
+    if (data.gridsize) data.gridsize = Math.floor(+data.gridsize) || 64;
     if (model.data !== data) {
       model.data = data;
 
