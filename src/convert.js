@@ -3,6 +3,10 @@ import inpTemplate from './templates/inp.hbs';
 import { fillSimulations } from './simModel';
 import { defaultMaterialNameFromId, materialIsDefault } from './matModel';
 
+function isFilledArray(a) {
+  return a && a.length;
+}
+
 // given an ID, return the name of the material
 function materialIdToName(dataModel, id) {
   const materials = dataModel.data.Materials;
@@ -14,7 +18,7 @@ function materialIdToName(dataModel, id) {
       }
     }
   }
-  if (dataModel.data.DefaultMaterials) {
+  if (isFilledArray(dataModel.data.DefaultMaterials)) {
     const defaultMaterials = dataModel.data.DefaultMaterials[0].defaultMaterial;
     const defaultMaterialsNames = Object.keys(defaultMaterials);
     let count = defaultMaterialsNames.length;
@@ -136,7 +140,7 @@ function fillCoreMaps(model, dataModel) {
   let coreShape = null;
   const coreTextMaps = {};
   mapConfig.forEach((config) => {
-    if (!dataModel.data[config.coreMapKey]) return;
+    if (!isFilledArray(dataModel.data[config.coreMapKey])) return;
     const assemblyMap = dataModel.data[config.coreMapKey][config.index];
     // const title = assemblyMap.coreMapInfo.title.value[0];
     let labeledMap = null;
@@ -193,7 +197,7 @@ function fillCoreMaps(model, dataModel) {
 }
 function fillMaterials(model, dataModel) {
   const matSpec = dataModel.data.Materials;
-  if (!matSpec || !matSpec.length) return;
+  if (!isFilledArray(matSpec)) return;
   const materials = matSpec.map((item) => {
     const spec = item.material;
     if (materialIsDefault(item.material)) return null;
@@ -221,7 +225,7 @@ function fillMaterials(model, dataModel) {
 // Fuels are specific to the assembly block.
 function fillFuels(model, dataModel, block) {
   const fuelSpec = dataModel.data.Fuels;
-  if (!fuelSpec || !fuelSpec.length) return;
+  if (!isFilledArray(fuelSpec)) return;
   const fuels = fuelSpec.map((item) => {
     const spec = item.fuel;
     const fuel = {
@@ -257,7 +261,7 @@ function fillFuels(model, dataModel, block) {
 // Grids are specific to the assembly block.
 function fillGrids(model, dataModel, block) {
   const gridSpec = dataModel.data.Grids;
-  if (!gridSpec || !gridSpec.length) return;
+  if (!isFilledArray(gridSpec)) return;
   const gridAxial = [];
   const grids = gridSpec.map((item) => {
     const spec = item.spacer;
@@ -321,7 +325,7 @@ function fillCore(model, dataModel) {
   model.core.height = coreSpec.height.value[0];
   addCard(coreSpec, 'reactor_type');
   addCard(coreSpec, 'rated', '   ! MW, Mlbs/hr');
-  if (dataModel.data.CoreDefinition) {
+  if (isFilledArray(dataModel.data.CoreDefinition)) {
     const {
       coreAdvancedSpec: advSpec,
       baffleSpec,
@@ -535,7 +539,7 @@ function fillAssembly(model, dataModel, config) {
 }
 
 function fillEdits(model, dataModel) {
-  if (!dataModel.data.Edits) return;
+  if (!isFilledArray(dataModel.data.Edits)) return;
   const newEdits = { cards: [] };
   const { edits } = dataModel.data.Edits[0];
   const addCardZero = (dataIn, name, comment = '') => {
@@ -554,7 +558,7 @@ function fillEdits(model, dataModel) {
 function fillState(model, dataModel) {
   model.states = [];
   const stateList = dataModel.data.States;
-  if (!dataModel.data.StateInitialization) return;
+  if (!isFilledArray(dataModel.data.StateInitialization)) return;
   const stateInit = dataModel.data.StateInitialization[0].stateInit;
   stateList.forEach((item, i) => {
     const info = item.stateInfo;
