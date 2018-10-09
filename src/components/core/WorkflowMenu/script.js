@@ -13,5 +13,8 @@ export default {
       const viewItem = this.dataModel.model.views[viewId];
       return 'size' in viewItem || 'children' in viewItem;
     },
+    getListComponentByName(name) {
+      return this.$store.state.properties.mapping[name.toLowerCase()];
+    },
   },
 };

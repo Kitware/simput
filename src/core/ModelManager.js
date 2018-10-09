@@ -361,6 +361,8 @@ export default class ModelManager {
     const menu = [];
     this.model.order.forEach((id) => {
       if (this.hideViews.indexOf(id) === -1) {
+        const { size, children, listComponent } = this.model.views[id];
+
         const node = {
           id,
           label: this.localizedData.getView(id),
@@ -368,8 +370,9 @@ export default class ModelManager {
             ? 'collapsedBullet'
             : 'expendedBullet',
           index: 0,
+          listComponent,
         };
-        const { size, children } = this.model.views[id];
+
         const childCount = (this.data[id] && this.data[id].length) || 0;
 
         // Flags
@@ -397,6 +400,7 @@ export default class ModelManager {
               readOnly: this.model.views[id].readOnly || viewItem.readOnly,
               clonable: this.model.views[id].clonable || viewItem.clonable,
               invalid: viewItem.invalid,
+              viewItem,
             };
             nodeChildren.push(child);
           });
@@ -416,6 +420,7 @@ export default class ModelManager {
               noDelete: true,
               readOnly: true,
               clonable: false,
+              viewItem,
             };
             nodeChildren.push(child);
           });

@@ -53,7 +53,13 @@
                 <span
                   :class="child.active ? $style.activeListItem : null"
                 >
-                  {{ child.label }}
+                  <component
+                    v-if="node.listComponent"
+                    :is="getListComponentByName(node.listComponent)"
+                    :viewItem="child.viewItem"
+                    :label="child.label"
+                  />
+                  <span v-else>{{ child.label }}</span>
                 </span>
                 <v-spacer />
                 <v-icon
