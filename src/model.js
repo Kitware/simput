@@ -181,6 +181,7 @@ const model = {
       size: -1,
       readOnly: true,
       clonable: true,
+      listComponent: 'ListItemWithColor',
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'material.name' },
         // { type: 'specsToExternal' },
@@ -194,6 +195,7 @@ const model = {
       size: -1,
       readOnly: true,
       clonable: true,
+      listComponent: 'ListItemWithColor',
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'fuel.name' },
         // { type: 'specsToExternal' },
@@ -218,6 +220,7 @@ const model = {
       size: -1,
       readOnly: true,
       clonable: true,
+      listComponent: 'ListItemWithColor',
     },
     Rods: {
       label: 'Rods',
@@ -225,6 +228,7 @@ const model = {
       size: -1,
       readOnly: true,
       clonable: true,
+      listComponent: 'ListItemWithColor',
       hooks: [
         { type: 'copyParameterToViewName', attribute: 'rodInfo.name' },
         { type: 'updateCellUsed' },
@@ -243,6 +247,7 @@ const model = {
       size: -1,
       readOnly: true,
       clonable: true,
+      listComponent: 'ListItemWithColor',
       hooks: [
         { type: 'updateRodUsed' },
         { type: 'mapsToExternal' },

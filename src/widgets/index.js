@@ -5,6 +5,8 @@ import CoreEditor from './CoreEditor';
 import StateLabelEditor from './StateLabelEditor';
 import StateMapEditor from './StateMapEditor';
 
+import ListItemWithColor from './ListItemWithColor';
+
 function registerWidgets(Simput) {
   if (Simput.registerWidget) {
     Simput.registerWidget('CellEditor', CellEditor);
@@ -13,6 +15,8 @@ function registerWidgets(Simput) {
     Simput.registerWidget('CoreEditor', CoreEditor);
     Simput.registerWidget('StateLabelEditor', StateLabelEditor);
     Simput.registerWidget('StateMapEditor', StateMapEditor);
+
+    Simput.registerWidget('ListItemWithColor', ListItemWithColor);
   }
 }
 

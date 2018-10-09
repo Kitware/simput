@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.color {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  border: 1px solid black;
+  margin-right: 6px;
+}
