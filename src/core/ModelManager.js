@@ -48,6 +48,16 @@ export default class ModelManager {
     this.collapseState = {};
     this.listeners = [];
 
+    // set initial view lists
+    // This prepopulation will help ModelManager be vue reactive friendly.
+    this.model.order.forEach((viewName) => {
+      if (!(viewName in this.fullData.data)) {
+        this.fullData.data = Object.assign({}, this.fullData.data, {
+          [viewName]: [],
+        });
+      }
+    });
+
     this.runAllHooks();
 
     if (this.model.defaultActiveView) {
