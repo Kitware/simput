@@ -10,6 +10,7 @@ const COLUMN_SPACING = 5;
 
 module.exports = function convert(dataModel) {
   const results = {};
+  // Start with a standard header
   const lines = [['# type  ', 'center  ', 'r  ', 'omega0  ', 'zeta']];
 
   dataModel.data.oscillators.forEach((attributes) => {
@@ -22,7 +23,6 @@ module.exports = function convert(dataModel) {
         oscillator[fieldName] = value;
       }
     });
-    console.log(oscillator);
     lines.push([
       `${oscillator.type}`,
       `${oscillator.center[0]} ${oscillator.center[1]} ${oscillator.center[2]}`,

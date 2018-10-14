@@ -5,3 +5,4 @@ docs:
     convert: convert.html
   example:
     vcard: vcard.html
+    oscillator: oscillator.html
