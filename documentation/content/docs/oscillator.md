@@ -211,6 +211,8 @@ module.exports = function convert(dataModel) {
 
 The conversion actually happens in the first loop, where the objects from the data model have their `value` fields extracted and put into a list in the correct order. Two more loops calculate lengths and add padding to make columns line up nicely. Finally, this statement: `lines[lineIdx] = { line: lines[lineIdx].join('') };` converts to a list of objects with the key `line`, which is used in the template as `{{line}}`.
 
+Note that the `name` parameter is not actually used in the template and output. It is provided as a convenience to the user, so they can distinguish the different oscillators if they choose to.
+
 ## Compilation of new type
 
 If you clone the repository and ran `npm install` during setup, you should be able to run:
@@ -256,5 +258,197 @@ A zip file is written, which contains `oscillator_list.osc` along with the data 
 
 If you restart Simput and drag-and-drop this zip file onto the `Open an existing model` box, you will find all the information you've entered.
 
+## Note about labels
 
+We didn't include any `label` tags in our model definition, yet our screenshots show understandable labels and even help text. These are defined in the `lang/en` subdirectory, and can be translated into additional languages as needed. There is a straightforward mapping between the model definition and the `label.json` structure and help files that provide the UI text. [Take a look](https://github.com/Kitware/simput/tree/master/types/oscillator/src/lang/en).
 
+## More output files
+
+The oscillator requires two other files to run - an `xml` file that specifies which analyses to run, and a script that constructs the right command line to run in a multi-process environment using OpenMPI. Let's take a look at `ananlysis_config.xml` and `run_script.sh`
+
+### Another template and model definition
+Here's the template for `analysis_config.xml`:
+
+```analysis_config.hbs
+<sensei>
+{{#each histogram}}
+  <analysis type="histogram" mesh="{{mesh}}" array="{{array}}" association="{{association}}"
+    bins="{{bins}}" enabled="1" />
+{{/each}}
+
+{{#each autocorrelation}}
+  <analysis type="autocorrelation" mesh="{{mesh}}" array="data" association="cell"
+    window="{{window}}" k-max="{{kmax}}" enabled="1" />
+{{/each}}
+
+</sensei>
+```
+
+There are two types of analysis, histogram and autocorrelation. They have similar, but not identical parameters. The use of the `{% raw %}{{#each histogram}}{% endraw %}` construct lets us pass a list to the template, and output zero or more blocks, depending on how many objects are in the list. The `run_script.sh` template is very simple, [take a look here](https://github.com/Kitware/simput/blob/master/types/oscillator/src/run_script.hbs).
+
+We need to add views to our data model for each of these files, like this:
+
+```js
+module.exports = {
+  order: ['oscillators', 'analyses', 'run'],
+  views: {
+    oscillators: { ... }
+    analyses: {
+      size: -1,
+      attributes: ['analysis'],
+      hooks: [
+        {
+          type: 'copyParameterToViewName',
+          attribute: 'analysis.name',
+        },
+      ],
+    },
+    run: {
+      attributes: ['runParams'],
+    },
+  },
+  definitions: {
+    oscillator: { ... },
+    analysis: {
+      parameters: [
+        {
+          id: 'name',
+          label: 'Name',
+          type: 'string',
+          size: 1,
+        },
+        {
+          id: 'type',
+          type: 'enum',
+          size: 1,
+          default: 'histogram',
+          domain: {
+            Histogram: 'histogram',
+            Autocorrelation: 'autocorrelation',
+          },
+        },
+        ["histogram", "autocorrelation"],
+      ],
+      children: {
+        histogram: "analysis.type[0] === 'histogram'",
+        autocorrelation: "analysis.type[0] === 'autocorrelation'",
+      },
+    },
+    histogram: {
+       parameters: [
+          {
+              id: 'mesh',
+              type: 'enum',
+              size: 1,
+              default: 'mesh',
+              domain: {
+                Mesh: 'mesh',
+                'Unstructured mesh': 'ucdmesh',
+                'Particle velocity magnitude': 'particles',
+              },
+          },
+          {
+            id: 'bins',
+            type: 'int',
+            size: 1,
+            default: [10],
+          },
+       ],
+    },
+    autocorrelation: {
+       parameters: [
+          {
+              id: 'mesh',
+              type: 'enum',
+              size: 1,
+              default: 'mesh',
+              domain: {
+                // currently only works on one type.
+                Mesh: 'mesh',
+              },
+          },
+          {
+            id: 'window',
+            type: 'double',
+            size: 1,
+            default: [10],
+          },
+          {
+            id: 'kmax',
+            type: 'double',
+            size: 1,
+            default: [3],
+          },
+       ],
+    },
+    runParams: {
+      parameters: [
+        {
+          id: 'nodes',
+          type: 'int',
+          size: 1,
+          default: [1],
+        },
+        {
+          id: 'gridsize',
+          type: 'int',
+          size: 1,
+          default: [64],
+        },
+        {
+          id: 'dt',
+          type: 'double',
+          size: 1,
+          default: [0.1],
+        },
+        {
+          id: 'endT',
+          type: 'double',
+          size: 1,
+          default: [10],
+        },
+      ],
+    },
+  },
+};
+```
+
+The `oscillator` sections remain the same, but we add the new views to the `order` list. Note that the `analyses` view has a variable size, just like the list of oscillators, but the `run` section has only a single entry, since there is only one run script.
+
+The `analysis` definition shows how to change your interface depnding on a parameter - when the user chooses between `Histogram` and `Autocorrelation`, one of the `children` is made visible based on the value of the `analysis.type` enum. You can also use `children` to simply organize blocks of parameters, and re-use them as part of different `definition` blocks. In the UI, they have their own header.
+
+### Expanding the convert method
+
+Earlier we saw the convert function looped over the list of oscillators created by the user, and formatted them into lines that are output via the template. Our two new output files follow a [very similar pattern](https://github.com/Kitware/simput/blob/master/types/oscillator/src/convert.js):
+
+* get a definition object, `histogram`, `autocorrelation` or `runParams`,
+* get parameters from the object's keys,
+* extract parameter values from the `value` field,
+* copy them into an object or list of objects.
+
+The only complication is in the `analyses`, where we have a some [dependent parameters](https://github.com/Kitware/simput/blob/master/types/oscillator/src/convert.js#L74-L86):
+
+```
+    if (type === 'histogram') {
+      // fill in associated fields.
+      if (analysis.mesh === 'particles') {
+        analysis.array = "velocityMagnitude";
+        analysis.association="point";
+      } else {
+        analysis.array = "data";
+        analysis.association="cell";
+      }
+      histogram.push(analysis);
+    } else if (type === 'autocorrelation') {
+      autocorrelation.push(analysis);
+    }
+
+```
+
+For the `histogram` analysis, the `array` and `association` can be set based on the `mesh` parameter, and we don't have to bother the user with setting those parameters, and possibly getting an inconsistent input file for our simulation.
+
+## Interaction, now in 3D!
+
+The final piece of the oscillator puzzle is showing the user interactively what their inputs mean. The oscillators are placed in a 3D grid, and their radius varies over time based on the user's inputs. Next we will use the [Vue.js](https://vuejs.org/) framework and [vtk.js](https://kitware.github.io/vtk-js/index.html) to show a 3D interactive representation of the gaussian oscillators and their behavior over time.
+
+[coming soon](https://github.com/Kitware/simput/tree/master/types/oscillator/src/widgets)
