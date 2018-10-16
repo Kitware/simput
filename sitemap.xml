@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kitware.github.io/simput/index.html</loc>
+    
+    <lastmod>2018-10-16T20:59:21.649Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/simput/docs/oscillator.html</loc>
+    
+    <lastmod>2018-10-16T20:59:21.645Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/simput/docs/develop_build.html</loc>
+    
+    <lastmod>2018-10-16T20:59:21.641Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kitware.github.io/simput/docs/develop_requirement.html</loc>
+    
+    <lastmod>2018-10-16T20:59:21.641Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kitware.github.io/simput/docs/convert.html</loc>
     
     <lastmod>2018-09-07T17:33:55.065Z</lastmod>
@@ -19,27 +47,6 @@
     <loc>https://kitware.github.io/simput/docs/model.html</loc>
     
     <lastmod>2018-09-07T17:33:55.065Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/simput/index.html</loc>
-    
-    <lastmod>2018-08-16T21:05:36.794Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/simput/docs/develop_build.html</loc>
-    
-    <lastmod>2018-08-16T18:39:08.742Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kitware.github.io/simput/docs/develop_requirement.html</loc>
-    
-    <lastmod>2018-08-16T18:39:08.742Z</lastmod>
     
   </url>
   

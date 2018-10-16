@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>SimPut</title>
   
-  <subtitle>Define your data model and get interactive form with proper file generation</subtitle>
+  <subtitle>Define your data model and get interactive forms with proper file generation</subtitle>
   <link href="/simput/atom.xml" rel="self"/>
   
   <link href="https://kitware.github.io/simput/"/>
