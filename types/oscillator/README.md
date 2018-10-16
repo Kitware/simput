@@ -6,7 +6,7 @@ This Simput type is meant to illustrate a basic usage of simput for generating a
 
 Simput helps us provide a simple user interface to define a set of oscillators, and output a configuration file for use by either of the oscillator simulation codes listed above.
 
-The Sensei oscillator has now been used as a model application for benchmarking in-situ analyses, so is more complete. This example also provides an interface for specifying two types of analyses to run, and parameters for launching the oscillator app in a multi-process environment. Three separate templates are used to output these two configuration files and the batch script for running the oscillator app.
+The Sensei oscillator has now been used as a model application for benchmarking in-situ analyses, so is more complete. This example also provides an interface for specifying two types of analyses to run, and parameters for launching the oscillator app in a multi-process environment. Three separate templates are used to output these two configuration files and the batch script for running the oscillator app. A [detailed tutorial](http://kitware.github.io/simput/docs/oscillator.html) explains how this data model, convert method, and templates work together.
 
 ## Development
 
