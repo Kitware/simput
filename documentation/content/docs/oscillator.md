@@ -37,10 +37,11 @@ Next we add a line to `package.json` to compile our type:
   "scripts": {
     // ...
     "type:oscillator": "node ./src/cli/simput-cli.js -c ./types/oscillator/src -o ./static/types -t oscillator",
+  }
 ```
 
 Finally we add our type to the landing page. In `static/index.html`:
-```
+```js
       // Register various template
       Simput.registerType('demo', ['./types/demo.js']);
       // add to list:
@@ -48,7 +49,7 @@ Finally we add our type to the landing page. In `static/index.html`:
 ```
 
 and in `src/samples/index.js`:
-```
+```js
   {
     label: 'Oscillator',
     image: Images.oscillator,
@@ -67,7 +68,8 @@ We added an image in the `images` subdirectory, but an icon from `vuetify` can b
 
 Let's create a View to contain our list of gaussian oscillators. The is specified as a json or javascript object, though we recommend javascript because it can contain comments. Our __data model__ needs an entry for each of the gaussian's parameters, and the variable-sized list to contain them. Create the file `types/oscillator/src/model.js`:
 
-```model.js
+```js
+// model.js
 module.exports = {
   order: ['oscillators'],
   views: {
@@ -141,7 +143,8 @@ These parameters illustrate some of the different types and options available. P
 
 Template files define our output - the files we produce for input to the simulation. The oscillator list is very simple, with a single line per oscillator. Here, we just loop over lines and output them, using triple-curly-brace to signal a variable substitution. Several kinds of looping and conditionals are available inside a [Handlebars template](https://handlebarsjs.com/), which we'll see later.
 
-```templates/oscillator_list.hbs
+```handlebars
+{{!-- oscillator_list.hbs --}}
 {{#each lines}}
 {{line}}
 {{/each}}
@@ -151,7 +154,8 @@ Template files define our output - the files we produce for input to the simulat
 
 How do we get from our model and the input from the user, to the list of lines needed by our template? This is the job of the convert function. Let's take a look:
 
-```convert.js
+```js
+// convert.js
 const outputTemplate = require('./oscillator_list.hbs');
 
 const COLUMN_SPACING = 5;
@@ -245,7 +249,7 @@ Click the `oscillator` card.
 Initial empty page / content
 </center>
 
-Start filling it...
+Click the `+` button to add some oscillators, and start filling them in...
 
 <center class="half">
 ![](oscillator-step-2.png)
@@ -269,7 +273,8 @@ The oscillator requires two other files to run - an `xml` file that specifies wh
 ### Another template and model definition
 Here's the template for `analysis_config.xml`:
 
-```analysis_config.hbs
+```handlebars
+{{!-- analysis_config.hbs --}}
 <sensei>
 {{#each histogram}}
   <analysis type="histogram" mesh="{{mesh}}" array="{{array}}" association="{{association}}"
@@ -428,7 +433,7 @@ Earlier we saw the convert function looped over the list of oscillators created 
 
 The only complication is in the `analyses`, where we have a some [dependent parameters](https://github.com/Kitware/simput/blob/master/types/oscillator/src/convert.js#L74-L86):
 
-```
+```js
     if (type === 'histogram') {
       // fill in associated fields.
       if (analysis.mesh === 'particles') {
@@ -451,4 +456,275 @@ For the `histogram` analysis, the `array` and `association` can be set based on 
 
 The final piece of the oscillator puzzle is showing the user interactively what their inputs mean. The oscillators are placed in a 3D grid, and their radius varies over time based on the user's inputs. Next we will use the [Vue.js](https://vuejs.org/) framework and [vtk.js](https://kitware.github.io/vtk-js/index.html) to show a 3D interactive representation of the gaussian oscillators and their behavior over time.
 
-[coming soon](https://github.com/Kitware/simput/tree/master/types/oscillator/src/widgets)
+To see what we're going to build in this section, take a look at the [application landing page](http://kitware.github.io/simput/app/) - the Oscillator image is captured from this widget. Or try it yourself - create some oscillators in the app, and scroll down to see the `3D view`:
+
+<center class="half">
+![](oscillator-step-3.png)
+3D View
+</center>
+
+If you want to jump right in, take a look at the [code for this widget](https://github.com/Kitware/simput/tree/master/types/oscillator/src/widgets). First, let's look at how to hook up a custom widget in Simput.
+
+### Add a definition
+
+A few things get added to `model.js`:
+
+```js
+module.exports = {
+  views: {
+    oscillators: {
+      // ...
+      hooks: [
+        // ...
+        {
+          type: 'oscillatorsToExternal',
+        },
+      ],
+    },
+    analyses: { ... },
+    run: {
+      attributes: ['runParams'],
+      hooks: [
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.gridsize.value.0',
+          dst: 'viz.gridsize',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.dt.value.0',
+          dst: 'viz.timeStep',
+        },
+        {
+          type: 'copyToExternal',
+          src: 'data.run.0.runParams.endT.value.0',
+          dst: 'viz.endTime',
+        },
+      ],
+    },
+  },
+  definitions: {
+    oscillator: { // ...
+    },
+    // ...
+    oscillatorView: {
+      parameters: [
+        {
+          id: 'viz',
+          propType: 'ViewerWidget',
+          size: 1,
+          default: {
+            text: '',
+          },
+          domain: {
+            dynamic: true,
+            external: 'viz',
+          },
+          label: 'Gaussians',
+        },
+      ],
+    },
+  },
+};
+```
+
+First, we add a new `oscillatorView` definition, with a new `propType: 'ViewerWidget'`, and an external, dynamic `domain`. This is how we tell Simput to look for our external widget. The external domain `viz` is how we pass data to our widget to be displayed. To accomplish this, we add `hooks` to some of the views - the `run` view copies the `gridsize`, `dt` and `endT` parameters to keys in the `viz` object, and the `oscillators` view calls a special hook that we write in the file `hooks.js` next to our `model.js` file:
+
+```js
+// hooks.js
+function getExternal(dataModel) {
+  if (!dataModel.external) {
+    dataModel.external = {};
+  }
+  if (!dataModel.external.viz) {
+    dataModel.external.viz = {};
+  }
+
+  return dataModel.external;
+}
+
+function pushOscillatorsToExternalHook(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+
+  // Fill positions, radii
+  if (dataModel.data.oscillators) {
+    const oscillators = dataModel.data.oscillators;
+    external.viz.oscillators = [];
+    for (let i = 0; i < oscillators.length; i++) {
+      if (oscillators[i].oscillator) {
+        const osc = oscillators[i].oscillator;
+        external.viz.oscillators.push({
+          // default to zero if conversion doesn't work.
+          center: osc.center.value.map((v) => Math.round(+v) || 0),
+          name: osc.name.value[0],
+          radius: +osc.radius.value[0] || 1,
+          type: osc.type.value[0],
+          omega0: +osc.omega0.value[0] || 1,
+          zeta: osc.zeta.value ? (+osc.zeta.value[0] || 0) : 0,
+          id: i,
+        });
+      }
+    }
+  }
+}
+
+module.exports = function initialize() {
+  Simput.registerHook('oscillatorsToExternal', pushOscillatorsToExternalHook);
+};
+```
+
+This setup results in the method `pushOscillatorsToExternalHook` being called *while the user is entering values*. As a result it must be tolerant to incomplete or invalid input - in this case, providing default values when the conversion to a number doesn't work.
+
+### ViewerWidget
+
+This data is passed to our custom widget, `ViewerWidget`, which is a Vue.js class. It lives in [a subdirectory of widgets](https://github.com/Kitware/simput/tree/master/types/oscillator/src/widgets/ViewerWidget). The `template.html` shows its structure:
+
+```html
+<div :class="$style.container">
+  <div :class="$style.toolbar">
+    <div :class="$style.line">
+      <input
+        type="range"
+        min="0"
+        :max="endTime"
+        :step="timeStep"
+        :value="timeSlider"
+        :class="$style.slider"
+        @input="setSliderTime(Number($event.target.value))"
+      />
+      <div
+        :class="$style.resetCamera"
+        @click="resetCamera"
+      />
+    </div>
+  </div>
+  <div
+    ref="container"
+    :class="$style.container"
+  />
+</div>
+```
+
+Basically a toolbar with a time slider and a reset button, and a container div. Some properties are marked using vue.js syntax as reactive - or linked to data values that change.
+
+Next, the `script.js` shows how data values are passes to the template and to our vtk.js viewer, with some boiler-plate code removed here:
+
+```js
+import GaussianVTKViewer from '../GaussianVTKViewer';
+
+export default {
+  name: 'ViewerWidget',
+  props: {
+    prop: {
+      required: true,
+    },
+    viewData: {
+      required: true,
+    },
+  },
+  data() {
+    return {
+      help: false,
+      viewer: GaussianVTKViewer.newInstance(),
+      timeSlider: 0,
+    };
+  },
+  computed: {
+    viewerData() {
+      return Object.assign(
+        {
+          selected: this.viewData.id,
+        },
+        this.prop.ui.domain
+      );
+    },
+    endTime() {
+      return this.prop.ui.domain.endTime;
+    },
+    timeStep() {
+      return this.prop.ui.domain.timeStep;
+    },
+  },
+  watch: {
+    viewerData(data) {
+      this.viewer.setData(data);
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.viewer.setContainer(this.$refs.container);
+      this.viewer.setData(this.viewerData);
+    });
+  },
+  methods: {
+    setSliderTime(value) {
+      this.viewer.setTime(value);
+      this.timeSlider = value;
+    },
+    resetCamera() {
+      this.viewer.resetCamera();
+    }
+  },
+};
+```
+
+The `external.viz` object that was filled in by hooks in our data model in the previous step is now provided to our widget as `this.prop.ui.domain`. We create our vtk.js `GaussianVTKViewer` as part of the Vue-standard `data()` method, and we provide data to `GaussianVTKViewer` by using `watch()` and `computed.viewerData()` to create a data object and call `this.viewer.setData(data)`. The time values from the slider in our template and the reaction to the reset camera button are also passed to the viewer.
+
+### 3D view at last
+
+Viewing objects in 3D is complex, and [GaussianVTKViewer.js](https://github.com/Kitware/simput/blob/master/types/oscillator/src/widgets/GaussianVTKViewer.js) reflects this, unfortunately for our 'simple' tutorial! Please browse through the source, to get an idea of how a [vtk.js](https://kitware.github.io/vtk-js/index.html) class can create and show geometry. The spheres are created by `createSpherePipeline(osc)`, and `gaussianVTKViewer(publicAPI, model)` sets up the initial rendering window and mouse interaction.
+
+Let's take a look at how data changes are handled:
+
+```js
+publicAPI.setData = (data) => {
+    // convert to integer.
+    if (data.gridsize) data.gridsize = Math.floor(+data.gridsize) || 64;
+    if (model.data !== data) {
+      model.data = data;
+
+      // update pipelines based on new info.
+      if (model.cubePipeline) {
+        const src = model.cubePipeline.cubeSource;
+        if (src.getXLength() !== data.gridsize) {
+          src.setXLength(data.gridsize);
+          src.setYLength(data.gridsize);
+          src.setZLength(data.gridsize);
+          src.setCenter(
+            data.gridsize / 2,
+            data.gridsize / 2,
+            data.gridsize / 2
+          );
+          // console.log('new gridsize', data.gridsize);
+          publicAPI.resetCamera();
+        }
+      }
+
+      if (data.oscillators) {
+        publicAPI.removeAllActors();
+        if (model.cubePipeline) publicAPI.addActor(model.cubePipeline.actor);
+        model.spheres = [];
+        data.oscillators.forEach((osc) => {
+          const pipeline = createSpherePipeline(osc);
+          model.spheres.push(pipeline);
+          publicAPI.addActor(pipeline.actor);
+        });
+        publicAPI.setTime(model.time);
+      }
+
+      publicAPI.modified();
+    }
+  };
+```
+
+Again, this method is called while the user is changing values, so it must be tolerant of invalid input. In this case, it reacts to changes in `gridsize` by changing the bounding box and resetting the camera. Any changes in the oscillators are handled by rebuilding the list of spheres, and making sure they react to the current time setting from the time slider. The [publicAPI.setTime()](https://github.com/Kitware/simput/blob/master/types/oscillator/src/widgets/GaussianVTKViewer.js#L254-L287) method replicates some calculations from the C++ oscillator application, to set the radius of the spheres.
+
+[Try the time slider!](http://kitware.github.io/simput/app/) If you set a small value for `dt`, and click the handle of the time slider, you can hold the left/right arrow keys to sweep through time values and see the oscillators vary their radii over time.
+
+![](oscillator-step-4.png)
+
+This vtk.js widget is an example of how external javascript libraries can be embedded in Simput types to enhance the presentation of your user's input. Other examples might be charts, graphs or other data visualization.
+
+## Wrapup
+
+You now have all the tools and pieces you need to create a new type for Simput, which will simplify life for your users every time they need to create another simulation input file. Please [let us know](https://github.com/Kitware/simput/issues) of any problems you find or feedback you have about this tutorial or Simput in general, or [dive in](https://kitware.github.io/simput/docs/develop_build.html) and contribute to Simput, and everyone will benefit!
