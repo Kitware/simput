@@ -164,7 +164,8 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     vtkRodMapVTKViewer.createGridPipeline(),
   ];
 
-  model.bafflePipelines = [];
+  // baffle, vessel
+  model.corePipelines = [];
 
   publicAPI.setData = macro.chain((viz) => {
     publicAPI.removeAllActors();
@@ -226,10 +227,12 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
       mapper.setInputConnection(piece.getOutputPort());
       actor.setMapper(mapper);
 
-      model.bafflePipelines.push({
+      model.corePipelines.push({
         actor,
         mapper,
-        piece,
+        source: piece,
+        hasLayers: false,
+        materials: [baffle.mat],
       });
 
       publicAPI.addActor(actor);
@@ -239,7 +242,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     const vesselMap = vtkRodMapVTKViewer.processCells(vesselCell, matIdMapping);
     const vessel = vesselMap[core.vesselSpec.name];
 
-    model.vesselPipeline = {
+    const vesselPipeline = {
       actor: vtkActor.newInstance(),
       mapper: vtkMapper.newInstance({
         lookupTable: model.lookupTable,
@@ -261,13 +264,19 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         // core resides (and is probably surrounded by some moderator)
         mask: [true],
       }),
+      // will be used by applyVisibility
+      hasLayers: true,
+      // materials used to construct the vessel,
+      // in order from inner to outer.
+      materials: core.vesselSpec.mats,
     };
-    model.vesselPipeline.actor.setMapper(model.vesselPipeline.mapper);
-    model.vesselPipeline.mapper.setInputConnection(
-      model.vesselPipeline.source.getOutputPort()
+    vesselPipeline.actor.setMapper(vesselPipeline.mapper);
+    vesselPipeline.mapper.setInputConnection(
+      vesselPipeline.source.getOutputPort()
     );
 
-    publicAPI.addActor(model.vesselPipeline.actor);
+    model.corePipelines.push(vesselPipeline);
+    publicAPI.addActor(vesselPipeline.actor);
   }, publicAPI.setData);
 
   // --------------------------------------------------------------------------
@@ -297,13 +306,53 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
   // --------------------------------------------------------------------------
 
-  publicAPI.applyVisibility = () =>
+  publicAPI.applyVisibility = () => {
+    // rods/cells
     vtkRodMapVTKViewer.applyVisibility(publicAPI, model);
+
+    // baffle, vessels
+    for (let i = 0; i < model.corePipelines.length; i++) {
+      const { actor, source, hasLayers, materials } = model.corePipelines[i];
+      if (hasLayers) {
+        // if hasLayers is true, then assume source is a ConcentricCylinderSource
+        // start from 1 b/c inner layer is ignored
+        for (let j = 1; j < materials.length; j++) {
+          source.setMaskLayer(j, !publicAPI.getObjectVisibility(materials[j]));
+        }
+      } else {
+        // assume we should just toggle the actor visibility based
+        // on the first material. (this is for baffle)
+        actor.setVisibility(publicAPI.getObjectVisibility(materials[0]));
+      }
+    }
+  };
 
   // --------------------------------------------------------------------------
 
-  publicAPI.getVisibiltyOptions = () =>
-    vtkRodVTKViewer.getVisibiltyOptions(publicAPI, model);
+  publicAPI.getVisibiltyOptions = () => {
+    const opts = vtkRodVTKViewer.getVisibiltyOptions(publicAPI, model);
+
+    // include materials from baffle, vessel
+    const mats = [].concat(...model.corePipelines.map((p) => p.materials));
+
+    const alreadyAdded = new Map();
+    for (let i = 0; i < opts.length; i++) {
+      alreadyAdded.set(opts[i].id, true);
+    }
+
+    for (let i = 0; i < mats.length; i++) {
+      const mat = mats[i];
+      if (!alreadyAdded.has(mat)) {
+        opts.push({
+          id: mat,
+          label: model.labels[mat],
+          type: 'material',
+        });
+      }
+    }
+
+    return opts;
+  };
 
   // --------------------------------------------------------------------------
 
