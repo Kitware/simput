@@ -42,7 +42,7 @@
   left: 5px;
   right: 5px;
   height: 30px;
-  z-index: 20;
+  z-index: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
