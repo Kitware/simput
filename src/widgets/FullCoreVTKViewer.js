@@ -2,6 +2,7 @@ import macro from 'vtk.js/Sources/macro';
 import vtkActor from 'vtk.js/Sources/Rendering/Core/Actor';
 import vtkColorTransferFunction from 'vtk.js/Sources/Rendering/Core/ColorTransferFunction';
 import vtkCubeSource from 'vtk.js/Sources/Filters/Sources/CubeSource';
+import vtkConcentricCylinderSource from 'vtk.js/Sources/Filters/Sources/ConcentricCylinderSource';
 import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
 
 import vtkVTKViewer from './VTKViewer';
@@ -120,6 +121,23 @@ function extractBaffleLayoutFrom(core, baffleOffset) {
 }
 
 // ----------------------------------------------------------------------------
+
+function extractVesselAsCell(core) {
+  const { name, mats, radii } = core.vesselSpec;
+  // assumes mats.length === radii.length
+  const segments = [];
+  for (let i = 0; i < mats.length; i++) {
+    segments.push({
+      material: mats[i],
+      radius: radii[i],
+    });
+  }
+  return {
+    [name]: segments,
+  };
+}
+
+// ----------------------------------------------------------------------------
 // vtkCoreMapVTKViewer methods
 // ----------------------------------------------------------------------------
 
@@ -179,8 +197,12 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
       );
     });
 
-    // baffle
+    // extract baffle
     const baffle = extractBaffleLayoutFrom(core, viz.cellPitch);
+
+    // vessel
+    const vesselCell = extractVesselAsCell(core);
+
     // Adjust bounding box size
     const sideLength = core.size * core.pitch;
     model.sourceCtx.setXLength(sideLength);
@@ -212,6 +234,40 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
       publicAPI.addActor(actor);
     }
+
+    // add vessel
+    const vesselMap = vtkRodMapVTKViewer.processCells(vesselCell, matIdMapping);
+    const vessel = vesselMap[core.vesselSpec.name];
+
+    model.vesselPipeline = {
+      actor: vtkActor.newInstance(),
+      mapper: vtkMapper.newInstance({
+        lookupTable: model.lookupTable,
+        useLookupTableScalarRange: true,
+      }),
+      source: vtkConcentricCylinderSource.newInstance({
+        // center of core
+        center: [
+          (core.size / 2) * core.pitch,
+          (core.size / 2) * core.pitch,
+          core.height / 2,
+        ],
+        height: core.height,
+        radius: vessel.radius,
+        cellFields: vessel.cellFields,
+        resolution: 60,
+        skipInnerFaces: true,
+        // ignore innermost layer, since that's where the
+        // core resides (and is probably surrounded by some moderator)
+        mask: [true],
+      }),
+    };
+    model.vesselPipeline.actor.setMapper(model.vesselPipeline.mapper);
+    model.vesselPipeline.mapper.setInputConnection(
+      model.vesselPipeline.source.getOutputPort()
+    );
+
+    publicAPI.addActor(model.vesselPipeline.actor);
   }, publicAPI.setData);
 
   // --------------------------------------------------------------------------

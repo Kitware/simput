@@ -231,13 +231,18 @@ function coreDefToExternal(hookConfig, dataModel, currentViewData) {
   }
 
   if (coreDefinition && coreDefinition.length) {
-    const { baffleSpec } = coreDefinition[0];
+    const { baffleSpec, vesselSpec } = coreDefinition[0];
 
     Object.assign(external.viz.core, {
       baffleSpec: {
         gap: baffleSpec.gap.value[0],
         material: baffleSpec.material.value[0],
         thick: baffleSpec.thick.value[0],
+      },
+      vesselSpec: {
+        name: vesselSpec.cell.value[0].name,
+        mats: vesselSpec.cell.value[0].mats,
+        radii: vesselSpec.cell.value[0].radii,
       },
     });
   }
