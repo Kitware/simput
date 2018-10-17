@@ -330,6 +330,12 @@ const model = {
         'upperPlateSpec',
         'vesselSpec',
       ],
+      hooks: [
+        // should technically sync used materials since
+        // baffles/pads/plates/vessels use materials
+        // { type: 'updateMaterialUsed' },
+        { type: 'coreDefToExternal' },
+      ],
     },
     LabelMap: {
       label: 'Labels',

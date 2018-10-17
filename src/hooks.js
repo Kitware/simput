@@ -222,6 +222,27 @@ function coreToExternal(hookConfig, dataModel, currentViewData) {
   }
 }
 
+function coreDefToExternal(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+  const coreDefinition = dataModel.data.CoreDefinition;
+
+  if (!external.viz.core) {
+    external.viz.core = {};
+  }
+
+  if (coreDefinition && coreDefinition.length) {
+    const { baffleSpec } = coreDefinition[0];
+
+    Object.assign(external.viz.core, {
+      baffleSpec: {
+        gap: baffleSpec.gap.value[0],
+        material: baffleSpec.material.value[0],
+        thick: baffleSpec.thick.value[0],
+      },
+    });
+  }
+}
+
 function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   const mats = dataModel.data.Materials || [];
   const fuels = dataModel.data.Fuels;
@@ -369,4 +390,5 @@ module.exports = function initialize() {
   Simput.registerHook('rodsToExternal', pushRodsToExternalHook);
   Simput.registerHook('mapsToExternal', mapsToExternal);
   Simput.registerHook('coreToExternal', coreToExternal);
+  Simput.registerHook('coreDefToExternal', coreDefToExternal);
 };
