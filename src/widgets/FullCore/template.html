@@ -1,0 +1,28 @@
+<v-container fluid :class="$style.container">
+  <v-layout wrap>
+    <v-flex xs12>
+      <viewer-widget
+        :viewer="coreViewer"
+        :viewerData="viewerData"
+      >
+        <div :class="$style.line">
+          <visibility-toolbar
+            :viewer="coreViewer"
+            type="material"
+            title="Materials"
+          />
+          <visibility-toolbar
+            :viewer="coreViewer"
+            type="cell"
+            title="Cells"
+          />
+        </div>
+        <three-d-toolbar
+          :viewer="coreViewer"
+          :zRange="[1, 0.01]"
+          :zScaling="coreViewer.getZScale()"
+        />
+      </viewer-widget>
+    </v-flex>
+  </v-layout>
+</v-container>

@@ -292,6 +292,12 @@ const model = {
           insertAfter: 'CoreMap',
           nextViewName: 'CoreDefinition',
         },
+        {
+          type: 'addNextView',
+          viewName: 'CoreAssemblyMap',
+          insertAfter: 'CoreMap',
+          nextViewName: 'FullCore',
+        },
       ],
     },
     CoreControlInsertMap: {
@@ -309,6 +315,10 @@ const model = {
         { type: 'updateRodmapUsed' },
         { type: 'coreToExternal' },
       ],
+    },
+    FullCore: {
+      label: 'Full Core',
+      attributes: ['fullCore'],
     },
     CoreDefinition: {
       label: 'Core definition',
@@ -1029,6 +1039,20 @@ const model = {
             emptyItem: '0',
             grid: [],
           },
+          domain: {
+            dynamic: true,
+            external: 'viz',
+          },
+        },
+      ],
+    },
+    fullCore: {
+      label: 'Layout',
+      parameters: [
+        {
+          id: 'fullCore',
+          propType: 'FullCore',
+          size: 1,
           domain: {
             dynamic: true,
             external: 'viz',

@@ -4,6 +4,7 @@ import AssemblyEditor from './AssemblyEditor';
 import CoreEditor from './CoreEditor';
 import StateLabelEditor from './StateLabelEditor';
 import StateMapEditor from './StateMapEditor';
+import FullCore from './FullCore';
 
 import ListItemWithColor from './ListItemWithColor';
 
@@ -15,6 +16,7 @@ function registerWidgets(Simput) {
     Simput.registerWidget('CoreEditor', CoreEditor);
     Simput.registerWidget('StateLabelEditor', StateLabelEditor);
     Simput.registerWidget('StateMapEditor', StateMapEditor);
+    Simput.registerWidget('FullCore', FullCore);
 
     Simput.registerWidget('ListItemWithColor', ListItemWithColor);
   }
