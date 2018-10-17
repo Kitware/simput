@@ -257,10 +257,10 @@ function gaussianVTKViewer(publicAPI, model) {
       model.time = time;
       // console.log('Set time', time);
       // oscillator variation over time from "sensei/miniapps/oscillators/oscillator.h:Oscillator::evaluate()"
-      let t = time * 2 * Math.PI;
 
       model.spheres.forEach((pipeline) => {
         const { osc, source } = pipeline;
+        let t = time * 2 * Math.PI;
         let val = 1;
         if (osc.type === 'damped') {
           const phi = Math.acos(osc.zeta);
