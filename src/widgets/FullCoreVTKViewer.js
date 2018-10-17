@@ -264,9 +264,9 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 // ----------------------------------------------------------------------------
 
 const DEFAULT_VALUES = {
-  sourceResolution: 60,
-  lodResolution: 6,
-  fullResolution: 60,
+  sourceResolution: 20,
+  lodResolution: 4,
+  fullResolution: 20,
 };
 
 // ----------------------------------------------------------------------------
