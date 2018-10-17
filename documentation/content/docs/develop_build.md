@@ -1,24 +1,23 @@
 title: Building Simput
 ---
 
-The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build it for production which will minify the generated file.
+The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build for production which will minify the generated file.
 
 ## Building Simput
 
 In order to build the app you can run `npm run build` for quick development usage or `npm run build:release` for production usage.
 
-{% note warn For Windows users %}
-You cannot use the previous command line for building a production ready bundle.
-Instead you will need to run: `npm run build -- -p`
-{% endnote %}
+Either of these commands will generate a website in the `dist/` directory with `index.html` and scripts and supporting files to show the Simput app in a browser.
 
-Either of these commands will generate a `dist/Simput.js` file that can then be used as an external script.
+Next, `npm run bundle` can take build output and combine it into a single file, `dist/Simput.html`. This file can be given to users and opened in any modern browser to run Simput.
+
+If you are developing a type for use with Simput, please see the [oscillator example](oscillator.html) for information on how to add a new type. You will then use `npm run dev` and `npm run type:mytype` after a new `mytype` has been setup.
 
 ## Building the website
 
-Simput comes with its tools to build the website that get published on [github.io](https://kitware.github.io/simput/) which enables you to write documentation and see what it will look like once published.
+Simput comes with tools to build the website that get published on [github.io](https://kitware.github.io/simput/) which enables you to write documentation and see what it will look like once published.
 
-In order to run the tests and build the full website with its examples you can run the following command:
+In order to build the full website you can run the following command:
 
 ```sh
 $ npm run doc:www
