@@ -7,7 +7,7 @@ center.half > img {
 }
 </style>
 
-SimPut works around a model definition that the user have to define initially. The model is used to describe what kind of input are needed from the user and how those input should be layout via views.
+Simput works with a model definition that must be defined initially. The model is used to describe what kinds of input are needed from the user and how those inputs should be layed out via views.
 
 ## Format
 
@@ -37,18 +37,18 @@ vs
 
 ## Model sections
 
-Let's look closer to the various section that can exist inside a `model.[json/js]` file.
+Let's look closer at the various sections that can exist inside a `model.[json/js]` file.
 
 ### Definitions
 
-The definition is the home of the various attributes that regroup parameters that we want the user to input.
-An attribute is defined by a group of parameters with a title.
-Each parameter is listed in an order manner and provide the following set of fields:
-- __id:__ Identifiant that is used inside the attribute map within the view model.
-- __type:__ ['string', 'double', 'int', 'bool', ...] The type is to properly convert user input from standard UI to their actual type.
-- __size:__ Provide how many values are required. -1 usually mean that the size is dynamic.
+The definition is the home of a set of attributes.
+An attribute is a group of parameters that we want the user to input, with a title/label.
+Each parameter is listed in the order it should appear and has the following set of fields:
+- __id:__ Identifier that is used inside the attribute map within the view model.
+- __type:__ ['string', 'double', 'int', 'bool', ...] The type is used to properly convert the strings the user inputs to their actual type.
+- __size:__ Specifies how many values are required. -1 usually means that the size is dynamic.
 - __default:__ Provide a default / initial value
-- __label *[option]*:__ User friendly label for the parameter name which can be provided within the /lang/ directory.
+- __label *[option]*:__ User friendly label for the parameter name which can be provided here, or within the /lang/ directory.
 
 ```
 module.exports = {
@@ -85,7 +85,7 @@ Attribute rendering example
 
 ##### Layout
 
-When size is bigger than 1 it makes sense to start providing a layout hint. Below we list known layout hints.
+When the `size` is bigger than 1 it makes sense to provide a layout hint. Below we list the known layout hints and show how they render.
 
 ```
 "parameters": [
@@ -147,7 +147,7 @@ Attribute rendering example
 ##### Show
 
 An additional field can be provided to dynamically show or hide a given parameter based on a neighbor's value.
-The value set is always captured within an array, which force the expression to be extracted like shown below.
+The value of a parameter is always captured within an array, which force the expression to be extracted like shown below.
 
 ```
 "parameters": [
@@ -275,7 +275,7 @@ Parameters can be dynamically composed based on other attribute parameters and c
 
 Views are meant to gather several attributes/parameters into meaningful pages that get driven based on a side menu.
 The label for a view is what will be displayed in the side menu for selecting a given view/page.
-The content of the page will be defined by the __attributes__ array content that was describe above.
+The content of the page will be defined by the __attributes__ array content that was described above.
 Instead of __attributes__, a __children__ array can be used to create a nested list of other views.
 A __size: -1__ is used for a view when you want to dynamically create/delete views in a list.
 
@@ -329,7 +329,7 @@ views : {
 Note the `readOnly` option disables the view name editing in the side menu which works well if you want to use a parameter to define that view name.
 The `noDelete` option disables the delete action on the view. That flag can either be defined in the view definition or inside the `currentViewData` that the hooks are getting passed. The 'readOnly' flag follows the same pattern regarding where its definition can be provided.
 
-To register your own hooks, you will have to create a `hooks.js` next to your model file. The following listing illustrates what that file should look like.
+To register your own hooks, create a `hooks.js` next to your model file. The following listing illustrates what that file should look like.
 
 ```
 function getExternal(dataModel) {
@@ -432,7 +432,7 @@ Each entry in that output array should be composed of:
 - __src:__ Name of the attribute that we want to extract the parameters from
 - __dst:__ List of mapping of where to store the given parameters
 
-The left side of the *dst* entry define the path where the parameter on the right side of the `=`should be stored.
+The left side of each *dst* entry defines the path where the parameter on the right side of the `=`should be stored.
 
 When we want to fill an array with objects the following pattern can be used:
 
@@ -445,7 +445,7 @@ When we want to fill an array with objects the following pattern can be used:
 ```
 
 
-The `.` on the left side define the nesting structure inside an object.
+The `.` on the left side defines the nesting structure inside an object.
 The `{xxx}` are automatically replaced on the left side with the actual value of the `xxx` parameter.
 
 ### Scripts

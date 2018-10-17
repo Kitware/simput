@@ -3,6 +3,8 @@ docs:
     overview: index.html
     model: model.html
     convert: convert.html
+    requirements: develop_requirement.html
+    building: develop_build.html
   example:
     vcard: vcard.html
     oscillator: oscillator.html

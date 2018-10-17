@@ -26,9 +26,9 @@ Further instructions on development can be found on the [build page](https://kit
 - Linux (Fedora, Red Hat, CentOS): `sudo yum install git-core`
 
 {% note warn For Mac users %}
-You may encounter some problems when compiling. Please install Xcode from App Store first. After Xcode is installed, open Xcode and go to **Preferences -> Download -> Command Line Tools -> Install** to install command line tools.
+You may encounter some problems when compiling. Please install Xcode from the App Store first. After Xcode is installed, open Xcode and go to **Preferences -> Download -> Command Line Tools -> Install** to install command line tools.
 {% endnote %}
 
 ### Node.js
 
-The best way to install Node.js is with [nvm](https://github.com/creationix/nvm).
+The best way to install Node.js is with [nvm](https://github.com/creationix/nvm), or for Windows users, directly from [nodejs.org](https://nodejs.org/).
