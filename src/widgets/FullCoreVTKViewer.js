@@ -226,6 +226,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
       const actor = vtkActor.newInstance();
       mapper.setInputConnection(piece.getOutputPort());
       actor.setMapper(mapper);
+      actor.getProperty().set(vtkVTKViewer.PROPERTY_SETTINGS);
 
       model.corePipelines.push({
         actor,
@@ -270,6 +271,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
       // in order from inner to outer.
       materials: core.vesselSpec.mats,
     };
+    vesselPipeline.actor.getProperty().set(vtkVTKViewer.PROPERTY_SETTINGS);
     vesselPipeline.actor.setMapper(vesselPipeline.mapper);
     vesselPipeline.mapper.setInputConnection(
       vesselPipeline.source.getOutputPort()
