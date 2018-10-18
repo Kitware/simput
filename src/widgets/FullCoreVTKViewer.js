@@ -229,6 +229,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
       actor.getProperty().set(vtkVTKViewer.PROPERTY_SETTINGS);
 
       model.corePipelines.push({
+        id: 'baffleID',
         actor,
         mapper,
         source: piece,
@@ -244,6 +245,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     const vessel = vesselMap[core.vesselSpec.name];
 
     const vesselPipeline = {
+      id: 'vesselID',
       actor: vtkActor.newInstance(),
       mapper: vtkMapper.newInstance({
         lookupTable: model.lookupTable,
@@ -314,7 +316,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
     // baffle, vessels
     for (let i = 0; i < model.corePipelines.length; i++) {
-      const { actor, source, hasLayers, materials } = model.corePipelines[i];
+      const { id, actor, source, hasLayers, materials } = model.corePipelines[i];
       if (hasLayers) {
         // if hasLayers is true, then assume source is a ConcentricCylinderSource
         // start from 1 b/c inner layer is ignored
@@ -326,6 +328,8 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         // on the first material. (this is for baffle)
         actor.setVisibility(publicAPI.getObjectVisibility(materials[0]));
       }
+      // toggle visibility for actor itself
+      actor.setVisibility(publicAPI.getObjectVisibility(id));
     }
   };
 
@@ -352,6 +356,19 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         });
       }
     }
+
+    // add baffle and vessel
+    opts.push({
+      id: 'baffleID',
+      label: 'Baffle',
+      type: 'structure',
+    });
+
+    opts.push({
+      id: 'vesselID',
+      label: 'Vessel',
+      type: 'structure',
+    });
 
     return opts;
   };
