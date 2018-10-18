@@ -138,6 +138,31 @@ function extractVesselAsCell(core) {
 }
 
 // ----------------------------------------------------------------------------
+
+function extractPlates(core) {
+  const lower = core.lowerPlateSpec;
+  const upper = core.upperPlateSpec;
+
+  const radius = core.vesselSpec.radii
+    ? core.vesselSpec.radii[core.vesselSpec.radii.length - 1]
+    : core.pitch / 2;
+
+  // currently ignore vfrac; not sure how to show 50% moderator
+  return [lower, upper].map((plate, idx) => {
+    if (plate && plate.thick) {
+      const name = ['lower', 'upper'][idx];
+      return {
+        name,
+        mats: [plate.material],
+        radii: [radius],
+        height: plate.thick,
+      };
+    }
+    return null;
+  });
+}
+
+// ----------------------------------------------------------------------------
 // vtkCoreMapVTKViewer methods
 // ----------------------------------------------------------------------------
 
@@ -204,6 +229,9 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     // vessel
     const vesselCell = extractVesselAsCell(core);
 
+    // plates
+    const plates = extractPlates(core);
+
     // Adjust bounding box size
     const sideLength = core.size * core.pitch;
     model.sourceCtx.setXLength(sideLength);
@@ -261,14 +289,15 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         height: core.height,
         radius: vessel.radius,
         cellFields: vessel.cellFields,
-        resolution: 60,
+        resolution: model.fullResolution,
         skipInnerFaces: true,
-        // ignore innermost layer, since that's where the
-        // core resides (and is probably surrounded by some moderator)
-        mask: [true],
       }),
       // will be used by applyVisibility
       hasLayers: true,
+      // ignore innermost layer, since that's where the
+      // core resides (and is probably surrounded by some moderator)
+      // indices in the array correspond to the layer (inner to outer)
+      forceMask: [true],
       // materials used to construct the vessel,
       // in order from inner to outer.
       materials: core.vesselSpec.mats,
@@ -281,6 +310,50 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
     model.corePipelines.push(vesselPipeline);
     publicAPI.addActor(vesselPipeline.actor);
+
+    // add plates
+    for (let i = 0; i < plates.length; i++) {
+      const plate = plates[i];
+      if (plate) {
+        // center of core
+        const center = [
+          (core.size / 2) * core.pitch,
+          (core.size / 2) * core.pitch,
+          plate.name === 'lower'
+            ? -(plate.height / 2)
+            : core.height + plate.height / 2,
+        ];
+
+        const actor = vtkActor.newInstance();
+        const mapper = vtkMapper.newInstance({
+          lookupTable: model.lookupTable,
+          useLookupTableScalarRange: true,
+        });
+        const source = vtkConcentricCylinderSource.newInstance({
+          center,
+          height: plate.height,
+          radius: plate.radii,
+          cellFields: plate.mats.map((m) => matIdMapping.indexOf(m)),
+          resolution: model.fullResolution,
+          skipInnerFaces: true,
+        });
+
+        actor.getProperty().set(vtkVTKViewer.PROPERTY_SETTINGS);
+        actor.setMapper(mapper);
+        mapper.setInputConnection(source.getOutputPort());
+
+        model.corePipelines.push({
+          id: 'PlatesID',
+          actor,
+          mapper,
+          source,
+          hasLayers: true,
+          materials: plate.mats,
+        });
+
+        publicAPI.addActor(actor);
+      }
+    }
   }, publicAPI.setData);
 
   // --------------------------------------------------------------------------
@@ -316,12 +389,24 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
     // baffle, vessels
     for (let i = 0; i < model.corePipelines.length; i++) {
-      const { id, actor, source, hasLayers, materials } = model.corePipelines[i];
+      const {
+        id,
+        actor,
+        source,
+        hasLayers,
+        forceMask,
+        materials,
+      } = model.corePipelines[i];
+
       if (hasLayers) {
-        // if hasLayers is true, then assume source is a ConcentricCylinderSource
-        // start from 1 b/c inner layer is ignored
-        for (let j = 1; j < materials.length; j++) {
-          source.setMaskLayer(j, !publicAPI.getObjectVisibility(materials[j]));
+        for (let j = 0; j < materials.length; j++) {
+          let mask = false;
+          if (forceMask && j < forceMask.length) {
+            mask = forceMask[j];
+          } else {
+            mask = !publicAPI.getObjectVisibility(materials[j]);
+          }
+          source.setMaskLayer(j, mask);
         }
       } else {
         // assume we should just toggle the actor visibility based
@@ -338,7 +423,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
   publicAPI.getVisibiltyOptions = () => {
     const opts = vtkRodVTKViewer.getVisibiltyOptions(publicAPI, model);
 
-    // include materials from baffle, vessel
+    // include materials from baffle, vessel, plates
     const mats = [].concat(...model.corePipelines.map((p) => p.materials));
 
     const alreadyAdded = new Map();
@@ -357,7 +442,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
       }
     }
 
-    // add baffle and vessel
+    // add baffle, vessel, plates
     opts.push({
       id: 'baffleID',
       label: 'Baffle',
@@ -367,6 +452,12 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     opts.push({
       id: 'vesselID',
       label: 'Vessel',
+      type: 'structure',
+    });
+
+    opts.push({
+      id: 'PlatesID',
+      label: 'Plates',
       type: 'structure',
     });
 
@@ -390,7 +481,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 const DEFAULT_VALUES = {
   sourceResolution: 20,
   lodResolution: 4,
-  fullResolution: 20,
+  fullResolution: 60,
 };
 
 // ----------------------------------------------------------------------------

@@ -231,7 +231,12 @@ function coreDefToExternal(hookConfig, dataModel, currentViewData) {
   }
 
   if (coreDefinition && coreDefinition.length) {
-    const { baffleSpec, vesselSpec } = coreDefinition[0];
+    const {
+      baffleSpec,
+      vesselSpec,
+      lowerPlateSpec,
+      upperPlateSpec,
+    } = coreDefinition[0];
 
     Object.assign(external.viz.core, {
       baffleSpec: {
@@ -243,6 +248,16 @@ function coreDefToExternal(hookConfig, dataModel, currentViewData) {
         name: vesselSpec.cell.value[0].name,
         mats: vesselSpec.cell.value[0].mats,
         radii: vesselSpec.cell.value[0].radii,
+      },
+      lowerPlateSpec: {
+        material: lowerPlateSpec.material.value[0],
+        thick: lowerPlateSpec.thick.value[0],
+        volfrac: lowerPlateSpec.volfrac.value[0],
+      },
+      upperPlateSpec: {
+        material: lowerPlateSpec.material.value[0],
+        thick: lowerPlateSpec.thick.value[0],
+        volfrac: lowerPlateSpec.volfrac.value[0],
       },
     });
   }
@@ -355,7 +370,7 @@ function updateRodmapUsed(hookConfig, dataModel, currentViewData) {
 
   mapConfig.forEach((config) => {
     if (dataModel.data[config.coreMapKey]) {
-    const map = dataModel.data[config.coreMapKey];
+      const map = dataModel.data[config.coreMapKey];
       map[config.index].coreMap.map.value[0].grid.forEach((id) => {
         usedRodmaps[id] = true;
       });
