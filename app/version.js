@@ -1,1 +1,1 @@
-window.SIMPUT_VERSION = "3.2.6";
+window.SIMPUT_VERSION = "3.2.7";

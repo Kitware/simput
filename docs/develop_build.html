@@ -39,17 +39,17 @@
   <!-- RSS -->
   <link rel="alternate" href="/simput/atom.xml" title="SimPut">
   <!-- Open Graph -->
-  <meta name="description" content="The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build it for production which wi">
+  <meta name="description" content="The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build for production which will">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Building Simput">
 <meta property="og:url" content="https://kitware.github.io/simput/docs/develop_build.html">
 <meta property="og:site_name" content="SimPut">
-<meta property="og:description" content="The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build it for production which wi">
+<meta property="og:description" content="The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build for production which will">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-10-16T20:59:21.641Z">
+<meta property="og:updated_time" content="2018-10-18T15:18:28.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Building Simput">
-<meta name="twitter:description" content="The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build it for production which wi">
+<meta name="twitter:description" content="The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build for production which will">
   <!-- Google Analytics -->
   
 <script>
@@ -100,20 +100,20 @@
                 <h1 class="article-title" itemprop="name">Building Simput</h1>
               </header>
               <div class="article-content" itemprop="articleBody">
-                <p>The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build it for production which will minify the generated file.</p>
+                <p>The Simput application can be built with webpack automatically. Webpack can either gather all the source files and concatenate them with little modification, or it can build for production which will minify the generated file.</p>
 <h2 id="Building-Simput" class="article-heading"><a href="#Building-Simput" class="headerlink" title="Building Simput"></a>Building Simput<a class="article-anchor" href="#Building-Simput" aria-hidden="true"></a></h2><p>In order to build the app you can run <code>npm run build</code> for quick development usage or <code>npm run build:release</code> for production usage.</p>
-<blockquote class="note warn"><strong class="note-title">For Windows users</strong><p>You cannot use the previous command line for building a production ready bundle.<br>Instead you will need to run: <code>npm run build -- -p</code></p>
-</blockquote>
-<p>Either of these commands will generate a <code>dist/Simput.js</code> file that can then be used as an external script.</p>
-<h2 id="Building-the-website" class="article-heading"><a href="#Building-the-website" class="headerlink" title="Building the website"></a>Building the website<a class="article-anchor" href="#Building-the-website" aria-hidden="true"></a></h2><p>Simput comes with its tools to build the website that get published on <a href="https://kitware.github.io/simput/">github.io</a> which enables you to write documentation and see what it will look like once published.</p>
-<p>In order to run the tests and build the full website with its examples you can run the following command:</p>
+<p>Either of these commands will generate a website in the <code>dist/</code> directory with <code>index.html</code> and scripts and supporting files to show the Simput app in a browser.</p>
+<p>Next, <code>npm run bundle</code> can take build output and combine it into a single file, <code>dist/Simput.html</code>. This file can be given to users and opened in any modern browser to run Simput.</p>
+<p>If you are developing a type for use with Simput, please see the <a href="oscillator.html">oscillator example</a> for information on how to add a new type. You will then use <code>npm run dev</code> and <code>npm run type:mytype</code> after a new <code>mytype</code> has been setup.</p>
+<h2 id="Building-the-website" class="article-heading"><a href="#Building-the-website" class="headerlink" title="Building the website"></a>Building the website<a class="article-anchor" href="#Building-the-website" aria-hidden="true"></a></h2><p>Simput comes with tools to build the website that get published on <a href="https://kitware.github.io/simput/">github.io</a> which enables you to write documentation and see what it will look like once published.</p>
+<p>In order to build the full website you can run the following command:</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ npm run doc:www</span><br></pre></td></tr></table></figure>
 <p>You will be able to browse the content on <code>http://localhost:4000/simput</code></p>
 
               </div>
               <footer class="article-footer">
-                <time class="article-footer-updated" datetime="2018-10-16T20:59:21.641Z" itemprop="dateModified">Last updated: 2018-10-16</time>
-                <a href="index.html" class="article-footer-next" title="Overview"><span>Next</span><i class="fa fa-chevron-right"></i></a>
+                <time class="article-footer-updated" datetime="2018-10-18T15:18:28.768Z" itemprop="dateModified">Last updated: 2018-10-18</time>
+                <a href="develop_requirement.html" class="article-footer-prev" title="Requirements"><i class="fa fa-chevron-left"></i><span>Prev</span></a><a href="vcard.html" class="article-footer-next" title="Address book"><span>Next</span><i class="fa fa-chevron-right"></i></a>
               </footer>
               
             </div>
@@ -128,7 +128,7 @@
         </div>
       </article>
       <aside id="sidebar" role="navigation">
-  <div class="inner"><strong class="sidebar-title">Getting Started</strong><a href="index.html" class="sidebar-link">Overview</a><a href="model.html" class="sidebar-link">DataModel definition</a><a href="convert.html" class="sidebar-link">Convert function</a><strong class="sidebar-title">Example</strong><a href="vcard.html" class="sidebar-link">Address book</a><a href="oscillator.html" class="sidebar-link">Oscillator</a></div>
+  <div class="inner"><strong class="sidebar-title">Getting Started</strong><a href="index.html" class="sidebar-link">Overview</a><a href="model.html" class="sidebar-link">DataModel definition</a><a href="convert.html" class="sidebar-link">Convert function</a><a href="develop_requirement.html" class="sidebar-link">Requirements</a><a href="develop_build.html" class="sidebar-link current">Building</a><strong class="sidebar-title">Example</strong><a href="vcard.html" class="sidebar-link">Address book</a><a href="oscillator.html" class="sidebar-link">Oscillator</a></div>
 </aside>
     </div>
   </div>
@@ -156,7 +156,7 @@
       </li>
     </ul>
     
-      <strong class="mobile-nav-title">Getting Started</strong><a href="index.html" class="mobile-nav-link">Overview</a><a href="model.html" class="mobile-nav-link">DataModel definition</a><a href="convert.html" class="mobile-nav-link">Convert function</a><strong class="mobile-nav-title">Example</strong><a href="vcard.html" class="mobile-nav-link">Address book</a><a href="oscillator.html" class="mobile-nav-link">Oscillator</a>
+      <strong class="mobile-nav-title">Getting Started</strong><a href="index.html" class="mobile-nav-link">Overview</a><a href="model.html" class="mobile-nav-link">DataModel definition</a><a href="convert.html" class="mobile-nav-link">Convert function</a><a href="develop_requirement.html" class="mobile-nav-link">Requirements</a><a href="develop_build.html" class="mobile-nav-link current">Building</a><strong class="mobile-nav-title">Example</strong><a href="vcard.html" class="mobile-nav-link">Address book</a><a href="oscillator.html" class="mobile-nav-link">Oscillator</a>
     
   </div>
   <div id="mobile-lang-select-wrap">

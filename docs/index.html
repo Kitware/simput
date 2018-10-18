@@ -39,20 +39,21 @@
   <!-- RSS -->
   <link rel="alternate" href="/simput/atom.xml" title="SimPut">
   <!-- Open Graph -->
-  <meta name="description" content="Simput is a tool for simplifying the process of writing and editing simulation input files.It can be used as standalone tool or within other platform such as HPCCloud to streamlining input definition.">
+  <meta name="description" content="Simput is a tool for simplifying the process of writing and editing simulation input files.It can be used as standalone tool or within other platforms such as HPCCloud to streamline input definitions.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Overview">
 <meta property="og:url" content="https://kitware.github.io/simput/docs/index.html">
 <meta property="og:site_name" content="SimPut">
-<meta property="og:description" content="Simput is a tool for simplifying the process of writing and editing simulation input files.It can be used as standalone tool or within other platform such as HPCCloud to streamlining input definition.">
+<meta property="og:description" content="Simput is a tool for simplifying the process of writing and editing simulation input files.It can be used as standalone tool or within other platforms such as HPCCloud to streamline input definitions.">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://kitware.github.io/simput/docs/simput-landing.png">
 <meta property="og:image" content="https://kitware.github.io/simput/docs/simput-ui.png">
 <meta property="og:image" content="https://kitware.github.io/simput/docs/concept.jpg">
-<meta property="og:updated_time" content="2018-09-07T17:33:55.065Z">
+<meta property="og:updated_time" content="2018-10-18T15:18:28.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Overview">
-<meta name="twitter:description" content="Simput is a tool for simplifying the process of writing and editing simulation input files.It can be used as standalone tool or within other platform such as HPCCloud to streamlining input definition.">
-<meta name="twitter:image" content="https://kitware.github.io/simput/docs/simput-ui.png">
+<meta name="twitter:description" content="Simput is a tool for simplifying the process of writing and editing simulation input files.It can be used as standalone tool or within other platforms such as HPCCloud to streamline input definitions.">
+<meta name="twitter:image" content="https://kitware.github.io/simput/docs/simput-landing.png">
   <!-- Google Analytics -->
   
 <script>
@@ -103,29 +104,32 @@
                 <h1 class="article-title" itemprop="name">Overview</h1>
               </header>
               <div class="article-content" itemprop="articleBody">
-                <p>Simput is a tool for simplifying the process of writing and editing <em>simulation</em> input files.<br>It can be used as standalone tool or within other platform such as HPCCloud to streamlining input definition.</p>
-<h2 id="What-is-SimPut" class="article-heading"><a href="#What-is-SimPut" class="headerlink" title="What is SimPut?"></a>What is SimPut?<a class="article-anchor" href="#What-is-SimPut" aria-hidden="true"></a></h2><p>SimPut allow you to specify your a data model that will allow to generate UI for users to fill forms that will then be turned into a serie of text files.</p>
-<p>The main usage that we have with Simput is to create <em>Input-deck</em> for simulation code while providing an interactive user interface with contextual documentation.</p>
+                <p>Simput is a tool for simplifying the process of writing and editing <em>simulation</em> input files.<br>It can be used as standalone tool or within other platforms such as HPCCloud to streamline input definitions.</p>
+<h2 id="What-is-Simput" class="article-heading"><a href="#What-is-Simput" class="headerlink" title="What is Simput?"></a>What is Simput?<a class="article-anchor" href="#What-is-Simput" aria-hidden="true"></a></h2><p>Simput allows you to specify a data model, and Simput will generate forms for users to fill in. That data will then be turned into a series of text files.</p>
+<p>Currently Simput is typically used to create <em>input-decks</em> for simulation code while providing an interactive user interface with contextual documentation.</p>
 <h2 id="Usage" class="article-heading"><a href="#Usage" class="headerlink" title="Usage"></a>Usage<a class="article-anchor" href="#Usage" aria-hidden="true"></a></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput</span><br><span class="line"></span><br><span class="line">  Usage: Simput [options]</span><br><span class="line"></span><br><span class="line">  Options:</span><br><span class="line"></span><br><span class="line">    -V, --version                 output the version number</span><br><span class="line">    -i, --input [file|directory]  Input file or directory</span><br><span class="line">    -o, --output [directory]      Output directory to output to</span><br><span class="line">    -t, --type [type]             Type of input</span><br><span class="line"></span><br><span class="line">    -p, --port [8080]             Server port</span><br><span class="line">     (default: 8080)</span><br><span class="line">    -c, --compile [directory]     Directory to compile files</span><br><span class="line">    -m, --minify                  Minify compiled file</span><br><span class="line">    -h, --help                    output usage information</span><br></pre></td></tr></table></figure>
-<p>Let’s open a specific model locally for edition</p>
+<p>Open the Simput landing page locally:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Simput -p</span><br><span class="line">Simput listening on port 8080</span><br></pre></td></tr></table></figure>
+<p>Or open the <a href="http://kitware.github.io/simput/app/">latest version</a> online.</p>
+<p><img src="simput-landing.png" alt="User Interface"></p>
+<p>Then you can click on the icon for a type to start editing, or drag a file like <a href="https://github.com/Kitware/simput/blob/type-pyfr/samples/2DEulerVortex/model.json" target="_blank" rel="noopener">this Pyfr example</a> onto the <strong>Open an existing model</strong> box to start editing it.</p>
 <p><img src="simput-ui.png" alt="User Interface"></p>
 <h2 id="Concept" class="article-heading"><a href="#Concept" class="headerlink" title="Concept"></a>Concept<a class="article-anchor" href="#Concept" aria-hidden="true"></a></h2><p><img src="concept.jpg" alt="Concept"></p>
-<h2 id="Components" class="article-heading"><a href="#Components" class="headerlink" title="Components"></a>Components<a class="article-anchor" href="#Components" aria-hidden="true"></a></h2><p>In order to create a new input type for SimPut you will need:</p>
+<h2 id="Components" class="article-heading"><a href="#Components" class="headerlink" title="Components"></a>Components<a class="article-anchor" href="#Components" aria-hidden="true"></a></h2><p>In order to create a new input type for Simput you will need:</p>
 <ul>
-<li><strong>model.json / model.js:</strong> describe what kind of input are needed from the user and how those input should be layout via views.</li>
-<li><strong>convert.js <em>[optional]</em>:</strong> provide a path to validate and restructure the view data model into another one easier for template engine and create a target file map (file path / content).</li>
+<li><strong>model.json / model.js:</strong> describe what kind of inputs are needed from the user and how those inputs should be layed out via views.</li>
+<li><strong>convert.js <em>[optional]</em>:</strong> provide a path to validate and restructure the data model into another one convenient for the template engine and create a target file map (file path / content).</li>
 <li><strong>templates/*.hbs <em>[optional]</em>:</strong> Template files to use inside convert.js to actually do the conversion into a file format.</li>
 <li><strong>lang/en/</strong><ul>
-<li><strong>label.json <em>[optional]</em>:</strong> Label to use for a specific langage such as <code>en:english</code></li>
-<li><strong>help/{Attribute Name}/{Parameter Id} <em>[optional]</em>:</strong> Extended HTML snippet used for togglable help panel</li>
+<li><strong>label.json <em>[optional]</em>:</strong> labels to use in the UI for a specific langage such as <code>en:english</code>.</li>
+<li><strong>help/{Attribute Name}/{Parameter Id} <em>[optional]</em>:</strong> Extended HTML snippets used in togglable help panels for each UI element.</li>
 </ul>
 </li>
 </ul>
 
               </div>
               <footer class="article-footer">
-                <time class="article-footer-updated" datetime="2018-09-07T17:33:55.065Z" itemprop="dateModified">Last updated: 2018-09-07</time>
+                <time class="article-footer-updated" datetime="2018-10-18T15:18:28.768Z" itemprop="dateModified">Last updated: 2018-10-18</time>
                 <a href="model.html" class="article-footer-next" title="DataModel definition"><span>Next</span><i class="fa fa-chevron-right"></i></a>
               </footer>
               
@@ -134,14 +138,14 @@
           <aside id="article-toc" role="navigation">
             <div id="article-toc-inner">
               <strong class="sidebar-title">Contents</strong>
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-SimPut"><span class="toc-text">What is SimPut?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Usage"><span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concept"><span class="toc-text">Concept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Components"><span class="toc-text">Components</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-Simput"><span class="toc-text">What is Simput?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Usage"><span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Concept"><span class="toc-text">Concept</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Components"><span class="toc-text">Components</span></a></li></ol>
               <a href="#" id="article-toc-top">Back to Top</a>
             </div>
           </aside>
         </div>
       </article>
       <aside id="sidebar" role="navigation">
-  <div class="inner"><strong class="sidebar-title">Getting Started</strong><a href="index.html" class="sidebar-link current">Overview</a><a href="model.html" class="sidebar-link">DataModel definition</a><a href="convert.html" class="sidebar-link">Convert function</a><strong class="sidebar-title">Example</strong><a href="vcard.html" class="sidebar-link">Address book</a><a href="oscillator.html" class="sidebar-link">Oscillator</a></div>
+  <div class="inner"><strong class="sidebar-title">Getting Started</strong><a href="index.html" class="sidebar-link current">Overview</a><a href="model.html" class="sidebar-link">DataModel definition</a><a href="convert.html" class="sidebar-link">Convert function</a><a href="develop_requirement.html" class="sidebar-link">Requirements</a><a href="develop_build.html" class="sidebar-link">Building</a><strong class="sidebar-title">Example</strong><a href="vcard.html" class="sidebar-link">Address book</a><a href="oscillator.html" class="sidebar-link">Oscillator</a></div>
 </aside>
     </div>
   </div>
@@ -169,7 +173,7 @@
       </li>
     </ul>
     
-      <strong class="mobile-nav-title">Getting Started</strong><a href="index.html" class="mobile-nav-link current">Overview</a><a href="model.html" class="mobile-nav-link">DataModel definition</a><a href="convert.html" class="mobile-nav-link">Convert function</a><strong class="mobile-nav-title">Example</strong><a href="vcard.html" class="mobile-nav-link">Address book</a><a href="oscillator.html" class="mobile-nav-link">Oscillator</a>
+      <strong class="mobile-nav-title">Getting Started</strong><a href="index.html" class="mobile-nav-link current">Overview</a><a href="model.html" class="mobile-nav-link">DataModel definition</a><a href="convert.html" class="mobile-nav-link">Convert function</a><a href="develop_requirement.html" class="mobile-nav-link">Requirements</a><a href="develop_build.html" class="mobile-nav-link">Building</a><strong class="mobile-nav-title">Example</strong><a href="vcard.html" class="mobile-nav-link">Address book</a><a href="oscillator.html" class="mobile-nav-link">Oscillator</a>
     
   </div>
   <div id="mobile-lang-select-wrap">
