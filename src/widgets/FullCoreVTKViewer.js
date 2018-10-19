@@ -163,6 +163,21 @@ function extractPlates(core) {
 }
 
 // ----------------------------------------------------------------------------
+
+function extractPads(core) {
+  const { material, innerDiameter, outerDiameter, arc, angles } = core.padSpec;
+  return angles.map((angle) => {
+    // VERA wants angle counter-clockwise from positive-x
+    const center = angle % 360;
+    return {
+      mats: [material],
+      radii: [innerDiameter / 2, outerDiameter / 2],
+      theta: [center - arc / 2, center + arc / 2],
+    };
+  });
+}
+
+// ----------------------------------------------------------------------------
 // vtkCoreMapVTKViewer methods
 // ----------------------------------------------------------------------------
 
@@ -231,6 +246,9 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
     // plates
     const plates = extractPlates(core);
+
+    // pads
+    const pads = extractPads(core);
 
     // Adjust bounding box size
     const sideLength = core.size * core.pitch;
@@ -354,6 +372,48 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         publicAPI.addActor(actor);
       }
     }
+
+    // add pads
+    const padResolution = Math.ceil(120 / pads.length);
+    for (let i = 0; i < pads.length; i++) {
+      const pad = pads[i];
+      // center of core
+      const center = [
+        (core.size / 2) * core.pitch,
+        (core.size / 2) * core.pitch,
+        core.height / 2,
+      ];
+
+      const actor = vtkActor.newInstance();
+      const mapper = vtkMapper.newInstance({
+        lookupTable: model.lookupTable,
+        useLookupTableScalarRange: true,
+      });
+      const source = vtkConcentricCylinderSource.newInstance({
+        center,
+        height: core.height,
+        radius: pad.radii,
+        startTheta: pad.theta[0],
+        endTheta: pad.theta[1],
+        cellFields: pad.mats.map((m) => matIdMapping.indexOf(m)),
+        resolution: model.fullResolution,
+        skipInnerFaces: true,
+      });
+
+      actor.getProperty().set(vtkVTKViewer.PROPERTY_SETTINGS);
+      actor.setMapper(mapper);
+      mapper.setInputConnection(source.getOutputPort());
+
+      model.corePipelines.push({
+        id: 'PadsID',
+        actor,
+        mapper,
+        source,
+        hasLayers: true,
+        forceMask: [true],
+        materials: pad.mats,
+      });
+    }
   }, publicAPI.setData);
 
   // --------------------------------------------------------------------------
@@ -387,7 +447,6 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     // rods/cells
     vtkRodMapVTKViewer.applyVisibility(publicAPI, model);
 
-    // baffle, vessels
     for (let i = 0; i < model.corePipelines.length; i++) {
       const {
         id,
@@ -442,7 +501,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
       }
     }
 
-    // add baffle, vessel, plates
+    // add baffle, vessel, plates, pads
     opts.push({
       id: 'baffleID',
       label: 'Baffle',
@@ -458,6 +517,12 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     opts.push({
       id: 'PlatesID',
       label: 'Plates',
+      type: 'structure',
+    });
+
+    opts.push({
+      id: 'PadsID',
+      label: 'Pads',
       type: 'structure',
     });
 

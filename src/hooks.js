@@ -236,6 +236,7 @@ function coreDefToExternal(hookConfig, dataModel, currentViewData) {
       vesselSpec,
       lowerPlateSpec,
       upperPlateSpec,
+      padSpec,
     } = coreDefinition[0];
 
     Object.assign(external.viz.core, {
@@ -258,6 +259,13 @@ function coreDefToExternal(hookConfig, dataModel, currentViewData) {
         material: lowerPlateSpec.material.value[0],
         thick: lowerPlateSpec.thick.value[0],
         volfrac: lowerPlateSpec.volfrac.value[0],
+      },
+      padSpec: {
+        material: padSpec.material.value[0],
+        innerDiameter: padSpec.params.value[0],
+        outerDiameter: padSpec.params.value[1],
+        arc: padSpec.params.value[2],
+        angles: padSpec.positions.value.slice(),
       },
     });
   }
