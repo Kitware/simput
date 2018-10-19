@@ -238,6 +238,8 @@ function vtkVTKViewer(publicAPI, model) {
   publicAPI.setData = (data) => {
     if (model.data !== data) {
       model.data = data;
+      // clear visibility options on new data
+      model.visibilty = {};
       publicAPI.modified();
     }
   };

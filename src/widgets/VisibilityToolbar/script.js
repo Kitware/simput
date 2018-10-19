@@ -55,6 +55,7 @@ export default {
   mounted() {
     document.addEventListener('mousedown', this.onDocMouseDown, true);
     this.sub = null;
+    this.subscribeToViewer(this.viewer);
   },
   beforeDestroy() {
     document.removeEventListener('mousedown', this.onDocMouseDown, true);
