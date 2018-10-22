@@ -71,6 +71,7 @@ export default {
   updated() {
     if (this.viewer) {
       this.viewer.setZScale(this.zScaling);
+      this.resetCamera();
     }
   },
 };

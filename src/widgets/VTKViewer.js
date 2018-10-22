@@ -103,9 +103,6 @@ function vtkVTKViewer(publicAPI, model) {
   // --------------------------------------------------------------------------
 
   publicAPI.setZScale = (zScaling) => {
-    if (zScaling === model.zScaling) {
-      return;
-    }
     model.zScaling = zScaling;
     let count = model.actors.length || 0;
     while (count--) {
