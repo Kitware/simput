@@ -189,22 +189,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
   model.lookupTable = vtkColorTransferFunction.newInstance();
   model.stack = [];
 
-  model.sourceCtx = vtkCubeSource.newInstance();
-  model.mapperCtx = vtkMapper.newInstance({ scalarVisibility: false });
-  model.actorCtx = vtkActor.newInstance();
-
-  model.actorCtx
-    .getProperty()
-    .set(Object.assign({ representation: 1 }, vtkVTKViewer.PROPERTY_SETTINGS));
-  model.actorCtx.setMapper(model.mapperCtx);
-  model.mapperCtx.setInputConnection(model.sourceCtx.getOutputPort());
-
-  model.gridList = [
-    vtkRodMapVTKViewer.createGridPipeline(),
-    vtkRodMapVTKViewer.createGridPipeline(),
-  ];
-
-  // baffle, vessel
+  // baffle, vessel, pads
   model.corePipelines = [];
 
   publicAPI.setData = macro.chain((viz) => {
@@ -250,18 +235,6 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     // pads
     const pads = extractPads(core);
 
-    // Adjust bounding box size
-    const sideLength = core.size * core.pitch;
-    model.sourceCtx.setXLength(sideLength);
-    model.sourceCtx.setYLength(sideLength);
-    model.sourceCtx.setZLength(core.height);
-    model.sourceCtx.setCenter(sideLength / 2, sideLength / 2, core.height / 2);
-
-    publicAPI.addActor(model.actorCtx);
-    // add grid
-    vtkRodMapVTKViewer
-      .updateGrids(model.gridList, core.size, sideLength, core.height, offset)
-      .forEach(publicAPI.addActor);
     // create rod pipeline
     vtkRodMapVTKViewer.createGlyphPipeline(publicAPI, model, cellMap);
 
