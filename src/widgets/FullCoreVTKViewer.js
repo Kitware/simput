@@ -239,7 +239,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     });
 
     // extract baffle
-    const baffle = extractBaffleLayoutFrom(core, viz.cellPitch);
+    const baffle = extractBaffleLayoutFrom(core, -viz.cellPitch / 2);
 
     // vessel
     const vesselCell = extractVesselAsCell(core);
