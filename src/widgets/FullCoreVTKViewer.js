@@ -10,6 +10,8 @@ import vtkRodMapVTKViewer from './RodMapVTKViewer';
 import vtkCoreMapVTKViewer from './CoreMapVTKViewer';
 import vtkRodVTKViewer from './RodVTKViewer';
 
+const EPSILON = 0.001;
+
 // ----------------------------------------------------------------------------
 
 function extractBaffleLayoutFrom(core, baffleOffset) {
@@ -171,7 +173,7 @@ function extractPads(core) {
     const center = angle % 360;
     return {
       mats: [material],
-      radii: [innerDiameter / 2, outerDiameter / 2],
+      radii: [innerDiameter, outerDiameter],
       theta: [center - arc / 2, center + arc / 2],
     };
   });
@@ -362,9 +364,10 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         lookupTable: model.lookupTable,
         useLookupTableScalarRange: true,
       });
+
       const source = vtkConcentricCylinderSource.newInstance({
         center,
-        height: core.height,
+        height: core.height - EPSILON,
         radius: pad.radii,
         startTheta: pad.theta[0],
         endTheta: pad.theta[1],
@@ -386,6 +389,8 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         forceMask: [true],
         materials: pad.mats,
       });
+
+      publicAPI.addActor(actor);
     }
   }, publicAPI.setData);
 
