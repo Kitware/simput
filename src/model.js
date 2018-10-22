@@ -295,7 +295,7 @@ const model = {
         {
           type: 'addNextView',
           viewName: 'CoreAssemblyMap',
-          insertAfter: 'CoreMap',
+          insertAfter: 'CoreDefinition',
           nextViewName: 'FullCore',
         },
       ],
