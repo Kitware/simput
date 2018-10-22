@@ -16,7 +16,7 @@ export default {
     },
     orientation: {
       type: Array,
-      default: () => [0, 0, 1000],
+      default: () => [0, 0, 10000000],
     },
     viewUp: {
       type: Array,
@@ -47,10 +47,12 @@ export default {
         this.viewer.resetCamera(this.orientation, this.viewUp, this.zoom);
       }
     },
-    toggleParallelRendering(pr) {
+    toggleParallelRendering() {
       if (this.viewer) {
-        this.viewer.setParallelRendering(pr);
-        this.parallelRendering = pr;
+        const state = !this.parallelRendering;
+        this.resetCamera();
+        this.viewer.setParallelRendering(state);
+        this.parallelRendering = state;
       }
     },
     setSliderZScale(value) {

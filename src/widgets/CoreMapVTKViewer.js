@@ -212,18 +212,6 @@ function vtkCoreMapVTKViewer(publicAPI, model) {
 
   // --------------------------------------------------------------------------
 
-  publicAPI.resetCamera = () => {
-    const camera = model.renderer.getActiveCamera();
-    model.renderer.resetCamera();
-
-    model.interactorStyle3D.setCenterOfRotation(camera.getFocalPoint());
-    model.interactorStyle2D.setCenterOfRotation(camera.getFocalPoint());
-
-    publicAPI.renderAnimation();
-  };
-
-  // --------------------------------------------------------------------------
-
   publicAPI.applyVisibility = () =>
     vtkRodMapVTKViewer.applyVisibility(publicAPI, model);
 
