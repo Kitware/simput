@@ -51,6 +51,9 @@ export default {
         this.$forceUpdate();
       }
     },
+    redraw() {
+      this.$forceUpdate();
+    },
   },
   mounted() {
     document.addEventListener('mousedown', this.onDocMouseDown, true);

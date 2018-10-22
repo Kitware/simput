@@ -1,16 +1,24 @@
 <div :class="$style.line">
-  <input
+  <v-slider
     v-if="zRange.length"
-    type="range"
-    min="0"
-    max="100"
-    step="1"
+    :min="0"
+    :max="100"
+    :step="1"
     :value="zSlider"
     :class="$style.slider"
-    @input="setSliderZScale(Number($event.target.value))"
+    :height="20"
+    hide-details
+    dark
+    always-dirty
+    @input="setSliderZScale"
   />
-  <div
+  <v-btn
+    icon
+    small
+    dark
     :class="$style.resetCamera"
     @click="resetCamera"
-  />
+  >
+    <v-icon>filter_center_focus</v-icon>
+  </v-btn>
 </div>

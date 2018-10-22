@@ -2,28 +2,31 @@
   :class="$style.container"
   ref="container"
 >
-  <div
-    :class="dropdownVisible ? $style.box : $style.disableBox"
-    @click="dropdownVisible = !dropdownVisible"
+  <v-menu
+    offset-y
+    :close-on-content-click="false"
   >
-    {{ title }}
-  </div>
-  <div :class="dropdownVisible ? $style.menu : $style.hiddenMenu">
-    <template v-if="dropdownVisible && viewer">
-      <div
+    <v-btn
+      slot="activator"
+      color="white"
+      @click="redraw"
+    >
+      {{ title }}
+    </v-btn>
+    <v-list v-if="viewer">
+      <v-list-tile
         v-for="item in viewer.getVisibiltyOptions()"
         v-if="!item.type || item.type === type"
         :key="item.id"
-        :class="$style.menuItem"
         @click="setVisibility(item)"
       >
-        <input
-          type="checkbox"
-          :checked="viewer.getObjectVisibility(item.id)"
+        <v-checkbox
+          :label="item.label"
+          :input-value="true"
+          :value="viewer.getObjectVisibility(item.id)"
           readonly
         />
-        {{ item.label }}
-      </div>
-    </template>
-  </div>
+      </v-list-tile>
+    </v-list>
+  </v-menu>
 </div>

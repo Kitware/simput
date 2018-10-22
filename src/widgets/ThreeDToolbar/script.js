@@ -54,7 +54,7 @@ export default {
       }
     },
     setSliderZScale(value) {
-      this.zSlider = value;
+      this.zSlider = Number(value);
       if (this.viewer) {
         const [start, end] = this.zRange;
         const zScaling = start + ((end - start) * value) / 100;
