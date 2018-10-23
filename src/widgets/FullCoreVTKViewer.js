@@ -4,6 +4,9 @@ import vtkColorTransferFunction from 'vtk.js/Sources/Rendering/Core/ColorTransfe
 import vtkCubeSource from 'vtk.js/Sources/Filters/Sources/CubeSource';
 import vtkConcentricCylinderSource from 'vtk.js/Sources/Filters/Sources/ConcentricCylinderSource';
 import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
+import vtkDataArray from 'vtk.js/Sources/Common/Core/DataArray';
+import vtkGlyph3DMapper from 'vtk.js/Sources/Rendering/Core/Glyph3DMapper';
+import vtkPolyData from 'vtk.js/Sources/Common/DataModel/PolyData';
 
 import vtkVTKViewer from './VTKViewer';
 import vtkRodMapVTKViewer from './RodMapVTKViewer';
@@ -11,6 +14,150 @@ import vtkCoreMapVTKViewer from './CoreMapVTKViewer';
 import vtkRodVTKViewer from './RodVTKViewer';
 
 const EPSILON = 0.001;
+
+// ----------------------------------------------------------------------------
+
+function extractGrids(viz) {
+  const gridSpacing = viz.cellPitch;
+  const assemWidth = gridSpacing * viz.assemblyGridSize;
+  const halfWidth = assemWidth / 2;
+
+  const numOfLayers = Object.keys(viz.grids).reduce(
+    (sum, gridName) => sum + viz.grids[gridName].elevations.length,
+    0
+  );
+
+  const nbPoints = numOfLayers * (viz.assemblyGridSize + 1) * 2;
+  const somegrid = {
+    pointsData: new Float32Array(nbPoints * 3),
+    scalingData: new Float32Array(nbPoints * 3),
+    colorData: new Uint16Array(nbPoints),
+  };
+
+  let offset = 0;
+  let colorOffset = 0;
+
+  const getGridThickness = (pitch, mass, density, height, npins) =>
+    (2 * pitch -
+      Math.sqrt(
+        4 * pitch * pitch - 4 * (mass / (density * height * npins * npins))
+      )) /
+    4;
+
+  const allMats = {};
+  const gridNames = Object.keys(viz.grids);
+  for (let i = 0; i < gridNames.length; i++) {
+    const grid = viz.grids[gridNames[i]];
+    const { mat, mass, height, elevations } = grid;
+
+    allMats[mat] = true;
+
+    // density and grid thickness
+    const density = (viz.materials[mat] && viz.materials[mat].density) || 1;
+    const thickness = getGridThickness(
+      gridSpacing,
+      mass,
+      density,
+      height,
+      viz.assemblyGridSize
+    );
+
+    for (let j = 0; j < elevations.length; j++) {
+      const elevation = elevations[j];
+      // Horizontal
+      for (let k = 0; k <= viz.assemblyGridSize; k++) {
+        somegrid.pointsData[offset] = (k - 0.5) * gridSpacing;
+        somegrid.scalingData[offset] = thickness;
+        offset++;
+        somegrid.pointsData[offset] = halfWidth - gridSpacing * 0.5;
+        somegrid.scalingData[offset] = assemWidth;
+        offset++;
+        somegrid.pointsData[offset] = elevation;
+        somegrid.scalingData[offset] = height;
+        offset++;
+        somegrid.colorData[colorOffset++] = mat;
+      }
+      // Vertical
+      for (let k = 0; k <= viz.assemblyGridSize; k++) {
+        somegrid.pointsData[offset] = halfWidth - gridSpacing * 0.5;
+        somegrid.scalingData[offset] = assemWidth;
+        offset++;
+        somegrid.pointsData[offset] = (k - 0.5) * gridSpacing;
+        somegrid.scalingData[offset] = thickness;
+        offset++;
+        somegrid.pointsData[offset] = elevation;
+        somegrid.scalingData[offset] = height;
+        offset++;
+        somegrid.colorData[colorOffset++] = mat;
+      }
+    }
+  }
+
+  // get the ID of the core assemblies map
+  let assembliesId = 0;
+  Object.keys(viz.core.types).forEach((id) => {
+    if (viz.core.types[id].indexOf('assembly') > -1) {
+      assembliesId = id;
+    }
+  });
+
+  const outGrids = [];
+  let gridArraySize = 0;
+  for (let j = 0; j < viz.core.size; j++) {
+    for (let i = 0; i < viz.core.size; i++) {
+      const idx = j * viz.core.size + i;
+      const offsetX = i * viz.core.pitch;
+      const offsetY = (viz.core.size - j - 1) * viz.core.pitch;
+
+      // only add grids to assemblies
+      if (viz.core[assembliesId][idx] !== '0') {
+        const grid = Object.assign({}, somegrid);
+        grid.pointsData = Float32Array.from(grid.pointsData);
+        gridArraySize += grid.pointsData.length;
+
+        // Apply translation from the core
+        const nbValues = grid.pointsData.length;
+        for (let z = 0; z < nbValues; z += 3) {
+          grid.pointsData[z + 0] += offsetX;
+          grid.pointsData[z + 1] += offsetY;
+        }
+
+        outGrids.push(grid);
+      }
+    }
+  }
+
+  // Merge grids to a single grid
+  const fullGridPointData = new Float32Array(gridArraySize);
+  const fullGridScaleData = new Float32Array(gridArraySize);
+  const fullGridColorData = new Float32Array(gridArraySize / 3);
+
+  let vec3Offset = 0;
+  colorOffset = 0;
+
+  let gCount = outGrids.length;
+  while (gCount--) {
+    const { pointsData, scalingData, colorData } = outGrids[gCount];
+    const vec3Size = pointsData.length;
+    const colorSize = colorData.length;
+    for (let idx = 0; idx < vec3Size; idx++) {
+      fullGridPointData[vec3Offset] = pointsData[idx];
+      fullGridScaleData[vec3Offset] = scalingData[idx];
+      vec3Offset++;
+    }
+    for (let idx = 0; idx < colorSize; idx++) {
+      fullGridColorData[colorOffset++] = colorData[idx];
+    }
+  }
+  const ret = {
+    pointsData: fullGridPointData,
+    scalingData: fullGridScaleData,
+    colorData: fullGridColorData,
+    mats: Object.keys(allMats),
+  };
+
+  return ret;
+}
 
 // ----------------------------------------------------------------------------
 
@@ -227,15 +374,14 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
     // extract baffle
     const baffle = extractBaffleLayoutFrom(core, -viz.cellPitch / 2);
-
     // vessel
     const vesselCell = extractVesselAsCell(core);
-
     // plates
     const plates = extractPlates(core);
-
     // pads
     const pads = extractPads(core);
+    // grids
+    const grids = extractGrids(viz);
 
     // create rod pipeline
     vtkRodMapVTKViewer.createGlyphPipeline(publicAPI, model, cellMap);
@@ -392,6 +538,59 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
       publicAPI.addActor(actor);
     }
+
+    // add grid
+    if (grids) {
+      const {
+        pointsData,
+        scalingData,
+        colorData,
+        mats,
+      } = grids;
+      const source = vtkPolyData.newInstance();
+      source.getPoints().setData(pointsData, 3);
+      source.getPointData().addArray(
+        vtkDataArray.newInstance({
+          name: 'scaling',
+          values: scalingData,
+          numberOfComponents: 3,
+        })
+      );
+      source
+        .getPointData()
+        .setScalars(
+          vtkDataArray.newInstance({
+            name: 'color',
+            values: colorData.map((m) => matIdMapping.indexOf(m)),
+          })
+        );
+      const cube = vtkCubeSource.newInstance();
+      const mapper = vtkGlyph3DMapper.newInstance({
+        useLookupTableScalarRange: true,
+        lookupTable: model.lookupTable,
+        orient: false,
+        scaling: true,
+        scaleArray: 'scaling',
+        scaleMode: vtkGlyph3DMapper.ScaleModes.SCALE_BY_COMPONENTS,
+      });
+      const actor = vtkActor.newInstance();
+
+      mapper.setInputData(source, 0);
+      mapper.setInputConnection(cube.getOutputPort(), 1);
+      actor.setMapper(mapper);
+
+      model.corePipelines.push({
+        id: 'GridID',
+        source,
+        mapper,
+        actor,
+        hasLayers: false,
+        materials: mats,
+      });
+
+      publicAPI.addActor(actor);
+    }
+
   }, publicAPI.setData);
 
   // --------------------------------------------------------------------------
@@ -489,6 +688,12 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
     opts.push({
       id: 'PadsID',
       label: 'Pads',
+      type: 'structure',
+    });
+
+    opts.push({
+      id: 'GridID',
+      label: 'Grid',
       type: 'structure',
     });
 

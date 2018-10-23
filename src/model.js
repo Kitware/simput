@@ -266,7 +266,10 @@ const model = {
       size: -1,
       readOnly: true,
       clonable: true,
-      hooks: [{ type: 'copyParameterToViewName', attribute: 'spacer.name' }],
+      hooks: [
+        { type: 'copyParameterToViewName', attribute: 'spacer.name' },
+        { type: 'gridsToExternal' },
+      ],
     },
     CoreMap: {
       label: 'Core map',

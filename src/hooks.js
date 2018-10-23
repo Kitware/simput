@@ -30,6 +30,9 @@ function checkDefaultMaterials(hookConfig, dataModel, currentViewData) {
 
 function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
   const external = getExternal(dataModel);
+  if (!external.viz.materials) {
+    external.viz.materials = {};
+  }
 
   // Fill materials
   if (dataModel.data.Materials) {
@@ -44,6 +47,11 @@ function pushMaterialsToExternalHook(hookConfig, dataModel, currentViewData) {
         external.viz.types.materials.push(id);
         external.viz.names[id] = name;
         external.viz.colors[id] = material.color.value;
+        external.viz.materials[id] = {
+          density: material.density.value[0],
+          thexp: material.thexp ? material.thexp.value[0] : undefined,
+          fractions: material.fractions.value.slice(),
+        };
         // must be a string, so default material string IDs are OK in ui: enum.
         external.materialEnum[name] = String(id);
       }
@@ -271,6 +279,27 @@ function coreDefToExternal(hookConfig, dataModel, currentViewData) {
   }
 }
 
+function gridsToExternal(hookConfig, dataModel, currentViewData) {
+  const external = getExternal(dataModel);
+  const grids = dataModel.data.Grids;
+  if (!external.viz.grids) {
+    external.viz.grids = {};
+  }
+
+  if (grids && grids.length) {
+    for (let i = 0; i < grids.length; i++) {
+      const grid = grids[i];
+      external.viz.grids[grid.name] = {
+        id: grid.id,
+        mat: grid.spacer.material.value[0],
+        mass: grid.spacer.mass.value[0],
+        height: grid.spacer.height.value[0],
+        elevations: grid.spacer.axisPositions.value.slice(),
+      };
+    }
+  }
+}
+
 function updateMaterialUsed(hookConfig, dataModel, currentViewData) {
   const mats = dataModel.data.Materials || [];
   const fuels = dataModel.data.Fuels;
@@ -419,4 +448,5 @@ module.exports = function initialize() {
   Simput.registerHook('mapsToExternal', mapsToExternal);
   Simput.registerHook('coreToExternal', coreToExternal);
   Simput.registerHook('coreDefToExternal', coreDefToExternal);
+  Simput.registerHook('gridsToExternal', gridsToExternal);
 };
