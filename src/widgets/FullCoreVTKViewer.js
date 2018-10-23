@@ -561,7 +561,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         .setScalars(
           vtkDataArray.newInstance({
             name: 'color',
-            values: colorData.map((m) => matIdMapping.indexOf(m)),
+            values: colorData.map((m) => matIdMapping.indexOf(String(m))),
           })
         );
       const cube = vtkCubeSource.newInstance();
@@ -571,6 +571,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
         orient: false,
         scaling: true,
         scaleArray: 'scaling',
+        colorArray: 'color',
         scaleMode: vtkGlyph3DMapper.ScaleModes.SCALE_BY_COMPONENTS,
       });
       const actor = vtkActor.newInstance();
