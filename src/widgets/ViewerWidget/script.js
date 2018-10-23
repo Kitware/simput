@@ -13,6 +13,17 @@ export default {
     viewerData: {
       required: false,
     },
+    absolute: {
+      type: Boolean,
+      default: () => true,
+    },
+  },
+  computed: {
+    styles() {
+      return {
+        position: this.absolute ? 'absolute' : 'relative',
+      };
+    }
   },
   watch: {
     viewerData(data) {

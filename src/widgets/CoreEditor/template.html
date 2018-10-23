@@ -31,17 +31,20 @@
       >
         <div :class="$style.line">
           <visibility-toolbar
+            dark
             :viewer="coreViewer"
             type="material"
             title="Materials"
           />
           <visibility-toolbar
+            dark
             :viewer="coreViewer"
             type="cell"
             title="Cells"
           />
         </div>
         <three-d-toolbar
+          dark
           :viewer="coreViewer"
           :zRange="[1, 0.01]"
           :zScaling="coreViewer.getZScale()"

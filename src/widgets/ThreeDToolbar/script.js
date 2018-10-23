@@ -26,6 +26,10 @@ export default {
       type: Number,
       default: () => 1,
     },
+    dark: {
+      type: Boolean,
+      default: () => false,
+    },
   },
   data() {
     let zSlider = 1;

@@ -8,7 +8,7 @@
     :class="$style.slider"
     :height="20"
     hide-details
-    dark
+    :dark="dark"
     always-dirty
     @input="setSliderZScale"
   />
@@ -17,7 +17,7 @@
       slot="activator"
       icon
       small
-      dark
+      :dark="dark"
       :class="$style.resetCamera"
       @click="toggleParallelRendering"
     >
@@ -31,7 +31,7 @@
       slot="activator"
       icon
       small
-      dark
+      :dark="dark"
       :class="$style.resetCamera"
       @click="resetCamera"
     >

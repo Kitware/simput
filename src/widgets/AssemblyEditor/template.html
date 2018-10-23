@@ -31,17 +31,20 @@
       >
         <div :class="$style.line">
           <visibility-toolbar
+            dark
             :viewer="assemblyViewer"
             type="material"
             title="Materials"
           />
           <visibility-toolbar
+            dark
             :viewer="assemblyViewer"
             type="cell"
             title="Cells"
           />
         </div>
         <three-d-toolbar
+          dark
           :viewer="assemblyViewer"
           :zRange="[1, 0.01]"
           :zScaling="assemblyViewer.getZScale()"

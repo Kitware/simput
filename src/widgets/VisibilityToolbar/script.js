@@ -14,6 +14,10 @@ export default {
       type: String,
       default: () => '',
     },
+    dark: {
+      type: Boolean,
+      default: () => false,
+    },
   },
   data() {
     return {
