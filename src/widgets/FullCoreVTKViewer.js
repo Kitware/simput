@@ -13,7 +13,7 @@ import vtkRodMapVTKViewer from './RodMapVTKViewer';
 import vtkCoreMapVTKViewer from './CoreMapVTKViewer';
 import vtkRodVTKViewer from './RodVTKViewer';
 
-const EPSILON = 0.001;
+const EPSILON = 0.01;
 
 // ----------------------------------------------------------------------------
 
@@ -513,7 +513,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
       const source = vtkConcentricCylinderSource.newInstance({
         center,
-        height: core.height - EPSILON,
+        height: core.height + EPSILON,
         radius: pad.radii,
         startTheta: pad.theta[0],
         endTheta: pad.theta[1],
