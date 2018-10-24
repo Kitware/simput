@@ -541,12 +541,7 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
     // add grid
     if (grids) {
-      const {
-        pointsData,
-        scalingData,
-        colorData,
-        mats,
-      } = grids;
+      const { pointsData, scalingData, colorData, mats } = grids;
       const source = vtkPolyData.newInstance();
       source.getPoints().setData(pointsData, 3);
       source.getPointData().addArray(
@@ -556,14 +551,12 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
           numberOfComponents: 3,
         })
       );
-      source
-        .getPointData()
-        .setScalars(
-          vtkDataArray.newInstance({
-            name: 'color',
-            values: colorData.map((m) => matIdMapping.indexOf(String(m))),
-          })
-        );
+      source.getPointData().setScalars(
+        vtkDataArray.newInstance({
+          name: 'color',
+          values: colorData.map((m) => matIdMapping.indexOf(String(m))),
+        })
+      );
       const cube = vtkCubeSource.newInstance();
       const mapper = vtkGlyph3DMapper.newInstance({
         useLookupTableScalarRange: true,
@@ -591,7 +584,6 @@ function vtkFullCoreVTKViewer(publicAPI, model) {
 
       publicAPI.addActor(actor);
     }
-
   }, publicAPI.setData);
 
   // --------------------------------------------------------------------------
