@@ -121,8 +121,6 @@ function vtkVTKViewer(publicAPI, model) {
       model.actors[count].setScale(1, 1, zScaling);
     }
 
-    model.renderer.resetCameraClippingRange();
-    model.renderer.resetCamera();
     publicAPI.renderAnimation();
 
     const camera = model.renderer.getActiveCamera();
