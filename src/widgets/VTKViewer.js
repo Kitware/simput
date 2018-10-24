@@ -19,6 +19,15 @@ const PROPERTY_SETTINGS = {
   ambient: 0.3,
 };
 
+const INTERACT_2D_PRESET = [
+  { type: 'pan' },
+  { type: 'zoom', options: { control: true } },
+  { type: 'zoom', options: { button: 3 } },
+  { type: 'zoom', options: { scrollEnabled: true } },
+  { type: 'vrPan' },
+  { type: 'gestureCamera' },
+];
+
 // ----------------------------------------------------------------------------
 // vtkVTKViewer methods
 // ----------------------------------------------------------------------------
@@ -57,7 +66,10 @@ function vtkVTKViewer(publicAPI, model) {
 
   // Apply default interaction styles
   vtkInteractorStylePresets.applyPreset('3D', model.interactorStyle3D);
-  vtkInteractorStylePresets.applyPreset('2D', model.interactorStyle2D);
+  vtkInteractorStylePresets.applyDefinitions(
+    INTERACT_2D_PRESET,
+    model.interactorStyle2D
+  );
 
   // --------------------------------------------------------------------------
 
