@@ -48,13 +48,18 @@ export default {
   methods: {
     resetCamera() {
       if (this.viewer) {
+        this.viewer.resetCamera(null, null, this.zoom);
+      }
+    },
+    resetCameraFull() {
+      if (this.viewer) {
         this.viewer.resetCamera(this.orientation, this.viewUp, this.zoom);
       }
     },
     toggleParallelRendering() {
       if (this.viewer) {
         const state = !this.parallelRendering;
-        this.resetCamera();
+        this.resetCameraFull();
         this.viewer.setParallelRendering(state);
         this.parallelRendering = state;
       }

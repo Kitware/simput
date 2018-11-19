@@ -181,13 +181,17 @@ function vtkVTKViewer(publicAPI, model) {
   // --------------------------------------------------------------------------
 
   publicAPI.resetCamera = (
-    orientation = [0, 0, 1],
-    viewUp = [0, 1, 0],
+    orientation = null,
+    viewUp = null,
     zoom = 1
   ) => {
     const camera = model.renderer.getActiveCamera();
-    camera.setPosition(...orientation);
-    camera.setViewUp(...viewUp);
+    if (orientation) {
+      camera.setPosition(...orientation);
+    }
+    if (viewUp) {
+      camera.setViewUp(...viewUp);
+    }
     model.renderer.resetCamera();
     camera.zoom(zoom);
 
