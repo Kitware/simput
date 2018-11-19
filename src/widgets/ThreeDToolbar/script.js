@@ -76,7 +76,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.viewer.setZScale(this.zScaling);
-      this.resetCamera();
+      this.resetCameraFull();
     }, 0);
   },
   updated() {
