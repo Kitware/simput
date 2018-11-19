@@ -30,6 +30,18 @@ export default {
     },
   },
   methods: {
+    getItems() {
+      const set = new Set();
+      const items = [];
+      const opts = this.viewer.getVisibiltyOptions();
+      for (let i = 0; i < opts.length; i++) {
+        if (!set.has(opts[i].id)) {
+          items.push(opts[i]);
+          set.add(opts[i].id);
+        }
+      }
+      return items;
+    },
     onDocMouseDown(ev) {
       if (!this.$refs.container.contains(ev.target)) {
         this.dropdownVisible = false;

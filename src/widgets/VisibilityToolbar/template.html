@@ -15,7 +15,7 @@
     </v-btn>
     <v-list v-if="viewer">
       <v-list-tile
-        v-for="item in viewer.getVisibiltyOptions()"
+        v-for="item in getItems()"
         v-if="!item.type || item.type === type"
         :key="item.id"
         @click="setVisibility(item)"
