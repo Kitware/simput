@@ -30,6 +30,13 @@ export default {
       type: Boolean,
       default: () => false,
     },
+    fixedParallelRendering: {
+      type: String,
+      required: false,
+      validator(val) {
+        return ['2d', '3d'].indexOf(val) > -1;
+      },
+    },
   },
   data() {
     let zSlider = 1;
@@ -40,7 +47,7 @@ export default {
       );
     }
     return {
-      parallelRendering: false,
+      parallelRendering: this.parallelRendering === '2d',
       zSlider,
       zScaling: this.initialZScaling,
     };
@@ -57,7 +64,7 @@ export default {
       }
     },
     toggleParallelRendering() {
-      if (this.viewer) {
+      if (this.viewer && !this.fixedParallelRendering) {
         const state = !this.parallelRendering;
         this.resetCameraFull();
         this.viewer.setParallelRendering(state);
