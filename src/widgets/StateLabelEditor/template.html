@@ -11,9 +11,9 @@
           type="number"
           min="1"
           step="0"
-          :value="rodbank[controlLabel] || ''"
+          :value="Number(rodbank[controlLabel] || 1)"
           :class="$style.textbox"
-          @input="onStepChange(controlLabel, Number(rodbank[controlLabel]) || 0)"
+          @input="onStepChange(controlLabel, Number($event.target.value || 1))"
         />
       </label>
     </v-flex>
