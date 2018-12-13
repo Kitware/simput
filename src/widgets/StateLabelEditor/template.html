@@ -9,11 +9,12 @@
         {{ controlLabel }}:
         <input
           type="number"
-          min="1"
-          step="0"
-          :value="Number(rodbank[controlLabel] || 1)"
+          min="0"
+          max="coreHeight"
+          step="1"
+          :value="Number(rodbank[controlLabel] || 0)"
           :class="$style.textbox"
-          @input="onStepChange(controlLabel, Number($event.target.value || 1))"
+          @input="onStepChange(controlLabel, Number($event.target.value || 0))"
         />
       </label>
     </v-flex>

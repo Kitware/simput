@@ -30,6 +30,10 @@ export default {
       const { data } = this.prop;
       return (data.value && data.value[0]) || {};
     },
+    coreHeight() {
+      const { core } = this.prop.ui.domain;
+      return core.height;
+    },
   },
   methods: {
     isVisible() {
@@ -39,7 +43,7 @@ export default {
       const { data } = this.prop;
       if (data.value && data.value.length) {
         const rodbank = data.value[0];
-        rodbank[item] = value;
+        rodbank[item] = Math.max(0, Math.min(this.coreHeight, value));
         this.$emit('change', data);
       }
     },
