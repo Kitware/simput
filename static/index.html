@@ -28,7 +28,6 @@
     <script type="text/javascript">
       const container = document.querySelector('#root-container');
       const simputInstance = Simput.createViewer(container);
-      simputInstance.processURLArgs();
 
       // Register various template
       Simput.registerType('demo', ['./types/demo.js']);
@@ -43,6 +42,8 @@
       Simput.registerType('addressbook', ['./types/addressbook.js']);
       Simput.registerType('demo', ['./types/demo.js']);
       Simput.registerType('test', ['./types/test.js']);
+
+      simputInstance.processURLArgs();
     </script>
   </body>
 </html>

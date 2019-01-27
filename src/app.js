@@ -11,9 +11,11 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 // global symbol expose/export
 import 'simput/src/expose';
 
+import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
+
 import App from 'simput/src/components/core/App';
 import Store from 'simput/src/stores';
-import { Mutations } from 'simput/src/stores/types';
+import { Actions, Mutations } from 'simput/src/stores/types';
 
 import registerDefaultProperties from 'simput/src/components/properties/registerDefaults';
 import HookManager from 'simput/src/core/HookManager';
@@ -68,8 +70,17 @@ export function createViewer() {
 
   return {
     processURLArgs() {
-      // Add URL argument handling...
-      // FIXME
+      const { type } = vtkURLExtract.extractURLParameters();
+      if (type) {
+        // don't flash landing
+        Store.commit(Mutations.SHOW_APP);
+        Store.commit(Mutations.SET_MODEL, {
+          type,
+          data: {},
+        });
+        return Store.dispatch(Actions.LOAD_TEMPLATE, type);
+      }
+      return Promise.resolve();
     },
   };
 }
