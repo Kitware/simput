@@ -30,3 +30,7 @@
 	path = types/vera
 	url = https://github.com/kitware/simput
 	branch = type-vera
+[submodule "types/parflow-conus"]
+	path = types/parflow-conus
+	url = https://github.com/kitware/simput
+	branch = type-parflow-conus

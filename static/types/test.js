@@ -86,15 +86,15 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!./types/test/src/index.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--12-0!./types/test/src/index.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??ref--9-0!./types/test/src/index.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--9-0!./types/test/src/index.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n    type: 'test',\n    model: __webpack_require__(/*! ./model.js */ \"./types/test/src/model.js\"),\n    lang: {},\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/test/src/convert.js\"),\n    hooks: null,\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/test/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
+eval("\n\n;\nmodule.exports = {\n     type: 'test',\n     model: __webpack_require__(/*! ./model.js */ \"./types/test/src/model.js\"),\n     lang: {},\n     convert: __webpack_require__(/*! ./convert.js */ \"./types/test/src/convert.js\"),\n     hooks: null,\n     parse: null\n};\n\n//# sourceURL=webpack:///./types/test/src/index.js?./node_modules/babel-loader/lib??ref--9-0");
 
 /***/ }),
 
@@ -129,7 +129,7 @@ eval("\n\nmodule.exports = function convert(dataModel) {\n  return { results: { 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"test\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!./types/test/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/test/src/index.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"test\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--9-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--9-0!./types/test/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/test/src/index.js-exposed?");
 
 /***/ }),
 

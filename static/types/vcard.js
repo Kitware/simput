@@ -86,15 +86,15 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--12-0!./types/vcard/src/index.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--12-0!./types/vcard/src/index.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??ref--9-0!./types/vcard/src/index.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--9-0!./types/vcard/src/index.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nmodule.exports = {\n    type: 'vcard',\n    model: __webpack_require__(/*! ./model.json */ \"./types/vcard/src/model.json\"),\n    lang: __webpack_require__(/*! ./lang */ \"./types/vcard/src/lang/index.js\"),\n    convert: __webpack_require__(/*! ./convert.js */ \"./types/vcard/src/convert.js\"),\n    hooks: __webpack_require__(/*! ./hooks.js */ \"./types/vcard/src/hooks.js\"),\n    parse: null\n};\n\n//# sourceURL=webpack:///./types/vcard/src/index.js?./node_modules/babel-loader/lib??ref--12-0");
+eval("\n\n;\nmodule.exports = {\n     type: 'vcard',\n     model: __webpack_require__(/*! ./model.json */ \"./types/vcard/src/model.json\"),\n     lang: __webpack_require__(/*! ./lang */ \"./types/vcard/src/lang/index.js\"),\n     convert: __webpack_require__(/*! ./convert.js */ \"./types/vcard/src/convert.js\"),\n     hooks: __webpack_require__(/*! ./hooks.js */ \"./types/vcard/src/hooks.js\"),\n     parse: null\n};\n\n//# sourceURL=webpack:///./types/vcard/src/index.js?./node_modules/babel-loader/lib??ref--9-0");
 
 /***/ }),
 
@@ -523,7 +523,7 @@ eval("\n\nfunction updateToViewName(hookConfig, dataModel, currentViewData) {\n 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"vcard\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--12-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--12-0!./types/vcard/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/vcard/src/index.js-exposed?");
+eval("/* WEBPACK VAR INJECTION */(function(global) {if(!global[\"Simput\"]) global[\"Simput\"] = {};\nif(!global[\"Simput\"][\"types\"]) global[\"Simput\"][\"types\"] = {};\nmodule.exports = global[\"Simput\"][\"types\"][\"vcard\"] = __webpack_require__(/*! -!./node_modules/babel-loader/lib??ref--9-0!./index.js */ \"./node_modules/babel-loader/lib/index.js??ref--9-0!./types/vcard/src/index.js\");\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./types/vcard/src/index.js-exposed?");
 
 /***/ }),
 

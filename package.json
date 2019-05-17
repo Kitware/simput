@@ -30,7 +30,7 @@
     "bundle": "inline-source --compress false --root ./dist ./dist/index.html ./dist/Simput.html",
     "commit": "git cz",
     "semantic-release": "semantic-release",
-    "types": "npm run type:nwchem && npm run type:nwchem-neb && npm run type:openfoam-periodic && npm run type:openfoam-tutorials && npm run type:openfoam-windtunnel && npm run type:oscillator && npm run type:pyfr && npm run type:test && npm run type:vcard && npm run type:vera",
+    "types": "npm run type:nwchem && npm run type:nwchem-neb && npm run type:openfoam-periodic && npm run type:openfoam-tutorials && npm run type:openfoam-windtunnel && npm run type:oscillator && npm run type:pyfr && npm run type:test && npm run type:vcard && npm run type:vera && npm run type:conus",
     "type:nwchem": "node ./src/cli/simput-cli.js -c ./types/nwchem/src -o ./static/types -t nwchem",
     "type:nwchem-neb": "node ./src/cli/simput-cli.js -c ./types/nwchem-neb/src -o ./static/types -t nwchem-neb",
     "type:openfoam-periodic": "node ./src/cli/simput-cli.js -c ./types/openfoam-periodic/src -o ./static/types -t openfoam-periodic",
@@ -41,6 +41,7 @@
     "type:test": "node ./src/cli/simput-cli.js -c ./types/test/src -o ./static/types -t test",
     "type:vcard": "node ./src/cli/simput-cli.js -c ./types/vcard/src -o ./static/types -t vcard",
     "type:vera": "node ./src/cli/simput-cli.js -c ./types/vera/src -o ./static/types -t vera",
+    "type:conus": "node ./src/cli/simput-cli.js -c ./types/parflow-conus/src -o ./static/types -t parflow-conus",
     "prepublishOnly": "npm run version && npm run bundle"
   },
   "author": "Kitware",
