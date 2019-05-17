@@ -1,0 +1,15 @@
+<div :class="$style.container">
+  <img
+    :src="conus"
+    width="100%"
+  />
+  <div
+    :class="$style.selection"
+    :style="{
+      left: `${x}px`,
+      top: `${y}px`,
+      width: `${width}px`,
+      height: `${height}px`,
+    }"
+  />
+</div>
