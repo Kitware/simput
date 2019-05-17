@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://kitware.github.io/simput/docs/oscillator-step-2.png">
 <meta property="og:image" content="https://kitware.github.io/simput/docs/oscillator-step-3.png">
 <meta property="og:image" content="https://kitware.github.io/simput/docs/oscillator-step-4.png">
-<meta property="og:updated_time" content="2019-01-27T09:35:03.512Z">
+<meta property="og:updated_time" content="2019-05-17T14:55:28.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Create simulation inputs with Simput">
 <meta name="twitter:description" content="center.half &amp;gt; img {   width: 50%; }   This example is more complete and complex than the simple vcard example. It includes three output files and the different views to support them. We will walk you">
@@ -98,7 +98,7 @@
     <div id="content-wrap">
   <div id="content" class="wrapper">
     <div id="content-inner">
-      <article class="article-container" itemscope="" itemtype="http://schema.org/Article">
+      <article class="article-container" itemscope itemtype="http://schema.org/Article">
         <div class="article-inner">
           <div class="article">
             <div class="inner">
@@ -138,13 +138,13 @@ center.half > img {
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
 <p>to compile Simput and start a development server.</p>
 <h2 id="Fill-in-your-data" class="article-heading"><a href="#Fill-in-your-data" class="headerlink" title="Fill in your data"></a>Fill in your data<a class="article-anchor" href="#Fill-in-your-data" aria-hidden="true"></a></h2><p>Open <a href="http://localhost:9999" target="_blank" rel="noopener">http://localhost:9999</a> in your browser.</p>
-<center class="half"><br><img src="oscillator-step-0.png" alt=""><br>Landing page<br></center>
+<center class="half"><br><img src="oscillator-step-0.png" alt><br>Landing page<br></center>
 
 <p>Click the <code>oscillator</code> card.</p>
-<center class="half"><br><img src="oscillator-step-1.png" alt=""><br>Initial empty page / content<br></center>
+<center class="half"><br><img src="oscillator-step-1.png" alt><br>Initial empty page / content<br></center>
 
 <p>Click the <code>+</code> button to add some oscillators, and start filling them in…</p>
-<center class="half"><br><img src="oscillator-step-2.png" alt=""><br>Add some oscillators<br></center>
+<center class="half"><br><img src="oscillator-step-2.png" alt><br>Add some oscillators<br></center>
 
 <p>Then press the <code>Save</code> button.</p>
 <p>A zip file is written, which contains <code>oscillator_list.osc</code> along with the data model.</p>
@@ -170,7 +170,7 @@ center.half > img {
 <p>For the <code>histogram</code> analysis, the <code>array</code> and <code>association</code> can be set based on the <code>mesh</code> parameter, and we don’t have to bother the user with setting those parameters, and possibly getting an inconsistent input file for our simulation.</p>
 <h2 id="Interaction-now-in-3D" class="article-heading"><a href="#Interaction-now-in-3D" class="headerlink" title="Interaction, now in 3D!"></a>Interaction, now in 3D!<a class="article-anchor" href="#Interaction-now-in-3D" aria-hidden="true"></a></h2><p>The final piece of the oscillator puzzle is showing the user interactively what their inputs mean. The oscillators are placed in a 3D grid, and their radius varies over time based on the user’s inputs. Next we will use the <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a> framework and <a href="https://kitware.github.io/vtk-js/index.html">vtk.js</a> to show a 3D interactive representation of the gaussian oscillators and their behavior over time.</p>
 <p>To see what we’re going to build in this section, take a look at the <a href="http://kitware.github.io/simput/app/">application landing page</a> - the Oscillator image is captured from this widget. Or try it yourself - create some oscillators in the app, and scroll down to see the <code>3D view</code>:</p>
-<center class="half"><br><img src="oscillator-step-3.png" alt=""><br>3D View<br></center>
+<center class="half"><br><img src="oscillator-step-3.png" alt><br>3D View<br></center>
 
 <p>If you want to jump right in, take a look at the <a href="https://github.com/Kitware/simput/tree/master/types/oscillator/src/widgets" target="_blank" rel="noopener">code for this widget</a>. First, let’s look at how to hook up a custom widget in Simput.</p>
 <h3 id="Add-a-definition" class="article-heading"><a href="#Add-a-definition" class="headerlink" title="Add a definition"></a>Add a definition<a class="article-anchor" href="#Add-a-definition" aria-hidden="true"></a></h3><p>A few things get added to <code>model.js</code>:</p>
@@ -189,13 +189,13 @@ center.half > img {
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">publicAPI.setData = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// convert to integer.</span></span><br><span class="line">    <span class="keyword">if</span> (data.gridsize) data.gridsize = <span class="built_in">Math</span>.floor(+data.gridsize) || <span class="number">64</span>;</span><br><span class="line">    <span class="keyword">if</span> (model.data !== data) &#123;</span><br><span class="line">      model.data = data;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// update pipelines based on new info.</span></span><br><span class="line">      <span class="keyword">if</span> (model.cubePipeline) &#123;</span><br><span class="line">        <span class="keyword">const</span> src = model.cubePipeline.cubeSource;</span><br><span class="line">        <span class="keyword">if</span> (src.getXLength() !== data.gridsize) &#123;</span><br><span class="line">          src.setXLength(data.gridsize);</span><br><span class="line">          src.setYLength(data.gridsize);</span><br><span class="line">          src.setZLength(data.gridsize);</span><br><span class="line">          src.setCenter(</span><br><span class="line">            data.gridsize / <span class="number">2</span>,</span><br><span class="line">            data.gridsize / <span class="number">2</span>,</span><br><span class="line">            data.gridsize / <span class="number">2</span></span><br><span class="line">          );</span><br><span class="line">          <span class="comment">// console.log('new gridsize', data.gridsize);</span></span><br><span class="line">          publicAPI.resetCamera();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (data.oscillators) &#123;</span><br><span class="line">        publicAPI.removeAllActors();</span><br><span class="line">        <span class="keyword">if</span> (model.cubePipeline) publicAPI.addActor(model.cubePipeline.actor);</span><br><span class="line">        model.spheres = [];</span><br><span class="line">        data.oscillators.forEach(<span class="function">(<span class="params">osc</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> pipeline = createSpherePipeline(osc);</span><br><span class="line">          model.spheres.push(pipeline);</span><br><span class="line">          publicAPI.addActor(pipeline.actor);</span><br><span class="line">        &#125;);</span><br><span class="line">        publicAPI.setTime(model.time);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      publicAPI.modified();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
 <p>Again, this method is called while the user is changing values, so it must be tolerant of invalid input. In this case, it reacts to changes in <code>gridsize</code> by changing the bounding box and resetting the camera. Any changes in the oscillators are handled by rebuilding the list of spheres, and making sure they react to the current time setting from the time slider. The <a href="https://github.com/Kitware/simput/blob/master/types/oscillator/src/widgets/GaussianVTKViewer.js#L254-L287" target="_blank" rel="noopener">publicAPI.setTime()</a> method replicates some calculations from the C++ oscillator application, to set the radius of the spheres.</p>
 <p><a href="http://kitware.github.io/simput/app/">Try the time slider!</a> If you set a small value for <code>dt</code>, and click the handle of the time slider, you can hold the left/right arrow keys to sweep through time values and see the oscillators vary their radii over time.</p>
-<p><img src="oscillator-step-4.png" alt=""></p>
+<p><img src="oscillator-step-4.png" alt></p>
 <p>This vtk.js widget is an example of how external javascript libraries can be embedded in Simput types to enhance the presentation of your user’s input. Other examples might be charts, graphs or other data visualization.</p>
 <h2 id="Wrapup" class="article-heading"><a href="#Wrapup" class="headerlink" title="Wrapup"></a>Wrapup<a class="article-anchor" href="#Wrapup" aria-hidden="true"></a></h2><p>You now have all the tools and pieces you need to create a new type for Simput, which will simplify life for your users every time they need to create another simulation input file. Please <a href="https://github.com/Kitware/simput/issues" target="_blank" rel="noopener">let us know</a> of any problems you find or feedback you have about this tutorial or Simput in general, or <a href="https://kitware.github.io/simput/docs/develop_build.html">dive in</a> and contribute to Simput, and everyone will benefit!</p>
 
               </div>
               <footer class="article-footer">
-                <time class="article-footer-updated" datetime="2019-01-27T09:35:03.512Z" itemprop="dateModified">Last updated: 2019-01-27</time>
+                <time class="article-footer-updated" datetime="2019-05-17T14:55:28.726Z" itemprop="dateModified">Last updated: 2019-05-17</time>
                 <a href="vcard.html" class="article-footer-prev" title="Address book"><i class="fa fa-chevron-left"></i><span>Prev</span></a>
               </footer>
               
