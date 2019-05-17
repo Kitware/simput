@@ -34,7 +34,7 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
           test: entry,
           loader: `expose-loader?Simput.types.${name}`,
         },
-        { test: /\.(png|jpg|svg)$/, use: 'url-loader?limit=81920' },
+        { test: /\.(png|jpg|svg)$/, use: 'url-loader?limit=1000000' },
         {
           test: /\.css$/,
           exclude: /node_modules/,
