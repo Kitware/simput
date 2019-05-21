@@ -1,0 +1,34 @@
+<v-layout column v-resize="updateSize">
+  <canvas
+    style="display: none;"
+  />
+  <v-carousel
+    :cycle="false"
+    :style="{ height: `${height}px` }"
+  >
+    <v-carousel-item
+      v-for="(layer, i) in layers"
+      :key="i"
+    >
+      <img :src="layer" width="100%"/>
+    </v-carousel-item>
+  </v-carousel>
+  <v-tabs v-model="activeSoil">
+    <v-tab
+      v-for="k in Object.keys(soilData)"
+      :key="k"
+      ripple
+    >
+      {{ soilData[k].name }}
+    </v-tab>
+    <v-tab-item
+      v-for="k in Object.keys(soilData)"
+      :key="k"
+    >
+      <soil-widget
+        class="mt-4"
+        :data="soilData[k]"
+      />
+    </v-tab-item>
+  </v-tabs>
+</v-layout>

@@ -1,15 +1,59 @@
-<div :class="$style.container">
-  <img
-    :src="conus"
-    width="100%"
-  />
+<v-layout column>
+  <v-layout class="mt-2">
+    <v-text-field
+      class="px-2"
+      v-model="x"
+      label="X"
+      type="number"
+      min="0"
+    />
+    <v-text-field
+      class="px-2"
+      v-model="y"
+      label="Y"
+      type="number"
+      min="0"
+    />
+  </v-layout>
+  <v-layout>
+    <v-text-field
+      class="px-2"
+      v-model="width"
+      label="Width"
+      type="number"
+      min="10"
+    />
+    <v-text-field
+      class="px-2"
+      v-model="height"
+      label="Height"
+      type="number"
+      min="10"
+    />
+  </v-layout>
   <div
-    :class="$style.selection"
-    :style="{
-      left: `${x}px`,
-      top: `${y}px`,
-      width: `${width}px`,
-      height: `${height}px`,
-    }"
-  />
-</div>
+    :class="$style.container"
+    v-resize="onResize"
+
+    class="js-image-selector"
+
+    @mousedown="onMouseDown"
+    @mousemove="onMouseMove"
+    @mouseup="onMouseUp"
+  >
+    <img
+      :src="conus"
+      :class="$style.bgImage"
+      draggable="false"
+    />
+    <div
+      :class="$style.selection"
+      :style="{
+        left: `${x * scaleFactor}px`,
+        top: `${y * scaleFactor}px`,
+        width: `${width * scaleFactor}px`,
+        height: `${height * scaleFactor}px`,
+      }"
+    />
+  </div>
+</v-layout>

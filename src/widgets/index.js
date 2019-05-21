@@ -1,10 +1,14 @@
-import HelloWorld from './HelloWorld';
 import RegionSelector from './RegionSelector';
+import ParflowIntroduction from './Introduction';
+import SoilDefinition from './SoilDefinition';
+import Forcing from './Forcing';
 
 function registerWidgets(Simput) {
   if (Simput.registerWidget) {
-    Simput.registerWidget('HelloWorld', HelloWorld);
     Simput.registerWidget('RegionSelector', RegionSelector);
+    Simput.registerWidget('ParflowIntroduction', ParflowIntroduction);
+    Simput.registerWidget('SoilDefinition', SoilDefinition);
+    Simput.registerWidget('Forcing', Forcing);
   }
 }
 

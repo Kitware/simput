@@ -5,4 +5,10 @@
 .selection {
     position: absolute;
     border: 2px solid red;
+    pointer-events: none;
+}
+
+.bgImage {
+  width: 100%;
+  user-select: none;
 }

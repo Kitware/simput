@@ -1,58 +1,73 @@
 module.exports = {
-    scripts: [],
-    defaultActiveView: 'Welcome',
-    order: ['Welcome', 'RegionSelection', 'MaterialDefinition'],
-    views: {
-        Welcome: {
-            label: 'ParFlow CONUS extract',
-            attributes: ['Hello', 'AreaSelector'],
-        },
-        RegionSelection: {
-            label: 'Region selection',
-            attributes: ['AreaSelector'],
-        },
-        MaterialDefinition: {
-            label: 'Material definition',
-            attributes: ['Hello'],
-        },
+  scripts: [],
+  defaultActiveView: 'Welcome',
+  order: [
+    'Welcome',
+    'RegionSelection',
+    'MaterialDefinition',
+    'ForcingDefinition',
+  ],
+  views: {
+    Welcome: {
+      label: 'ParFlow CONUS extract',
+      attributes: ['Introduction'],
     },
-    definitions: {
-        Hello: {
-            label: 'My hello world',
-            parameters: [
-                {
-                  id: 'title',
-                  type: 'string',
-                  size: 1,
-                  label: 'Title',
-                  help: 'Just to get some content',
-                },
-                {
-                  id: 'helloWidget',
-                  label: 'Yo',
-                  propType: 'HelloWorld',
-                  size: 1,
-                  default: {},
-                }
-            ],
-        },
-        AreaSelector: {
-            label: 'Select area of interest',
-            parameters: [
-                {
-                  id: 'title',
-                  type: 'string',
-                  size: 1,
-                  label: 'Title',
-                },
-                {
-                  id: 'selector',
-                  label: 'Yo',
-                  propType: 'RegionSelector',
-                  size: 1,
-                  default: {},
-                }
-            ],
-        },
+    RegionSelection: {
+      label: 'Region selection',
+      attributes: ['AreaSelector'],
     },
+    MaterialDefinition: {
+      label: 'Material definition',
+      attributes: ['Material'],
+    },
+    ForcingDefinition: {
+      label: 'Time period',
+      attributes: ['Forcing'],
+    },
+  },
+  definitions: {
+    Introduction: {
+      label: 'ParFlow Continental US (CONUS)',
+      parameters: [
+        {
+          id: 'title',
+          propType: 'ParflowIntroduction',
+          size: 1,
+        },
+      ],
+    },
+    AreaSelector: {
+      label: 'Select area of interest',
+      parameters: [
+        {
+          id: 'selector',
+          propType: 'RegionSelector',
+          size: 1,
+          default: {},
+        },
+      ],
+    },
+    Material: {
+      label: 'Soil definition',
+      parameters: [
+        {
+          id: 'selector',
+          propType: 'SoilDefinition',
+          size: 1,
+          default: {},
+        },
+      ],
+    },
+    Forcing: {
+      label: 'Forcing definition',
+      parameters: [
+        {
+          id: 'selector',
+          propType: 'Forcing',
+          size: 1,
+          default: {},
+        },
+      ],
+    },
+  },
 };

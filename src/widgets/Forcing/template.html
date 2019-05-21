@@ -1,0 +1,14 @@
+<v-layout column>
+  <v-layout>
+    <div>{{ toDate(time[0]) }}</div>
+    <v-spacer />
+    <div>{{ toDate(time[1]) }}</div>
+  </v-layout>
+  <v-range-slider
+    v-model="time"
+    :max="timeRange[1]"
+    :min="timeRange[0]"
+    :step="2"
+    hide-details
+  />
+</v-layout>
