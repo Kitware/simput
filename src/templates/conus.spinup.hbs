@@ -1,0 +1,511 @@
+
+set tcl_precision 17
+
+set runname {{ runname }}
+
+#
+# Import the ParFlow TCL package
+#
+
+lappend auto_path $env(PARFLOW_DIR)/bin
+package require parflow
+namespace import Parflow::*
+
+pfset FileVersion 4
+
+pfset Process.Topology.P       62
+pfset Process.Topology.Q       32
+pfset Process.Topology.R       1
+
+set  nproc [expr [pfget Process.Topology.P]*[pfget Process.Topology.Q]*[pfget Process.Topology.R]]
+
+#---------------------------------------------------------
+# Computational Grid
+#---------------------------------------------------------
+pfset ComputationalGrid.Lower.X           0.0
+pfset ComputationalGrid.Lower.Y           0.0
+pfset ComputationalGrid.Lower.Z           0.0
+
+pfset ComputationalGrid.NX                {{ nx }}
+pfset ComputationalGrid.NY                {{ ny }}
+pfset ComputationalGrid.NZ                5
+
+pfset ComputationalGrid.DX               1000.0
+pfset ComputationalGrid.DY               1000.0
+pfset ComputationalGrid.DZ                100.0
+
+#---------------------------------------------------------
+# The Names of the GeomInputs
+#---------------------------------------------------------
+pfset GeomInput.Names                 "domaininput soilinput indi_input"
+
+pfset GeomInput.domaininput.GeomName  domain
+pfset GeomInput.domaininput.InputType  Box
+
+pfset GeomInput.soilinput.GeomName soil
+pfset GeomInput.soilinput.InputType  Box
+
+#---------------------------------------------------------
+# Domain Geometry
+#---------------------------------------------------------
+
+pfset Geom.domain.Lower.X                        0.0
+pfset Geom.domain.Lower.Y                        0.0
+pfset Geom.domain.Lower.Z                        0.0
+
+pfset Geom.domain.Upper.X                        3342000.0
+pfset Geom.domain.Upper.Y                        1888000.0
+pfset Geom.domain.Upper.Z                        500.0
+pfset Geom.domain.Patches             "x-lower x-upper y-lower y-upper z-lower z-upper"
+
+#---------------------------------------------------------
+# Soil Geometry
+#---------------------------------------------------------
+
+pfset Geom.soil.Lower.X                        0.0
+pfset Geom.soil.Lower.Y                        0.0
+pfset Geom.soil.Lower.Z                        100.0
+
+pfset Geom.soil.Upper.X                        3342000.0
+pfset Geom.soil.Upper.Y                        1888000.0
+# this upper is synched to computational grid, not linked w/ Z multipliers
+pfset Geom.soil.Upper.Z                        500.0
+
+#-----------------------------------------------------------------------------
+# Subsurface Indicator Geometry Input
+#-----------------------------------------------------------------------------
+
+pfset GeomInput.indi_input.InputType    IndicatorField
+pfset GeomInput.indi_input.GeomNames    "s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13 g1 g2 g3 g4 g5 g6 g7 g8 b1 b2"
+pfset Geom.indi_input.FileName          "grid3d.v3.pfb"
+pfdist grid3d.v3.pfb
+
+pfset GeomInput.s1.Value    1
+pfset GeomInput.s2.Value    2
+pfset GeomInput.s3.Value    3
+pfset GeomInput.s4.Value    4
+pfset GeomInput.s5.Value    5
+pfset GeomInput.s6.Value    6
+pfset GeomInput.s7.Value    7
+pfset GeomInput.s8.Value    8
+pfset GeomInput.s9.Value    9
+pfset GeomInput.s10.Value   10
+pfset GeomInput.s11.Value   11
+pfset GeomInput.s12.Value   12
+pfset GeomInput.s13.Value   13
+
+pfset GeomInput.g1.Value    21
+pfset GeomInput.g2.Value    22
+pfset GeomInput.g3.Value    23
+pfset GeomInput.g4.Value    24
+pfset GeomInput.g5.Value    25
+pfset GeomInput.g6.Value    26
+pfset GeomInput.g7.Value    27
+pfset GeomInput.g8.Value    28
+pfset GeomInput.b1.Value    19
+pfset GeomInput.b2.Value    20
+
+
+#--------------------------------------------
+# variable dz assignments
+#------------------------------------------
+
+pfset Solver.Nonlinear.VariableDz   True
+pfset dzScale.GeomNames             domain
+pfset dzScale.Type                  nzList
+pfset dzScale.nzListNumber          5
+
+# 5 layers, starts at 0 for the bottom to 5 at the top
+# note this is opposite Noah/WRF
+# layers are 0.1 m, 0.3 m, 0.6 m, 1.0 m, 100 m
+pfset Cell.0.dzScale.Value 1.0
+# 100 m * .01 = 1m
+pfset Cell.1.dzScale.Value 0.01
+# 100 m * .006 = 0.6 m
+pfset Cell.2.dzScale.Value .006
+# 100 m * 0.003 = 0.3 m
+pfset Cell.3.dzScale.Value .003
+# 100 m * 0.001 = 0.1m = 10 cm which is default top Noah layer
+pfset Cell.4.dzScale.Value 0.001
+
+#-----------------------------------------------------------------------------
+# Perm
+#-----------------------------------------------------------------------------
+
+pfset Geom.Perm.Names                 "domain s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13 g1 g2 g3 g4 g5 g6 g7 g8 b1 b2"
+
+# Values in m/hour
+
+pfset Geom.domain.Perm.Type             Constant
+pfset Geom.domain.Perm.Value            0.02
+
+{{#each materials}}
+pfset Geom.{{ name }}.Perm.Type                 Constant
+pfset Geom.{{ name }}.Perm.Value                {{ permeability }}
+
+{{/each}}
+
+pfset Perm.TensorType               TensorByGeom
+
+pfset Geom.Perm.TensorByGeom.Names  "domain soil"
+pfset Geom.Perm.TensorByGeom.Names  "domain"
+
+pfset Geom.domain.Perm.TensorValX  1.0d0
+pfset Geom.domain.Perm.TensorValY  1.0d0
+pfset Geom.domain.Perm.TensorValZ  1.0d0
+
+pfset Geom.soil.Perm.TensorValX  0.00001d0
+pfset Geom.soil.Perm.TensorValY  0.00001d0
+pfset Geom.soil.Perm.TensorValX  1.0d0
+pfset Geom.soil.Perm.TensorValY  1.0d0
+pfset Geom.soil.Perm.TensorValZ  1.0d0
+
+#-----------------------------------------------------------------------------
+# Specific Storage
+#-----------------------------------------------------------------------------
+
+pfset SpecificStorage.Type            Constant
+pfset SpecificStorage.GeomNames       "domain"
+pfset Geom.domain.SpecificStorage.Value 1.0e-5
+
+#-----------------------------------------------------------------------------
+# Phases
+#-----------------------------------------------------------------------------
+
+pfset Phase.Names "water"
+
+pfset Phase.water.Density.Type          Constant
+pfset Phase.water.Density.Value         1.0
+
+pfset Phase.water.Viscosity.Type  Constant
+pfset Phase.water.Viscosity.Value 1.0
+
+#-----------------------------------------------------------------------------
+# Contaminants
+#-----------------------------------------------------------------------------
+
+pfset Contaminants.Names      ""
+
+#-----------------------------------------------------------------------------
+# Retardation
+#-----------------------------------------------------------------------------
+
+pfset Geom.Retardation.GeomNames           ""
+
+#-----------------------------------------------------------------------------
+# Gravity
+#-----------------------------------------------------------------------------
+
+pfset Gravity       1.0
+
+#-----------------------------------------------------------------------------
+# Setup timing info
+#-----------------------------------------------------------------------------
+
+#
+pfset TimingInfo.BaseUnit        1.0
+pfset TimingInfo.StartCount      $istep
+pfset TimingInfo.StartTime       $istep
+
+pfset TimingInfo.DumpInterval    1.0
+pfset TimingInfo.StopTime        {{ stopTime }}
+
+pfset TimeStep.Type              Constant
+pfset TimeStep.Value             {{ startTime }}
+
+
+#-----------------------------------------------------------------------------
+# Porosity
+#-----------------------------------------------------------------------------
+pfset Geom.Porosity.GeomNames           "domain s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13 g1 g2 g3 g4 g5 g6 g7 g8"
+
+pfset Geom.domain.Porosity.Type         Constant
+pfset Geom.domain.Porosity.Value        0.33
+
+{{#each materials}}
+pfset Geom.{{ name }}.Porosity.Type                 Constant
+pfset Geom.{{ name }}.Porosity.Value                {{ porosity }}
+
+{{/each}}
+
+#-----------------------------------------------------------------------------
+# Domain
+#-----------------------------------------------------------------------------
+
+pfset Domain.GeomName domain
+
+#-----------------------------------------------------------------------------
+# Relative Permeability
+#-----------------------------------------------------------------------------
+
+pfset Phase.RelPerm.Type               VanGenuchten
+pfset Phase.RelPerm.GeomNames      "domain s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13"
+
+
+pfset Geom.domain.RelPerm.Alpha    1.
+pfset Geom.domain.RelPerm.N        3.
+pfset Geom.domain.RelPerm.NumSamplePoints   20000
+pfset Geom.domain.RelPerm.MinPressureHead   -300
+pfset Geom.domain.RelPerm.InterpolationMethod  Linear
+
+{{#each materials}}
+pfset Geom.{{ name }}.RelPerm.Alpha                {{ relativePermAlpha }}
+pfset Geom.{{ name }}.RelPerm.N                    {{ relativePermN }}
+pfset Geom.{{ name }}.RelPerm.NumSamplePoints      20000
+pfset Geom.{{ name }}.RelPerm.MinPressureHead      -300
+pfset Geom.{{ name }}.RelPerm.InterpolationMethod  Linear
+
+{{/each}}
+
+#---------------------------------------------------------
+# Saturation
+#---------------------------------------------------------
+
+pfset Phase.Saturation.Type              VanGenuchten
+pfset Phase.Saturation.GeomNames         "domain s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13"
+
+#
+# @RMM added very low Sres to help with dry / large evap
+#
+
+pfset Geom.domain.Saturation.Alpha        1.
+pfset Geom.domain.Saturation.N            3.
+pfset Geom.domain.Saturation.SRes         0.001
+pfset Geom.domain.Saturation.SSat         1.0
+
+{{#each materials}}
+pfset Geom.{{ name }}.Saturation.Alpha        {{ saturationAlpha }}
+pfset Geom.{{ name }}.Saturation.N            {{ saturationN }}
+pfset Geom.{{ name }}.Saturation.SRes         {{ saturationSRes }}
+pfset Geom.{{ name }}.Saturation.SSat         1.0
+{{/each}}
+
+#-----------------------------------------------------------------------------
+# Wells
+#-----------------------------------------------------------------------------
+pfset Wells.Names                           ""
+
+#-----------------------------------------------------------------------------
+# Time Cycles
+#-----------------------------------------------------------------------------
+pfset Cycle.Names "constant"
+pfset Cycle.constant.Names              "alltime"
+pfset Cycle.constant.alltime.Length      1
+pfset Cycle.constant.Repeat             -1
+
+
+#-----------------------------------------------------------------------------
+# Boundary Conditions: Pressure
+#-----------------------------------------------------------------------------
+pfset BCPressure.PatchNames                   [pfget Geom.domain.Patches]
+
+pfset Patch.x-lower.BCPressure.Type           FluxConst
+pfset Patch.x-lower.BCPressure.Cycle          "constant"
+pfset Patch.x-lower.BCPressure.alltime.Value        0.0
+
+pfset Patch.y-lower.BCPressure.Type           FluxConst
+pfset Patch.y-lower.BCPressure.Cycle          "constant"
+pfset Patch.y-lower.BCPressure.alltime.Value        0.0
+
+pfset Patch.z-lower.BCPressure.Type           FluxConst
+pfset Patch.z-lower.BCPressure.Cycle          "constant"
+pfset Patch.z-lower.BCPressure.alltime.Value         0.0
+
+pfset Patch.x-upper.BCPressure.Type           FluxConst
+pfset Patch.x-upper.BCPressure.Cycle          "constant"
+pfset Patch.x-upper.BCPressure.alltime.Value        0.0
+
+pfset Patch.y-upper.BCPressure.Type           FluxConst
+pfset Patch.y-upper.BCPressure.Cycle          "constant"
+pfset Patch.y-upper.BCPressure.alltime.Value        0.0
+
+pfset Patch.z-upper.BCPressure.Type         OverlandFlow
+pfset Patch.z-upper.BCPressure.Cycle          "constant"
+pfset Patch.z-upper.BCPressure.alltime.Value        0.0
+
+# Pumping flux applied to the bottom
+pfset Solver.EvapTransFile    False
+
+#---------------------------------------------------------
+# Topo slopes in x-direction
+#---------------------------------------------------------
+
+pfset TopoSlopesX.Type "PFBFile"
+pfset TopoSlopesX.GeomNames "domain"
+pfset TopoSlopesX.FileName slopex.pfb
+
+
+#---------------------------------------------------------
+# Topo slopes in y-direction
+#---------------------------------------------------------
+
+pfset TopoSlopesY.Type "PFBFile"
+pfset TopoSlopesY.GeomNames "domain"
+pfset TopoSlopesY.FileName   slopey.pfb
+
+#---------
+##  Distribute slopes
+#---------
+
+pfset ComputationalGrid.NZ                1
+
+
+pfdist slopex.pfb
+pfdist slopey.pfb
+
+pfset ComputationalGrid.NZ                5
+
+#---------------------------------------------------------
+# Mannings coefficient
+#---------------------------------------------------------
+
+pfset Mannings.Type "Constant"
+pfset Mannings.GeomNames "domain"
+pfset Mannings.Geom.domain.Value 1.0e-5
+pfset Mannings.Geom.domain.Value 5.0e-5
+
+#-----------------------------------------------------------------------------
+# Phase sources:
+#-----------------------------------------------------------------------------
+
+pfset PhaseSources.water.Type                         Constant
+pfset PhaseSources.water.GeomNames                    domain
+pfset PhaseSources.water.Geom.domain.Value            0.0
+
+#-----------------------------------------------------------------------------
+# Exact solution specification for error calculations
+#-----------------------------------------------------------------------------
+
+pfset KnownSolution                                    NoKnownSolution
+
+
+#-----------------------------------------------------------------------------
+# Set solver parameters
+#-----------------------------------------------------------------------------
+
+pfset Solver                                              Richards
+pfset Solver.MaxIter                                      250000
+
+pfset Solver.TerrainFollowingGrid                         True
+
+pfset Solver.Nonlinear.MaxIter                            2000
+pfset Solver.Nonlinear.ResidualTol                        1e-5
+
+pfset Solver.PrintSubsurf                                 False
+pfset  Solver.Drop                                        1E-20
+pfset Solver.AbsTol                                       1E-10
+
+
+pfset Solver.Nonlinear.EtaChoice                          EtaConstant
+pfset Solver.Nonlinear.EtaValue                           0.01
+pfset Solver.Nonlinear.UseJacobian                        True
+pfset Solver.Nonlinear.DerivativeEpsilon                  1e-16
+pfset Solver.Nonlinear.StepTol                            1e-10
+pfset Solver.Nonlinear.Globalization                      LineSearch
+pfset Solver.Linear.KrylovDimension                       500
+pfset Solver.Linear.MaxRestarts                           8
+pfset Solver.MaxConvergenceFailures                       5
+
+pfset Solver.Linear.Preconditioner                        PFMG
+pfset Solver.Linear.Preconditioner.PCMatrixType           FullJacobian
+
+pfset Solver.WriteSiloSubsurfData False
+pfset Solver.WriteSiloPressure False
+pfset Solver.WriteSiloSaturation False
+pfset Solver.WriteSiloConcentration False
+pfset Solver.WriteSiloSlopes False
+pfset Solver.WriteSiloMask False
+
+pfset Solver.PrintSubsurfData True
+pfset Solver.PrintSpecificStorage True
+pfset Solver.PrintMask True
+pfset Solver.PrintPressure True
+pfset Solver.PrintSaturation True
+
+# CLM:
+pfset Solver.LSM                                      CLM
+pfset Solver.CLM.CLMFileDir                           "clm_output/"
+pfset Solver.CLM.Print1dOut                           False
+pfset Solver.BinaryOutDir                             False
+pfset Solver.CLM.CLMDumpInterval                      5
+pfset Solver.CLM.CLMDumpInterval                      1
+
+pfset Solver.CLM.EvapBeta                             Linear
+pfset Solver.CLM.VegWaterStress                       Saturation
+pfset Solver.CLM.ResSat                               0.2
+pfset Solver.CLM.WiltingPoint                         0.2
+pfset Solver.CLM.FieldCapacity                        1.00
+pfset Solver.CLM.IrrigationType                       none
+
+pfset Solver.CLM.MetForcing                           3D
+pfset Solver.CLM.MetFileName                          "NLDAS"
+#pfset Solver.CLM.MetFilePath                          /global/cscratch1/sd/lcondon/1985_forcings
+pfset Solver.CLM.MetFilePath        /project/projectdirs/m2511/CONUS.forcings.1985
+pfset Solver.CLM.MetFileNT                          12
+
+## test - restart
+pfset Solver.CLM.IstepStart                           $clmstep
+
+#pfset Solver.CLM.MetForcing                              1D
+#pfset Solver.CLM.MetFileName                             narr_1hr.sc3.txt.0
+#pfset Solver.CLM.MetFilePath                             ./
+
+pfset Solver.CLM.RootZoneNZ                         4
+pfset Solver.CLM.SoiLayer                           4
+pfset Solver.CLM.ReuseCount                         1
+pfset Solver.CLM.WriteLogs                          False
+## writing only last daily restarts.  This will be at Midnight GMT and
+## starts at timestep 18, then intervals of 24 thereafter
+pfset Solver.CLM.WriteLastRST                       True
+#pfset Solver.CLM.WriteLastRST                       False
+pfset Solver.CLM.DailyRST                       True
+pfset Solver.CLM.SingleFile                       True
+
+#pfset Solver.CLM.MetForcing                           1D
+#pfset Solver.CLM.MetFileName                          narr_1hr.txt
+#pfset Solver.CLM.MetFilePath                          ./
+
+#Writing output (no binary except Pressure, all silo):
+pfset Solver.PrintSubsurfData                          True
+#pfset Solver.PrintLSMSink                             True
+pfset Solver.PrintPressure                             True
+pfset Solver.PrintSaturation                           True
+pfset Solver.WriteCLMBinary                            False
+pfset Solver.PrintMask                                 True
+pfset Solver.PrintCLM                                  True
+
+pfset Solver.WriteSiloSpecificStorage                  False
+pfset Solver.WriteSiloMannings                         False
+pfset Solver.WriteSiloMask                             False
+pfset Solver.WriteSiloSlopes                           False
+pfset Solver.WriteSiloSubsurfData                      False
+pfset Solver.WriteSiloPressure                         False
+pfset Solver.WriteSiloSaturation                       False
+pfset Solver.WriteSiloEvapTrans                        False
+pfset Solver.WriteSiloEvapTransSum                     False
+pfset Solver.WriteSiloOverlandSum                      False
+pfset Solver.WriteSiloCLM                              False
+
+#---------------------------------------------------------
+# Initial conditions: water pressure
+#---------------------------------------------------------
+
+# set water table to be at the bottom of the domain, the top layer is initially dry
+
+pfset Geom.domain.ICPressure.RefGeom                    domain
+pfset Geom.domain.ICPressure.RefPatch                   z-lower
+
+# restart from last timestep
+pfset ICPressure.Type                                   PFBFile
+pfset ICPressure.GeomNames                              domain
+
+pfset Geom.domain.ICPressure.FileName                   $ip
+pfdist                                                  $ip
+
+pfset Solver.Spinup                                     False
+
+#-----------------------------------------------------------------------------
+# Run and Unload the ParFlow output files
+#-----------------------------------------------------------------------------
+
+pfwritedb $runname

@@ -3,6 +3,7 @@ import grid1 from './grid-1.jpg';
 import grid2 from './grid-2.jpg';
 
 import SoilWidget from '../SoilWidget';
+import DEFAULT_SOILS from '../../defaultSoils';
 
 const IMG_0 = new Image();
 const IMG_1 = new Image();
@@ -17,7 +18,25 @@ export default {
   components: {
     SoilWidget,
   },
+  props: {
+    originalSize: {
+      type: Array,
+      default: () => [3342, 1888],
+    },
+    offset: {
+      type: Number,
+      default: 5,
+    },
+    prop: {
+      required: true,
+    },
+    viewData: {
+      required: true,
+    },
+  },
   data() {
+    const soilData = Object.assign({}, DEFAULT_SOILS, this.prop.data.value[0]);
+
     return {
       originalLayers: [IMG_0, IMG_1, IMG_2, IMG_2, IMG_2],
       height: 500,
@@ -25,238 +44,7 @@ export default {
       nbSoils: 27,
       colorRange: 206,
       activeSoil: -1,
-      soilData: {
-        '1': {
-          name: 's1',
-          porosity: 0.375,
-          permeability: 0.269022595,
-          relativePermAlpha: 3.548,
-          relativePermN: 4.162,
-          saturationAlpha: 3.548,
-          saturationN: 4.162,
-          saturationSRes: 0.0001,
-        },
-        '2': {
-          name: 's2',
-          porosity: 0.39,
-          permeability: 0.043630356,
-          relativePermAlpha: 3.467,
-          relativePermN: 2.738,
-          saturationAlpha: 3.467,
-          saturationN: 2.738,
-          saturationSRes: 0.0001,
-        },
-        '3': {
-          name: 's3',
-          porosity: 0.387,
-          permeability: 0.015841225,
-          relativePermAlpha: 2.692,
-          relativePermN: 2.445,
-          saturationAlpha: 2.692,
-          saturationN: 2.445,
-          saturationSRes: 0.0001,
-        },
-        '4': {
-          name: 's4',
-          porosity: 0.439,
-          permeability: 0.007582087,
-          relativePermAlpha: 0.501,
-          relativePermN: 2.659,
-          saturationAlpha: 0.501,
-          saturationN: 2.659,
-          saturationSRes: 0.1,
-        },
-        '5': {
-          name: 's5',
-          porosity: 0.489,
-          permeability: 0.01818816,
-          relativePermAlpha: 0.661,
-          relativePermN: 2.659,
-          saturationAlpha: 0.661,
-          saturationN: 2.659,
-          saturationSRes: 0.0001,
-        },
-        '6': {
-          name: 's6',
-          porosity: 0.399,
-          permeability: 0.005009435,
-          relativePermAlpha: 1.122,
-          relativePermN: 2.479,
-          saturationAlpha: 1.122,
-          saturationN: 2.479,
-          saturationSRes: 0.0001,
-        },
-        '7': {
-          name: 's7',
-          porosity: 0.384,
-          permeability: 0.005492736,
-          relativePermAlpha: 2.089,
-          relativePermN: 2.318,
-          saturationAlpha: 2.089,
-          saturationN: 2.318,
-          saturationSRes: 0.0001,
-        },
-        '8': {
-          name: 's8',
-          porosity: 0.482,
-          permeability: 0.004675077,
-          relativePermAlpha: 0.832,
-          relativePermN: 2.514,
-          saturationAlpha: 0.832,
-          saturationN: 2.514,
-          saturationSRes: 0.0001,
-        },
-        '9': {
-          name: 's9',
-          porosity: 0.442,
-          permeability: 0.003386794,
-          relativePermAlpha: 1.585,
-          relativePermN: 2.413,
-          saturationAlpha: 1.585,
-          saturationN: 2.413,
-          saturationSRes: 0.0001,
-        },
-        '10': {
-          name: 's10',
-          porosity: 0.385,
-          permeability: 0.004783973,
-          relativePermAlpha: 3.311,
-          relativePermN: 2.202,
-          saturationAlpha: 3.311,
-          saturationN: 2.202,
-          saturationSRes: 0.0001,
-        },
-        '11': {
-          name: 's11',
-          porosity: 0.481,
-          permeability: 0.003979136,
-          relativePermAlpha: 1.622,
-          relativePermN: 2.318,
-          saturationAlpha: 1.622,
-          saturationN: 2.318,
-          saturationSRes: 0.0001,
-        },
-        '12': {
-          name: 's12',
-          porosity: 0.459,
-          permeability: 0.006162952,
-          relativePermAlpha: 1.514,
-          relativePermN: 2.259,
-          saturationAlpha: 1.514,
-          saturationN: 2.259,
-          saturationSRes: 0.0001,
-        },
-        '13': {
-          name: 's13',
-          porosity: 0.399,
-          permeability: 0.005009435,
-          relativePermAlpha: 1.122,
-          relativePermN: 2.479,
-          saturationAlpha: 1.122,
-          saturationN: 2.479,
-          saturationSRes: 0.0001,
-        },
-        '19': {
-          name: 'b1',
-          porosity: 0.33,
-          permeability: 0.005,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '20': {
-          name: 'b2',
-          porosity: 0.33,
-          permeability: 0.01,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '21': {
-          name: 'g1',
-          porosity: 0.33,
-          permeability: 0.02,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '22': {
-          name: 'g2',
-          porosity: 0.33,
-          permeability: 0.03,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '23': {
-          name: 'g3',
-          porosity: 0.33,
-          permeability: 0.04,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '24': {
-          name: 'g4',
-          porosity: 0.33,
-          permeability: 0.05,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '25': {
-          name: 'g5',
-          porosity: 0.33,
-          permeability: 0.06,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '26': {
-          name: 'g6',
-          porosity: 0.33,
-          permeability: 0.08,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '27': {
-          name: 'g7',
-          porosity: 0.33,
-          permeability: 0.1,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-        '28': {
-          name: 'g8',
-          porosity: 0.33,
-          permeability: 0.2,
-          relativePermAlpha: 1,
-          relativePermN: 3,
-          saturationAlpha: 1,
-          saturationN: 3,
-          saturationSRes: 0.001,
-        },
-      },
+      soilData,
     };
   },
   computed: {
@@ -276,8 +64,14 @@ export default {
   },
   mounted() {
     this.updateSize();
+    this.onChange();
   },
   methods: {
+    onChange() {
+      const newData = Object.assign({}, this.prop.data);
+      newData.value = [this.soilData];
+      this.$emit('change', newData);
+    },
     updateSize() {
       const { offsetWidth } = this.$el;
       const img = this.originalLayers[0];
@@ -288,6 +82,55 @@ export default {
         return img.src;
       }
 
+      // Handle focus area
+      const { region } = Object.assign(
+        { region: [0, 0, this.originalSize[0], this.originalSize[1]] },
+        this.prop.ui.domain
+      );
+      const { originalSize } = this;
+      const scale = img.width / originalSize[0];
+      const targetRatio = originalSize[1] / originalSize[0];
+      const focusSize = {};
+
+      const alternateHeight = Math.round(region[2] * targetRatio);
+      const alternateWidth = Math.round(region[3] / targetRatio);
+
+      if (region[2] > alternateWidth) {
+        // keep region width
+        focusSize.width = Math.round(region[2] + 2 * this.offset);
+        focusSize.height = Math.round(alternateHeight + 2 * this.offset);
+        const delta = 0.5 * (focusSize.height - region[3]);
+        focusSize.cropRegion = {
+          x: Math.round(region[0] * scale) - this.offset,
+          y: Math.round((region[1] - delta) * scale) - this.offset,
+          width: Math.round(focusSize.width * scale) + 2 * this.offset,
+          height: Math.round(focusSize.height * scale) + 2 * this.offset,
+          rect: [
+            this.offset,
+            Math.round(delta) + this.offset,
+            region[2],
+            region[3],
+          ],
+        };
+      } else {
+        // keep region height
+        focusSize.width = Math.round(alternateWidth + 2 * this.offset);
+        focusSize.height = Math.round(region[3] + 2 * this.offset);
+        const delta = 0.5 * (focusSize.width - region[2]);
+        focusSize.cropRegion = {
+          x: Math.round((region[0] - delta) * scale) - this.offset,
+          y: Math.round(region[1] * scale) - this.offset,
+          width: Math.round(focusSize.width * scale) + 2 * this.offset,
+          height: Math.round(focusSize.height * scale) + 2 * this.offset,
+          rect: [
+            Math.round(delta) + this.offset,
+            this.offset,
+            region[2],
+            region[3],
+          ],
+        };
+      }
+
       const baseValue = (this.colorRange * soil) / this.nbSoils;
       const tolerance = 0.5 * (this.colorRange / this.nbSoils);
 
@@ -295,14 +138,14 @@ export default {
 
       const canvas = this.$el.querySelector('canvas');
       const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
+      canvas.width = focusSize.width;
+      canvas.height = focusSize.height;
       ctx.drawImage(
         img,
-        0,
-        0,
-        img.width,
-        img.height,
+        focusSize.cropRegion.x,
+        focusSize.cropRegion.y,
+        focusSize.cropRegion.width,
+        focusSize.cropRegion.height,
         0,
         0,
         canvas.width,
@@ -319,6 +162,13 @@ export default {
       }
 
       ctx.putImageData(imageData, 0, 0);
+
+      // Show region
+      ctx.strokeStyle = 'green';
+      ctx.lineWidth = 2;
+      ctx.rect(...focusSize.cropRegion.rect);
+      ctx.stroke();
+
       return canvas.toDataURL();
     },
   },

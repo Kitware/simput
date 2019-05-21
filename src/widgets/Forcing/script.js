@@ -12,13 +12,33 @@ export default {
       type: Array,
       default: () => [0, 8760],
     },
+    prop: {
+      required: true,
+    },
+    viewData: {
+      required: true,
+    },
   },
   data() {
-    return {
-      time: [0, 8760],
-    };
+    const time = (this.prop.data.value &&
+      this.prop.data.value.length === 2 &&
+      this.prop.data.value) || [0, 8760];
+    return { time };
+  },
+  watch: {
+    time() {
+      this.onChange();
+    },
+  },
+  mounted() {
+    this.onChange();
   },
   methods: {
+    onChange() {
+      const newData = Object.assign({}, this.prop.data);
+      newData.value = this.time.slice();
+      this.$emit('change', newData);
+    },
     toDate(nbHours) {
       const base = Number(new Date('1985-01-01T00:00'));
       const date = new Date(3600000 * nbHours + base);

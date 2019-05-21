@@ -2,31 +2,38 @@
     <v-text-field
       v-model="data.porosity"
       label="Porosity"
+      @input="onChange"
     />
 
     <v-text-field
       v-model="data.permeability"
       label="Permeability"
+      @input="onChange"
     />
     <v-text-field
       v-model="data.relativePermAlpha"
       label="Relative Permeability - Alpha"
+      @input="onChange"
     />
     <v-text-field
       v-model="data.relativePermN"
       label="Relative Permeability - N"
+      @input="onChange"
     />
 
     <v-text-field
       v-model="data.saturationAlpha"
       label="Saturation - Alpha"
+      @input="onChange"
     />
     <v-text-field
       v-model="data.saturationN"
       label="Saturation - N"
+      @input="onChange"
     />
     <v-text-field
       v-model="data.saturationSRes"
       label="Saturation - Resolution"
+      @input="onChange"
     />
 </v-layout>

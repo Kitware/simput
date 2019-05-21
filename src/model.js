@@ -15,6 +15,13 @@ module.exports = {
     RegionSelection: {
       label: 'Region selection',
       attributes: ['AreaSelector'],
+      hooks: [
+        {
+          type: 'copyToExternal',
+          src: 'data.RegionSelection.0.AreaSelector.selector.value',
+          dst: 'crop.region',
+        },
+      ],
     },
     MaterialDefinition: {
       label: 'Material definition',
@@ -42,7 +49,7 @@ module.exports = {
         {
           id: 'selector',
           propType: 'RegionSelector',
-          size: 1,
+          size: 4,
           default: {},
         },
       ],
@@ -55,6 +62,10 @@ module.exports = {
           propType: 'SoilDefinition',
           size: 1,
           default: {},
+          domain: {
+            dynamic: true,
+            external: 'crop',
+          },
         },
       ],
     },

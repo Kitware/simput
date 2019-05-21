@@ -15,4 +15,9 @@ export default {
       }),
     },
   },
+  methods: {
+    onChange() {
+      this.$emit('change');
+    },
+  },
 };
