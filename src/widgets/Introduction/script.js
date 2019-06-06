@@ -1,4 +1,4 @@
-import conus from '../RegionSelector/conus-small.jpg';
+import conus from './conus-intro.jpg';
 
 export default {
   name: 'Introduction',
