@@ -60,7 +60,7 @@ export default {
   },
   beforeMount() {
     const update = () => this.$nextTick(this.$forceUpdate);
-    this.unsubscribe = this.$store.state.templates.dataManager.subscribe(
+    this.unsubscribe = this.$store.getters.SIMPUT_DATAMANAGER.subscribe(
       update
     ).unsubscribe;
   },

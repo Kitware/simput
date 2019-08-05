@@ -26,7 +26,7 @@ Vue.use(Vuetify);
 export const { applyHook, registerHook } = HookManager;
 
 export function registerWidget(name, component) {
-  Store.commit(Mutations.ADD_PROPERTY_MAPPING, { name, component });
+  Store.commit(Mutations.SIMPUT_ADD_PROPERTY_MAPPING, { name, component });
 }
 
 export function registerType(type, urls) {
@@ -86,16 +86,17 @@ export function createViewer() {
               type: dataset.type,
               data: dataset.data,
             });
-            return Store.dispatch(Actions.LOAD_TEMPLATE, dataset.type);
+            return Store.dispatch(Actions.SIMPUT_LOAD_TEMPLATE, dataset.type);
           }
           return Promise.reject(new Error('No model found in download'));
         });
-      } else if (type) {
+      }
+      if (type) {
         Store.commit(Mutations.SET_MODEL, {
           type,
           data: {},
         });
-        return Store.dispatch(Actions.LOAD_TEMPLATE, type);
+        return Store.dispatch(Actions.SIMPUT_LOAD_TEMPLATE, type);
       }
       return Promise.resolve();
     },

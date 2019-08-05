@@ -24,10 +24,10 @@ export default {
   },
 
   getters: {
-    MODEL(state) {
+    SIMPUT_MODEL(state) {
       return state.model;
     },
-    DATAMANAGER(state) {
+    SIMPUT_DATAMANAGER(state) {
       return state.dataManager;
     },
   },
@@ -48,7 +48,7 @@ export default {
   },
 
   actions: {
-    LOAD_TEMPLATE({ commit, state }, type) {
+    SIMPUT_LOAD_TEMPLATE({ commit, state }, type) {
       const finishLoad = () => {
         const module = window.Simput.types[type];
 

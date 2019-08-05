@@ -137,10 +137,10 @@ export default {
           readers.forEach(({ dataset, name, reader }) => {
             if (dataset && dataset.type) {
               commit(Mutations.SET_MODEL, dataset);
-              dispatch(Actions.LOAD_TEMPLATE, dataset.type);
+              dispatch(Actions.SIMPUT_LOAD_TEMPLATE, dataset.type);
             } else if (reader && reader.getModel) {
               commit(Mutations.SET_MODEL, reader.getModel());
-              dispatch(Actions.LOAD_TEMPLATE, reader.getModel().type);
+              dispatch(Actions.SIMPUT_LOAD_TEMPLATE, reader.getModel().type);
             } else {
               console.error(dataset, reader, name);
             }

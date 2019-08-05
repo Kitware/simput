@@ -14,7 +14,7 @@ export default {
   },
   computed: Object.assign(
     mapGetters({
-      dataModel: Getters.MODEL,
+      dataModel: Getters.SIMPUT_MODEL,
     })
   ),
   data() {

@@ -25,7 +25,7 @@ export default {
       return (property.show || alwaysShow)(this.viewData) ? 'block' : 'none';
     },
     updateViewData(newData) {
-      this.$store.state.templates.dataManager.updateViewData(newData);
+      this.$store.getters.SIMPUT_DATAMANAGER.updateViewData(newData);
     },
   },
 };

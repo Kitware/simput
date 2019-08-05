@@ -18,7 +18,7 @@ export default {
         window.open(sample.goTo, '_blank');
       } else {
         this.$store.commit(Mutations.SET_MODEL, sample.model);
-        this.$store.dispatch(Actions.LOAD_TEMPLATE, sample.model.type);
+        this.$store.dispatch(Actions.SIMPUT_LOAD_TEMPLATE, sample.model.type);
       }
     },
   },

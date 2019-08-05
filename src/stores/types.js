@@ -15,15 +15,18 @@ export const Actions = objEnum([
   'READ_REMOTE_FILES',
 
   // templates
-  'LOAD_TEMPLATE',
+  'SIMPUT_LOAD_TEMPLATE',
   'SAVE',
 ]);
 
 export const Getters = objEnum([
+  // properties
+  'SIMPUT_COMPONENT_GET',
+
   // templates
   'TEMPLATE_URLS',
-  'MODEL',
-  'DATAMANAGER',
+  'SIMPUT_MODEL',
+  'SIMPUT_DATAMANAGER',
 ]);
 
 export const Mutations = objEnum([
@@ -54,7 +57,7 @@ export const Mutations = objEnum([
   'UPDATE_TYPE_STATUS',
 
   // properties
-  'ADD_PROPERTY_MAPPING',
+  'SIMPUT_ADD_PROPERTY_MAPPING',
 ]);
 
 export default {

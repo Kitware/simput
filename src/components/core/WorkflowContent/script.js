@@ -1,4 +1,4 @@
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 import PropertyPanel from 'simput/src/components/core/PropertyPanel';
 
@@ -9,23 +9,21 @@ export default {
   components: {
     PropertyPanel,
   },
-  computed: Object.assign(
-    {
-      panelData() {
-        if (this.dataManager) {
-          return this.dataManager.getPropertyList();
-        }
-        return [];
-      },
-      viewData() {
-        if (this.dataManager) {
-          return this.dataManager.getActiveViewData();
-        }
-        return {};
-      },
+  computed: {
+    ...mapGetters({
+      dataManager: 'SIMPUT_DATAMANAGER',
+    }),
+    panelData() {
+      if (this.dataManager) {
+        return this.dataManager.getPropertyList();
+      }
+      return [];
     },
-    mapState({
-      dataManager: (state) => state.templates.dataManager,
-    })
-  ),
+    viewData() {
+      if (this.dataManager) {
+        return this.dataManager.getActiveViewData();
+      }
+      return {};
+    },
+  },
 };
