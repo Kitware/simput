@@ -68,7 +68,7 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
                 babelrc: false,
                 presets: [
                   [
-                    `${simputNodeModules}/babel-preset-env`,
+                    `${simputNodeModules}/@babel/preset-env`,
                     {
                       targets: {
                         browsers: ['last 2 versions', 'safari >= 7'],
@@ -90,6 +90,16 @@ function buildWebpackConfiguration(name, basepath, outputPath, compress) {
           test: /\.svg$/,
           include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
           use: [{ loader: 'raw-loader' }],
+        },
+        {
+          test: /\.worker\.js$/,
+          include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
+          use: [
+            {
+              loader: 'worker-loader',
+              options: { inline: true, fallback: false },
+            },
+          ],
         },
       ],
     },
