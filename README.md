@@ -13,16 +13,22 @@ Simput provides a simple way to write any kind of text file.
 
 This project is meant to illustrate how Simput can be used to generate
 templated files for multiple cases. Simput requires a javascript description of
-any user input. To build a Simput package use; 
+any user input. To build a Simput package use;
 
 ```sh
 $ Simput -c src/ -o versions/ -t openfoam-periodic
 ```
 
-Add the compiled package to Simput:
+Add the compiled package to Simput (already done)
 
-```sh
-$ Simput -a versions/openfoam-periodic.js
+```
+cp ./versions/openfoam-periodic.js ../{static|dist}/types/
+```
+
+Register it in the `../{static|dist}/index.html` (already done)
+
+```
+Simput.registerType('openfoam-periodic', ['./types/openfoam-periodic.js']);
 ```
 
 ## Running Simput
@@ -31,5 +37,14 @@ $ Simput -a versions/openfoam-periodic.js
 The following command will start a server which serves Simput's interactive form.
 
 ```sh
-$ Simput -t openfoam-periodic -o sample/empty/.
+$ Simput -p 8080
+```
+
+Then drag a file with the following content
+
+```
+{
+  "type": "openfoam-periodic",
+  "data": {}
+}
 ```
