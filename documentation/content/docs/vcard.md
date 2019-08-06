@@ -21,16 +21,16 @@ module.exports = {
       'AddressBook'
    ],
    views : {
-      AddressBook : { 
-         id: 'AdressBook',  
-         label : 'Address Book',   
+      AddressBook : {
+         id: 'AdressBook',
+         label : 'Address Book',
          attributes: [ 'person' ],
          size: -1
       }
    },
    definitions: {
       person: {
-         label: 'Person', 
+         label: 'Person',
          parameters: [
             {
                id     : 'firstName',
@@ -109,7 +109,7 @@ module.exports = function(dataModel) {
 
 ### Template file
 
-The following template is strait forward but looping and condition could be achieved inside a template. 
+The following template is strait forward but looping and condition could be achieved inside a template.
 [Click to learn more about Handlebars](https://handlebarsjs.com/)
 
 ```templates/vcard.hbs
@@ -132,7 +132,7 @@ $ npm install -g simput
 If properly installed, you should be able to run `Simput` and get the following command line help.
 
 ```
-$ Simput 
+$ Simput
 
   Usage: Simput [options]
 
@@ -142,16 +142,13 @@ $ Simput
     -i, --input [file|directory]  Input file or directory
     -o, --output [directory]      Output directory to output to
     -t, --type [type]             Type of input
-    
+
     -n, --no-gui                  Just generate output
     -s, --silent                  Do not open the browser
     -p, --port [8080]             Server port
      (default: 8080)
     -c, --compile [directory]     Directory to compile files
     -m, --minify                  Minify compiled file
-    -a, --add [file]              Add model to list of available inputs
-    -l, --list                    List model types of available as inputs
-    -r, --remove [type]           Remove model from list of available inputs
     -h, --help                    output usage information
 ```
 
@@ -181,31 +178,37 @@ $ find . -type f
 ./model.js
 ```
 
-Since we have new file, let's register that type into Simput by running the following command line:
+In order to make that new type available, you will need to edit the `index.html` by adding the following line in the last inline script section.
 
 ```
-$ Simput -a ./vcard.js
-Added "vcard.js" to types
-
-$ Simput -l
-______________________
----- Simput Types ----
-¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
- - vcard  : 
-
+Simput.registerType('vcard', ['./types/vcard.js']);
 ```
+
+The content of that array can actually be several path/url to various scripts that you would need to load for your given new type.
 
 ## Use Simput and your type to fill your address book
 
 Let's try to run it and enter a couple of persons
 
+First of all, you will need to create an empty model as a file that would look like that
+
 ```
-$ Simput -t vcard -o ~/MyAddressBook
-No valid json found in ~/MyAddressBook
-Simput listening on port 8080
+{
+    "type": "vcard",
+    "data": {}
+}
+```
+
+Then you can start Simput as follow
+
+```
+$ Simput -p 8080
 ```
 
 Open http://localhost:8080 in your browser.
+
+Then drag-and-drop the file you created into Simput.
+At that point you can start editing the content.
 
 <center class="half">
 ![](vcard-step-0.png)
@@ -226,12 +229,7 @@ Then press on `Save & Convert` button
 The vcard have been written along with the data model
 </center>
 
-If you restart Simput with the following command line, you will find all the persons you've entered
-
-```
-$ Simput -o ~/MyAddressBook
-Simput listening on port 8080
-```
+If you restart Simput and drag-and-drop the last generated zip file, you will find all the persons you've entered
 
 <center class="half">
 ![](vcard-step-1.png)
