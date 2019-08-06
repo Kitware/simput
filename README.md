@@ -16,16 +16,27 @@ PyFR is an open-source Python based framework for solving advection-diffusion ty
 - Solution Files Exported - Unstructured VTK (.vtu, .pvtu)
 
 ## Simput Integration
-Simput provides a simple way to write simulation input files. This project is meant to manage PyFR simulation code. Simput requires a JSON description of an input deck. To build a Simput package use:
+
+Simput provides a simple way to write any kind of text file.
+
+This project is meant to illustrate how Simput can be used to generate
+templated files for multiple cases. Simput requires a javascript description of
+any user input. To build a Simput package use;
 
 ```sh
 $ Simput -c src/ -o versions/ -t pyfr
 ```
 
-Add the compiled package to Simput:
+Add the compiled package to Simput (already done)
 
-```sh
-$ Simput -a versions/pyfr.js
+```
+cp ./versions/pyfr.js ../{static|dist}/types/
+```
+
+Register it in the `../{static|dist}/index.html` (already done)
+
+```
+Simput.registerType('pyfr', ['./types/pyfr.js']);
 ```
 
 ## Running Simput
@@ -34,5 +45,14 @@ $ Simput -a versions/pyfr.js
 The following command will start a server which serves Simput's interactive form.
 
 ```sh
-$ Simput -i samples/empty/pyfr-empty-externals.json -o samples/empty/.
+$ Simput -p 8080
+```
+
+Then drag a file with the following content or the following example file `samples/empty/pyfr-empty-externals.json`
+
+```
+{
+  "type": "pyfr",
+  "data": {}
+}
 ```
