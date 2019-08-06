@@ -18,16 +18,25 @@ $ docker exec -t of_v1612_plus $PWD/DockerOpenFOAM_run.sh $PWD
 ## Simput Integration
 
 Simput provides a simple way to write any kind of text file.
-This project is meant to illustrate how Simput can be used to generate templated files. Simput requires a javascript description of any user input. To build a Simput package use; 
+
+This project is meant to illustrate how Simput can be used to generate
+templated files for multiple cases. Simput requires a javascript description of
+any user input. To build a Simput package use;
 
 ```sh
 $ Simput -c src/ -o versions/ -t openfoam_tutorials
 ```
 
-Add the compiled package to Simput:
+Add the compiled package to Simput (already done)
 
-```sh
-$ Simput -a versions/openfoam_tutorials.js
+```
+cp ./versions/openfoam_tutorials.js ../{static|dist}/types/
+```
+
+Register it in the `../{static|dist}/index.html` (already done)
+
+```
+Simput.registerType('openfoam_tutorials', ['./types/openfoam_tutorials.js']);
 ```
 
 ## Running Simput
@@ -36,5 +45,14 @@ $ Simput -a versions/openfoam_tutorials.js
 The following command will start a server which serves Simput's interactive form.
 
 ```sh
-$ Simput -i samples/empty/openfoam-empty.json -o samples/empty/.
+$ Simput -p 8080
+```
+
+Then drag a file with the following content
+
+```
+{
+  "type": "openfoam_tutorials",
+  "data": {}
+}
 ```
