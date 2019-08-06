@@ -1,5 +1,5 @@
 module.exports = {
-  order: ['oscillators', 'analyses', 'run'],
+  order: ['run', 'oscillators', 'analyses'],
   views: {
     oscillators: {
       size: -1,

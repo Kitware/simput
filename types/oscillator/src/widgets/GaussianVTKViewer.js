@@ -52,7 +52,7 @@ function createCubePipeline() {
 }
 
 function createSpherePipeline(osc) {
-  const source = vtkSphereSource.newInstance();
+  const source = vtkSphereSource.newInstance({ phiResolution: 60, thetaResolution: 60 });
   const actor = vtkActor.newInstance();
   const mapper = vtkMapper.newInstance();
 
