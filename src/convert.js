@@ -1,7 +1,7 @@
-import InpHelper from './widgets/InpHelper';
-import inpTemplate from './templates/inp.hbs';
-import { fillSimulations } from './simModel';
-import { defaultMaterialNameFromId, materialIsDefault } from './matModel';
+const InpHelper = require('./widgets/InpHelper');
+const inpTemplate = require('./templates/inp.hbs');
+const { fillSimulations } = require('./simModel');
+const { defaultMaterialNameFromId, materialIsDefault } = require('./matModel');
 
 function isFilledArray(a) {
   return a && a.length;

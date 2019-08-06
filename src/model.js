@@ -1,4 +1,4 @@
-import simModel from './simModel';
+const simModel = require('./simModel');
 // import matModel from './matModel';
 
 // ----------------------------------------------------------------------------

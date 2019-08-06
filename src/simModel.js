@@ -1,7 +1,7 @@
-import MPACT from './MPACT';
-import SHIFT from './SHIFT';
-import INSILICO from './INSILICO';
-import COBRATF from './COBRATF';
+const MPACT = require('./MPACT');
+const SHIFT = require('./SHIFT');
+const INSILICO = require('./INSILICO');
+const COBRATF = require('./COBRATF');
 
 // Simulations have a large number of individual parameters that can be set
 // but most of which can be left unset or at defaults.
@@ -179,6 +179,6 @@ function fillSimulations(model, dataModel) {
 }
 
 module.exports = {
-  addSimulationDefinitions,
   fillSimulations,
+  addSimulationDefinitions,
 };

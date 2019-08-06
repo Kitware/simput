@@ -1,4 +1,7 @@
-import { defaultMaterialNameFromId, addDefaultMaterials } from './matModel';
+const {
+  defaultMaterialNameFromId,
+  addDefaultMaterials,
+} = require('./matModel');
 
 function getExternal(dataModel) {
   if (!dataModel.external) {
