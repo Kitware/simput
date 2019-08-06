@@ -8,16 +8,25 @@ Some information regarding the mesh you are droping in that tunnel will be neede
 ## Simput Integration
 
 Simput provides a simple way to write any kind of text file.
-This project is meant to illustrate how Simput can be used to generate templated files. Simput requires a javascript description of any user input. To build a Simput package use; 
+
+This project is meant to illustrate how Simput can be used to generate
+templated files for multiple cases. Simput requires a javascript description of
+any user input. To build a Simput package use;
 
 ```sh
 $ Simput -c src/ -o versions/ -t openfoam-windtunnel
 ```
 
-Add the compiled package to Simput:
+Add the compiled package to Simput (already done)
 
-```sh
-$ Simput -a versions/openfoam-windtunnel.js
+```
+cp ./versions/openfoam-windtunnel.js ../{static|dist}/types/
+```
+
+Register it in the `../{static|dist}/index.html` (already done)
+
+```
+Simput.registerType('openfoam-windtunnel', ['./types/openfoam-windtunnel.js']);
 ```
 
 ## Running Simput
@@ -26,5 +35,14 @@ $ Simput -a versions/openfoam-windtunnel.js
 The following command will start a server which serves Simput's interactive form.
 
 ```sh
-$ Simput -i samples/empty/openfoam-empty.json -o samples/empty/.
+$ Simput -p 8080
+```
+
+Then drag a file with the following content
+
+```
+{
+  "type": "openfoam-windtunnel",
+  "data": {}
+}
 ```
