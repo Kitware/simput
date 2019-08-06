@@ -5,7 +5,7 @@
 
 NWChem aims to provide its users with computational chemistry tools that are scalable both in their ability to treat large scientific computational chemistry problems efficiently, and in their use of available parallel computing resources from high-performance parallel supercomputers to conventional workstation clusters.
 
-NWChem software can handle: 
+NWChem software can handle:
 
 - Biomolecules, nanostructures, and solid-state
 - From quantum to classical, and all combinations
@@ -25,10 +25,16 @@ Simput provides a simple way to write simulation input files. This project is me
 $ Simput -c src/ -o versions/ -t nwchem
 ```
 
-Add the compiled package to Simput:
+Add the compiled package to Simput (already done)
 
-```sh
-$ Simput -a versions/nwchem.js
+```
+cp ./versions/nwchem.js ../{static|dist}/types/
+```
+
+Register it in the `../{static|dist}/index.html` (already done)
+
+```
+Simput.registerType('nwchem', ['./types/nwchem-neb.js']);
 ```
 
 ## Running Simput
@@ -37,5 +43,14 @@ $ Simput -a versions/nwchem.js
 The following command will start a server which serves Simput's interactive form.
 
 ```sh
-$ Simput -i samples/empty/nwchem-empty.json -o samples/empty/.
+$ Simput -p 8080
+```
+
+Then drag a file with the following content
+
+```
+{
+  "type": "nwchem",
+  "data": {}
+}
 ```
