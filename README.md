@@ -32,20 +32,17 @@ to generate a final package. See the [Simput readme](https://github.com/Kitware/
 ## Running Simput
 
 ### Running interactively
-The following command will start a server which shows Simput's landing page:
+The following command will start a server which serves Simput's interactive form.
 
 ```sh
-$ Simput -p
+$ Simput -p 8080
 ```
 
-Then drag a model json or zip file to the "Open an existing model" box, or start a new model.
+Then drag a file with the following content or the following example file `samples/example/FakeAddressBook.json`
 
-### Running on the command line
-The following command will generate a new set of contacts.
-
-```sh
-$ Simput -i samples/example/FakeAddressBook.json -o samples/example/
 ```
-
-The output directory defaults to the directory of the input file.
-
+{
+  "type": "pyfr",
+  "data": {}
+}
+```
