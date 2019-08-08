@@ -281,9 +281,11 @@ export default class ModelManager {
     const names = Object.keys(this.data);
     for (let i = 0; i < names.length; i++) {
       const name = names[i];
-      const hooks = this.model.views[name].hooks || [];
-      for (let viewIdx = 0; viewIdx < this.data[name].length; viewIdx++) {
-        this.runHooks(name, viewIdx);
+      if (this.model.views[name]) {
+        const hooks = this.model.views[name].hooks || [];
+        for (let viewIdx = 0; viewIdx < this.data[name].length; viewIdx++) {
+          this.runHooks(name, viewIdx);
+        }
       }
     }
   }
