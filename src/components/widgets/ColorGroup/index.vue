@@ -1,3 +1,3 @@
-<template src="simput/src/components/widgets/ColorGroup/template.html" />
-<style module src="simput/src/components/widgets/ColorGroup/style.css" />
-<script src="simput/src/components/widgets/ColorGroup/script.js" />
+<template src="./template.html" />
+<style module src="./style.css" />
+<script src="./script.js" />
