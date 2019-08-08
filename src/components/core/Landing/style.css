@@ -93,7 +93,9 @@
   padding-top: 50px;
 }
 
-.iconContainer :global(.material-icons) {
+.iconContainer :global(.v-icon) {
   font-size: 200px;
   color: #333;
+  position: relative;
+  top: -25px;
 }

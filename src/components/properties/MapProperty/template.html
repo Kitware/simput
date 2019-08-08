@@ -7,7 +7,7 @@
     <v-flex xs5 class="text-xs-center">Value</v-flex>
     <v-flex xs2>
       <v-btn icon small @click="addEntry">
-        <v-icon small>add</v-icon>
+        <v-icon small>{{ $vuetify.icons.simput.add }}</v-icon>
       </v-btn>
     </v-flex>
   </v-layout>
@@ -48,7 +48,7 @@
         small
         @click="removeEntry(i)"
       >
-        <v-icon small>delete</v-icon>
+        <v-icon small>{{ $vuetify.icons.simput.delete }}</v-icon>
       </v-btn>
     </v-flex>
   </v-layout>

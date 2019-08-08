@@ -47,12 +47,12 @@
   },
   "author": "Kitware",
   "dependencies": {
+    "@mdi/font": "3.6.95",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "handlebars": "4.0.11",
     "handlebars-loader": "1.7.0",
     "jszip": "3.1.5",
     "kw-web-suite": "8.0.0",
-    "material-design-icons-iconfont": "3.0.3",
     "mousetrap": "1.6.2",
     "open": "0.0.5",
     "serve-handler": "3.6.1",

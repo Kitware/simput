@@ -45,7 +45,7 @@
                 >
                   <span v-if="dragHover" :class="$style.buttonText">drop your file</span>
                   <span v-else :class="$style.buttonText">open an existing model</span>
-                  <v-icon>folder_open</v-icon>
+                  <v-icon>{{ $vuetify.icons.simput.folder_open }}</v-icon>
                 </v-btn>
                 <div :class="$style.noSelect">
                   or drop one anywhere in this box to begin.

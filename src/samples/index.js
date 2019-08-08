@@ -14,7 +14,7 @@ export default [
   },
   {
     label: 'Address book',
-    icon: 'contact_mail',
+    icon: 'mdi-contact-mail',
     description: 'Address book which generate vcs files',
     acknowledgement: 'Example by Kitware Inc.',
     model: {
@@ -34,7 +34,7 @@ export default [
   },
   {
     label: 'PyFr',
-    icon: 'flight',
+    icon: 'mdi-weather-windy',
     description: 'PyFR is an open-source Python based framework for solving advection-diffusion type problems on streaming architectures using the Flux Reconstruction approach of Huynh.',
     acknowledgement: 'Example by Kitware Inc.',
     model: {
@@ -44,7 +44,9 @@ export default [
   },
   {
     label: 'Vera',
-    icon: 'wb_sunny',
+    icon: 'mdi-battery-charging',
+    description: 'Vera offer a common format as input for several Light-Water Reactors code from Consortium for Advanced Simulation of Light-Water Reactors',
+    acknowledgement: 'Example by Kitware Inc. using vtk.js for its 3D views',
     model: {
       type: 'vera',
       data: {},
@@ -52,7 +54,7 @@ export default [
   },
   {
     label: 'Create your own model type',
-    icon: 'note_add',
+    icon: 'mdi-file-plus',
     description: 'Click here to learn how to create your own type.',
     goTo: 'http://kitware.github.io/simput/docs/vcard.html'
   },

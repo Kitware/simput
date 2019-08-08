@@ -6,7 +6,7 @@ import Vuetify from 'vuetify';
 /* eslint-disable-next-line import/extensions */
 import 'typeface-roboto';
 import 'vuetify/dist/vuetify.min.css';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import '@mdi/font/css/materialdesignicons.css';
 
 // global symbol expose/export
 import 'simput/src/expose';
@@ -21,7 +21,25 @@ import registerDefaultProperties from 'simput/src/components/properties/register
 import HookManager from 'simput/src/core/HookManager';
 import ReaderFactory from 'simput/src/io/ReaderFactory';
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  icons: {
+    simput: {
+      add: 'mdi-plus',
+      warning: 'mdi-alert-outline',
+      contentCopy: 'mdi-content-copy',
+      delete: 'mdi-delete-outline',
+      folder_open: 'mdi-folder-outline',
+      close: 'mdi-close',
+      error: 'mdi-bug',
+      folder: 'mdi-folder',
+      download: 'mdi-cloud-download',
+      publish: 'mdi-publish',
+      ok: 'mdi-check-circle-outline',
+      check: 'mdi-check',
+    },
+  },
+  iconfont: 'mdi',
+});
 
 export const { applyHook, registerHook } = HookManager;
 

@@ -36,7 +36,7 @@
                 v-show="file.isRaw"
                 :class="$style.icon"
               >
-                error
+                {{ $vuetify.icons.simput.error }}
               </v-icon>
             </div>
             <template v-if="file.isRaw">
@@ -63,8 +63,8 @@
           >
             <div slot="header" class="body-2">
               {{ file.name }}
-              <v-icon v-show="!!file.error" color="red">error</v-icon>
-              <v-icon v-show="!file.error" color="green">check_circle</v-icon>
+              <v-icon v-show="!!file.error" color="red">{{ $vuetify.icons.simput.error }}</v-icon>
+              <v-icon v-show="!file.error" color="green">{{ $vuetify.icons.simput.ok }}</v-icon>
             </div>
             <v-card v-if="file.error">
               <v-card-text>
