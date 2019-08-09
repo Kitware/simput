@@ -22,8 +22,8 @@
       :class="$style.resetCamera"
       @click="toggleParallelRendering"
     >
-      <v-icon v-if="parallelRendering">filter_2</v-icon>
-      <v-icon v-else>filter_3</v-icon>
+      <v-icon v-if="parallelRendering">mdi-numeric-2-box-multiple-outline</v-icon>
+      <v-icon v-else>mdi-numeric-3-box-multiple-outline</v-icon>
     </v-btn>
     <span>2d/3d</span>
   </v-tooltip>
@@ -36,7 +36,7 @@
       :class="$style.resetCamera"
       @click="resetCamera"
     >
-      <v-icon>filter_center_focus</v-icon>
+      <v-icon>mdi-image-filter-center-focus</v-icon>
     </v-btn>
     <span>Reset camera</span>
   </v-tooltip>
