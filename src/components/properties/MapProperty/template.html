@@ -57,7 +57,7 @@
       <v-alert
         color="black"
         v-html="prop.ui.help"
-        :value="help && prop.ui.help"
+        :value="!!prop.ui.help"
         icon="help_outline"
         :outline="true"
       />

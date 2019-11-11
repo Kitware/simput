@@ -51,6 +51,16 @@ export default [
     },
   },
   {
+    label: 'ParFlow',
+    image: Images.parflow,
+    description: 'ParFlow Hydrologic Model',
+    acknowledgement: 'Example by Kitware Inc.',
+    model: {
+      type: 'parflow',
+      data: {},
+    },
+  },
+  {
     label: 'Create your own model type',
     icon: 'note_add',
     description: 'Click here to learn how to create your own type.',
