@@ -36,6 +36,12 @@ export default {
     },
   },
   methods: {
+    inputFocused() {
+      this.$emit('focused');
+    },
+    inputBlurred() {
+      this.$emit('blurred');
+    },
     onChange(value) {
       this.editing = true;
 

@@ -36,6 +36,8 @@
           :domain="prop.ui && prop.ui.domain"
           :type="prop.ui && prop.ui.type"
           @input="onChange(arguments[0], i-1)"
+          v-on:focused="help = true"
+          v-on:blurred="editing = help = false"
         />
       </v-flex>
       <v-flex

@@ -4,5 +4,6 @@
   :readonly="domain && domain.readOnly"
   :error="error"
   @input="onChange"
-  @blur="editing = false"
+  @blur="inputBlurred()"
+  @focus="inputFocused()"
 />
