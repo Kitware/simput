@@ -4,18 +4,18 @@
 >
   <v-layout row wrap>
     <v-flex
-      v-for="property in input"
-      :key="property.title"
+      v-for="attribute in panelData"
+      :key="attribute.title"
       xs12
     >
-      <div :style="{ display: getPropertyDisplay(property) }">
+      <div :style="{ display: getPropertyDisplay(attribute) }">
         <v-card>
-          <v-card-title :class="$style.propertyHeader">{{ property.title }}</v-card-title>
+          <v-card-title :class="$style.propertyHeader">{{ attribute.title }}</v-card-title>
           <v-card-text>
-            <template v-for="(content, i) in property.contents">
+            <template v-for="(parameter, i) in attribute.contents">
               <property-factory
                 :key="i"
-                :prop="content"
+                :prop="parameter"
                 :viewData="viewData"
                 @change="updateViewData"
               />
