@@ -13,7 +13,7 @@ export default {
     PropertyFactory,
   },
   props: {
-    input: {
+    panelAttributes: {
       required: true,
     },
     viewData: {
