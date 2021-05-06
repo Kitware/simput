@@ -49,7 +49,7 @@
   "dependencies": {
     "@mdi/font": "3.6.95",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
-    "handlebars": "4.0.11",
+    "handlebars": "4.7.7",
     "handlebars-loader": "1.7.0",
     "jszip": "3.1.5",
     "kw-web-suite": "8.0.0",
