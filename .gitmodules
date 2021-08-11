@@ -34,3 +34,7 @@
 	path = types/parflow-conus
 	url = https://github.com/kitware/simput
 	branch = type-parflow-conus
+[submodule "types/parflow"]
+	path = types/parflow
+	url = https://github.com/kitware/simput
+	branch = type-parflow
