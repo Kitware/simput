@@ -1,10 +1,19 @@
 # Parflow hydrologic model
 This is a simput model for the [parflow simulation system](https://parflow.org/).
-# Merge process
-I can't add this as a PR from my Simput fork into Kitware/Simput because it has no shared history with a branch in that repo. Here's my process instead:
-
+# Build Process 
 ```
-1) Ask someone with credentials on Kitware/Simput to add this repo as a remote.
-2) Ask them to checkout this branch.
-3) Ask them to follow the instructions on the README.md as if this branch were the new repo.
+# Checkout parflow model generator
+git clone https://github.com/DrewLazzeriKitware/parflow.git
+cd parflow
+git checkout dev
+cd ..
+
+# Generate model.json input for Simput from our parflow generator 
+# You may need to install some dependencies
+python parflow/pf-keys/generators/simput_model.py \
+  -d parflow/pf-keys/definitions \
+  -o src/
+
+# Generate parflow.js output from Simput for our application
+Simput compile -c src -o versions -t parflow
 ```
