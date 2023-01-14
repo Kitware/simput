@@ -52,7 +52,7 @@
     "handlebars": "4.0.11",
     "handlebars-loader": "1.7.0",
     "jszip": "3.7.0",
-    "kw-web-suite": "8.0.0",
+    "kw-web-suite": "11.1.0",
     "mousetrap": "1.6.2",
     "open": "0.0.5",
     "serve-handler": "3.6.1",
